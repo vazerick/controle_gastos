@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog
 
-from src.lista import ListaPessoa
+from src.lista import Lista
 
 from src.form import Ui_Form
 
@@ -12,11 +12,12 @@ window = QDialog()
 ui = Ui_Form()
 ui.setupUi(window)
 
-#inicializa a janela
+# inicializa a janela
 #window.show()
 
 print("Teste")
-Pessoa = ListaPessoa("pessoas")
-print("Nome: %i" % Pessoa.id[2].ordem)
-sys.exit(app.exec_())
-
+Pessoa = Lista("pessoa")
+print("Nome:",Pessoa.id)
+print("Nome:",Pessoa.id[0])
+print("Nome:",Pessoa.id[0]['nome'])
+#sys.exit(app.exec_())
