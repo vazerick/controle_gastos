@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
-        <lista>
-                <pessoa id="0">
-                    <nome>Ana Silva</nome>
-                    <status>1</status>
-                    <ordem>0</ordem>
-                </pessoa>
-                <pessoa id="1">
-                    <nome>Bruno Machado</nome>
-                    <status>1</status>
-                    <ordem>1</ordem>
-                </pessoa>
-                <pessoa id="2">
-                    <nome>Clara Santos</nome>
-                    <status>1</status>
-                    <ordem>2</ordem>
-                </pessoa>
-                <pessoa id="3">
-                    <nome>Diego Ferreira</nome>
-                    <status>1</status>
-                    <ordem>3</ordem>
-                </pessoa>
-        </lista>
+<?xml version="1.0" ?>
+<!--Criacao: Wed Oct 17 20:54:36 2018-->
+<lista>
+   <pessoa id="0">
+      <nome>Ana Silva</nome>
+      <status>1</status>
+      <ordem>0</ordem>
+   </pessoa>
+   <pessoa id="1">
+      <nome>Bruno Machado</nome>
+      <status>1</status>
+      <ordem>1</ordem>
+   </pessoa>
+   <pessoa id="2">
+      <nome>Clara Santos</nome>
+      <status>1</status>
+      <ordem>2</ordem>
+   </pessoa>
+   <pessoa id="3">
+      <nome>Diego Ferreira</nome>
+      <status>1</status>
+      <ordem>3</ordem>
+   </pessoa>
+</lista>
