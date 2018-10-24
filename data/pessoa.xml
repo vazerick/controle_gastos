@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!--Criacao: Wed Oct 17 20:54:36 2018-->
+<!--Criacao: Tue Oct 23 21:54:46 2018-->
 <lista>
    <pessoa id="0">
       <nome>Ana Silva</nome>
@@ -13,7 +13,7 @@
    </pessoa>
    <pessoa id="2">
       <nome>Clara Santos</nome>
-      <status>1</status>
+      <status>0</status>
       <ordem>2</ordem>
    </pessoa>
    <pessoa id="3">

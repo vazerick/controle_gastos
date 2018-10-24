@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<!--Criacao: Tue Oct 23 21:54:46 2018-->
+<lista>
+   <categoria id="0">
+      <nome>Alimentos</nome>
+      <status>1</status>
+      <ordem>1</ordem>
+      <sub_status>1</sub_status>
+      <sub_lista>teste</sub_lista>
+   </categoria>
+</lista>
