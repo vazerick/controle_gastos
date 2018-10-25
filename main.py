@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog
+import pandas
 
 # interface gráfica
 from src.form import Ui_Form
@@ -9,6 +10,13 @@ from src.lista import Lista, ListaPessoa, ListaCategoria
 from src.link import Link
 
 count = 0
+
+
+def panda():
+    dt=pandas.read_csv("data/tabela.csv",quotechar="'",index_col='id')
+    dt.to_csv("data/tabela.csv",quotechar="'",index_label='id')
+    print(dt['valor'])
+
 
 def acao():
     global count
@@ -34,6 +42,7 @@ ls = ["teste1", "teste2"]
 Combo = Link(ui.comboBox, Pessoa)
 Categoria.salva()
 Pessoa.salva()
+panda()
 
 """
 árvore:
