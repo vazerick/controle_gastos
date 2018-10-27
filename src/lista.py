@@ -14,6 +14,23 @@ class Lista:
         self.itens = lista.getElementsByTagName(nome)  # gera a lista de nós de cada item
         self.id = []  # lista vazia para abrigar os itens
 
+    def getAtivos(self):
+        ativos = []  # lista vazia para abrigar os itens ativos
+        for item in range(len(self.id)):
+            if self.id[item]["status"]:
+                ativos.append(
+                    {
+                        'nome': self.id[item]["nome"],
+                        'id': self.id[item]["id"]
+                    }
+                )
+        return ativos
+
+    def adiciona(self, add):
+        add['id'] = len(self.id)
+        add['status'] = 1
+        self.id.append(add)
+
 class ListaPessoa (Lista):
 
     def __init__(self, nome):
@@ -55,22 +72,9 @@ class ListaPessoa (Lista):
             ordem.appendChild(doc.createTextNode(str(indice['ordem'])))
 
         doc.appendChild(lista)
-        print(doc.toprettyxml(indent='   '))
 
         arquivo = open(self.endereco, "w", encoding='utf-8')
         arquivo.write(doc.toprettyxml(indent='   '))
-
-    def getAtivos(self):
-        ativos = []  # lista vazia para abrigar os itens ativos
-        for item in range(len(self.id)):
-            if self.id[item]["status"]:
-                ativos.append(
-                    {
-                        'nome': self.id[item]["nome"],
-                        'id': self.id[item]["id"]
-                    }
-                )
-        return ativos
 
 
 class ListaCategoria (Lista):
@@ -102,7 +106,6 @@ class ListaCategoria (Lista):
                         'ordem': int(sordem.childNodes[0].data),
                     }
                 )
-            print("Sub:", sub)
 
             self.id.append(
                 {
@@ -114,7 +117,6 @@ class ListaCategoria (Lista):
                     'sub_lista': sub
                 }
             )
-        print(self.id)
 
     def salva(self):
         doc = minidom.Document()  # cria um objeto xml
@@ -165,24 +167,9 @@ class ListaCategoria (Lista):
                     ordem.appendChild(doc.createTextNode(str(sub_cat['ordem'])))                    
 
         doc.appendChild(lista)
-        print(doc.toprettyxml(indent='   '))
 
         arquivo = open(self.endereco, "w", encoding='utf-8')
         arquivo.write(doc.toprettyxml(indent='   '))
-
-    def getAtivos(self):
-        ativos = []  # lista vazia para abrigar os itens ativos
-        for item in range(len(self.id)):
-            if self.id[item]["status"]:
-                ativos.append(
-                    {
-                        'nome': self.id[item]["nome"],
-                        'id': self.id[item]["id"]
-                    }
-                )
-        return ativos
-
-# indice = int(pessoa.getAttribute("id"))
 
 
 # criar:
@@ -192,4 +179,3 @@ class ListaCategoria (Lista):
 #        deletar pessoas (desligar o status)
 #        ligar pessoas (ligar o status)
 #
-# ver como fazer com as categorias (deixar as sub-categorias para um próximo passo)

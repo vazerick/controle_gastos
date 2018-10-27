@@ -3,10 +3,10 @@ from PyQt5.QtWidgets import QApplication, QDialog
 import pandas
 
 # interface gráfica
-from src.form import Ui_Form
+from ui.form import Ui_Form
 
 # classes
-from src.lista import Lista, ListaPessoa, ListaCategoria
+from src.lista import ListaPessoa, ListaCategoria
 from src.link import Link
 
 count = 0
@@ -34,14 +34,23 @@ ui.pushButton.clicked.connect(acao)
 # inicializa a janela
 window.show()
 
-print("Teste")
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
 ls = ["teste1", "teste2"]
 
 Combo = Link(ui.comboBox, Pessoa)
-Categoria.salva()
-Pessoa.salva()
+Categoria.adiciona({
+    'nome': 'Limpeza',
+    'ordem': 10,
+    'sub_status': 0
+})
+# Categoria.salva()
+Pessoa.adiciona({'nome': 'pedro','ordem': 7})
+# Pessoa.salva()
+
+print(Pessoa.getAtivos())
+print(Categoria.getAtivos())
+
 panda()
 
 """
