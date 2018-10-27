@@ -72,6 +72,7 @@ class ListaPessoa (Lista):
                 )
         return ativos
 
+
 class ListaCategoria (Lista):
 
     def __init__(self, nome):
@@ -82,7 +83,27 @@ class ListaCategoria (Lista):
             status = item.getElementsByTagName("status")[0]
             ordem = item.getElementsByTagName("ordem")[0]
             sub_status = item.getElementsByTagName("sub_status")[0]
+
             sub_lista = item.getElementsByTagName("sub_lista")[0]
+            sub_cats = sub_lista.getElementsByTagName("sub")
+
+            sub = [] # cria a lista para abrigar as subcategorias
+
+            for sub_cat in sub_cats: # para cada sub_categorias da lsta, cria um dicionário com os atributos
+                snome = sub_cat.getElementsByTagName("nome")[0]
+                sstatus = sub_cat.getElementsByTagName("status")[0]
+                sordem = sub_cat.getElementsByTagName("ordem")[0]
+
+                sub.append(
+                    {
+                        'id': int(sub_cat.getAttribute("id")),
+                        'nome': snome.childNodes[0].data,
+                        'status': int(sstatus.childNodes[0].data),
+                        'ordem': int(sordem.childNodes[0].data),
+                    }
+                )
+            print("Sub:", sub)
+
             self.id.append(
                 {
                     'id': int(item.getAttribute("id")),
@@ -90,10 +111,10 @@ class ListaCategoria (Lista):
                     'status': int(status.childNodes[0].data),
                     'ordem': int(ordem.childNodes[0].data),
                     'sub_status': int(sub_status.childNodes[0].data),
-                    'sub_lista': sub_lista.childNodes[0].data
+                    'sub_lista': sub
                 }
             )
-            print(self.id)
+        print(self.id)
 
     def salva(self):
         doc = minidom.Document()  # cria um objeto xml
@@ -123,7 +144,25 @@ class ListaCategoria (Lista):
 
             sub_lista = doc.createElement('sub_lista')
             item.appendChild(sub_lista)
-            sub_lista.appendChild(doc.createTextNode(str(indice['sub_lista'])))
+
+            if indice['sub_status']:
+                for sub_cat in indice['sub_lista']:
+                   
+                    sitem = doc.createElement('sub')
+                    sitem.setAttribute('id', str(sub_cat['id']))
+                    sub_lista.appendChild(sitem)
+
+                    nome = doc.createElement('nome')
+                    sitem.appendChild(nome)
+                    nome.appendChild(doc.createTextNode(sub_cat['nome']))
+
+                    status = doc.createElement('status')
+                    sitem.appendChild(status)
+                    status.appendChild(doc.createTextNode(str(sub_cat['status'])))
+
+                    ordem = doc.createElement('ordem')
+                    sitem.appendChild(ordem)
+                    ordem.appendChild(doc.createTextNode(str(sub_cat['ordem'])))                    
 
         doc.appendChild(lista)
         print(doc.toprettyxml(indent='   '))
