@@ -26,7 +26,8 @@ def acao():
     count += 1
     gui.ui.label.setText(str(count))
     print(Combo.getId())
-    gui.wPessoasAdd.show()
+    # gui.wPessoasAdd.show()
+    gui.wCategoriasAdd.show()
 
 # ações de botões
 
@@ -48,7 +49,23 @@ def botao_pessoa_add():
     gui.uiPessoasAdd.inputNome.clear()
 
 def botao_categorias_add():
-    print("Add")
+    nome = gui.uiCategoriasAdd.inputNome.text()
+    combo_id = ComboCategoriaAdd.getId()
+    if combo_id == -1:
+        ordem=len(Categoria.id)
+    else:
+        ordem = Categoria.id[combo_id]['ordem']
+    Categoria.reordena(ordem)
+    Categoria.adiciona({
+        'nome': nome,
+        'ordem': ordem,
+        'sub_status': 0,
+        'sub_lista': ''
+    })
+    Categoria.salva()
+    ComboCategoriaAdd.atualiza()
+    gui.wCategoriasAdd.hide()
+    gui.uiCategoriasAdd.inputNome.clear()
 
 # configuração
 
@@ -80,7 +97,7 @@ Categoria = ListaCategoria("categoria")
 #objetos de link de combos
 Combo = Link(gui.ui.comboBox, Pessoa)
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
-
+ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
 
 #conecta as ações dos botões
 gui.ui.pushButton.clicked.connect(acao)
