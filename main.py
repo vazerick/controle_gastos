@@ -1,9 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QDialog
+import os
+import configparser
 import pandas
 
+
 # interface gráfica
-from ui.form import Ui_Form
+from src.gui import gui
 
 # classes
 from src.lista import ListaPessoa, ListaCategoria
@@ -13,7 +15,7 @@ count = 0
 
 
 def panda():
-    dt=pandas.read_csv("data/tabela.csv",quotechar="'",index_col='id')
+    dt = pandas.read_csv("data/tabela.csv",quotechar="'",index_col='id')
     dt.to_csv("data/tabela.csv",quotechar="'",index_label='id')
     print(dt['valor'])
 
@@ -21,37 +23,89 @@ def panda():
 def acao():
     global count
     count += 1
-    ui.label.setText(str(count))
+    gui.ui.label.setText(str(count))
     print(Combo.getId())
+    gui.wPessoasAdd.show()
 
-# declarações da interface gráfica
-app = QApplication(sys.argv)
-window = QDialog()
-ui = Ui_Form()
-ui.setupUi(window)
-ui.pushButton.clicked.connect(acao)
+def botao_pessoa_add():
+    print("Ok")
+    nome = gui.uiPessoasAdd.inputNome.text()
+    combo_id = ComboPessoaAdd.getId()
+    ordem = Pessoa.id[combo_id]['ordem']
+    Pessoa.reordena(ordem)
+    Pessoa.adiciona({
+        'nome': nome,
+        'ordem': ordem
+    })
+    Pessoa.salva()
+    ComboPessoaAdd.atualiza()
+    gui.wPessoasAdd.hide()
+    gui.uiPessoasAdd.inputNome.clear()
 
-# inicializa a janela
-window.show()
 
+config = configparser.ConfigParser()
+if os.path.exists("config.ini"):
+    config.read("config.ini")
+else:
+    config['PAGAMENTO'] = {
+        'banco': 'sim',
+        'vale': 'nao'
+    }
+    config['LAYOUT'] = {
+        'interface': 'escura'
+    }
+    config['DADOS'] = {
+        'inicio': ''
+        'fim': ''
+    }
+    config.write(open('config.ini', 'w'))
+print(config['LAYOUT']['Interface'])
+
+# config = configparser.ConfigParser()
+# configfile = open("config.ini", "r")
+# config.read(configfile)
+# configfile.close()
+# config['PAGAMENTO'] = {
+#     'Banco': 'Sim',
+#     'Vale': 'Nao'
+# }
+# config['LAYOUT'] = {
+#     'Interface': 'escura'
+# }
+# print(config['LAYOUT']['Interface'])
+# config.write(open('config.ini', 'w'))
+
+#inicia a interface gráfica
+gui = gui()
+
+#objetos de listas
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
-ls = ["teste1", "teste2"]
 
-Combo = Link(ui.comboBox, Pessoa)
+#objetos de link de combos
+Combo = Link(gui.ui.comboBox, Pessoa)
+ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa)
+
+
+#conecta as ações dos botões
+gui.ui.pushButton.clicked.connect(acao)
+gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
+
+#testes
 Categoria.adiciona({
     'nome': 'Limpeza',
     'ordem': 10,
     'sub_status': 0
 })
-# Categoria.salva()
-Pessoa.adiciona({'nome': 'pedro','ordem': 7})
-# Pessoa.salva()
+
 
 print(Pessoa.getAtivos())
 print(Categoria.getAtivos())
 
 panda()
+
+# ajusta o fim do programa
+sys.exit(gui.app.exec_())
 
 """
 árvore:
@@ -71,5 +125,4 @@ ui.treeWidget.addTopLevelItem(l1)
 ui.treeWidget.addTopLevelItem(l2)
 """
 
-sys.exit(app.exec_())
 

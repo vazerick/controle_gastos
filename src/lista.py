@@ -20,8 +20,9 @@ class Lista:
             if self.id[item]["status"]:
                 ativos.append(
                     {
+                        'id': self.id[item]["id"],
                         'nome': self.id[item]["nome"],
-                        'id': self.id[item]["id"]
+                        'ordem': self.id[item]["ordem"]
                     }
                 )
         return ativos
@@ -30,6 +31,11 @@ class Lista:
         add['id'] = len(self.id)
         add['status'] = 1
         self.id.append(add)
+
+    def reordena(self, posicao):
+        for item in self.id:
+            if item['ordem'] >= posicao:
+                item['ordem'] += 1
 
 class ListaPessoa (Lista):
 
