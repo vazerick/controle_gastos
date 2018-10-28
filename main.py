@@ -11,8 +11,9 @@ from src.gui import gui
 from src.lista import ListaPessoa, ListaCategoria
 from src.link import Link
 
-count = 0
+#funções de teste
 
+count = 0
 
 def panda():
     dt = pandas.read_csv("data/tabela.csv",quotechar="'",index_col='id')
@@ -27,11 +28,15 @@ def acao():
     print(Combo.getId())
     gui.wPessoasAdd.show()
 
+# ações de botões
+
 def botao_pessoa_add():
-    print("Ok")
     nome = gui.uiPessoasAdd.inputNome.text()
     combo_id = ComboPessoaAdd.getId()
-    ordem = Pessoa.id[combo_id]['ordem']
+    if combo_id == -1:
+        ordem=len(Pessoa.id)
+    else:
+        ordem = Pessoa.id[combo_id]['ordem']
     Pessoa.reordena(ordem)
     Pessoa.adiciona({
         'nome': nome,
@@ -42,6 +47,10 @@ def botao_pessoa_add():
     gui.wPessoasAdd.hide()
     gui.uiPessoasAdd.inputNome.clear()
 
+def botao_categorias_add():
+    print("Add")
+
+# configuração
 
 config = configparser.ConfigParser()
 if os.path.exists("config.ini"):
@@ -55,25 +64,11 @@ else:
         'interface': 'escura'
     }
     config['DADOS'] = {
-        'inicio': ''
+        'inicio': '',
         'fim': ''
     }
     config.write(open('config.ini', 'w'))
 print(config['LAYOUT']['Interface'])
-
-# config = configparser.ConfigParser()
-# configfile = open("config.ini", "r")
-# config.read(configfile)
-# configfile.close()
-# config['PAGAMENTO'] = {
-#     'Banco': 'Sim',
-#     'Vale': 'Nao'
-# }
-# config['LAYOUT'] = {
-#     'Interface': 'escura'
-# }
-# print(config['LAYOUT']['Interface'])
-# config.write(open('config.ini', 'w'))
 
 #inicia a interface gráfica
 gui = gui()
@@ -84,27 +79,23 @@ Categoria = ListaCategoria("categoria")
 
 #objetos de link de combos
 Combo = Link(gui.ui.comboBox, Pessoa)
-ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa)
+ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
 
 
 #conecta as ações dos botões
 gui.ui.pushButton.clicked.connect(acao)
+
 gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
+gui.uiPessoasAdd.botaoCancela.clicked.connect(gui.wPessoasAdd.hide)
+
+gui.uiCategoriasAdd.botaoOk.clicked.connect(botao_categorias_add)
+gui.uiCategoriasAdd.botaoCancela.clicked.connect(gui.wCategoriasAdd.hide)
 
 #testes
-Categoria.adiciona({
-    'nome': 'Limpeza',
-    'ordem': 10,
-    'sub_status': 0
-})
 
 
-print(Pessoa.getAtivos())
-print(Categoria.getAtivos())
 
-panda()
-
-# ajusta o fim do programa
+# configura o fim do programa
 sys.exit(gui.app.exec_())
 
 """
@@ -124,5 +115,6 @@ for j in range(2):
 ui.treeWidget.addTopLevelItem(l1)
 ui.treeWidget.addTopLevelItem(l2)
 """
+
 
 

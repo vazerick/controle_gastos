@@ -3,15 +3,20 @@ from operator import itemgetter
 
 class Link:
 
-    def __init__(self, Combo, Lista):
+    def __init__(self, Combo, Lista, addFim=0):
         self.Combo = Combo
         self.Lista = Lista
         self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
         for item in range(len(self.ativos)):
             self.Combo.addItem(self.ativos[item]['nome'])
+        if addFim:
+            self.Combo.addItem("Fim da lista")
 
     def getId(self):
-        return self.ativos[self.Combo.currentIndex()]['id']
+        if self.Combo.currentText() == "Fim da lista":
+            return -1
+        else:
+            return self.ativos[self.Combo.currentIndex()]['id']
 
     def atualiza(self):
         self.ativos = []
