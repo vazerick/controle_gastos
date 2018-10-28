@@ -177,6 +177,16 @@ class ListaCategoria (Lista):
         arquivo = open(self.endereco, "w", encoding='utf-8')
         arquivo.write(doc.toprettyxml(indent='   '))
 
+    def adicionaSubcategoria(self, categoria_id, add):
+        add['id'] = len(self.id[categoria_id]['sub_lista'])
+        add['status'] = 1
+        add['ordem'] = 50
+        self.id[categoria_id]['sub_status']=1
+        self.id[categoria_id]['sub_lista'].append(add)
+
+    # def subCategoriasFila(self, nome):
+
+
 
 # criar:
 #    metodos:
