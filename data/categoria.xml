@@ -23,7 +23,18 @@
       <nome>Livros</nome>
       <status>1</status>
       <ordem>1</ordem>
-      <sub_status>0</sub_status>
-      <sub_lista/>
+      <sub_status>1</sub_status>
+      <sub_lista>
+         <sub id="0">
+            <nome>HQ's</nome>
+            <status>1</status>
+            <ordem>0</ordem>
+         </sub>
+         <sub id="1">
+            <nome>Estudo</nome>
+            <status>1</status>
+            <ordem>1</ordem>
+         </sub>
+      </sub_lista>
    </categoria>
 </lista>

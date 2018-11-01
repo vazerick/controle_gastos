@@ -7,32 +7,32 @@
     <x>0</x>
     <y>0</y>
     <width>260</width>
-    <height>118</height>
+    <height>250</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>260</width>
-    <height>110</height>
+    <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>2000</width>
-    <height>2000</height>
+    <width>260</width>
+    <height>250</height>
    </size>
   </property>
   <property name="contextMenuPolicy">
    <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>Nova Categoria</string>
+   <string>Nova Sub-Categoria</string>
   </property>
   <widget class="QLineEdit" name="inputNome">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>42</y>
+     <y>22</y>
      <width>211</width>
      <height>25</height>
     </rect>
@@ -42,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>22</y>
+     <y>2</y>
      <width>54</width>
      <height>17</height>
     </rect>
@@ -55,7 +55,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>82</y>
+     <y>210</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -68,7 +68,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>82</y>
+     <y>210</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -81,7 +81,7 @@
    <property name="geometry">
     <rect>
      <x>230</x>
-     <y>42</y>
+     <y>22</y>
      <width>25</width>
      <height>25</height>
     </rect>
@@ -102,17 +102,60 @@
     <string>+</string>
    </property>
   </widget>
-  <widget class="QLabel" name="lista">
+  <widget class="QComboBox" name="comboSub">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>241</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelAntes">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>5</y>
-     <width>201</width>
-     <height>20</height>
+     <y>150</y>
+     <width>111</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>Adicionar antes de</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelCategoria">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>111</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Categoria</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboCat">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>241</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>

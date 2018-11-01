@@ -29,14 +29,15 @@ class gui:
         self.uiCategoriasAdd.setupUi(self.wCategoriasAdd)
 # janela para adicionar novas sub-categorias
 
-        self.altura=110
+        self.altura=250
         self.extra=0
-        self.fator=15
+        self.fator=10
         self.lista=''
 
         self.wSubCategoriasAdd = QDialog()
         self.uiSubCategoriasAdd = SubCategoriasAdd()
         self.uiSubCategoriasAdd.setupUi(self.wSubCategoriasAdd)
+        self.uiSubCategoriasAdd.listWidget.hide()
 # seta a mesma folha de estilos para todas as janelas
         arquivo = open("ui/style.css")
         self.style = arquivo.read()
@@ -53,30 +54,49 @@ class gui:
         self.window.show()
 
     def subcategorias_extra(self, nome):
-        self.lista = self.lista+nome+'\n'
         self.extra += 1
+
+        self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
+            260,
+            self.altura + (self.extra * self.fator))
+        )
         self.wSubCategoriasAdd.resize(
             260,
             self.altura+(self.extra*self.fator)
         )
-        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 70+(self.extra*self.fator), 80, 25))
-        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 70 + (self.extra*self.fator), 80, 25))
-        self.uiSubCategoriasAdd.botaoMais.setGeometry(QtCore.QRect(230, 30 + (self.extra*self.fator), 25, 25))
-        self.uiSubCategoriasAdd.labelNome.setGeometry(QtCore.QRect(20, 10 + (self.extra*self.fator), 54, 17))
-        self.uiSubCategoriasAdd.inputNome.setGeometry(QtCore.QRect(10, 30 + (self.extra*self.fator), 211, 25))
-        self.uiSubCategoriasAdd.lista.setGeometry(QtCore.QRect(20, 5, 201, 20 + (self.extra * self.fator)))
-        self.uiSubCategoriasAdd.lista.setText(self.lista)
-        print(self.lista)
+        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
+        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 210 + (self.extra*self.fator), 80, 25))
+
+        self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
+        self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
+        self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100 + (self.extra * self.fator), 111, 17))
+        self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120 + (self.extra * self.fator), 241, 25))
+
+        self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31 + (self.extra * self.fator)))
+        self.uiSubCategoriasAdd.listWidget.addItem(nome)
+        self.uiSubCategoriasAdd.listWidget.show()
 
 
     def subcategorias_reseta(self):
         self.lista = ''
         self.extra = 0
-        self.wSubCategoriasAdd.resize(260, 118)
-        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 70, 80, 25))
-        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 70, 80, 25))
-        self.uiSubCategoriasAdd.botaoMais.setGeometry(QtCore.QRect(230, 30, 25, 25))
-        self.uiSubCategoriasAdd.labelNome.setGeometry(QtCore.QRect(20, 10, 54, 17))
-        self.uiSubCategoriasAdd.inputNome.setGeometry(QtCore.QRect(10, 30, 211, 25))
-        self.uiSubCategoriasAdd.lista.setGeometry(QtCore.QRect(20, 5, 201, 20))
-        self.uiSubCategoriasAdd.lista.setText('')
+
+        self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
+            260,
+            self.altura)
+        )
+        self.wSubCategoriasAdd.resize(
+            260,
+            self.altura
+        )
+        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 210, 80, 25))
+        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 210, 80, 25))
+
+        self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170, 241, 25))
+        self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150, 111, 17))
+        self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100, 111, 17))
+        self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120, 241, 25))
+
+        self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31))
+        self.uiSubCategoriasAdd.listWidget.clear()
+        self.uiSubCategoriasAdd.listWidget.hide()

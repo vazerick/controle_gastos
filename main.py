@@ -9,7 +9,7 @@ from src.gui import gui
 
 # classes
 from src.lista import ListaPessoa, ListaCategoria
-from src.link import Link
+from src.link import Link, SubcategoriaLink
 
 #funções de teste
 
@@ -30,7 +30,6 @@ def acao():
     # gui.wPessoasAdd.show()
     # gui.wCategoriasAdd.show()
     gui.wSubCategoriasAdd.show()
-
 # declaração das funções
 
 
@@ -90,6 +89,9 @@ def botao_categorias_add():
 
 filaSubCategorias = []
 
+def subcategorias_ui(categoria):
+    gui.wSubCategoriasAdd.show()
+
 def botao_subcategorias_mais():
     if not_valida([gui.uiSubCategoriasAdd.inputNome]):
         return 0
@@ -127,6 +129,13 @@ def botao_subcategorias_add():
     # gui.uiCategoriasAdd.inputNome.clear()
     # print(gui.uiCategoriasAdd.checkBox.isChecked())
 
+# ações dos eventos de mudança
+
+
+def troca_subcategoria ():
+    cat_id = ComboSubAddCat.getId()
+    ComboSubAdd.troca(cat_id)
+
 # configuração
 
 config = configparser.ConfigParser()
@@ -156,8 +165,13 @@ Categoria = ListaCategoria("categoria")
 
 #objetos de link de combos
 Combo = Link(gui.ui.comboBox, Pessoa)
+# links de pessoa
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
+# links de categoria
 ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
+ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
+ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
+
 
 #conecta as ações dos botões
 gui.ui.pushButton.clicked.connect(acao)
@@ -170,6 +184,7 @@ gui.uiCategoriasAdd.botaoCancela.clicked.connect(gui.wCategoriasAdd.hide)
 
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
+gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(troca_subcategoria)
 
 #testes
 

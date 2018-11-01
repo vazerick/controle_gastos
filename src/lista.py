@@ -14,19 +14,6 @@ class Lista:
         self.itens = lista.getElementsByTagName(nome)  # gera a lista de nós de cada item
         self.id = []  # lista vazia para abrigar os itens
 
-    def getAtivos(self):
-        ativos = []  # lista vazia para abrigar os itens ativos
-        for item in range(len(self.id)):
-            if self.id[item]["status"]:
-                ativos.append(
-                    {
-                        'id': self.id[item]["id"],
-                        'nome': self.id[item]["nome"],
-                        'ordem': self.id[item]["ordem"]
-                    }
-                )
-        return ativos
-
     def adiciona(self, add):
         add['id'] = len(self.id)
         add['status'] = 1
@@ -36,6 +23,7 @@ class Lista:
         for item in self.id:
             if item['ordem'] >= posicao:
                 item['ordem'] += 1
+
 
 class ListaPessoa (Lista):
 
@@ -54,6 +42,19 @@ class ListaPessoa (Lista):
                     'ordem': int(ordem.childNodes[0].data)
                 }
             )
+
+    def getAtivos(self):
+        ativos = []  # lista vazia para abrigar os itens ativos
+        for item in range(len(self.id)):
+            if self.id[item]["status"]:
+                ativos.append(
+                    {
+                        'id': self.id[item]["id"],
+                        'nome': self.id[item]["nome"],
+                        'ordem': self.id[item]["ordem"]
+                    }
+                )
+        return ativos
 
     def salva(self):
         doc = minidom.Document()  # cria um objeto xml
@@ -124,6 +125,21 @@ class ListaCategoria (Lista):
                 }
             )
 
+    def getAtivos(self):
+        ativos = []  # lista vazia para abrigar os itens ativos
+        for item in range(len(self.id)):
+            if self.id[item]["status"]:
+                ativos.append(
+                    {
+                        'id': self.id[item]["id"],
+                        'nome': self.id[item]["nome"],
+                        'ordem': self.id[item]["ordem"],
+                        'sub_status': self.id[item]["sub_status"],
+                        'sub_lista': self.id[item]["sub_lista"]
+                    }
+                )
+        return ativos
+
     def salva(self):
         doc = minidom.Document()  # cria um objeto xml
         # adiciona um comentário com o horário de criação
@@ -183,6 +199,19 @@ class ListaCategoria (Lista):
         add['ordem'] = 50
         self.id[categoria_id]['sub_status']=1
         self.id[categoria_id]['sub_lista'].append(add)
+
+    def subGetAtivos(self, cat):
+        ativos = []
+        print("Cat:", cat, "Lista:", self.id[cat]['sub_lista'])
+        for item in range(len(self.id[cat]['sub_lista'])):
+            ativos.append(
+                {
+                    'id': self.id[cat]['sub_lista'][item]["id"],
+                    'nome': self.id[cat]['sub_lista'][item]["nome"],
+                    'ordem': self.id[cat]['sub_lista'][item]["ordem"],
+                }
+            )
+        return ativos
 
     # def subCategoriasFila(self, nome):
 
