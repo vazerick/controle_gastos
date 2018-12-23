@@ -1,10 +1,17 @@
 import sys
+
+# import do PyQt5
+
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5 import QtCore, QtWidgets
-from ui.form import Ui_Form
+from PyQt5.QtCore import Qt
+
+# import das janelas
+
 from ui.pessoas_add import Ui_Form as PessoasAdd
 from ui.categorias_add import Ui_Form as CategoriasAdd
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
+from ui.janela import Ui_Form as Main
 
 
 class gui:
@@ -14,10 +21,13 @@ class gui:
 
         self.app = QApplication(sys.argv)
 
-# formulário de testes
-        self.window = QDialog()
-        self.ui = Ui_Form()
-        self.ui.setupUi(self.window)
+# janela principal
+        self.wMain = QDialog()
+        self.ui = Main()
+        self.ui.setupUi(self.wMain)
+
+        self.ui.treePessoas.setColumnWidth(0, 145)
+        self.ui.treeCategorias.setColumnWidth(0, 145)
 
 # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
@@ -40,21 +50,22 @@ class gui:
         self.uiSubCategoriasAdd.setupUi(self.wSubCategoriasAdd)
         self.uiSubCategoriasAdd.listWidget.hide()
 
-# seta a mesma folha de estilos para todas as janelas
+# seta a mesma folha de estilos e bloqueio para todas as janelas
         arquivo = open("ui/style.css")
         self.style = arquivo.read()
         arquivo.close()
         for janela in [
-            self.window,
+            self.wMain,
             self.wPessoasAdd,
             self.wCategoriasAdd,
             self.wSubCategoriasAdd
         ]:
             janela.setStyleSheet(self.style)
+            janela.setWindowModality(Qt.ApplicationModal)
 
 
 # inicializa a janela
-        self.window.show()
+        self.wMain.show()
 
     def subcategorias_extra(self, nome):
         self.extra += 1

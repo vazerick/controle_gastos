@@ -9,6 +9,7 @@ from src.gui import gui
 # classes
 from src.lista import ListaPessoa, ListaCategoria
 from src.link import Link, SubcategoriaLink
+from src.arvore import Arvore
 
 # funções de teste
 
@@ -78,6 +79,14 @@ def combos_categoria_atualiza():
 # ações de botões
 
 
+def botao_adicionar_pessoa():
+    gui.wPessoasAdd.show()
+
+
+def botao_adicionar_categoria():
+    gui.wCategoriasAdd.show()
+
+
 def botao_pessoa_add():
     if not_valida([gui.uiPessoasAdd.inputNome]):
         return 0
@@ -94,6 +103,7 @@ def botao_pessoa_add():
     })
     Pessoa.salva()
     ComboPessoaAdd.atualiza()
+    ArvorePessoa.atualiza()
     gui.wPessoasAdd.hide()
     gui.uiPessoasAdd.inputNome.clear()
 
@@ -116,6 +126,7 @@ def botao_categorias_add():
     })
     Categoria.salva()
     ComboCategoriaAdd.atualiza()
+    ArvoreCategorias.atualiza()
     gui.wCategoriasAdd.hide()
     gui.uiCategoriasAdd.inputNome.clear()
     print(gui.uiCategoriasAdd.checkBox.isChecked())
@@ -208,8 +219,13 @@ gui = gui()
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
 
+# objetos de árvores
+
+ArvorePessoa = Arvore(gui.ui.treePessoas, Pessoa)
+ArvoreCategorias = Arvore(gui.ui.treeCategorias, Categoria)
+
 # objetos de link de combos
-Combo = Link(gui.ui.comboBox, Pessoa)
+
 # links de pessoa
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
 # links de categoria
@@ -220,7 +236,9 @@ ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFi
 # ações
 
 # conecta as ações dos botões
-gui.ui.pushButton.clicked.connect(acao)
+
+gui.ui.botaoCategoriaAdicionar.clicked.connect(botao_adicionar_categoria)
+gui.ui.botaoPessoaAdicionar.clicked.connect(botao_adicionar_pessoa)
 
 gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
 gui.uiPessoasAdd.botaoCancela.clicked.connect(gui.wPessoasAdd.hide)

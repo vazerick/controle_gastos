@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>651</width>
+    <width>611</width>
     <height>464</height>
    </rect>
   </property>
@@ -103,7 +103,7 @@ p, li { white-space: pre-wrap; }
       <attribute name="title">
        <string>Configurações</string>
       </attribute>
-      <widget class="QGroupBox" name="groupBox">
+      <widget class="QGroupBox" name="boxConfig">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -116,30 +116,137 @@ p, li { white-space: pre-wrap; }
         <string>Configurações</string>
        </property>
       </widget>
-      <widget class="QGroupBox" name="groupBox_2">
+      <widget class="QGroupBox" name="boxCategorias">
        <property name="geometry">
         <rect>
          <x>20</x>
          <y>170</y>
          <width>251</width>
-         <height>221</height>
+         <height>201</height>
         </rect>
        </property>
        <property name="title">
         <string>Categorias</string>
        </property>
+       <widget class="QTreeWidget" name="treeCategorias">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>251</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>status</string>
+         </property>
+        </column>
+       </widget>
       </widget>
-      <widget class="QGroupBox" name="groupBox_3">
+      <widget class="QGroupBox" name="boxPessoas">
        <property name="geometry">
         <rect>
          <x>310</x>
          <y>170</y>
          <width>251</width>
-         <height>221</height>
+         <height>201</height>
         </rect>
        </property>
        <property name="title">
         <string>Pessoas</string>
+       </property>
+       <widget class="QTreeWidget" name="treePessoas">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>251</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerDefaultSectionSize">
+         <number>100</number>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>status</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="botaoCategoriaAdicionar">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>380</y>
+         <width>80</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Adicionar</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoPessoaAdicionar">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>380</y>
+         <width>80</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Adicionar</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoCategoriaEditar">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>380</y>
+         <width>80</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Editar</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton_4">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>380</y>
+         <width>80</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Editar</string>
        </property>
       </widget>
      </widget>
