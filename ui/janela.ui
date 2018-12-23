@@ -6,28 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>464</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Controle de Gastos</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="Hoje">
       <attribute name="title">
        <string>Hoje</string>
       </attribute>
       <widget class="QTextBrowser" name="textBrowser">
        <property name="geometry">
         <rect>
-         <x>100</x>
-         <y>70</y>
+         <x>10</x>
+         <y>10</y>
          <width>321</width>
          <height>141</height>
         </rect>
@@ -47,15 +59,15 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="Geral">
       <attribute name="title">
        <string>Geral</string>
       </attribute>
       <widget class="QTextBrowser" name="textBrowser_2">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>100</y>
+         <x>10</x>
+         <y>10</y>
          <width>301</width>
          <height>141</height>
         </rect>
@@ -75,15 +87,15 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="Dividas">
       <attribute name="title">
        <string>Dívidas</string>
       </attribute>
       <widget class="QTextBrowser" name="textBrowser_3">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>80</y>
+         <x>10</x>
+         <y>10</y>
          <width>256</width>
          <height>111</height>
         </rect>
@@ -99,17 +111,17 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_4">
+     <widget class="QWidget" name="Config">
       <attribute name="title">
        <string>Configurações</string>
       </attribute>
       <widget class="QGroupBox" name="boxConfig">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>50</x>
          <y>30</y>
-         <width>541</width>
-         <height>121</height>
+         <width>881</width>
+         <height>171</height>
         </rect>
        </property>
        <property name="title">
@@ -119,10 +131,10 @@ p, li { white-space: pre-wrap; }
       <widget class="QGroupBox" name="boxCategorias">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>170</y>
-         <width>251</width>
-         <height>201</height>
+         <x>90</x>
+         <y>230</y>
+         <width>381</width>
+         <height>241</height>
         </rect>
        </property>
        <property name="title">
@@ -133,8 +145,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>251</width>
-          <height>181</height>
+          <width>381</width>
+          <height>221</height>
          </rect>
         </property>
         <property name="alternatingRowColors">
@@ -158,10 +170,10 @@ p, li { white-space: pre-wrap; }
       <widget class="QGroupBox" name="boxPessoas">
        <property name="geometry">
         <rect>
-         <x>310</x>
-         <y>170</y>
-         <width>251</width>
-         <height>201</height>
+         <x>510</x>
+         <y>230</y>
+         <width>380</width>
+         <height>241</height>
         </rect>
        </property>
        <property name="title">
@@ -172,8 +184,8 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>251</width>
-          <height>181</height>
+          <width>380</width>
+          <height>221</height>
          </rect>
         </property>
         <property name="alternatingRowColors">
@@ -200,34 +212,47 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="botaoCategoriaAdicionar">
        <property name="geometry">
         <rect>
-         <x>50</x>
-         <y>380</y>
-         <width>80</width>
+         <x>140</x>
+         <y>480</y>
+         <width>131</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
-        <string>Adicionar</string>
+        <string>Adicionar Categoria</string>
        </property>
       </widget>
       <widget class="QPushButton" name="botaoPessoaAdicionar">
        <property name="geometry">
         <rect>
-         <x>340</x>
-         <y>380</y>
-         <width>80</width>
+         <x>560</x>
+         <y>490</y>
+         <width>111</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
-        <string>Adicionar</string>
+        <string>Adicionar Pessoa</string>
        </property>
       </widget>
       <widget class="QPushButton" name="botaoCategoriaEditar">
        <property name="geometry">
         <rect>
-         <x>160</x>
-         <y>380</y>
+         <x>330</x>
+         <y>490</y>
+         <width>80</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Editar</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoPessoaEditar">
+       <property name="geometry">
+        <rect>
+         <x>750</x>
+         <y>490</y>
          <width>80</width>
          <height>25</height>
         </rect>
@@ -236,17 +261,17 @@ p, li { white-space: pre-wrap; }
         <string>Editar</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="botaoSubAdicionar">
        <property name="geometry">
         <rect>
-         <x>450</x>
-         <y>380</y>
-         <width>80</width>
+         <x>130</x>
+         <y>510</y>
+         <width>151</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
-        <string>Editar</string>
+        <string>Adicionar Sub-Categoria</string>
        </property>
       </widget>
      </widget>

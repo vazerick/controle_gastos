@@ -24,6 +24,19 @@ class Lista:
             if item['ordem'] >= posicao:
                 item['ordem'] += 1
 
+    def edita(self, index, nome, ordem_nova, status):
+        ordem_velha = self.id[index]['ordem']
+        self.id[index]['nome'] = nome
+        self.id[index]['status'] = status
+        if ordem_nova > ordem_velha:
+            for item in self.id:
+                if ( item['ordem'] > ordem_velha) and (item['ordem'] <= ordem_nova):
+                    item['ordem'] -= 1
+        else:
+            for item in self.id:
+                if ( item['ordem'] >= ordem_nova) and (item['ordem'] < ordem_velha):
+                    item['ordem'] += 1
+        self.id[index]['ordem'] = ordem_nova
 
 class ListaPessoa(Lista):
 

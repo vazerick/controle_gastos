@@ -8,7 +8,7 @@ from src.gui import gui
 
 # classes
 from src.lista import ListaPessoa, ListaCategoria
-from src.link import Link, SubcategoriaLink
+from src.link import Link, EditarLink, SubcategoriaLink
 from src.arvore import Arvore
 
 # funções de teste
@@ -88,21 +88,64 @@ def botao_adicionar_categoria():
 
 
 def botao_adicionar_sub():
+    index = gui.ui.treeCategorias.currentIndex().parent().row()
+    if index == -1:
+        index = gui.ui.treeCategorias.currentIndex().row()
+    gui.uiSubCategoriasAdd.comboCat.setCurrentIndex(index)
     gui.wSubCategoriasAdd.show()
-
 
 def botao_editar_pessoa():
     index = gui.ui.treePessoas.currentIndex().row()
-    print(Pessoa.id[index])
+    if index >= 0:
+        gui.uiPessoasEdit.labelTitulo.setText("Editar: "+Pessoa.id[index]['nome'])
+        gui.uiPessoasEdit.inputNome.setText(Pessoa.id[index]['nome'])
+        ComboPessoaEdit.atualizar()
+        ComboPessoaEdit.select(index)
+        gui.uiPessoasEdit.comboBox.setCurrentIndex(index)
 
+        if Pessoa.id[index]['status']:
+            gui.uiPessoasEdit.checkBox.setChecked(1)
+        else:
+            gui.uiPessoasEdit.checkBox.setChecked(0)
+
+        gui.wPessoasEdit.show()
+
+
+def botao_editar_pessoa_ok():
+    index = gui.ui.treePessoas.currentIndex().row()
+    if not_valida([gui.uiPessoasEdit.inputNome]):
+        return 0
+    nome = gui.uiPessoasEdit.inputNome.text()
+    status = int(gui.uiPessoasEdit.checkBox.isChecked())
+    combo_id = ComboPessoaEdit.getId()
+    if combo_id == -1:
+        ordem = len(Pessoa.id)-1
+    else:
+        ordem = Pessoa.id[combo_id]['ordem']
+    print(status)
+    Pessoa.edita(index, nome, ordem, status)
+    Pessoa.salva()
+    gui.wPessoasEdit.hide()
+
+#todo gerar e adicionar os combos de categorias e subcategorias
+#todo adicionar o checkbox de "Ativo"
 def botao_editar_categoria():
     index = gui.ui.treeCategorias.currentIndex().row()
     pai = gui.ui.treeCategorias.currentIndex().parent().row()
-    if pai == -1:
-        print(Categoria.id[index])
-    else:
-        print(Categoria.id[pai])
-        print(Categoria.id[pai]['sub_lista'][index])
+    if index >= 0:
+        if pai == -1:
+            gui.uiCategoriasEdit.labelTitulo.setText("Editar: "+Categoria.id[index]['nome'])
+            gui.uiCategoriasEdit.inputNome.setText(Categoria.id[index]['nome'])
+            gui.wCategoriasEdit.show()
+        else:
+            gui.uiSubCategoriasEdit.labelTitulo.setText(
+                "Editar: "+
+                Categoria.id[pai]['nome']+
+                " - "+
+                Categoria.id[pai]['sub_lista'][index]['nome']
+            )
+            gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[pai]['sub_lista'][index]['nome'])
+            gui.wSubCategoriasEdit.show()
 
 
 def botao_pessoa_add():
@@ -124,6 +167,19 @@ def botao_pessoa_add():
     ArvorePessoa.atualiza()
     gui.wPessoasAdd.hide()
     gui.uiPessoasAdd.inputNome.clear()
+
+
+def botao_pessoa_cancela():
+    gui.uiPessoasAdd.inputNome.setText("")
+    gui.uiPessoasAdd.comboBox.setCurrentIndex(0)
+    gui.wPessoasAdd.hide()
+
+
+def botao_categoria_cancela():
+    gui.uiCategoriasAdd.inputNome.setText("")
+    gui.uiCategoriasAdd.checkBox.setChecked(0)
+    gui.uiCategoriasAdd.comboBox.setCurrentIndex(0)
+    gui.wCategoriasAdd.hide()
 
 
 def botao_categorias_add():
@@ -246,8 +302,10 @@ ArvoreCategorias = Arvore(gui.ui.treeCategorias, Categoria)
 
 # links de pessoa
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
+ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
 ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
+ComboCategoriaEdit = EditarLink(gui.uiCategoriasEdit.comboBox, Categoria)
 ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
 ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
 
@@ -262,10 +320,13 @@ gui.ui.botaoPessoaEditar.clicked.connect(botao_editar_pessoa)
 gui.ui.botaoCategoriaEditar.clicked.connect(botao_editar_categoria)
 
 gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
-gui.uiPessoasAdd.botaoCancela.clicked.connect(gui.wPessoasAdd.hide)
+gui.uiPessoasAdd.botaoCancela.clicked.connect(botao_pessoa_cancela)
+
+gui.uiPessoasEdit.botaoOk.clicked.connect(botao_editar_pessoa_ok)
+gui.uiPessoasEdit.botaoCancela.clicked.connect(gui.wPessoasEdit.hide) #todo criar uma função para o botão "cancelar"
 
 gui.uiCategoriasAdd.botaoOk.clicked.connect(botao_categorias_add)
-gui.uiCategoriasAdd.botaoCancela.clicked.connect(gui.wCategoriasAdd.hide)
+gui.uiCategoriasAdd.botaoCancela.clicked.connect(botao_categoria_cancela)
 
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
@@ -291,26 +352,3 @@ for item in combos_dinamicos:
 
 # configura o fim do programa
 sys.exit(gui.app.exec_())
-
-# A fazer:
-# Limpar o combo e o checkbox escolhidos ao dar Ok
-# Organizar as adições das listas
-# Atualizar todos os combos relevantes quando houver atualização
-
-"""
-árvore:
-    importa QTreeWidgetItem
-    
-l1 = QTreeWidgetItem(["String A", "String B", "String C"])
-l2 = QTreeWidgetItem(["String AA", "String BB", "String CC"])
-for i in range(3):
-    l1_child = QTreeWidgetItem(["Child A" + str(i), "Child B" + str(i), "Child C" + str(i)])
-    l1.addChild(l1_child)
-
-for j in range(2):
-    l2_child = QTreeWidgetItem(["Child AA" + str(j), "Child BB" + str(j), "Child CC" + str(j)])
-    l2.addChild(l2_child)
-
-ui.treeWidget.addTopLevelItem(l1)
-ui.treeWidget.addTopLevelItem(l2)
-"""

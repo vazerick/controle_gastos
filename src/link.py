@@ -30,6 +30,34 @@ class Link:
             self.Combo.addItem("Fim da lista")
 
 
+class EditarLink:
+
+    def __init__(self, Combo, Lista):
+        self.Combo = Combo
+        self.Lista = Lista
+        self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        for item in range(len(self.ordem)):
+            self.Combo.addItem(self.ordem[item]['nome'])
+        self.Combo.addItem("Fim da lista")
+
+    def select(self, selecionado):
+        self.Combo.removeItem(selecionado)
+
+    def atualizar(self):
+        self.Combo.clear()
+        self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        for item in range(len(self.ordem)):
+            self.Combo.addItem(self.ordem[item]['nome'])
+        self.Combo.addItem("Fim da lista")
+
+    def getId(self):
+        if self.Combo.currentText() == "Fim da lista":
+            return -1
+        else:
+            return self.ordem[self.Combo.currentIndex()]['id']
+
+
+
 class SubcategoriaLink:
 
     def __init__(self, Combo, Lista, addFim=0):

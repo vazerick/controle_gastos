@@ -9,9 +9,13 @@ from PyQt5.QtCore import Qt
 # import das janelas
 
 from ui.pessoas_add import Ui_Form as PessoasAdd
+from ui.pessoas_edit import Ui_Form as PessoasEdit
 from ui.categorias_add import Ui_Form as CategoriasAdd
+from ui.categorias_edit import Ui_Form as CategoriasEdit
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
+from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
 from ui.janela import Ui_Form as Main
+
 
 
 class gui:
@@ -26,18 +30,28 @@ class gui:
         self.ui = Main()
         self.ui.setupUi(self.wMain)
 
-        self.ui.treePessoas.setColumnWidth(0, 145)
-        self.ui.treeCategorias.setColumnWidth(0, 145)
+        self.ui.treePessoas.setColumnWidth(0, 250)
+        self.ui.treeCategorias.setColumnWidth(0, 250)
 
 # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
         self.uiPessoasAdd = PessoasAdd()
         self.uiPessoasAdd.setupUi(self.wPessoasAdd)
 
-# janela para adicionar novas categoiras
+# janela para editar pessoas
+        self.wPessoasEdit = QDialog()
+        self.uiPessoasEdit = PessoasEdit()
+        self.uiPessoasEdit.setupUi(self.wPessoasEdit)
+
+# janela para adicionar novas categorias
         self.wCategoriasAdd = QDialog()
         self.uiCategoriasAdd = CategoriasAdd()
         self.uiCategoriasAdd.setupUi(self.wCategoriasAdd)
+
+# janela para editar categorias
+        self.wCategoriasEdit = QDialog()
+        self.uiCategoriasEdit = CategoriasEdit()
+        self.uiCategoriasEdit.setupUi(self.wCategoriasEdit)
 
 # janela para adicionar novas sub-categorias
         self.altura=250
@@ -50,6 +64,11 @@ class gui:
         self.uiSubCategoriasAdd.setupUi(self.wSubCategoriasAdd)
         self.uiSubCategoriasAdd.listWidget.hide()
 
+# janela para editar sub-categorias
+        self.wSubCategoriasEdit = QDialog()
+        self.uiSubCategoriasEdit = SubCategoriasEdit()
+        self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
+
 # seta a mesma folha de estilos e bloqueio para todas as janelas
         arquivo = open("ui/style.css")
         self.style = arquivo.read()
@@ -57,8 +76,11 @@ class gui:
         for janela in [
             self.wMain,
             self.wPessoasAdd,
+            self.wPessoasEdit,
             self.wCategoriasAdd,
-            self.wSubCategoriasAdd
+            self.wCategoriasEdit,
+            self.wSubCategoriasAdd,
+            self.wSubCategoriasEdit
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
