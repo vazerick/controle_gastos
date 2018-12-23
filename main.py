@@ -87,6 +87,24 @@ def botao_adicionar_categoria():
     gui.wCategoriasAdd.show()
 
 
+def botao_adicionar_sub():
+    gui.wSubCategoriasAdd.show()
+
+
+def botao_editar_pessoa():
+    index = gui.ui.treePessoas.currentIndex().row()
+    print(Pessoa.id[index])
+
+def botao_editar_categoria():
+    index = gui.ui.treeCategorias.currentIndex().row()
+    pai = gui.ui.treeCategorias.currentIndex().parent().row()
+    if pai == -1:
+        print(Categoria.id[index])
+    else:
+        print(Categoria.id[pai])
+        print(Categoria.id[pai]['sub_lista'][index])
+
+
 def botao_pessoa_add():
     if not_valida([gui.uiPessoasAdd.inputNome]):
         return 0
@@ -239,6 +257,9 @@ ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFi
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(botao_adicionar_categoria)
 gui.ui.botaoPessoaAdicionar.clicked.connect(botao_adicionar_pessoa)
+gui.ui.botaoSubAdicionar.clicked.connect(botao_adicionar_sub)
+gui.ui.botaoPessoaEditar.clicked.connect(botao_editar_pessoa)
+gui.ui.botaoCategoriaEditar.clicked.connect(botao_editar_categoria)
 
 gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
 gui.uiPessoasAdd.botaoCancela.clicked.connect(gui.wPessoasAdd.hide)
