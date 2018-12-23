@@ -3,7 +3,6 @@ import os
 import configparser
 import pandas
 
-
 # interface gráfica
 from src.gui import gui
 
@@ -11,13 +10,14 @@ from src.gui import gui
 from src.lista import ListaPessoa, ListaCategoria
 from src.link import Link, SubcategoriaLink
 
-#funções de teste
+# funções de teste
 
 count = 0
 
+
 def panda():
-    dt = pandas.read_csv("data/tabela.csv",quotechar="'",index_col='id')
-    dt.to_csv("data/tabela.csv",quotechar="'",index_label='id')
+    dt = pandas.read_csv("data/tabela.csv", quotechar="'", index_col='id')
+    dt.to_csv("data/tabela.csv", quotechar="'", index_label='id')
     print(dt['valor'])
 
 
@@ -30,6 +30,8 @@ def acao():
     # gui.wPessoasAdd.show()
     # gui.wCategoriasAdd.show()
     gui.wSubCategoriasAdd.show()
+
+
 # declaração das funções
 
 
@@ -42,6 +44,37 @@ def not_valida(input):
         if vazia(item.text()):
             return 1
 
+
+# editar uma subcategoia na edição
+
+
+def subcategorias_lista_click(item):
+    gui.subcategorias_remove()
+    gui.uiSubCategoriasAdd.inputNome.setText(item.text())
+    filaSubCategorias.remove(item.text())
+    print(item.text())
+
+
+# atualiza os combos após atualizar a lista Categorias
+
+
+def combos_categoria_atualiza():
+    colecao = [
+        ComboSubAdd,
+        ComboSubAddCat,
+        ComboCategoriaAdd
+    ]
+
+    for item in combos_dinamicos:
+        item['link'].disconnect()
+
+    for item in colecao:
+        item.atualiza()
+
+    for item in combos_dinamicos:
+        item['link'].currentIndexChanged.connect(item['acao'])
+
+
 # ações de botões
 
 
@@ -51,7 +84,7 @@ def botao_pessoa_add():
     nome = gui.uiPessoasAdd.inputNome.text()
     combo_id = ComboPessoaAdd.getId()
     if combo_id == -1:
-        ordem=len(Pessoa.id)
+        ordem = len(Pessoa.id)
     else:
         ordem = Pessoa.id[combo_id]['ordem']
     Pessoa.reordena(ordem)
@@ -71,7 +104,7 @@ def botao_categorias_add():
     nome = gui.uiCategoriasAdd.inputNome.text()
     combo_id = ComboCategoriaAdd.getId()
     if combo_id == -1:
-        ordem=len(Categoria.id)
+        ordem = len(Categoria.id)
     else:
         ordem = Categoria.id[combo_id]['ordem']
     Categoria.reordena(ordem)
@@ -87,10 +120,13 @@ def botao_categorias_add():
     gui.uiCategoriasAdd.inputNome.clear()
     print(gui.uiCategoriasAdd.checkBox.isChecked())
 
+
 filaSubCategorias = []
+
 
 def subcategorias_ui(categoria):
     gui.wSubCategoriasAdd.show()
+
 
 def botao_subcategorias_mais():
     if not_valida([gui.uiSubCategoriasAdd.inputNome]):
@@ -101,40 +137,49 @@ def botao_subcategorias_mais():
     gui.uiSubCategoriasAdd.inputNome.clear()
     del nome
 
-def botao_subcategorias_add():
-    print(str(len(filaSubCategorias) > 0))
-    if not_valida([gui.uiSubCategoriasAdd.inputNome]) and (len(filaSubCategorias) == 0):
-        return 0
-    filaSubCategorias.append(gui.uiCategoriasAdd.inputNome.text())
-    for nome in filaSubCategorias:
-        print(nome)
-    gui.subcategorias_reseta()
 
-    # nome = gui.uiCategoriasAdd.inputNome.text()
-    # combo_id = ComboCategoriaAdd.getId()
-    # if combo_id == -1:
-    #     ordem=len(Categoria.id)
-    # else:
-    #     ordem = Categoria.id[combo_id]['ordem']
-    # Categoria.reordena(ordem)
-    # Categoria.adiciona({
-    #     'nome': nome,
-    #     'ordem': ordem,
-    #     'sub_status': 0,
-    #     'sub_lista': ''
-    # })
-    # Categoria.salva()
-    # ComboCategoriaAdd.atualiza()
-    # gui.wCategoriasAdd.hide()
-    # gui.uiCategoriasAdd.inputNome.clear()
-    # print(gui.uiCategoriasAdd.checkBox.isChecked())
+def botao_subcategorias_add():
+    cat = ComboSubAddCat.getId()
+    combo_id = ComboSubAdd.getId()
+
+    if combo_id == -1:
+        ordem = len(Categoria.id[cat]['sub_lista'])
+    else:
+        ordem = Categoria.id[cat]['sub_lista'][combo_id]['ordem']
+
+    if not_valida([gui.uiSubCategoriasAdd.inputNome]):
+        if len(filaSubCategorias) == 0:
+            return 0
+    else:
+        filaSubCategorias.append(gui.uiSubCategoriasAdd.inputNome.text())
+    for nome in filaSubCategorias[::-1]:
+        Categoria.reordenaSubcategoria(cat, ordem)
+        Categoria.adicionaSubcategoria(cat, {
+            'nome': nome,
+            'ordem': ordem
+        })
+    filaSubCategorias.clear()
+    gui.uiSubCategoriasAdd.inputNome.clear()
+    gui.subcategorias_reseta()
+    gui.wSubCategoriasAdd.hide()
+    Categoria.salva()
+    combos_categoria_atualiza()
+
+
+def botao_subcategoria_cancela():
+    filaSubCategorias.clear()
+    gui.uiSubCategoriasAdd.inputNome.clear()
+    gui.subcategorias_reseta()
+    gui.wSubCategoriasAdd.hide()
+
 
 # ações dos eventos de mudança
 
 
-def troca_subcategoria ():
+def troca_subcategoria():
     cat_id = ComboSubAddCat.getId()
     ComboSubAdd.troca(cat_id)
+
 
 # configuração
 
@@ -156,14 +201,14 @@ else:
     config.write(open('config.ini', 'w'))
 print(config['LAYOUT']['Interface'])
 
-#inicia a interface gráfica
+# inicia a interface gráfica
 gui = gui()
 
-#objetos de listas
+# objetos de listas
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
 
-#objetos de link de combos
+# objetos de link de combos
 Combo = Link(gui.ui.comboBox, Pessoa)
 # links de pessoa
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
@@ -172,8 +217,9 @@ ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
 ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
 ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
 
+# ações
 
-#conecta as ações dos botões
+# conecta as ações dos botões
 gui.ui.pushButton.clicked.connect(acao)
 
 gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
@@ -184,19 +230,33 @@ gui.uiCategoriasAdd.botaoCancela.clicked.connect(gui.wCategoriasAdd.hide)
 
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
-gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(troca_subcategoria)
+gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
 
-#testes
 
+# conecta as ações dos clicks em lista
+gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
+
+
+combos_dinamicos = [
+    {
+        'link': gui.uiSubCategoriasAdd.comboCat,
+        'acao': troca_subcategoria
+    }
+]
+for item in combos_dinamicos:
+    item['link'].currentIndexChanged.connect(item['acao'])
+# gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(troca_subcategoria)
+
+# testes
 
 
 # configura o fim do programa
 sys.exit(gui.app.exec_())
 
-
 # A fazer:
 # Limpar o combo e o checkbox escolhidos ao dar Ok
-# Adicionar subcategoria
+# Organizar as adições das listas
+# Atualizar todos os combos relevantes quando houver atualização
 
 """
 árvore:
@@ -215,6 +275,3 @@ for j in range(2):
 ui.treeWidget.addTopLevelItem(l1)
 ui.treeWidget.addTopLevelItem(l2)
 """
-
-
-

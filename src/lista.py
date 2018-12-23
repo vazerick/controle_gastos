@@ -25,7 +25,7 @@ class Lista:
                 item['ordem'] += 1
 
 
-class ListaPessoa (Lista):
+class ListaPessoa(Lista):
 
     def __init__(self, nome):
         super().__init__(nome)
@@ -84,7 +84,7 @@ class ListaPessoa (Lista):
         arquivo.write(doc.toprettyxml(indent='   '))
 
 
-class ListaCategoria (Lista):
+class ListaCategoria(Lista):
 
     def __init__(self, nome):
         super().__init__(nome)
@@ -98,9 +98,9 @@ class ListaCategoria (Lista):
             sub_lista = item.getElementsByTagName("sub_lista")[0]
             sub_cats = sub_lista.getElementsByTagName("sub")
 
-            sub = [] # cria a lista para abrigar as subcategorias
+            sub = []  # cria a lista para abrigar as subcategorias
 
-            for sub_cat in sub_cats: # para cada sub_categorias da lsta, cria um dicionário com os atributos
+            for sub_cat in sub_cats:  # para cada sub_categorias da lsta, cria um dicionário com os atributos
                 snome = sub_cat.getElementsByTagName("nome")[0]
                 sstatus = sub_cat.getElementsByTagName("status")[0]
                 sordem = sub_cat.getElementsByTagName("ordem")[0]
@@ -171,7 +171,6 @@ class ListaCategoria (Lista):
 
             if indice['sub_status']:
                 for sub_cat in indice['sub_lista']:
-                   
                     sitem = doc.createElement('sub')
                     sitem.setAttribute('id', str(sub_cat['id']))
                     sub_lista.appendChild(sitem)
@@ -186,7 +185,7 @@ class ListaCategoria (Lista):
 
                     ordem = doc.createElement('ordem')
                     sitem.appendChild(ordem)
-                    ordem.appendChild(doc.createTextNode(str(sub_cat['ordem'])))                    
+                    ordem.appendChild(doc.createTextNode(str(sub_cat['ordem'])))
 
         doc.appendChild(lista)
 
@@ -196,9 +195,13 @@ class ListaCategoria (Lista):
     def adicionaSubcategoria(self, categoria_id, add):
         add['id'] = len(self.id[categoria_id]['sub_lista'])
         add['status'] = 1
-        add['ordem'] = 50
-        self.id[categoria_id]['sub_status']=1
+        self.id[categoria_id]['sub_status'] = 1
         self.id[categoria_id]['sub_lista'].append(add)
+
+    def reordenaSubcategoria(self, categoria_id, posicao):
+        for item in self.id[categoria_id]['sub_lista']:
+            if item['ordem'] >= posicao:
+                item['ordem'] += 1
 
     def subGetAtivos(self, cat):
         ativos = []
@@ -214,8 +217,6 @@ class ListaCategoria (Lista):
         return ativos
 
     # def subCategoriasFila(self, nome):
-
-
 
 # criar:
 #    metodos:

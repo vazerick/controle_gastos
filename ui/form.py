@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -12,6 +12,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(622, 379)
+        Form.setStyleSheet("")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(280, 20, 31, 17))
         self.label.setObjectName("label")
@@ -22,10 +23,18 @@ class Ui_Form(object):
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setGeometry(QtCore.QRect(170, 90, 241, 25))
         self.comboBox.setObjectName("comboBox")
+        self.listWidget = QtWidgets.QListWidget(Form)
+        self.listWidget.setGeometry(QtCore.QRect(20, 190, 161, 171))
+        self.listWidget.setObjectName("listWidget")
         self.treeWidget = QtWidgets.QTreeWidget(Form)
-        self.treeWidget.setGeometry(QtCore.QRect(140, 210, 256, 141))
+        self.treeWidget.setGeometry(QtCore.QRect(190, 190, 131, 151))
         self.treeWidget.setObjectName("treeWidget")
-        self.treeWidget.headerItem().setText(0, "Titulo")
+        self.treeWidget.headerItem().setText(0, "1")
+        self.tableWidget = QtWidgets.QTableWidget(Form)
+        self.tableWidget.setGeometry(QtCore.QRect(340, 180, 256, 192))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
