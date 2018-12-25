@@ -21,8 +21,35 @@ class Ui_Form(object):
         self.Hoje = QtWidgets.QWidget()
         self.Hoje.setObjectName("Hoje")
         self.textBrowser = QtWidgets.QTextBrowser(self.Hoje)
-        self.textBrowser.setGeometry(QtCore.QRect(10, 10, 321, 141))
+        self.textBrowser.setGeometry(QtCore.QRect(430, 150, 161, 141))
         self.textBrowser.setObjectName("textBrowser")
+        self.boxStatus = QtWidgets.QGroupBox(self.Hoje)
+        self.boxStatus.setGeometry(QtCore.QRect(570, 10, 351, 241))
+        self.boxStatus.setObjectName("boxStatus")
+        self.textBrowser_4 = QtWidgets.QTextBrowser(self.boxStatus)
+        self.textBrowser_4.setGeometry(QtCore.QRect(10, 30, 331, 201))
+        self.textBrowser_4.setObjectName("textBrowser_4")
+        self.boxEntrada = QtWidgets.QGroupBox(self.Hoje)
+        self.boxEntrada.setGeometry(QtCore.QRect(10, 30, 211, 211))
+        self.boxEntrada.setObjectName("boxEntrada")
+        self.boxSaidas = QtWidgets.QGroupBox(self.Hoje)
+        self.boxSaidas.setGeometry(QtCore.QRect(240, 30, 271, 111))
+        self.boxSaidas.setObjectName("boxSaidas")
+        self.boxGastos = QtWidgets.QGroupBox(self.Hoje)
+        self.boxGastos.setGeometry(QtCore.QRect(10, 270, 571, 271))
+        self.boxGastos.setObjectName("boxGastos")
+        self.boxGrafico = QtWidgets.QGroupBox(self.Hoje)
+        self.boxGrafico.setGeometry(QtCore.QRect(600, 270, 361, 271))
+        self.boxGrafico.setObjectName("boxGrafico")
+        self.boxSaidas_2 = QtWidgets.QGroupBox(self.Hoje)
+        self.boxSaidas_2.setGeometry(QtCore.QRect(250, 140, 211, 91))
+        self.boxSaidas_2.setObjectName("boxSaidas_2")
+        self.pushButton = QtWidgets.QPushButton(self.Hoje)
+        self.pushButton.setGeometry(QtCore.QRect(430, 0, 111, 41))
+        self.pushButton.setObjectName("pushButton")
+        self.botaoGasto = QtWidgets.QPushButton(self.Hoje)
+        self.botaoGasto.setGeometry(QtCore.QRect(150, 260, 80, 25))
+        self.botaoGasto.setObjectName("botaoGasto")
         self.tabWidget.addTab(self.Hoje, "")
         self.Geral = QtWidgets.QWidget()
         self.Geral.setObjectName("Geral")
@@ -87,13 +114,26 @@ class Ui_Form(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Gasto no dia, valor disponível no dia</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">gasto no mês</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    Padrão de gastos (percentuais)</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de novos gastos</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista dos últimos gastos</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">informações mais essenciais</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Ver os gastos do mês</p></body></html>"))
+        self.boxStatus.setTitle(_translate("Form", "Status"))
+        self.textBrowser_4.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Gasto no dia, valor disponível no dia</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">gasto no mês</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    Padrão de gastos (percentuais)</p></body></html>"))
+        self.boxEntrada.setTitle(_translate("Form", "Entrada"))
+        self.boxSaidas.setTitle(_translate("Form", "Saídas do Mês"))
+        self.boxGastos.setTitle(_translate("Form", "Gastos"))
+        self.boxGrafico.setTitle(_translate("Form", "Gráfico"))
+        self.boxSaidas_2.setTitle(_translate("Form", "Reserva"))
+        self.pushButton.setText(_translate("Form", "PushButton"))
+        self.botaoGasto.setText(_translate("Form", "Novo Gasto"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Hoje), _translate("Form", "Hoje"))
         self.textBrowser_2.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

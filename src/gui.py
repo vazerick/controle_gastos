@@ -14,6 +14,7 @@ from ui.categorias_add import Ui_Form as CategoriasAdd
 from ui.categorias_edit import Ui_Form as CategoriasEdit
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
 from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
+from ui.gastos_add import Ui_Form as GastosAdd
 from ui.janela import Ui_Form as Main
 
 
@@ -32,6 +33,11 @@ class gui:
 
         self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
+
+# janela para adicionar novos gastos
+        self.wGastosAdd = QDialog()
+        self.uiGastosAdd = GastosAdd()
+        self.uiGastosAdd.setupUi(self.wGastosAdd)
 
 # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
@@ -80,7 +86,8 @@ class gui:
             self.wCategoriasAdd,
             self.wCategoriasEdit,
             self.wSubCategoriasAdd,
-            self.wSubCategoriasEdit
+            self.wSubCategoriasEdit,
+            self.wGastosAdd
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

@@ -2,36 +2,38 @@ import sys
 import os
 import configparser
 import pandas
-
+import time
+from PyQt5.QtCore import QDate, QDateTime
 # interface gráfica
 from src.gui import gui
 
 # classes
-from src.lista import ListaPessoa, ListaCategoria
+from src.lista import ListaPessoa, ListaCategoria, Pagamento
 from src.link import Link, EditarLink, SubcategoriaLink
 from src.arvore import Arvore
+from src.mensal import Mensal
 
 # funções de teste
 
 count = 0
 
+tabela = {
+    '201801': Mensal(2018, 1)
+}
+
 
 def panda():
     dt = pandas.read_csv("data/tabela.csv", quotechar="'", index_col='id')
-    dt.to_csv("data/tabela.csv", quotechar="'", index_label='id')
+    # dt.to_csv("data/tabela.csv", quotechar="'", index_label='id')
+    print("Teste Panda:")
     print(dt['valor'])
 
-
-def acao():
     global count
     count += 1
-    gui.ui.label.setText(str(count))
-    print(Combo.getId())
+    print(count)
 
-    # gui.wPessoasAdd.show()
-    # gui.wCategoriasAdd.show()
-    gui.wSubCategoriasAdd.show()
-
+    global tabela
+    print(tabela['201801'].tabela)
 
 # declaração das funções
 
@@ -63,17 +65,18 @@ def combos_categoria_atualiza():
     colecao = [
         ComboSubAdd,
         ComboSubAddCat,
-        ComboCategoriaAdd
+        ComboCategoriaAdd,
+        ComboGastoCat
     ]
 
     for item in combos_dinamicos:
-        item['link'].disconnect()
+        item[0].disconnect()
 
     for item in colecao:
         item.atualiza()
 
     for item in combos_dinamicos:
-        item['link'].currentIndexChanged.connect(item['acao'])
+        item[0].currentIndexChanged.connect(item[1])
 
 
 # ações de botões
@@ -209,10 +212,6 @@ def botao_categorias_add():
 filaSubCategorias = []
 
 
-def subcategorias_ui(categoria):
-    gui.wSubCategoriasAdd.show()
-
-
 def botao_subcategorias_mais():
     if not_valida([gui.uiSubCategoriasAdd.inputNome]):
         return 0
@@ -258,22 +257,59 @@ def botao_subcategoria_cancela():
     gui.wSubCategoriasAdd.hide()
 
 
+def botao_adicionar_gasto():
+    gui.wGastosAdd.show()
+
+
+def botao_gasto_add():
+    nome = gui.uiGastosAdd.inputGasto.text()
+    print("Nome:", nome)
+
+    valor = gui.uiGastosAdd.spinValor.text()
+    print("Valor: R$", valor)
+
+    dividir = int(gui.uiGastosAdd.checkBox.isChecked())
+    print("Dividir: ", dividir)
+
+    pagamento = ComboPagamento.getId()
+    print("Pagamento:", Pagamentos.id[pagamento]['nome'])
+
+    categoria = ComboGastoCat.getId()
+    print("Categoria:", Categoria.id[categoria]['nome'])
+
+    sub = ComboGastoSub.getId()
+    print("Sub-categoria:", Categoria.id[categoria]['sub_lista'][sub]['nome'])
+
+    comentario = gui.uiGastosAdd.textComentario.toPlainText()
+    print("Comentário: ", comentario)
+
+    data = gui.uiGastosAdd.calendarWidget.selectedDate()
+    data = data.toString("dd/MM/yyyy")
+    print("Data: ", data)
+
+    adicao = QDateTime.currentDateTime()
+    adicao = adicao.toString("HH:mm:ss - dd/MM/yyyy")
+    print("Adicionado: ", adicao)
+
+
 # ações dos eventos de mudança
 
 
-def troca_subcategoria():
-    cat_id = ComboSubAddCat.getId()
-    ComboSubAdd.troca(cat_id)
+def troca_subcategoria(comboCat, comboSub):
+    cat_id = comboCat.getId()
+    comboSub.troca(cat_id)
 
 
 # configuração
 
 config = configparser.ConfigParser()
+
 if os.path.exists("config.ini"):
     config.read("config.ini")
 else:
     config['PAGAMENTO'] = {
         'banco': 'sim',
+        'credito': 'sim',
         'vale': 'nao'
     }
     config['LAYOUT'] = {
@@ -284,7 +320,8 @@ else:
         'fim': ''
     }
     config.write(open('config.ini', 'w'))
-print(config['LAYOUT']['Interface'])
+
+Pagamentos = Pagamento(config['PAGAMENTO'])
 
 # inicia a interface gráfica
 gui = gui()
@@ -304,14 +341,26 @@ ArvoreCategorias = Arvore(gui.ui.treeCategorias, Categoria)
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
 ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
+ComboGastoCat = Link(gui.uiGastosAdd.comboCategoria, Categoria)
+ComboGastoSub = SubcategoriaLink(gui.uiGastosAdd.comboSub, Categoria)
 ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
 ComboCategoriaEdit = EditarLink(gui.uiCategoriasEdit.comboBox, Categoria)
 ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
 ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
+# link de pagamento
+ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 
 # ações
 
 # conecta as ações dos botões
+
+gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
+
+gui.uiGastosAdd.botaoHoje.clicked.connect(
+    lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
+)
+gui.uiGastosAdd.botaoOk.clicked.connect(botao_gasto_add)
+
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(botao_adicionar_categoria)
 gui.ui.botaoPessoaAdicionar.clicked.connect(botao_adicionar_pessoa)
@@ -332,21 +381,31 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
 gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
 
+#teste panda
+gui.ui.pushButton.clicked.connect(panda)
+
 
 # conecta as ações dos clicks em lista
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
 
 
-combos_dinamicos = [
-    {
-        'link': gui.uiSubCategoriasAdd.comboCat,
-        'acao': troca_subcategoria
-    }
+combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categorias
+    [
+        gui.uiSubCategoriasAdd.comboCat,
+        lambda: troca_subcategoria(ComboSubAddCat, ComboSubAdd)
+    ],
+    [
+        gui.uiGastosAdd.comboCategoria,
+        lambda: troca_subcategoria(ComboGastoCat, ComboGastoSub)
+    ]
 ]
 for item in combos_dinamicos:
-    item['link'].currentIndexChanged.connect(item['acao'])
+    item[0].currentIndexChanged.connect(item[1])
 # gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(troca_subcategoria)
 
+
+# gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(lambda: troca_subcategoria(ComboSubAddCat, ComboSubAdd))
+# gui.uiGastosAdd.comboCategoria.currentIndexChanged.connect(lambda: troca_subcategoria(ComboGastoCat, ComboGastoSub))
 # testes
 
 

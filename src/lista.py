@@ -229,12 +229,56 @@ class ListaCategoria(Lista):
             )
         return ativos
 
-    # def subCategoriasFila(self, nome):
 
-# criar:
-#    metodos:
-#        retornar uma lista em ordem das pessoas, para gerar os combos
-#        adicionar pessoas
-#        deletar pessoas (desligar o status)
-#        ligar pessoas (ligar o status)
-#
+class Pagamento:
+
+    def __init__(self, config):
+        self.id = [
+            {
+                'id': 0,
+                'nome': 'Dinheiro',
+                'status': 1,
+                'ordem': 0
+            },
+            {
+                'id': 1,
+                'nome': 'Débito',
+                'status': 0,
+                'ordem': 1
+            },
+            {
+                'id': 2,
+                'nome': 'Crédito',
+                'status': 0,
+                'ordem': 2
+            },
+            {
+                'id': 3,
+                'nome': 'Vale',
+                'status': 0,
+                'ordem': 3
+            }
+        ]
+
+        if config['banco'] == 'sim':
+            self.id[1]['status'] = 1
+
+        if config['credito'] == 'sim':
+            self.id[2]['status'] = 1
+
+        if config['vale'] == 'sim':
+            self.id[3]['status'] = 1
+
+
+    def getAtivos(self):
+        ativos = []  # lista vazia para abrigar os itens ativos
+        for item in range(len(self.id)):
+            if self.id[item]["status"]:
+                ativos.append(
+                    {
+                        'id': self.id[item]["id"],
+                        'nome': self.id[item]["nome"],
+                        'ordem': self.id[item]["ordem"]
+                    }
+                )
+        return ativos
