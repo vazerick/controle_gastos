@@ -22,6 +22,18 @@
      <height>181</height>
     </rect>
    </property>
+   <property name="gridVisible">
+    <bool>false</bool>
+   </property>
+   <property name="horizontalHeaderFormat">
+    <enum>QCalendarWidget::ShortDayNames</enum>
+   </property>
+   <property name="navigationBarVisible">
+    <bool>true</bool>
+   </property>
+   <property name="dateEditEnabled">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="labelGasto">
    <property name="geometry">
@@ -164,11 +176,11 @@
     <string>Data</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="checkDividir">
    <property name="geometry">
     <rect>
      <x>490</x>
-     <y>30</y>
+     <y>40</y>
      <width>82</width>
      <height>23</height>
     </rect>
@@ -248,11 +260,24 @@
     <string>R$</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="checkDivida">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>20</y>
+     <width>82</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Dívida</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>inputGasto</tabstop>
   <tabstop>spinValor</tabstop>
-  <tabstop>checkBox</tabstop>
+  <tabstop>checkDividir</tabstop>
   <tabstop>comboPagamento</tabstop>
   <tabstop>comboCategoria</tabstop>
   <tabstop>comboSub</tabstop>

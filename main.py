@@ -11,15 +11,9 @@ from src.gui import gui
 from src.lista import ListaPessoa, ListaCategoria, Pagamento
 from src.link import Link, EditarLink, SubcategoriaLink
 from src.arvore import Arvore
-from src.mensal import Mensal
+from src.tabela import Mensal
 
 # funções de teste
-
-count = 0
-
-tabela = {
-    '201801': Mensal(2018, 1)
-}
 
 
 def panda():
@@ -47,6 +41,19 @@ def not_valida(input):
         if vazia(item.text()):
             return 1
 
+
+def tabela_existe(ano, mes):
+    endereco = 'data/' + ano + '/' + mes + '.csv'
+    if os.path.exists(endereco):
+        return True
+    else:
+        return False
+
+def str_mes(mes):
+    if mes < 10:
+        return '0' + str(mes)
+    else:
+        return str(mes)
 
 # editar uma subcategoia na edição
 
@@ -261,14 +268,17 @@ def botao_adicionar_gasto():
     gui.wGastosAdd.show()
 
 
-def botao_gasto_add():
+def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em branco, datas do futuro e letras no valor
     nome = gui.uiGastosAdd.inputGasto.text()
     print("Nome:", nome)
 
     valor = gui.uiGastosAdd.spinValor.text()
     print("Valor: R$", valor)
 
-    dividir = int(gui.uiGastosAdd.checkBox.isChecked())
+    divida = int(gui.uiGastosAdd.checkDivida.isChecked())
+    print("Dividir: ", divida)
+
+    dividir = int(gui.uiGastosAdd.checkDividir.isChecked())
     print("Dividir: ", dividir)
 
     pagamento = ComboPagamento.getId()
@@ -287,9 +297,19 @@ def botao_gasto_add():
     data = data.toString("dd/MM/yyyy")
     print("Data: ", data)
 
-    adicao = QDateTime.currentDateTime()
-    adicao = adicao.toString("HH:mm:ss - dd/MM/yyyy")
-    print("Adicionado: ", adicao)
+    tabela[0].adicionar(
+        nome=gui.uiGastosAdd.inputGasto.text(),
+        valor=gui.uiGastosAdd.spinValor.text(),
+        dividir=None, #todo o None é a melhor opção?,
+        divida=None,
+        pagamento=ComboPagamento.getId(),
+        categoria=ComboGastoCat.getId(),
+        sub=ComboGastoSub.getId(),
+        comentario=gui.uiGastosAdd.textComentario.toPlainText(),
+        data=gui.uiGastosAdd.calendarWidget.selectedDate().toString("dd/MM/yyyy")
+    )
+
+
 
 
 # ações dos eventos de mudança
@@ -299,8 +319,10 @@ def troca_subcategoria(comboCat, comboSub):
     cat_id = comboCat.getId()
     comboSub.troca(cat_id)
 
+#MAIN
 
 # configuração
+
 
 config = configparser.ConfigParser()
 
@@ -314,10 +336,6 @@ else:
     }
     config['LAYOUT'] = {
         'interface': 'escura'
-    }
-    config['DADOS'] = {
-        'inicio': '',
-        'fim': ''
     }
     config.write(open('config.ini', 'w'))
 
@@ -381,13 +399,14 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
 gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
 
-#teste panda
+# teste panda
 gui.ui.pushButton.clicked.connect(panda)
 
 
 # conecta as ações dos clicks em lista
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
 
+# combos que mudam de valores conforme a seleção em combo pai
 
 combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categorias
     [
@@ -401,13 +420,52 @@ combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categ
 ]
 for item in combos_dinamicos:
     item[0].currentIndexChanged.connect(item[1])
-# gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(troca_subcategoria)
 
+# inicia as tabelas
 
-# gui.uiSubCategoriasAdd.comboCat.currentIndexChanged.connect(lambda: troca_subcategoria(ComboSubAddCat, ComboSubAdd))
-# gui.uiGastosAdd.comboCategoria.currentIndexChanged.connect(lambda: troca_subcategoria(ComboGastoCat, ComboGastoSub))
-# testes
+tabela = []
 
+localtime = time.localtime(time.time())
 
-# configura o fim do programa
+# strings da data de hoje
+hoje = {
+    'ano': QDateTime.currentDateTime().toString("yyyy"),
+    'mes': QDateTime.currentDateTime().toString("MM"),
+    'dia': QDateTime.currentDateTime().toString("dd")
+}
+
+# cria uma pasta para o ano caso não exista
+if not os.path.exists('data/'+hoje['ano']):
+    os.makedirs('data/'+hoje['ano'])
+
+# confere se já tem a tabela do mês atual
+if tabela_existe(hoje['ano'], hoje['mes']):
+    tabela.append(Mensal(hoje['ano'], hoje['mes']))
+else:
+    print("Tabelas desatualizadas")
+#todo opção de iniciar o novo mês, ou de continuar no antigo
+
+# gera as tabelas anteriores
+
+print(localtime.tm_mon)
+
+if localtime.tm_mon > 1:
+    ano = localtime.tm_year
+    mes = localtime.tm_mon-1
+else:
+    ano = localtime.tm_year-1
+    mes = 12
+while tabela_existe(str(ano), str_mes(mes)):
+    tabela.append(Mensal(ano, mes))
+    if mes == 1:
+        ano -= 1
+        mes = 12
+    else:
+        mes -= 1
+
+for i in tabela:
+    print(i.endereco)
+    print(i.ano)
+    print(i.mes)
+
 sys.exit(gui.app.exec_())
