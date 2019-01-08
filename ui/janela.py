@@ -38,6 +38,18 @@ class Ui_Form(object):
         self.boxGastos = QtWidgets.QGroupBox(self.Hoje)
         self.boxGastos.setGeometry(QtCore.QRect(10, 270, 571, 271))
         self.boxGastos.setObjectName("boxGastos")
+        self.treeSaida = QtWidgets.QTreeWidget(self.boxGastos)
+        self.treeSaida.setGeometry(QtCore.QRect(0, 20, 571, 251))
+        self.treeSaida.setAlternatingRowColors(True)
+        self.treeSaida.setRootIsDecorated(True)
+        self.treeSaida.setUniformRowHeights(False)
+        self.treeSaida.setItemsExpandable(False)
+        self.treeSaida.setWordWrap(True)
+        self.treeSaida.setHeaderHidden(False)
+        self.treeSaida.setObjectName("treeSaida")
+        self.treeSaida.header().setVisible(True)
+        self.treeSaida.header().setCascadingSectionResizes(False)
+        self.treeSaida.header().setHighlightSections(False)
         self.boxGrafico = QtWidgets.QGroupBox(self.Hoje)
         self.boxGrafico.setGeometry(QtCore.QRect(600, 270, 361, 271))
         self.boxGrafico.setObjectName("boxGrafico")
@@ -116,6 +128,8 @@ class Ui_Form(object):
 "</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de novos gastos</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de gastos em lista</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de gastos em limbo</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista dos últimos gastos</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">informações mais essenciais</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Ver os gastos do mês</p></body></html>"))
@@ -130,6 +144,12 @@ class Ui_Form(object):
         self.boxEntrada.setTitle(_translate("Form", "Entrada"))
         self.boxSaidas.setTitle(_translate("Form", "Saídas do Mês"))
         self.boxGastos.setTitle(_translate("Form", "Gastos"))
+        self.treeSaida.setSortingEnabled(True)
+        self.treeSaida.headerItem().setText(0, _translate("Form", "Data"))
+        self.treeSaida.headerItem().setText(1, _translate("Form", "Item"))
+        self.treeSaida.headerItem().setText(2, _translate("Form", "Categoria"))
+        self.treeSaida.headerItem().setText(3, _translate("Form", "Sub-categoria"))
+        self.treeSaida.headerItem().setText(4, _translate("Form", "Valor"))
         self.boxGrafico.setTitle(_translate("Form", "Gráfico"))
         self.boxSaidas_2.setTitle(_translate("Form", "Reserva"))
         self.pushButton.setText(_translate("Form", "PushButton"))

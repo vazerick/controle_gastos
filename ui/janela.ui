@@ -128,6 +128,71 @@ p, li { white-space: pre-wrap; }
        <property name="title">
         <string>Gastos</string>
        </property>
+       <widget class="QTreeWidget" name="treeSaida">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>571</width>
+          <height>251</height>
+         </rect>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>true</bool>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>false</bool>
+        </property>
+        <property name="itemsExpandable">
+         <bool>false</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>false</bool>
+        </property>
+        <attribute name="headerVisible">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="headerCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerHighlightSections">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Data</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Item</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Categoria</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Sub-categoria</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Valor</string>
+         </property>
+        </column>
+       </widget>
       </widget>
       <widget class="QGroupBox" name="boxGrafico">
        <property name="geometry">

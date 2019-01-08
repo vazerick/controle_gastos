@@ -10,8 +10,9 @@ from src.gui import gui
 # classes
 from src.lista import ListaPessoa, ListaCategoria, Pagamento
 from src.link import Link, EditarLink, SubcategoriaLink
-from src.arvore import Arvore
-from src.tabela import Mensal
+from src.arvore import Arvore, ArvoreTabela, ArvoreTabelaSaida
+from src.mensal import Mensal
+from src.info import Info
 
 # funções de teste
 
@@ -26,8 +27,8 @@ def panda():
     count += 1
     print(count)
 
-    global tabela
-    print(tabela['201801'].tabela)
+    global Tabela
+    print(Tabela['201801'].tabela)
 
 # declaração das funções
 
@@ -43,7 +44,7 @@ def not_valida(input):
 
 
 def tabela_existe(ano, mes):
-    endereco = 'data/' + ano + '/' + mes + '.csv'
+    endereco = 'data/' + ano + '/' + mes
     if os.path.exists(endereco):
         return True
     else:
@@ -269,45 +270,35 @@ def botao_adicionar_gasto():
 
 
 def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em branco, datas do futuro e letras no valor
-    nome = gui.uiGastosAdd.inputGasto.text()
-    print("Nome:", nome)
-
-    valor = gui.uiGastosAdd.spinValor.text()
-    print("Valor: R$", valor)
-
-    divida = int(gui.uiGastosAdd.checkDivida.isChecked())
-    print("Dividir: ", divida)
-
-    dividir = int(gui.uiGastosAdd.checkDividir.isChecked())
-    print("Dividir: ", dividir)
-
-    pagamento = ComboPagamento.getId()
-    print("Pagamento:", Pagamentos.id[pagamento]['nome'])
-
-    categoria = ComboGastoCat.getId()
-    print("Categoria:", Categoria.id[categoria]['nome'])
-
-    sub = ComboGastoSub.getId()
-    print("Sub-categoria:", Categoria.id[categoria]['sub_lista'][sub]['nome'])
-
-    comentario = gui.uiGastosAdd.textComentario.toPlainText()
-    print("Comentário: ", comentario)
 
     data = gui.uiGastosAdd.calendarWidget.selectedDate()
     data = data.toString("dd/MM/yyyy")
-    print("Data: ", data)
+    adicao = Info.data_hora()
+    nome = gui.uiGastosAdd.inputGasto.text()
+    comentario = gui.uiGastosAdd.textComentario.toPlainText()
+    valor = gui.uiGastosAdd.spinValor.text()
+    pagamento = ComboPagamento.getId()
+    categoria = ComboGastoCat.getId()
+    sub = ComboGastoSub.getId()
+    divida = int(gui.uiGastosAdd.checkDivida.isChecked())
+    dividir = int(gui.uiGastosAdd.checkDividir.isChecked())
 
-    tabela[0].adicionar(
-        nome=gui.uiGastosAdd.inputGasto.text(),
-        valor=gui.uiGastosAdd.spinValor.text(),
-        dividir=None, #todo o None é a melhor opção?,
-        divida=None,
-        pagamento=ComboPagamento.getId(),
-        categoria=ComboGastoCat.getId(),
-        sub=ComboGastoSub.getId(),
-        comentario=gui.uiGastosAdd.textComentario.toPlainText(),
-        data=gui.uiGastosAdd.calendarWidget.selectedDate().toString("dd/MM/yyyy")
+    Tabela[0].Saida.adicionar(
+        [
+            data,
+            adicao,
+            nome,
+            comentario,
+            valor,
+            pagamento,
+            categoria,
+            sub,
+            None, #divida
+            None, #divisao
+        ]
     )
+
+    ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
 
 
@@ -339,6 +330,8 @@ else:
     }
     config.write(open('config.ini', 'w'))
 
+Info = Info(config)
+
 Pagamentos = Pagamento(config['PAGAMENTO'])
 
 # inicia a interface gráfica
@@ -347,6 +340,7 @@ gui = gui()
 # objetos de listas
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
+
 
 # objetos de árvores
 
@@ -423,49 +417,46 @@ for item in combos_dinamicos:
 
 # inicia as tabelas
 
-tabela = []
+Tabela = []
 
-localtime = time.localtime(time.time())
-
-# strings da data de hoje
-hoje = {
-    'ano': QDateTime.currentDateTime().toString("yyyy"),
-    'mes': QDateTime.currentDateTime().toString("MM"),
-    'dia': QDateTime.currentDateTime().toString("dd")
-}
 
 # cria uma pasta para o ano caso não exista
-if not os.path.exists('data/'+hoje['ano']):
-    os.makedirs('data/'+hoje['ano'])
+if not os.path.exists('data/'+Info.ano_str):
+    os.makedirs('data/'+Info.ano_str)
 
 # confere se já tem a tabela do mês atual
-if tabela_existe(hoje['ano'], hoje['mes']):
-    tabela.append(Mensal(hoje['ano'], hoje['mes']))
+if tabela_existe(Info.ano_str, Info.mes_str):
+    Tabela.append(Mensal(Info.ano_int, Info.mes_int))
 else:
     print("Tabelas desatualizadas")
 #todo opção de iniciar o novo mês, ou de continuar no antigo
 
 # gera as tabelas anteriores
 
-print(localtime.tm_mon)
-
-if localtime.tm_mon > 1:
-    ano = localtime.tm_year
-    mes = localtime.tm_mon-1
+if Info.mes_int > 1:
+    ano = Info.ano_int
+    mes = Info.mes_int-1
 else:
-    ano = localtime.tm_year-1
+    ano = Info.ano_int-1
     mes = 12
 while tabela_existe(str(ano), str_mes(mes)):
-    tabela.append(Mensal(ano, mes))
+    Tabela.append(Mensal(ano, mes))
     if mes == 1:
         ano -= 1
         mes = 12
     else:
         mes -= 1
 
-for i in tabela:
-    print(i.endereco)
+for i in Tabela:
     print(i.ano)
     print(i.mes)
+    print(i.Saida.endereco)
+    print(i.Recorrente.endereco)
+
+
+# WidgetSaida = TabelaLink(gui.ui.tableSaida)
+ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela[0].Saida.tabela, Categoria)
+
+
 
 sys.exit(gui.app.exec_())

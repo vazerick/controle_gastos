@@ -4,64 +4,36 @@ import time
 from PyQt5.QtCore import QDate, QDateTime
 
 
-
-# classe das tabelas mensais
-
 class Tabela:
 
     colunas = []
 
-    # def __init__(self):
-    #
+    def __init__(self, colunas, ano, mes, nome):
 
-    def adicionar( #todo repensar o adicionar, agora que Mensal é uma classe filha
-            self,
-            nome,
-            valor,
-            divida,
-            dividir,
-            pagamento,
-            categoria,
-            sub,
-            comentario,
-            data
-    ):
-        adicao = QDateTime.currentDateTime().toString("yyyy.MM.dd-HH:mm:ss")
-        add = pd.DataFrame(
-            [[
-            data,
-            adicao,
-            nome,
-            comentario,
-            valor,
-            pagamento,
-            categoria,
-            sub,
-            dividir,
-            divida,
-        ]],
-            columns=self.colunas
-        )
-        self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        print(self.tabela)
-        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+        self.colunas = colunas
+        self.nome = nome
 
-
-class Mensal(Tabela):
-
-    def __init__(self, ano, mes):
-        super().__init__()
-        self.colunas = [
-            'data', 'adicao', 'nome', 'comentario', 'valor', 'pagamento', 'categoria', 'subcategoria', 'divida', 'divisao'
-        ]
-        self.ano = str(ano)
         self.endereco = 'data/' + str(ano)
+
+        # cria uma pasta para o ano caso não exista
+        if not os.path.exists(self.endereco):
+            os.makedirs(self.endereco)
         # muda o mês de int M para str MM
-        if mes < 10:
-            self.mes = '0' + str(mes)
-        else:
-            self.mes = str(mes)
-        self.endereco += '/' + self.mes + '.csv'
+
+        if type(mes) is int:
+            if mes < 10:
+                self.mes = '0' + str(mes)
+            else:
+                self.mes = str(mes)
+
+        self.endereco += '/' + self.mes
+
+        # cria uma pasta para o mes caso não exista
+        if not os.path.exists(self.endereco):
+            os.makedirs(self.endereco)
+
+        self.endereco += '/' + self.nome + '.csv'
+
         # abre a tabela, ou cria caso não exista
         try:
             self.tabela = pd.read_csv(self.endereco, quotechar="'", index_col='id')
@@ -69,3 +41,12 @@ class Mensal(Tabela):
             self.tabela = pd.DataFrame(columns=self.colunas)
             self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
         print(self.tabela)
+
+    def adicionar(self, linha):
+        add = pd.DataFrame(
+            [linha],
+            columns=self.colunas
+        )
+        self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        print(self.tabela)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
