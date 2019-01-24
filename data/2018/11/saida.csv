@@ -1,0 +1,4 @@
+id,data,adicao,nome,comentario,valor,pagamento,categoria,subcategoria,divisao,divida
+0,01/01/2018,0,Nome1,'Teste, item 1',12.5,1,1,0,0,0
+1,01/01/2018,0,Nome2,'Teste, item 2',17.5,1,1,0,0,0
+2,05/01/2018,0,Nome3,'Teste, item 3',10.5,1,1,0,0,0

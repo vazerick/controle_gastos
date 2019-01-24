@@ -66,3 +66,23 @@ class ArvoreTabelaSaida(ArvoreTabela):
             self.Widget.addTopLevelItem(WidgetItem)
         print("ADD:")
         print(Tabela)
+
+
+class ArvoreTabelaEntrada(ArvoreTabela):
+
+    def __init__(self, Widget, Tabela):
+        super().__init__(Widget, Tabela)
+
+    def atualiza(self, Tabela):
+        self.Widget.clear()
+        for x in range(0, len(Tabela)):
+            linha = []
+            linha.append(str(Tabela.iloc[x]['data']))
+            linha.append(str(Tabela.iloc[x]['nome']))
+            linha.append('R$'+str(Tabela.iloc[x]['valor']))
+            WidgetItem = QTreeWidgetItem(linha)
+            self.Widget.addTopLevelItem(WidgetItem)
+        print("ADD:")
+        print(Tabela)
+
+

@@ -38,8 +38,8 @@
       <widget class="QTextBrowser" name="textBrowser">
        <property name="geometry">
         <rect>
-         <x>430</x>
-         <y>150</y>
+         <x>350</x>
+         <y>80</y>
          <width>161</width>
          <height>141</height>
         </rect>
@@ -90,136 +90,6 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </widget>
-      <widget class="QGroupBox" name="boxEntrada">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>211</width>
-         <height>211</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Entrada</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="boxSaidas">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>30</y>
-         <width>271</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Saídas do Mês</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="boxGastos">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>270</y>
-         <width>571</width>
-         <height>271</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Gastos</string>
-       </property>
-       <widget class="QTreeWidget" name="treeSaida">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>571</width>
-          <height>251</height>
-         </rect>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>true</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>false</bool>
-        </property>
-        <attribute name="headerVisible">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="headerCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Data</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Item</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Categoria</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Sub-categoria</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
-         </property>
-        </column>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="boxGrafico">
-       <property name="geometry">
-        <rect>
-         <x>600</x>
-         <y>270</y>
-         <width>361</width>
-         <height>271</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Gráfico</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="boxSaidas_2">
-       <property name="geometry">
-        <rect>
-         <x>250</x>
-         <y>140</y>
-         <width>211</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Reserva</string>
-       </property>
-      </widget>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
         <rect>
@@ -236,14 +106,324 @@ p, li { white-space: pre-wrap; }
       <widget class="QPushButton" name="botaoGasto">
        <property name="geometry">
         <rect>
-         <x>150</x>
-         <y>260</y>
+         <x>30</x>
+         <y>20</y>
          <width>80</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
         <string>Novo Gasto</string>
+       </property>
+      </widget>
+      <widget class="QStackedWidget" name="stackedWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>250</y>
+         <width>931</width>
+         <height>291</height>
+        </rect>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page">
+        <widget class="QGroupBox" name="boxGastos">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>631</width>
+           <height>291</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>Gastos</string>
+         </property>
+         <widget class="QTreeWidget" name="treeSaida">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>631</width>
+            <height>271</height>
+           </rect>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>true</bool>
+          </property>
+          <property name="uniformRowHeights">
+           <bool>false</bool>
+          </property>
+          <property name="itemsExpandable">
+           <bool>false</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="headerHidden">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Item</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Categoria</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Sub-categoria</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Valor</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="geometry">
+          <rect>
+           <x>640</x>
+           <y>20</y>
+           <width>281</width>
+           <height>271</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="page_2">
+        <widget class="QGroupBox" name="boxEntrada">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>371</width>
+           <height>291</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>Entrada</string>
+         </property>
+         <widget class="QTreeWidget" name="treeEntrada">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>371</width>
+            <height>271</height>
+           </rect>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>true</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Item</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Valor</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+        <widget class="QGroupBox" name="boxFixo">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>0</y>
+           <width>321</width>
+           <height>291</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>Saídas do Mês</string>
+         </property>
+         <widget class="QTreeWidget" name="treeFixo">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>20</y>
+            <width>321</width>
+            <height>271</height>
+           </rect>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>true</bool>
+          </property>
+          <property name="uniformRowHeights">
+           <bool>false</bool>
+          </property>
+          <property name="itemsExpandable">
+           <bool>false</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+          <property name="headerHidden">
+           <bool>false</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="headerCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Item</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Categoria</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Sub-categoria</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Valor</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+        <widget class="QGroupBox" name="boxSaidas_2">
+         <property name="geometry">
+          <rect>
+           <x>780</x>
+           <y>40</y>
+           <width>141</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>Reserva</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QPushButton" name="botaoTela">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>210</y>
+         <width>31</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoEntrada">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>91</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nova Entrada</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoFixo">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>91</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Novo Fixo</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="botaoReserva">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>91</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nova Reserva</string>
        </property>
       </widget>
      </widget>

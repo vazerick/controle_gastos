@@ -4,7 +4,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 
 # import das janelas
 
@@ -15,6 +15,9 @@ from ui.categorias_edit import Ui_Form as CategoriasEdit
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
 from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
 from ui.gastos_add import Ui_Form as GastosAdd
+from ui.entrada_add import Ui_Form as EntradaAdd
+from ui.fixo_add import Ui_Form as FixoAdd
+from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.janela import Ui_Form as Main
 
 
@@ -34,10 +37,25 @@ class gui:
         self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
 
+# janela para adicionar novas entradas
+        self.wEntradaAdd = QDialog()
+        self.uiEntradaAdd = EntradaAdd()
+        self.uiEntradaAdd.setupUi(self.wEntradaAdd)
+
 # janela para adicionar novos gastos
         self.wGastosAdd = QDialog()
         self.uiGastosAdd = GastosAdd()
         self.uiGastosAdd.setupUi(self.wGastosAdd)
+
+# janela para adicionar novos gastos fixos
+        self.wFixoAdd = QDialog()
+        self.uiFixoAdd = FixoAdd()
+        self.uiFixoAdd.setupUi(self.wFixoAdd)
+
+# janela para adicionar novas reservas
+        self.wReservaAdd = QDialog()
+        self.uiReservaAdd = ReservaAdd()
+        self.uiReservaAdd.setupUi(self.wReservaAdd)
 
 # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
@@ -87,7 +105,10 @@ class gui:
             self.wCategoriasEdit,
             self.wSubCategoriasAdd,
             self.wSubCategoriasEdit,
-            self.wGastosAdd
+            self.wGastosAdd,
+            self.wEntradaAdd,
+            self.wReservaAdd,
+            self.wFixoAdd
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
@@ -166,3 +187,22 @@ class gui:
         self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31))
         self.uiSubCategoriasAdd.listWidget.clear()
         self.uiSubCategoriasAdd.listWidget.hide()
+
+    def check_calendario(self, janela):
+        pago = [
+            janela.labelPago,
+            janela.calendarWidget_2,
+            janela.botaoHoje_2,
+            self.uiFixoAdd.comboPagamento,
+            self.uiFixoAdd.labelPagamento
+        ]
+        if janela.checkPago.checkState():
+            for widget in pago:
+                widget.setEnabled(True)
+            janela.calendarWidget_2.setSelectedDate(
+                janela.calendarWidget.selectedDate()
+            )
+        else:
+            for widget in pago:
+                widget.setEnabled(False)
+            janela.calendarWidget_2.setSelectedDate(QDate.currentDate())

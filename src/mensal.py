@@ -28,8 +28,30 @@ class Mensal:
             'divisao'
         ]
 
+        fixo_colunas = [
+            'data',
+            'vencimento',
+            'adicao',
+            'nome',
+            'comentario',
+            'valor',
+            'pagamento',
+            'categoria',
+            'subcategoria',
+            'pago'
+        ]
+
         entrada_colunas = [
             'data',
+            'previsao',
+            'adicao',
+            'nome',
+            'comentario',
+            'valor',
+            'pago'
+        ]
+
+        reserva_colunas = [
             'adicao',
             'nome',
             'comentario',
@@ -50,15 +72,15 @@ class Mensal:
             nome='entrada'
         )
 
-        self.Recorrente = Tabela(
-            colunas=saida_colunas,
+        self.Fixo = Tabela(
+            colunas=fixo_colunas,
             ano=self.ano,
             mes=self.mes,
-            nome='recorrente'
+            nome='fixo'
         )
 
         self.Reserva = Tabela(
-            colunas=entrada_colunas ,
+            colunas=reserva_colunas,
             ano=self.ano,
             mes=self.mes,
             nome='reserva'
