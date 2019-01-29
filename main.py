@@ -27,6 +27,62 @@ def panda():
 
 # declaração das funções
 
+def limpa_janela(
+        janela=[],
+        botao=[],
+        texto=[],
+        spin=[],
+        data=[],
+        check=[],
+):
+    for widget in janela:
+        widget.hide()
+    for widget in texto:
+        widget.clear()
+    for widget in spin:
+        widget.setValue(0)
+    for widget in data:
+        widget.setSelectedDate(Info.tempo)
+    for widget in check:
+        widget.setCheckState(0)
+    for widget in botao:
+        widget.setEnabled(False)
+
+
+def conecta_validador(
+        botao,
+        texto=[],
+        valor=[]
+):
+    observar = []
+    for widget in texto:
+        observar.append(widget.textChanged)
+    for widget in valor:
+        observar.append(widget.valueChanged)
+    for item in observar:
+        item.connect(
+            lambda: validador(
+                botao=botao,
+                texto=texto,
+                valor=valor
+            )
+        )
+
+
+def validador(
+        botao,
+        texto=[],
+        valor=[]
+):
+    for widget in texto:
+        if vazia(widget.text()):
+            botao.setEnabled(False)
+            return 0
+    for widget in valor:
+        if widget.text() == "0,00" or widget.text() == "0":
+            botao.setEnabled(False)
+            return 0
+    botao.setEnabled(True)
 
 def vazia(texto):
     return not bool(texto and texto.strip())
@@ -285,6 +341,16 @@ def botao_reserva_add():
         ]
     )
 
+    limpa_janela(
+        janela=[gui.wReservaAdd],
+        texto=[
+            gui.uiReservaAdd.inputReserva,
+            gui.uiReservaAdd.textComentario
+        ],
+        spin=[gui.uiReservaAdd.spinValor],
+        botao=[gui.uiReservaAdd.botaoOk]
+    )
+
     # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
 
@@ -315,6 +381,21 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
             None, #divida
             None, #divisao
         ]
+    )
+
+    limpa_janela(
+        janela=[gui.wGastosAdd],
+        texto=[
+            gui.uiGastosAdd.inputGasto,
+            gui.uiGastosAdd.textComentario
+        ],
+        data=[gui.uiGastosAdd.calendarWidget],
+        spin=[gui.uiGastosAdd.spinValor],
+        check=[
+            gui.uiGastosAdd.checkDivida,
+            gui.uiGastosAdd.checkDividir
+        ],
+        botao=[gui.uiGastosAdd.botaoOk]
     )
 
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
@@ -358,6 +439,22 @@ def botao_entrada_add():
         ]
     )
 
+    limpa_janela(
+        janela=[gui.wEntradaAdd],
+        texto=[
+            gui.uiEntradaAdd.inputEntrada,
+            gui.uiEntradaAdd.textComentario
+        ],
+        spin=[gui.uiEntradaAdd.spinValor],
+        data=[
+            gui.uiEntradaAdd.calendarWidget,
+            gui.uiEntradaAdd.calendarWidget_2
+        ],
+        check=[gui.uiEntradaAdd.checkPago],
+        botao=[gui.uiEntradaAdd.botaoOk]
+    )
+
+
     # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
 
@@ -397,6 +494,23 @@ def botao_fixo_add():
             pago
         ]
     )
+
+    limpa_janela(
+        janela=[gui.wFixoAdd],
+        texto=[
+            gui.uiFixoAdd.inputGasto,
+            gui.uiFixoAdd.textComentario
+        ],
+        data=[
+            gui.uiFixoAdd.calendarWidget,
+            gui.uiFixoAdd.calendarWidget_2
+        ],
+        spin=[gui.uiFixoAdd.spinValor],
+        check=[gui.uiFixoAdd.checkPago],
+        botao=[gui.uiFixoAdd.botaoOk]
+    )
+
+
 
     # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
@@ -480,6 +594,8 @@ gui.ui.botaoTela.clicked.connect(botao_troca_tela)
 
 gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
 
+gui.uiGastosAdd.botaoOk.setEnabled(False)
+
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
 )
@@ -529,6 +645,40 @@ gui.uiCategoriasAdd.botaoCancela.clicked.connect(botao_categoria_cancela)
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
 gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
+
+# desliga os botoes de Ok
+
+colecao_validacao = [
+    {
+        "botao": gui.uiGastosAdd.botaoOk,
+        "texto": [gui.uiGastosAdd.inputGasto],
+        "valor": [gui.uiGastosAdd.spinValor]
+    },
+    {
+        "botao": gui.uiReservaAdd.botaoOk,
+        "texto": [gui.uiReservaAdd.inputReserva],
+        "valor": [gui.uiReservaAdd.spinValor]
+    },
+    {
+        "botao": gui.uiFixoAdd.botaoOk,
+        "texto": [gui.uiFixoAdd.inputGasto],
+        "valor": [gui.uiFixoAdd.spinValor]
+    },
+    {
+        "botao": gui.uiEntradaAdd.botaoOk,
+        "texto": [gui.uiEntradaAdd.inputEntrada],
+        "valor": [gui.uiEntradaAdd.spinValor]
+    }
+]
+
+for item in colecao_validacao:
+    item["botao"].setEnabled(False)
+    conecta_validador(
+        botao=item["botao"],
+        texto=item["texto"],
+        valor=item["valor"]
+    )
+
 
 # teste panda
 gui.ui.pushButton.clicked.connect(panda)
