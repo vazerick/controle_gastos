@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
-<!--Criacao: Sun Oct 28 15:06:05 2018-->
+<!--Criacao: Fri Feb  1 22:19:47 2019-->
 <lista>
    <categoria id="0">
       <nome>Alimentos</nome>
       <status>1</status>
-      <ordem>0</ordem>
+      <ordem>1</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -22,7 +22,7 @@
    <categoria id="1">
       <nome>Livros</nome>
       <status>1</status>
-      <ordem>1</ordem>
+      <ordem>2</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -36,5 +36,12 @@
             <ordem>1</ordem>
          </sub>
       </sub_lista>
+   </categoria>
+   <categoria id="2">
+      <nome>Teste</nome>
+      <status>1</status>
+      <ordem>0</ordem>
+      <sub_status>0</sub_status>
+      <sub_lista/>
    </categoria>
 </lista>

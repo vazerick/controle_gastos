@@ -110,6 +110,13 @@ def str_mes(mes):
 # editar uma subcategoia na edição
 
 
+def seleciona_pagina():
+    gui.ui.stackedWidget.setCurrentIndex(
+        gui.ui.listMenu.currentRow()
+    )
+
+
+
 def subcategorias_lista_click(item):
     gui.subcategorias_remove()
     gui.uiSubCategoriasAdd.inputNome.setText(item.text())
@@ -330,7 +337,7 @@ def botao_reserva_add():
     adicao = Info.data_hora()
     nome = gui.uiReservaAdd.inputReserva.text()
     comentario = gui.uiReservaAdd.textComentario.toPlainText()
-    valor = gui.uiReservaAdd.spinValor.text()
+    valor = gui.uiReservaAdd.spinValor.value()
 
     Tabela[0].Reserva.adicionar(
         [
@@ -351,7 +358,7 @@ def botao_reserva_add():
         botao=[gui.uiReservaAdd.botaoOk]
     )
 
-    # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
 
 def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em branco, datas do futuro e letras no valor
@@ -361,7 +368,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
     adicao = Info.data_hora()
     nome = gui.uiGastosAdd.inputGasto.text()
     comentario = gui.uiGastosAdd.textComentario.toPlainText()
-    valor = gui.uiGastosAdd.spinValor.text()
+    valor = gui.uiGastosAdd.spinValor.value()
     pagamento = ComboPagamento.getId()
     categoria = ComboGastoCat.getId()
     sub = ComboGastoSub.getId()
@@ -425,7 +432,7 @@ def botao_entrada_add():
     adicao = Info.data_hora()
     nome = gui.uiEntradaAdd.inputEntrada.text()
     comentario = gui.uiEntradaAdd.textComentario.toPlainText()
-    valor = gui.uiEntradaAdd.spinValor.text()
+    valor = gui.uiEntradaAdd.spinValor.value()
 
     Tabela[0].Entrada.adicionar(
         [
@@ -454,8 +461,7 @@ def botao_entrada_add():
         botao=[gui.uiEntradaAdd.botaoOk]
     )
 
-
-    # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    ArvoreEntrada.atualiza(Tabela[0].Entrada.tabela)
 
 
 def botao_adicionar_fixo():
@@ -474,11 +480,11 @@ def botao_fixo_add():
     adicao = Info.data_hora()
     nome = gui.uiFixoAdd.inputGasto.text()
     comentario = gui.uiFixoAdd.textComentario.toPlainText()
-    valor = gui.uiFixoAdd.spinValor.text()
+    valor = gui.uiFixoAdd.spinValor.value()
 
     pagamento = 0
-    categoria = 0
-    subcategoria = 0
+    categoria = ComboFixoCat.getId()
+    subcategoria = ComboFixoSub.getId()
 
     Tabela[0].Fixo.adicionar( #todo rever  a adição para meses antigos...
         [
@@ -510,7 +516,7 @@ def botao_fixo_add():
         botao=[gui.uiFixoAdd.botaoOk]
     )
 
-
+    ArvoreFixo.atualiza(Tabela[0].Fixo.tabela)
 
     # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
 
@@ -558,6 +564,8 @@ Pagamentos = Pagamento(config['PAGAMENTO'])
 # inicia a interface gráfica
 gui = gui()
 
+gui.ui.stackedWidget.setCurrentIndex(0)
+gui.ui.listMenu.setCurrentRow(0)
 # objetos de listas
 Pessoa = ListaPessoa("pessoa")
 Categoria = ListaCategoria("categoria")
@@ -589,8 +597,6 @@ ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
 # ações
 
 # conecta as ações dos botões
-
-gui.ui.botaoTela.clicked.connect(botao_troca_tela)
 
 gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
 
@@ -680,9 +686,6 @@ for item in colecao_validacao:
     )
 
 
-# teste panda
-gui.ui.pushButton.clicked.connect(panda)
-
 # conecta as ações das trocas em check box
 
 gui.uiEntradaAdd.checkPago.stateChanged.connect(check_entrada)
@@ -692,6 +695,13 @@ gui.uiFixoAdd.checkPago.stateChanged.connect(check_fixo)
 # conecta as ações dos clicks em lista
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
+
+
+gui.ui.listMenu.itemClicked.connect(
+    lambda: gui.ui.stackedWidget.setCurrentIndex(
+        gui.ui.listMenu.currentRow()
+    )
+)
 
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 
@@ -753,9 +763,8 @@ for i in Tabela:
 
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
 ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela[0].Saida.tabela, Categoria)
-ArvoreFixo = ArvoreTabelaSaida(gui.ui.treeFixo, Tabela[0].Fixo.tabela, Categoria)
+ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela[0].Fixo.tabela, Categoria)
 ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela[0].Entrada.tabela)
-gui.ui.botaoTela.setIcon(QIcon.fromTheme("go-next"))
 
 for header in [
     gui.ui.treeSaida.header(),
@@ -763,5 +772,10 @@ for header in [
     gui.ui.treeFixo.header()
 ]:
     header.setVisible(True)
+
+print(Tabela[0].Saida.soma())
+print(Tabela[0].Entrada.soma())
+print(Tabela[0].Fixo.soma())
+print(Tabela[0].Reserva.soma())
 
 sys.exit(gui.app.exec_())

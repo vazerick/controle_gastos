@@ -40,7 +40,14 @@ class Tabela:
         except FileNotFoundError:
             self.tabela = pd.DataFrame(columns=self.colunas)
             self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
-        print(self.tabela)
+
+        if 'valor' in self.tabela.columns:
+            self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
+            print(self.nome)
+            print("$$$$$$:", self.tabela['valor'])
+            # self.tabela['valor'].astype('float64')
+
+
 
     def adicionar(self, linha):
         add = pd.DataFrame(
@@ -50,3 +57,6 @@ class Tabela:
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
         print(self.tabela)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+
+    def soma(self):
+        return self.tabela['valor'].sum()

@@ -64,6 +64,7 @@ class SubcategoriaLink:
         self.Combo = Combo
         self.Lista = Lista
         self.addFim = addFim
+        self.ativosSub = []
         self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
         if len(self.ativosCat[0]['sub_lista']):
             self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
@@ -77,7 +78,10 @@ class SubcategoriaLink:
         if self.Combo.currentText() == "Fim da lista":
             return -1
         else:
-            return self.ativosSub[self.Combo.currentIndex()]['id']
+            if len(self.ativosSub):
+                return self.ativosSub[self.Combo.currentIndex()]['id']
+            else:
+                return -1
 
     # troca a lista de subcategorias para corresponder a categoria correta
     def troca(self, cat):
