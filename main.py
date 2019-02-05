@@ -14,6 +14,7 @@ from src.link import Link, EditarLink, SubcategoriaLink
 from src.arvore import *
 from src.mensal import Mensal
 from src.info import Info
+from src.hoje import Hoje
 
 # funções de teste
 
@@ -594,6 +595,8 @@ ComboFixoSub = SubcategoriaLink(gui.uiFixoAdd.comboSub, Categoria)
 # link de pagamento
 ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
+
+
 # ações
 
 # conecta as ações dos botões
@@ -777,5 +780,14 @@ print(Tabela[0].Saida.soma())
 print(Tabela[0].Entrada.soma())
 print(Tabela[0].Fixo.soma())
 print(Tabela[0].Reserva.soma())
+
+# Calculadora de gastos diários:
+
+Hoje = Hoje(
+    Tabela=Tabela[0],
+    Janela=gui.ui,
+    Info=Info
+)
+
 
 sys.exit(gui.app.exec_())
