@@ -16,6 +16,13 @@ class Info:
         self.mes_int = self.tempo.month()
         self.dia_int = self.tempo.day()
 
+        self.inicio_dia = 4
+        self.referencia = 0
+        if QDateTime.currentDateTime().time().hour() > self.inicio_dia:
+            self.referencia = self.dia_int
+        else:
+            self.referencia = self.dia_int-1
+
         self.ano_str = self.tempo.toString("yyyy")
         self.mes_str = self.tempo.toString("MM")
         self.dia_str = self.tempo.toString("dd")

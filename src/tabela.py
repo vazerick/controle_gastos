@@ -60,3 +60,16 @@ class Tabela:
 
     def soma(self):
         return self.tabela['valor'].sum()
+
+    def soma_data(self, data):
+        return self.tabela[self.tabela['data'] == data.toString("dd/MM/yyyy")]['valor'].sum()
+
+    def soma_intervalo(self, data_inicio, data_fim):
+        dia_inicial = data_inicio.day()
+        dia_final = data_fim.day()+1
+        soma = 0
+        data = QDate()
+        for dia in range(dia_inicial, dia_final): #todo e se o intervalo ocupar varios meses?
+            data.setDate(data_inicio.year(), data_inicio.month(), dia)
+            soma += self.soma_data(data)
+        return soma
