@@ -4,31 +4,35 @@ import pandas as pd
 
 class Completer:
 
-    def __init__(self, campo_gasto, campo_entrada, tabelas):
+    def __init__(self, campos, tabelas, tipo):
 
-        self.CampoGasto = campo_gasto
-        self.CampoEntrada = campo_entrada
+        self.Campo = campos
         self.Tabelas = tabelas
+        self.Tipo = tipo
 
         self.atualizar()
 
     def atualizar(self):
 
-        dados_gasto = pd.Series()
-        dados_entrada = pd.Series()
+        dados = pd.Series()
 
         for tabela in self.Tabelas:
-            dados_gasto = dados_gasto.append(tabela.Saida.tabela['nome'])
-            dados_gasto = dados_gasto.append(tabela.Fixo.tabela['nome'])
-            dados_gasto = dados_gasto.append(tabela.Reserva.tabela['nome'])
-            dados_entrada = dados_entrada.append(tabela.Entrada.tabela['nome'])
+            dados = dados.append(self.ler(tabela))
 
-        for campo in self.CampoGasto:
-            completer = QCompleter(dados_gasto.str.title().unique())
-            completer.setCaseSensitivity(Qt.CaseInsensitive)
-            campo.setCompleter(completer)
+        if len(dados):
+            for campo in self.Campo:
+                completer = QCompleter(dados.str.title().unique())
+                completer.setCaseSensitivity(Qt.CaseInsensitive)
+                campo.setCompleter(completer)
 
-        for campo in self.CampoEntrada:
-            completer = QCompleter(dados_entrada.str.title().unique())
-            completer.setCaseSensitivity(Qt.CaseInsensitive)
-            campo.setCompleter(completer)
+    def ler(self, tabela):
+        if self.Tipo == "saida":
+            return tabela.Saida.tabela['nome']
+        if self.Tipo == "entrada":
+            return tabela.Entrada.tabela['nome']
+        if self.Tipo == "reserva":
+            return tabela.Reserva.tabela['nome']
+        if self.Tipo == "Fixo":
+            return tabela.FixoSaida.tabela['nome']
+
+

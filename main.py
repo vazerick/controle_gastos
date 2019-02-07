@@ -793,18 +793,37 @@ Hoje = Hoje(
     Info=Info
 )
 
-GastoAddCompleter = Completer(
-    campo_gasto=[
+GastoCompleter = Completer(
+    campos=[
         gui.uiGastosAdd.inputGasto,
-        gui.uiFixoAdd.inputGasto,
-        gui.uiReservaAdd.inputReserva
     ],
-    campo_entrada=[
-        gui.uiEntradaAdd.inputEntrada
-    ],
-    tabelas=Tabela
+    tabelas=Tabela,
+    tipo="saida"
 )
 
+EntradaCompleter = Completer(
+    campos=[
+        gui.uiEntradaAdd.inputEntrada,
+    ],
+    tabelas=Tabela,
+    tipo="entrada"
+)
+
+FixoCompleter = Completer(
+    campos=[
+        gui.uiFixoAdd.inputGasto,
+    ],
+    tabelas=Tabela,
+    tipo="fixo"
+)
+
+ReservaCompleter = Completer(
+    campos=[
+        gui.uiReservaAdd.inputReserva,
+    ],
+    tabelas=Tabela,
+    tipo="reserva"
+)
 
 
 sys.exit(gui.app.exec_())
