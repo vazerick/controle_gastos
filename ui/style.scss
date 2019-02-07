@@ -1,0 +1,13 @@
+$myColor: black;
+
+QWidget {
+    color: $myColor;
+}
+
+QFrame {
+    border: 0px;
+}
+
+*[class=obrigatorio] {
+}
+

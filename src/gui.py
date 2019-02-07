@@ -1,4 +1,5 @@
 import sys
+import sass
 
 # import do PyQt5
 
@@ -94,8 +95,12 @@ class gui:
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
 # seta a mesma folha de estilos e bloqueio para todas as janelas
-        arquivo = open("ui/style.css")
+        arquivo = open("ui/style.scss")
+
         self.style = arquivo.read()
+
+        self.style = sass.compile(filename="ui/style.scss")
+
         arquivo.close()
         for janela in [
             self.wMain,

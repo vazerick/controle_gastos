@@ -47,8 +47,6 @@ class Tabela:
             print("$$$$$$:", self.tabela['valor'])
             # self.tabela['valor'].astype('float64')
 
-
-
     def adicionar(self, linha):
         add = pd.DataFrame(
             [linha],
@@ -73,3 +71,7 @@ class Tabela:
             data.setDate(data_inicio.year(), data_inicio.month(), dia)
             soma += self.soma_data(data)
         return soma
+
+    def lista_nomes(self):
+        return self.tabela['nome'].str.lower().unique()
+

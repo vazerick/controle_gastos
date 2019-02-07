@@ -5,6 +5,7 @@ import pandas
 import time
 from PyQt5.QtCore import QDate, QDateTime
 from PyQt5.QtGui import QIcon
+
 # interface gráfica
 from src.gui import gui
 
@@ -15,6 +16,7 @@ from src.arvore import *
 from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
+from src.completer import Completer
 
 # funções de teste
 
@@ -360,6 +362,7 @@ def botao_reserva_add():
     )
 
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    Hoje.atualiza()
 
 
 def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em branco, datas do futuro e letras no valor
@@ -407,6 +410,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
     )
 
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    Hoje.atualiza()
 
 
 def botao_adicionar_entrada():
@@ -463,6 +467,7 @@ def botao_entrada_add():
     )
 
     ArvoreEntrada.atualiza(Tabela[0].Entrada.tabela)
+    Hoje.atualiza()
 
 
 def botao_adicionar_fixo():
@@ -518,8 +523,7 @@ def botao_fixo_add():
     )
 
     ArvoreFixo.atualiza(Tabela[0].Fixo.tabela)
-
-    # ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    Hoje.atualiza()
 
 
 def botao_troca_tela():
@@ -788,6 +792,19 @@ Hoje = Hoje(
     Janela=gui.ui,
     Info=Info
 )
+
+GastoAddCompleter = Completer(
+    campo_gasto=[
+        gui.uiGastosAdd.inputGasto,
+        gui.uiFixoAdd.inputGasto,
+        gui.uiReservaAdd.inputReserva
+    ],
+    campo_entrada=[
+        gui.uiEntradaAdd.inputEntrada
+    ],
+    tabelas=Tabela
+)
+
 
 
 sys.exit(gui.app.exec_())
