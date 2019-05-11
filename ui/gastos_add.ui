@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>430</height>
+    <width>928</width>
+    <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QCalendarWidget" name="calendarWidget">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>170</y>
+     <x>590</x>
+     <y>200</y>
      <width>311</width>
      <height>181</height>
     </rect>
@@ -56,7 +56,7 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>321</width>
+     <width>441</width>
      <height>25</height>
     </rect>
    </property>
@@ -64,18 +64,18 @@
   <widget class="QTextEdit" name="textComentario">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>170</y>
-     <width>221</width>
-     <height>181</height>
+     <x>590</x>
+     <y>430</y>
+     <width>321</width>
+     <height>121</height>
     </rect>
    </property>
   </widget>
   <widget class="QLabel" name="labelComentario">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>140</y>
+     <x>600</x>
+     <y>400</y>
      <width>81</width>
      <height>17</height>
     </rect>
@@ -87,7 +87,7 @@
   <widget class="QLabel" name="labelValor">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>480</x>
      <y>10</y>
      <width>41</width>
      <height>17</height>
@@ -100,8 +100,8 @@
   <widget class="QLabel" name="labelPagamento">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>70</y>
+     <x>600</x>
+     <y>50</y>
      <width>151</width>
      <height>17</height>
     </rect>
@@ -113,8 +113,8 @@
   <widget class="QComboBox" name="comboPagamento">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>90</y>
+     <x>600</x>
+     <y>70</y>
      <width>151</width>
      <height>25</height>
     </rect>
@@ -123,7 +123,7 @@
   <widget class="QLabel" name="labelCategoria">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>20</x>
      <y>70</y>
      <width>71</width>
      <height>17</height>
@@ -136,7 +136,7 @@
   <widget class="QComboBox" name="comboCategoria">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>20</x>
      <y>90</y>
      <width>171</width>
      <height>25</height>
@@ -146,7 +146,7 @@
   <widget class="QLabel" name="labelSub">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>220</x>
      <y>70</y>
      <width>91</width>
      <height>17</height>
@@ -159,7 +159,7 @@
   <widget class="QComboBox" name="comboSub">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>220</x>
      <y>90</y>
      <width>171</width>
      <height>25</height>
@@ -169,8 +169,8 @@
   <widget class="QLabel" name="labelData">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>140</y>
+     <x>600</x>
+     <y>170</y>
      <width>71</width>
      <height>17</height>
     </rect>
@@ -179,24 +179,11 @@
     <string>Data</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkDividir">
-   <property name="geometry">
-    <rect>
-     <x>490</x>
-     <y>40</y>
-     <width>82</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Dividir</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="botaoHoje">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>140</y>
+     <x>860</x>
+     <y>170</y>
      <width>41</width>
      <height>25</height>
     </rect>
@@ -208,8 +195,8 @@
   <widget class="QPushButton" name="botaoOk">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>380</y>
+     <x>330</x>
+     <y>580</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -221,8 +208,8 @@
   <widget class="QPushButton" name="botaoCancela">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>380</y>
+     <x>490</x>
+     <y>580</y>
      <width>80</width>
      <height>25</height>
     </rect>
@@ -234,7 +221,7 @@
   <widget class="QDoubleSpinBox" name="spinValor">
    <property name="geometry">
     <rect>
-     <x>385</x>
+     <x>495</x>
      <y>30</y>
      <width>71</width>
      <height>26</height>
@@ -253,7 +240,7 @@
   <widget class="QLabel" name="labelValor_2">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>480</x>
      <y>35</y>
      <width>16</width>
      <height>17</height>
@@ -266,7 +253,7 @@
   <widget class="QCheckBox" name="checkDivida">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>600</x>
      <y>20</y>
      <width>82</width>
      <height>23</height>
@@ -276,11 +263,79 @@
     <string>Dívida</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="botaoAdd">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>70</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Adicionar na Lista</string>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="treeWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>551</width>
+     <height>421</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Item</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Categoria</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Sub-Categoria</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Valor</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QGroupBox" name="groupSoma">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>100</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Soma</string>
+   </property>
+   <widget class="QLabel" name="labelSoma">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>54</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0,00</string>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>inputGasto</tabstop>
   <tabstop>spinValor</tabstop>
-  <tabstop>checkDividir</tabstop>
   <tabstop>comboPagamento</tabstop>
   <tabstop>comboCategoria</tabstop>
   <tabstop>comboSub</tabstop>

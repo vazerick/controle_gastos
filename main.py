@@ -766,7 +766,7 @@ for i in Tabela:
     print(i.mes)
     print(i.Saida.endereco)
     print(i.Fixo.endereco)
-
+#todo rever caso fique um mês faltando no meio, tem que ter uma forma de criar uma tabela buraco?
 
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
 ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela[0].Saida.tabela, Categoria)

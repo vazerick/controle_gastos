@@ -50,7 +50,7 @@ class Hoje:
 
         self.atualiza()
 
-    def atualiza(self): #todo o que fazer na virada da meia noite??
+    def atualiza(self): #todo o que fazer na virada da meia noite?? Quando muda o dia? Talvez costum no config?
 
         self.soma_saida = self.Tabela.Saida.soma()
         self.soma_entrada = self.Tabela.Entrada.soma()
@@ -75,7 +75,7 @@ class Hoje:
         self.hoje_limite = (self.mes_limite-gasto_base)/dia_restante
         self.hoje_resta = self.hoje_limite-self.soma_hoje
 
-        self.ajuste = self.dia_limite - self.media_dia
+        self.ajuste = (self.dia_limite - self.media_dia) #todo ajuste: o que é exatamente? qual a diferença do limite?
         if self.ajuste >= 0:
             self.BoxAjuste.setTitle("Acumulado")
         else:
