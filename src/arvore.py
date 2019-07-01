@@ -33,6 +33,34 @@ class Arvore:
             self.Widget.addTopLevelItem(WidgetItem)
 
 
+class ArvoreFilaGastos():
+
+    def __init__(self, Widget, Lista, Categoria):
+        self.Categoria = Categoria
+        self.Widget = Widget
+        self.Lista = Lista
+        self.atualiza()
+
+    def atualiza(self):
+        self.Widget.clear()
+        for item in self.Lista:
+            linha = [
+                item['nome'],
+                self.Categoria.getNome(item['categoria']),
+                self.Categoria.getSubNome(item['categoria'], item['sub']),
+                "R$"+str(item['valor'])
+            ]
+            print(linha)
+            WidgetItem = QTreeWidgetItem(linha)
+            self.Widget.addTopLevelItem(WidgetItem)
+            # 'nome': nome,
+            # 'valor': valor,
+            # 'pagamento': pagamento,
+            # 'categoria': categoria,
+            # 'sub': sub
+
+
+
 class ArvoreTabela:
 
     def __init__(self, Widget, Tabela):

@@ -87,6 +87,26 @@ def validador(
             return 0
     botao.setEnabled(True)
 
+
+def validador_gastos():
+    botao = gui.uiGastosAdd.botaoOk
+    texto = gui.uiGastosAdd.inputGasto.text()
+    valor = gui.uiGastosAdd.spinValor.text()
+    if len(fila_gasto):
+        if vazia(texto) != (valor == "0,00" or valor == "0"):
+            botao.setEnabled(False)
+            return 0
+        botao.setEnabled(True)
+        return 1
+    if vazia(texto):
+        botao.setEnabled(False)
+        return 0
+    if valor == "0,00" or valor == "0":
+        botao.setEnabled(False)
+        return 0
+    botao.setEnabled(True)
+    return 1
+
 def vazia(texto):
     return not bool(texto and texto.strip())
 
@@ -377,22 +397,40 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
     categoria = ComboGastoCat.getId()
     sub = ComboGastoSub.getId()
     divida = int(gui.uiGastosAdd.checkDivida.isChecked())
-    dividir = int(gui.uiGastosAdd.checkDividir.isChecked())
 
-    Tabela[0].Saida.adicionar(
-        [
-            data,
-            adicao,
-            nome,
-            comentario,
-            valor,
-            pagamento,
-            categoria,
-            sub,
-            None, #divida
-            None, #divisao
-        ]
-    )
+    if len(fila_gasto):
+        if validador_gastos():
+            fila_gasto.append({
+                'nome': nome,
+                'valor': valor,
+                'categoria': categoria,
+                'sub': sub
+            })
+        Tabela[0].Saida.adicionar_lista(
+            fila_gasto,
+            {
+                "data": data,
+                "adicao": adicao,
+                "comentario": comentario,
+                "pagamento": pagamento,
+                "divida": divida
+            }
+        )
+    else:
+        Tabela[0].Saida.adicionar(
+            [
+                data,
+                adicao,
+                nome,
+                comentario,
+                valor,
+                pagamento,
+                categoria,
+                sub,
+                None, #divida
+                None, #divisao
+            ]
+        )
 
     limpa_janela(
         janela=[gui.wGastosAdd],
@@ -403,14 +441,44 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
         data=[gui.uiGastosAdd.calendarWidget],
         spin=[gui.uiGastosAdd.spinValor],
         check=[
-            gui.uiGastosAdd.checkDivida,
-            gui.uiGastosAdd.checkDividir
+            gui.uiGastosAdd.checkDivida
         ],
         botao=[gui.uiGastosAdd.botaoOk]
     )
 
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
     Hoje.atualiza()
+
+
+fila_gasto = []
+
+
+def botao_gasto_fila():
+    nome = gui.uiGastosAdd.inputGasto.text()
+    valor = gui.uiGastosAdd.spinValor.value()
+    pagamento = ComboPagamento.getId()
+    categoria = ComboGastoCat.getId()
+    sub = ComboGastoSub.getId()
+
+    fila_gasto.append({
+        'nome': nome,
+        'valor': valor,
+        'categoria': categoria,
+        'sub': sub
+    })
+    limpa_janela(
+        texto=[
+            gui.uiGastosAdd.inputGasto
+        ],
+        spin=[gui.uiGastosAdd.spinValor],
+        check=[
+            gui.uiGastosAdd.checkDivida
+        ],
+        botao=[gui.uiGastosAdd.botaoAdd]
+    )
+    validador_gastos()
+    ArvoreFilaGastos.atualiza()
+    print(fila_gasto)
 
 
 def botao_adicionar_entrada():
@@ -581,6 +649,8 @@ Categoria = ListaCategoria("categoria")
 ArvorePessoa = Arvore(gui.ui.treePessoas, Pessoa)
 ArvoreCategorias = Arvore(gui.ui.treeCategorias, Categoria)
 
+ArvoreFilaGastos = ArvoreFilaGastos(gui.uiGastosAdd.treeWidget, fila_gasto, Categoria)
+
 # objetos de link de combos
 
 # links de pessoa
@@ -608,11 +678,14 @@ ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
 gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
 
 gui.uiGastosAdd.botaoOk.setEnabled(False)
+gui.uiGastosAdd.botaoAdd.setEnabled(False)
 
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
 )
 gui.uiGastosAdd.botaoOk.clicked.connect(botao_gasto_add)
+
+gui.uiGastosAdd.botaoAdd.clicked.connect(botao_gasto_fila)
 
 gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
 
@@ -664,6 +737,11 @@ gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
 colecao_validacao = [
     {
         "botao": gui.uiGastosAdd.botaoOk,
+        "texto": [gui.uiGastosAdd.inputGasto],
+        "valor": [gui.uiGastosAdd.spinValor]
+    },
+    {
+        "botao": gui.uiGastosAdd.botaoAdd,
         "texto": [gui.uiGastosAdd.inputGasto],
         "valor": [gui.uiGastosAdd.spinValor]
     },

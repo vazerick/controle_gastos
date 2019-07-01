@@ -56,6 +56,29 @@ class Tabela:
         print(self.tabela)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
 
+    def adicionar_lista(self, lista, geral):
+        for item in lista:
+            linha = [
+                geral["data"],
+                geral["adicao"],
+                item["nome"],
+                geral["comentario"],
+                item["valor"],
+                geral["pagamento"],
+                item["categoria"],
+                item["sub"],
+                geral["divida"],
+                None
+            ]
+            print("LINHA:",linha)
+            add = pd.DataFrame(
+                [linha],
+                columns=self.colunas
+            )
+            self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        print(self.tabela)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+
     def soma(self):
         return self.tabela['valor'].sum()
 

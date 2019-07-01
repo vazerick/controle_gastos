@@ -138,6 +138,15 @@ class ListaCategoria(Lista):
                 }
             )
 
+    def getNome(self, id):
+        return self.id[id]['nome']
+
+    def getSubNome(self, id_cat, id_sub):
+        if self.id[id_cat]['sub_status']:
+            return self.id[id_cat]['sub_lista'][id_sub]['nome']
+        else:
+            return ""
+
     def getAtivos(self):
         ativos = []  # lista vazia para abrigar os itens ativos
         for item in range(len(self.id)):
