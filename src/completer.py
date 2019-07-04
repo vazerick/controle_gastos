@@ -21,6 +21,7 @@ class Completer:
 
         if len(dados):
             for campo in self.Campo:
+                print(dados.str.title().unique())
                 completer = QCompleter(dados.str.title().unique())
                 completer.setCaseSensitivity(Qt.CaseInsensitive)
                 campo.setCompleter(completer)

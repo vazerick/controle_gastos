@@ -142,7 +142,10 @@ class Hoje:
             item['label'].setText(valor)
 
     def escreve_barra(self, barra, valor, total):
-        if valor > total:
-            barra.setValue(100)
+        if total == 0:
+            barra.setValue(0)
         else:
-            barra.setValue((valor / total) * 100)
+            if valor > total:
+                barra.setValue(100)
+            else:
+                barra.setValue((valor / total) * 100)

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!--Criacao: Sun Jun 30 21:08:28 2019-->
+<!--Criacao: Mon Jul  1 20:39:04 2019-->
 <lista>
    <categoria id="0">
       <nome>Alimentos</nome>
@@ -45,7 +45,7 @@
    <categoria id="2">
       <nome>Bebidas</nome>
       <status>1</status>
-      <ordem>14</ordem>
+      <ordem>16</ordem>
       <sub_status>0</sub_status>
       <sub_lista/>
    </categoria>
@@ -261,6 +261,11 @@
             <status>1</status>
             <ordem>0</ordem>
          </sub>
+         <sub id="4">
+            <nome>Móveis</nome>
+            <status>1</status>
+            <ordem>4</ordem>
+         </sub>
       </sub_lista>
    </categoria>
    <categoria id="11">
@@ -318,6 +323,36 @@
       <nome>Pessoas</nome>
       <status>1</status>
       <ordem>13</ordem>
+      <sub_status>0</sub_status>
+      <sub_lista/>
+   </categoria>
+   <categoria id="14">
+      <nome>Contas</nome>
+      <status>1</status>
+      <ordem>14</ordem>
+      <sub_status>1</sub_status>
+      <sub_lista>
+         <sub id="0">
+            <nome>Luz</nome>
+            <status>1</status>
+            <ordem>2</ordem>
+         </sub>
+         <sub id="1">
+            <nome>Internet</nome>
+            <status>1</status>
+            <ordem>1</ordem>
+         </sub>
+         <sub id="2">
+            <nome>Moradia</nome>
+            <status>1</status>
+            <ordem>0</ordem>
+         </sub>
+      </sub_lista>
+   </categoria>
+   <categoria id="15">
+      <nome>Crédito anterior</nome>
+      <status>1</status>
+      <ordem>15</ordem>
       <sub_status>0</sub_status>
       <sub_lista/>
    </categoria>

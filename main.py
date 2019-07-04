@@ -397,9 +397,8 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
     categoria = ComboGastoCat.getId()
     sub = ComboGastoSub.getId()
     divida = int(gui.uiGastosAdd.checkDivida.isChecked())
-
     if len(fila_gasto):
-        if validador_gastos():
+        if not vazia(nome) and not (valor == "0,00" or valor == "0"):
             fila_gasto.append({
                 'nome': nome,
                 'valor': valor,
@@ -445,12 +444,16 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
         ],
         botao=[gui.uiGastosAdd.botaoOk]
     )
-
+    gui.uiGastosAdd.labelSoma.setText("AA")
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
     Hoje.atualiza()
 
 
 fila_gasto = []
+
+
+def str_dinheiro(valor):
+    return "R$"+str(valor).replace(".", ",")
 
 
 def botao_gasto_fila():
@@ -466,6 +469,12 @@ def botao_gasto_fila():
         'categoria': categoria,
         'sub': sub
     })
+    soma = 0
+
+    for item in fila_gasto:
+        soma += item["valor"]
+    gui.uiGastosAdd.labelSoma.setText(str_dinheiro(soma))
+
     limpa_janela(
         texto=[
             gui.uiGastosAdd.inputGasto
@@ -589,7 +598,6 @@ def botao_fixo_add():
         check=[gui.uiFixoAdd.checkPago],
         botao=[gui.uiFixoAdd.botaoOk]
     )
-
     ArvoreFixo.atualiza(Tabela[0].Fixo.tabela)
     Hoje.atualiza()
 
