@@ -444,6 +444,8 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
         ],
         botao=[gui.uiGastosAdd.botaoOk]
     )
+    fila_gasto.clear()
+    ArvoreFilaGastos.atualiza()
     gui.uiGastosAdd.labelSoma.setText("AA")
     ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
     Hoje.atualiza()
