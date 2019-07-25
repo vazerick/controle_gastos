@@ -359,7 +359,7 @@ def botao_reserva_add():
     comentario = gui.uiReservaAdd.textComentario.toPlainText()
     valor = gui.uiReservaAdd.spinValor.value()
 
-    Tabela[0].Reserva.adicionar(
+    Tabela.Reserva.adicionar(
         [
             adicao,
             nome,
@@ -378,7 +378,7 @@ def botao_reserva_add():
         botao=[gui.uiReservaAdd.botaoOk]
     )
 
-    ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    ArvoreSaida.atualiza(Tabela.Saida.tabela)
     Hoje.atualiza()
 
 
@@ -402,7 +402,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
                 'categoria': categoria,
                 'sub': sub
             })
-        Tabela[0].Saida.adicionar_lista(
+        Tabela.Saida.adicionar_lista(
             fila_gasto,
             {
                 "data": data,
@@ -413,7 +413,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
             }
         )
     else:
-        Tabela[0].Saida.adicionar(
+        Tabela.Saida.adicionar(
             [
                 data,
                 adicao,
@@ -444,7 +444,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
     fila_gasto.clear()
     ArvoreFilaGastos.atualiza()
     gui.uiGastosAdd.labelSoma.setText("AA")
-    ArvoreSaida.atualiza(Tabela[0].Saida.tabela)
+    ArvoreSaida.atualiza(Tabela.Saida.tabela)
     Hoje.atualiza()
 
 
@@ -514,7 +514,7 @@ def botao_entrada_add():
     comentario = gui.uiEntradaAdd.textComentario.toPlainText()
     valor = gui.uiEntradaAdd.spinValor.value()
 
-    Tabela[0].Entrada.adicionar(
+    Tabela.Entrada.adicionar(
         [
             data,
             previsao,
@@ -541,7 +541,7 @@ def botao_entrada_add():
         botao=[gui.uiEntradaAdd.botaoOk]
     )
 
-    ArvoreEntrada.atualiza(Tabela[0].Entrada.tabela)
+    ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
     Hoje.atualiza()
 
 
@@ -567,7 +567,7 @@ def botao_fixo_add():
     categoria = ComboFixoCat.getId()
     subcategoria = ComboFixoSub.getId()
 
-    Tabela[0].Fixo.adicionar( #todo rever  a adição para meses antigos...
+    Tabela.Fixo.adicionar( #todo rever  a adição para meses antigos...
         [
             data,
             vencimento,
@@ -596,7 +596,7 @@ def botao_fixo_add():
         check=[gui.uiFixoAdd.checkPago],
         botao=[gui.uiFixoAdd.botaoOk]
     )
-    ArvoreFixo.atualiza(Tabela[0].Fixo.tabela)
+    ArvoreFixo.atualiza(Tabela.Fixo.tabela)
     Hoje.atualiza()
 
 
@@ -821,8 +821,7 @@ for item in combos_dinamicos:
 
 print("Inicia as tabelas")
 
-Tabela = []
-
+Historico = []
 
 # cria uma pasta para o ano caso não exista
 if not os.path.exists('data/'+Info.ano_str):
@@ -830,35 +829,41 @@ if not os.path.exists('data/'+Info.ano_str):
     os.makedirs('data/'+Info.ano_str)
 
 # confere se já tem a tabela do mês atual
+# Info.set_data(Info.ano_int, Info.mes_int+5, Info.dia_int)
 if tabela_existe(Info.ano_str, Info.mes_str):
     print("Carrega as tabelas do mês atual")
-    Tabela.append(Mensal(Info.ano_int, Info.mes_int))
 else:
     print("Tabelas desatualizadas")
+    while not tabela_existe(Info.ano_str, Info.mes_str):
+        if Info.mes_int == 1:
+            Info.set_data(Info.ano_int-1, 12, Info.dia_int)
+        else:
+            Info.set_data(Info.ano_int, Info.mes_int-1, Info.dia_int)
+Tabela = Mensal(Info.ano_int, Info.mes_int)
 #todo opção de iniciar o novo mês, ou de continuar no antigo
 
 # gera as tabelas anteriores
-
-if Info.mes_int > 1:
-    ano = Info.ano_int
-    mes = Info.mes_int-1
-else:
-    ano = Info.ano_int-1
-    mes = 12
-while tabela_existe(str(ano), str_mes(mes)):
-    Tabela.append(Mensal(ano, mes))
-    if mes == 1:
-        ano -= 1
-        mes = 12
-    else:
-        mes -= 1
+#
+# if Info.mes_int > 1:
+#     ano = Info.ano_int
+#     mes = Info.mes_int-1
+# else:
+#     ano = Info.ano_int-1
+#     mes = 12
+# while tabela_existe(str(ano), str_mes(mes)):
+#     Tabela.append(Mensal(ano, mes))
+#     if mes == 1:
+#         ano -= 1
+#         mes = 12
+#     else:
+#         mes -= 1
 
 #todo rever caso fique um mês faltando no meio, tem que ter uma forma de criar uma tabela buraco?
 print("Preenche as árvores e tabelas da interface")
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
-ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela[0].Saida.tabela, Categoria)
-ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela[0].Fixo.tabela, Categoria)
-ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela[0].Entrada.tabela)
+ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela.Saida.tabela, Categoria)
+ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela.Fixo.tabela, Categoria)
+ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela.Entrada.tabela)
 
 for header in [
     gui.ui.treeSaida.header(),
@@ -872,7 +877,7 @@ for header in [
 # Calculadora de gastos diários:
 print("Calcula os gastos")
 Hoje = Hoje(
-    Tabela=Tabela[0],
+    Tabela=Tabela,
     Janela=gui.ui,
     Info=Info
 )

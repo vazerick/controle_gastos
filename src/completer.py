@@ -16,8 +16,11 @@ class Completer:
 
         dados = pd.Series()
 
-        for tabela in self.Tabelas:
-            dados = dados.append(self.ler(tabela))
+        dados = dados.append(self.ler(self.Tabelas))
+
+        # todo completer que puxe os dados anteriores, sem sobrecarregar a memória
+        # for tabela in self.Tabelas:
+        #     dados = dados.append(self.ler(tabela))
 
         if len(dados):
             for campo in self.Campo:
