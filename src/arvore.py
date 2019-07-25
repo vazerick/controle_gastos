@@ -50,14 +50,9 @@ class ArvoreFilaGastos():
                 self.Categoria.getSubNome(item['categoria'], item['sub']),
                 "R$"+str(item['valor'])
             ]
-            print(linha)
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
-            # 'nome': nome,
-            # 'valor': valor,
-            # 'pagamento': pagamento,
-            # 'categoria': categoria,
-            # 'sub': sub
+
 
 
 
@@ -97,8 +92,6 @@ class ArvoreTabelaSaida(ArvoreTabela):
             linha.append('R$'+str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
-        print("ADD:")
-        print(Tabela)
 
 
 class ArvoreTabelaFixo(ArvoreTabelaSaida):
@@ -132,8 +125,7 @@ class ArvoreTabelaFixo(ArvoreTabelaSaida):
             linha.append('R$' + str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
-        print("ADD:")
-        print(Tabela)
+
 
 
 class ArvoreTabelaEntrada(ArvoreTabela):
@@ -154,7 +146,5 @@ class ArvoreTabelaEntrada(ArvoreTabela):
             linha.append('R$'+str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
-        print("ADD:")
-        print(Tabela)
 
 

@@ -87,10 +87,7 @@ class SubcategoriaLink:
     def troca(self, cat):
         self.ativosSub = []
         self.Combo.clear()
-        print(self.Lista.id[cat]['sub_lista'])
-        print("Link Ativos:", self.Lista.subGetAtivos(cat))
         self.ativosSub = sorted(self.Lista.subGetAtivos(cat), key=itemgetter('ordem'))
-        print(cat, self.ativosSub)
         for item in range(len(self.ativosSub)):
             self.Combo.addItem(self.ativosSub[item]['nome'])
         if self.addFim:

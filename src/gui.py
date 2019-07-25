@@ -27,10 +27,11 @@ class gui:
 
     def __init__(self):
 # declarações da interface gráfica
-
+        print("Inicia a interface gráfica")
         self.app = QApplication(sys.argv)
 
 # janela principal
+        print("Janela principal")
         self.wMain = QDialog()
         self.ui = Main()
         self.ui.setupUi(self.wMain)
@@ -38,6 +39,7 @@ class gui:
         self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
 
+        print("Janelas secundárias")
 # janela para adicionar novas entradas
         self.wEntradaAdd = QDialog()
         self.uiEntradaAdd = EntradaAdd()
@@ -95,6 +97,7 @@ class gui:
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
 # seta a mesma folha de estilos e bloqueio para todas as janelas
+        print("Configura a folha de estilos")
         arquivo = open("ui/style.scss")
 
         self.style = arquivo.read()
@@ -120,6 +123,7 @@ class gui:
 
 
 # inicializa a janela
+        print("Inicia a janela")
         self.wMain.show()
 
     def subcategorias_extra(self, nome):

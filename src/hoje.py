@@ -75,7 +75,7 @@ class Hoje:
         self.hoje_limite = (self.mes_limite-gasto_base)/dia_restante
         self.hoje_resta = self.hoje_limite-self.soma_hoje
 
-        self.ajuste = (self.dia_limite - self.media_dia) * self.Ontem.day() #todo ajuste: o que é exatamente? qual a diferença do limite?
+        self.ajuste = (self.dia_limite - self.media_dia) * self.Ontem.day()
         if self.ajuste >= 0:
             self.BoxAjuste.setTitle("Acumulado")
         else:

@@ -22,7 +22,6 @@ from src.completer import Completer
 
 
 def panda():
-    print("TTTT")
     if gui.ui.stackedWidget.currentIndex():
         gui.ui.stackedWidget.setCurrentIndex(0)
     else:
@@ -144,7 +143,6 @@ def subcategorias_lista_click(item):
     gui.subcategorias_remove()
     gui.uiSubCategoriasAdd.inputNome.setText(item.text())
     filaSubCategorias.remove(item.text())
-    print(item.text())
 
 
 # atualiza os combos após atualizar a lista Categorias
@@ -216,7 +214,6 @@ def botao_editar_pessoa_ok():
         ordem = len(Pessoa.id)-1
     else:
         ordem = Pessoa.id[combo_id]['ordem']
-    print(status)
     Pessoa.edita(index, nome, ordem, status)
     Pessoa.salva()
     gui.wPessoasEdit.hide()
@@ -489,7 +486,6 @@ def botao_gasto_fila():
     )
     validador_gastos()
     ArvoreFilaGastos.atualiza()
-    print(fila_gasto)
 
 
 def botao_adicionar_entrada():
@@ -625,6 +621,8 @@ def troca_subcategoria(comboCat, comboSub):
 # configuração
 
 
+print("Inicia o aplicativo de Controle de Gastos")
+print("Configurações")
 config = configparser.ConfigParser()
 
 if os.path.exists("config.ini"):
@@ -650,7 +648,9 @@ gui = gui()
 gui.ui.stackedWidget.setCurrentIndex(0)
 gui.ui.listMenu.setCurrentRow(0)
 # objetos de listas
+print("Carrega a lista de pessoas")
 Pessoa = ListaPessoa("pessoa")
+print("Carrega a lista de categorias")
 Categoria = ListaCategoria("categoria")
 
 
@@ -819,15 +819,19 @@ for item in combos_dinamicos:
 
 # inicia as tabelas
 
+print("Inicia as tabelas")
+
 Tabela = []
 
 
 # cria uma pasta para o ano caso não exista
 if not os.path.exists('data/'+Info.ano_str):
+    print("Cria pasta do ano")
     os.makedirs('data/'+Info.ano_str)
 
 # confere se já tem a tabela do mês atual
 if tabela_existe(Info.ano_str, Info.mes_str):
+    print("Carrega as tabelas do mês atual")
     Tabela.append(Mensal(Info.ano_int, Info.mes_int))
 else:
     print("Tabelas desatualizadas")
@@ -849,13 +853,8 @@ while tabela_existe(str(ano), str_mes(mes)):
     else:
         mes -= 1
 
-for i in Tabela:
-    print(i.ano)
-    print(i.mes)
-    print(i.Saida.endereco)
-    print(i.Fixo.endereco)
 #todo rever caso fique um mês faltando no meio, tem que ter uma forma de criar uma tabela buraco?
-
+print("Preenche as árvores e tabelas da interface")
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
 ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela[0].Saida.tabela, Categoria)
 ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela[0].Fixo.tabela, Categoria)
@@ -868,13 +867,10 @@ for header in [
 ]:
     header.setVisible(True)
 
-print(Tabela[0].Saida.soma())
-print(Tabela[0].Entrada.soma())
-print(Tabela[0].Fixo.soma())
-print(Tabela[0].Reserva.soma())
+
 
 # Calculadora de gastos diários:
-
+print("Calcula os gastos")
 Hoje = Hoje(
     Tabela=Tabela[0],
     Janela=gui.ui,

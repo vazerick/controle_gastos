@@ -43,8 +43,6 @@ class Tabela:
 
         if 'valor' in self.tabela.columns:
             self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
-            print(self.nome)
-            print("$$$$$$:", self.tabela['valor'])
             # self.tabela['valor'].astype('float64')
 
     def adicionar(self, linha):
@@ -53,7 +51,6 @@ class Tabela:
             columns=self.colunas
         )
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        print(self.tabela)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
 
     def adicionar_lista(self, lista, geral):
@@ -70,13 +67,11 @@ class Tabela:
                 geral["divida"],
                 None
             ]
-            print("LINHA:",linha)
             add = pd.DataFrame(
                 [linha],
                 columns=self.colunas
             )
             self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        print(self.tabela)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
 
     def soma(self):

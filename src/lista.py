@@ -227,7 +227,6 @@ class ListaCategoria(Lista):
 
     def subGetAtivos(self, cat):
         ativos = []
-        print("Cat:", cat, "Lista:", self.id[cat]['sub_lista'])
         for item in range(len(self.id[cat]['sub_lista'])):
             ativos.append(
                 {
