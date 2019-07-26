@@ -3,7 +3,7 @@ import os
 import configparser
 import pandas
 import time
-from PyQt5.QtCore import QDate, QDateTime
+from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
 
 # interface gráfica
@@ -155,6 +155,7 @@ def combos_categoria_atualiza():
         ComboSubAddCat,
         ComboCategoriaAdd,
         ComboGastoCat,
+        ComboGastoEditCat,
         ComboFixoCat
     ]
 
@@ -609,6 +610,31 @@ def botao_troca_tela():
         gui.ui.botaoTela.setIcon(QIcon.fromTheme("go-previous"))
 
 
+def gasto_click(item):
+    item = gui.ui.treeSaida.selectedItems()[0]
+    data = item.text(0)
+    nome = item.text(1)
+    valor = float(item.text(4).replace("R$", ""))
+    print(data, nome, valor)
+    tabela = Tabela.Saida.tabela
+    tabela = tabela[tabela["data"] == data]
+    tabela = tabela[tabela["nome"] == nome]
+    tabela = tabela[tabela["valor"] == valor]
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        item = Tabela.Saida.tabela.iloc[id]
+        gui.uiGastosEdit.inputGasto.setText(item["nome"])
+        gui.uiGastosEdit.spinValor.setValue(item["valor"])
+        if pandas.notna(item["comentario"]):
+            gui.uiGastosEdit.textComentario.setText(item["comentario"])
+        gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+        print(Categoria.getNome(item["categoria"]))
+        gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+        gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+        gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wGastosEdit.show()
+
+
 # ações dos eventos de mudança
 
 
@@ -669,6 +695,8 @@ ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
 ComboGastoCat = Link(gui.uiGastosAdd.comboCategoria, Categoria)
 ComboGastoSub = SubcategoriaLink(gui.uiGastosAdd.comboSub, Categoria)
+ComboGastoEditCat = Link(gui.uiGastosEdit.comboCategoria, Categoria)
+ComboGastoEditSub = SubcategoriaLink(gui.uiGastosEdit.comboSub, Categoria)
 ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
 ComboCategoriaEdit = EditarLink(gui.uiCategoriasEdit.comboBox, Categoria)
 ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
@@ -790,7 +818,7 @@ gui.uiFixoAdd.checkPago.stateChanged.connect(check_fixo)
 # conecta as ações dos clicks em lista
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
-
+gui.ui.treeSaida.doubleClicked.connect(gasto_click)
 
 gui.ui.listMenu.itemClicked.connect(
     lambda: gui.ui.stackedWidget.setCurrentIndex(
@@ -808,6 +836,10 @@ combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categ
     [
         gui.uiGastosAdd.comboCategoria,
         lambda: troca_subcategoria(ComboGastoCat, ComboGastoSub)
+    ],
+    [
+        gui.uiGastosEdit.comboCategoria,
+        lambda: troca_subcategoria(ComboGastoEditCat, ComboGastoEditSub)
     ],
     [
         gui.uiFixoAdd.comboCategoria,

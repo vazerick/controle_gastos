@@ -20,6 +20,7 @@ from ui.entrada_add import Ui_Form as EntradaAdd
 from ui.fixo_add import Ui_Form as FixoAdd
 from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.janela import Ui_Form as Main
+from ui.gastos_edit import Ui_Form as GastosEdit
 
 
 
@@ -49,6 +50,11 @@ class gui:
         self.wGastosAdd = QDialog()
         self.uiGastosAdd = GastosAdd()
         self.uiGastosAdd.setupUi(self.wGastosAdd)
+
+# janela para editar gastos
+        self.wGastosEdit = QDialog()
+        self.uiGastosEdit = GastosEdit()
+        self.uiGastosEdit.setupUi(self.wGastosEdit)
 
 # janela para adicionar novos gastos fixos
         self.wFixoAdd = QDialog()
@@ -114,6 +120,7 @@ class gui:
             self.wSubCategoriasAdd,
             self.wSubCategoriasEdit,
             self.wGastosAdd,
+            self.wGastosEdit,
             self.wEntradaAdd,
             self.wReservaAdd,
             self.wFixoAdd
