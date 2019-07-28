@@ -4,7 +4,7 @@ import sass
 # import do PyQt5
 
 from PyQt5.QtWidgets import QApplication, QDialog
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import Qt, QDate
 
 # import das janelas
@@ -36,6 +36,8 @@ class gui:
         self.wMain = QDialog()
         self.ui = Main()
         self.ui.setupUi(self.wMain)
+
+        self.wMain.setWindowIcon(QtGui.QIcon("resources/dinheiro.png"))
 
         self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
@@ -102,7 +104,7 @@ class gui:
         self.uiSubCategoriasEdit = SubCategoriasEdit()
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
-# seta a mesma folha de estilos e bloqueio para todas as janelas
+# seta a mesma configuração para todas as janelas
         print("Configura a folha de estilos")
         arquivo = open("ui/style.scss")
 
