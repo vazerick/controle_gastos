@@ -5,6 +5,7 @@ import pandas
 import time
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QDialogButtonBox
 
 # interface gráfica
 from src.gui import gui
@@ -17,15 +18,6 @@ from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
 from src.completer import Completer
-
-# funções de teste
-
-
-def panda():
-    if gui.ui.stackedWidget.currentIndex():
-        gui.ui.stackedWidget.setCurrentIndex(0)
-    else:
-        gui.ui.stackedWidget.setCurrentIndex(1)
 
 # declaração das funções
 
@@ -88,7 +80,7 @@ def validador(
 
 
 def validador_gastos():
-    botao = gui.uiGastosAdd.botaoOk
+    botao = gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok)
     texto = gui.uiGastosAdd.inputGasto.text()
     valor = gui.uiGastosAdd.spinValor.text()
     if len(fila_gasto):
@@ -376,14 +368,17 @@ def botao_reserva_add():
             gui.uiReservaAdd.textComentario
         ],
         spin=[gui.uiReservaAdd.spinValor],
-        botao=[gui.uiReservaAdd.botaoOk]
+        botao=[gui.uiReservaAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
 
     ArvoreSaida.atualiza(Tabela.Saida.tabela)
     Hoje.atualiza()
 
 
-def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em branco, datas do futuro e letras no valor
+fila_gasto = []
+
+
+def botao_gasto_add(): #todo Validação de dados: impedir datas do futuro
 
     data = gui.uiGastosAdd.calendarWidget.selectedDate()
     data = data.toString("dd/MM/yyyy")
@@ -440,16 +435,31 @@ def botao_gasto_add(): #todo Validação de dados: impedir (alguns) campos em br
         check=[
             gui.uiGastosAdd.checkDivida
         ],
-        botao=[gui.uiGastosAdd.botaoOk]
+        botao=[gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
     fila_gasto.clear()
     ArvoreFilaGastos.atualiza()
-    gui.uiGastosAdd.labelSoma.setText("AA")
+    gui.uiGastosAdd.labelSoma.setText("R$")
     ArvoreSaida.atualiza(Tabela.Saida.tabela)
     Hoje.atualiza()
 
 
-fila_gasto = []
+def botao_gasto_cancela():
+    fila_gasto.clear()
+    ArvoreFilaGastos.atualiza()
+    limpa_janela(
+        janela=[gui.wGastosAdd],
+        texto=[
+            gui.uiGastosAdd.inputGasto,
+            gui.uiGastosAdd.textComentario
+        ],
+        data=[gui.uiGastosAdd.calendarWidget],
+        spin=[gui.uiGastosAdd.spinValor],
+        check=[
+            gui.uiGastosAdd.checkDivida
+        ],
+        botao=[gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok)]
+    )
 
 
 def str_dinheiro(valor):
@@ -539,7 +549,7 @@ def botao_entrada_add():
             gui.uiEntradaAdd.calendarWidget_2
         ],
         check=[gui.uiEntradaAdd.checkPago],
-        botao=[gui.uiEntradaAdd.botaoOk]
+        botao=[gui.uiEntradaAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
 
     ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
@@ -595,7 +605,7 @@ def botao_fixo_add():
         ],
         spin=[gui.uiFixoAdd.spinValor],
         check=[gui.uiFixoAdd.checkPago],
-        botao=[gui.uiFixoAdd.botaoOk]
+        botao=[gui.uiFixoAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
     ArvoreFixo.atualiza(Tabela.Fixo.tabela)
     Hoje.atualiza()
@@ -715,19 +725,16 @@ ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
 
 gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
 
-gui.uiGastosAdd.botaoOk.setEnabled(False)
-gui.uiGastosAdd.botaoAdd.setEnabled(False)
-
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
 )
-gui.uiGastosAdd.botaoOk.clicked.connect(botao_gasto_add)
-
+gui.uiGastosAdd.buttonBox.accepted.connect(botao_gasto_add)
+gui.uiGastosAdd.buttonBox.rejected.connect(botao_gasto_cancela)
 gui.uiGastosAdd.botaoAdd.clicked.connect(botao_gasto_fila)
 
 gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
 
-gui.uiFixoAdd.botaoOk.clicked.connect(botao_fixo_add)
+gui.uiFixoAdd.buttonBox.accepted.connect(botao_fixo_add)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
     lambda: gui.uiFixoAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -745,11 +752,11 @@ gui.uiEntradaAdd.botaoHoje_2.clicked.connect(
     lambda: gui.uiEntradaAdd.calendarWidget_2.setSelectedDate(QDate.currentDate())
 )
 
-gui.uiEntradaAdd.botaoOk.clicked.connect(botao_entrada_add)
+gui.uiEntradaAdd.buttonBox.accepted.connect(botao_entrada_add)
 
 gui.ui.botaoReserva.clicked.connect(botao_adicionar_reserva)
 
-gui.uiReservaAdd.botaoOk.clicked.connect(botao_reserva_add)
+gui.uiReservaAdd.buttonBox.accepted.connect(botao_reserva_add)
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(botao_adicionar_categoria)
 gui.ui.botaoPessoaAdicionar.clicked.connect(botao_adicionar_pessoa)
@@ -757,24 +764,24 @@ gui.ui.botaoSubAdicionar.clicked.connect(botao_adicionar_sub)
 gui.ui.botaoPessoaEditar.clicked.connect(botao_editar_pessoa)
 gui.ui.botaoCategoriaEditar.clicked.connect(botao_editar_categoria)
 
-gui.uiPessoasAdd.botaoOk.clicked.connect(botao_pessoa_add)
-gui.uiPessoasAdd.botaoCancela.clicked.connect(botao_pessoa_cancela)
+gui.uiPessoasAdd.buttonBox.accepted.connect(botao_pessoa_add)
+gui.uiPessoasAdd.buttonBox.rejected.connect(botao_pessoa_cancela)
 
-gui.uiPessoasEdit.botaoOk.clicked.connect(botao_editar_pessoa_ok)
-gui.uiPessoasEdit.botaoCancela.clicked.connect(gui.wPessoasEdit.hide) #todo criar uma função para o botão "cancelar"
+gui.uiPessoasEdit.buttonBox.accepted.connect(botao_editar_pessoa_ok)
+gui.uiPessoasEdit.buttonBox.rejected.connect(gui.wPessoasEdit.hide) #todo criar uma função para o botão "cancelar"
 
-gui.uiCategoriasAdd.botaoOk.clicked.connect(botao_categorias_add)
-gui.uiCategoriasAdd.botaoCancela.clicked.connect(botao_categoria_cancela)
+gui.uiCategoriasAdd.buttonBox.accepted.connect(botao_categorias_add)
+gui.uiCategoriasAdd.buttonBox.rejected.connect(botao_categoria_cancela)
 
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
-gui.uiSubCategoriasAdd.botaoOk.clicked.connect(botao_subcategorias_add)
-gui.uiSubCategoriasAdd.botaoCancela.clicked.connect(botao_subcategoria_cancela)
+gui.uiSubCategoriasAdd.buttonBox.accepted.connect(botao_subcategorias_add)
+gui.uiSubCategoriasAdd.buttonBox.rejected.connect(botao_subcategoria_cancela)
 
 # desliga os botoes de Ok
 
 colecao_validacao = [
     {
-        "botao": gui.uiGastosAdd.botaoOk,
+        "botao": gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok),
         "texto": [gui.uiGastosAdd.inputGasto],
         "valor": [gui.uiGastosAdd.spinValor]
     },
@@ -784,21 +791,22 @@ colecao_validacao = [
         "valor": [gui.uiGastosAdd.spinValor]
     },
     {
-        "botao": gui.uiReservaAdd.botaoOk,
+        "botao": gui.uiReservaAdd.buttonBox.button(QDialogButtonBox.Ok),
         "texto": [gui.uiReservaAdd.inputReserva],
         "valor": [gui.uiReservaAdd.spinValor]
     },
     {
-        "botao": gui.uiFixoAdd.botaoOk,
+        "botao": gui.uiFixoAdd.buttonBox.button(QDialogButtonBox.Ok),
         "texto": [gui.uiFixoAdd.inputGasto],
         "valor": [gui.uiFixoAdd.spinValor]
     },
     {
-        "botao": gui.uiEntradaAdd.botaoOk,
+        "botao": gui.uiEntradaAdd.buttonBox.button(QDialogButtonBox.Ok),
         "texto": [gui.uiEntradaAdd.inputEntrada],
         "valor": [gui.uiEntradaAdd.spinValor]
     }
 ]
+
 
 for item in colecao_validacao:
     item["botao"].setEnabled(False)
@@ -948,3 +956,6 @@ ReservaCompleter = Completer(
 
 
 sys.exit(gui.app.exec_())
+
+
+# todo 29/07/2019: remover a "ordem" das categorias, é pura bobagem

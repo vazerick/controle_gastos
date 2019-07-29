@@ -84,32 +84,6 @@
     <string>Valor</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="botaoOk">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>190</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ok</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="botaoCancela">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>190</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancela</string>
-   </property>
-  </widget>
   <widget class="QDoubleSpinBox" name="spinValor">
    <property name="geometry">
     <rect>
@@ -142,13 +116,27 @@
     <string>R$</string>
    </property>
   </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>190</y>
+     <width>481</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+   <property name="centerButtons">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>inputReserva</tabstop>
   <tabstop>spinValor</tabstop>
   <tabstop>textComentario</tabstop>
-  <tabstop>botaoOk</tabstop>
-  <tabstop>botaoCancela</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'pessoas_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -27,12 +27,11 @@ class Ui_Form(object):
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setGeometry(QtCore.QRect(10, 80, 431, 25))
         self.comboBox.setObjectName("comboBox")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(100, 130, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(270, 130, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(5, 140, 441, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -42,6 +41,14 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Nova Pessoa"))
         self.labelNome.setText(_translate("Form", "Nome"))
         self.labelAntes.setText(_translate("Form", "Adicionar antes de"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

@@ -77,32 +77,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="botaoOk">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>160</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ok</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="botaoCancela">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>160</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancela</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="labelTitulo">
    <property name="geometry">
     <rect>
@@ -136,6 +110,22 @@
    </property>
    <property name="text">
     <string>Ativo</string>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>160</y>
+     <width>451</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+   <property name="centerButtons">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

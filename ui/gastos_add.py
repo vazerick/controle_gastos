@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gastos_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -58,12 +58,6 @@ class Ui_Form(object):
         self.botaoHoje = QtWidgets.QPushButton(Form)
         self.botaoHoje.setGeometry(QtCore.QRect(860, 170, 41, 25))
         self.botaoHoje.setObjectName("botaoHoje")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(330, 580, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(490, 580, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.spinValor = QtWidgets.QDoubleSpinBox(Form)
         self.spinValor.setGeometry(QtCore.QRect(495, 30, 71, 26))
         self.spinValor.setDecimals(2)
@@ -88,6 +82,12 @@ class Ui_Form(object):
         self.labelSoma = QtWidgets.QLabel(self.groupSoma)
         self.labelSoma.setGeometry(QtCore.QRect(10, 30, 54, 17))
         self.labelSoma.setObjectName("labelSoma")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(10, 580, 911, 23))
+        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -98,8 +98,6 @@ class Ui_Form(object):
         Form.setTabOrder(self.comboSub, self.textComentario)
         Form.setTabOrder(self.textComentario, self.calendarWidget)
         Form.setTabOrder(self.calendarWidget, self.botaoHoje)
-        Form.setTabOrder(self.botaoHoje, self.botaoOk)
-        Form.setTabOrder(self.botaoOk, self.botaoCancela)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -113,8 +111,6 @@ class Ui_Form(object):
         self.labelSub.setText(_translate("Form", "Sub-categoria"))
         self.labelData.setText(_translate("Form", "Data"))
         self.botaoHoje.setText(_translate("Form", "Hoje"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.labelValor_2.setText(_translate("Form", "R$"))
         self.checkDivida.setText(_translate("Form", "Dívida"))
         self.botaoAdd.setText(_translate("Form", "Adicionar na Lista"))
@@ -124,4 +120,14 @@ class Ui_Form(object):
         self.treeWidget.headerItem().setText(3, _translate("Form", "Valor"))
         self.groupSoma.setTitle(_translate("Form", "Soma"))
         self.labelSoma.setText(_translate("Form", "0,00"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

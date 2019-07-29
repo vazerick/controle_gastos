@@ -135,7 +135,7 @@ class gui:
         print("Inicia a janela")
         self.wMain.show()
 
-    def subcategorias_extra(self, nome):
+    def subcategorias_extra(self, nome): # todo arrumar isso aqui que tá tudo zoado
         self.extra += 1
 
         self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
@@ -146,8 +146,7 @@ class gui:
             260,
             self.altura+(self.extra*self.fator)
         )
-        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
-        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 210 + (self.extra*self.fator), 80, 25))
+        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
 
         self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
         self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
@@ -169,8 +168,7 @@ class gui:
             260,
             self.altura+(self.extra*self.fator)
         )
-        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
-        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 210 + (self.extra*self.fator), 80, 25))
+        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
 
         self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
         self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
@@ -194,8 +192,7 @@ class gui:
             260,
             self.altura
         )
-        self.uiSubCategoriasAdd.botaoOk.setGeometry(QtCore.QRect(40, 210, 80, 25))
-        self.uiSubCategoriasAdd.botaoCancela.setGeometry(QtCore.QRect(150, 210, 80, 25))
+        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210, 80, 25))
 
         self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170, 241, 25))
         self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150, 111, 17))

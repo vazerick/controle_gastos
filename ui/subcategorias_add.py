@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'subcategorias_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -21,12 +21,6 @@ class Ui_Form(object):
         self.labelNome = QtWidgets.QLabel(Form)
         self.labelNome.setGeometry(QtCore.QRect(20, 2, 54, 17))
         self.labelNome.setObjectName("labelNome")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(40, 210, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(150, 210, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.botaoMais = QtWidgets.QPushButton(Form)
         self.botaoMais.setGeometry(QtCore.QRect(230, 22, 25, 25))
         self.botaoMais.setMinimumSize(QtCore.QSize(25, 25))
@@ -47,6 +41,11 @@ class Ui_Form(object):
         self.listWidget = QtWidgets.QListWidget(Form)
         self.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31))
         self.listWidget.setObjectName("listWidget")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(0, 220, 261, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -55,9 +54,17 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Nova Sub-Categoria"))
         self.labelNome.setText(_translate("Form", "Nome"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.botaoMais.setText(_translate("Form", "+"))
         self.labelAntes.setText(_translate("Form", "Adicionar antes de"))
         self.labelCategoria.setText(_translate("Form", "Categoria"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

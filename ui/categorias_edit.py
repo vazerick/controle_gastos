@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'categorias_edit.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -27,16 +27,15 @@ class Ui_Form(object):
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setGeometry(QtCore.QRect(10, 110, 211, 25))
         self.comboBox.setObjectName("comboBox")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(20, 150, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(130, 150, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.labelTitulo = QtWidgets.QLabel(Form)
         self.labelTitulo.setGeometry(QtCore.QRect(20, 20, 191, 17))
         self.labelTitulo.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTitulo.setObjectName("labelTitulo")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(0, 160, 231, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -46,7 +45,15 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Editar Categoria"))
         self.labelNome.setText(_translate("Form", "Nome"))
         self.labelAntes.setText(_translate("Form", "Adicionar antes de"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.labelTitulo.setText(_translate("Form", "Editar [nome]"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

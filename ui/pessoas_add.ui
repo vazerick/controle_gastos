@@ -74,30 +74,20 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="botaoOk">
+  <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>130</y>
-     <width>80</width>
-     <height>25</height>
+     <x>5</x>
+     <y>140</y>
+     <width>441</width>
+     <height>23</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Ok</string>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
-  </widget>
-  <widget class="QPushButton" name="botaoCancela">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>130</y>
-     <width>80</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancela</string>
+   <property name="centerButtons">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

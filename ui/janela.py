@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -429,4 +429,14 @@ class Ui_Form(object):
         self.botaoPessoaEditar.setText(_translate("Form", "Editar"))
         self.botaoSubAdicionar.setText(_translate("Form", "Adicionar Sub-Categoria"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

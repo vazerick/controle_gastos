@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fixo_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,12 +42,6 @@ class Ui_Form(object):
         self.botaoHoje = QtWidgets.QPushButton(Form)
         self.botaoHoje.setGeometry(QtCore.QRect(290, 130, 41, 25))
         self.botaoHoje.setObjectName("botaoHoje")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(230, 520, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(390, 520, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.spinValor = QtWidgets.QDoubleSpinBox(Form)
         self.spinValor.setGeometry(QtCore.QRect(395, 30, 71, 26))
         self.spinValor.setDecimals(2)
@@ -97,6 +91,11 @@ class Ui_Form(object):
         self.labelPagamento.setEnabled(False)
         self.labelPagamento.setGeometry(QtCore.QRect(30, 70, 151, 17))
         self.labelPagamento.setObjectName("labelPagamento")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(0, 530, 721, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -104,8 +103,6 @@ class Ui_Form(object):
         Form.setTabOrder(self.spinValor, self.textComentario)
         Form.setTabOrder(self.textComentario, self.calendarWidget)
         Form.setTabOrder(self.calendarWidget, self.botaoHoje)
-        Form.setTabOrder(self.botaoHoje, self.botaoOk)
-        Form.setTabOrder(self.botaoOk, self.botaoCancela)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -115,8 +112,6 @@ class Ui_Form(object):
         self.labelValor.setText(_translate("Form", "Valor"))
         self.labelPrevisao.setText(_translate("Form", "Vencimento"))
         self.botaoHoje.setText(_translate("Form", "Hoje"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.labelValor_2.setText(_translate("Form", "R$"))
         self.botaoHoje_2.setText(_translate("Form", "Hoje"))
         self.labelPago.setText(_translate("Form", "Pago"))
@@ -124,4 +119,14 @@ class Ui_Form(object):
         self.labelSub.setText(_translate("Form", "Sub-categoria"))
         self.labelCategoria.setText(_translate("Form", "Categoria"))
         self.labelPagamento.setText(_translate("Form", "Forma de pagamento"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

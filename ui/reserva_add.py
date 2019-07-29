@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'reserva_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -29,12 +29,6 @@ class Ui_Form(object):
         self.labelValor = QtWidgets.QLabel(Form)
         self.labelValor.setGeometry(QtCore.QRect(370, 10, 41, 17))
         self.labelValor.setObjectName("labelValor")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(120, 190, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(280, 190, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.spinValor = QtWidgets.QDoubleSpinBox(Form)
         self.spinValor.setGeometry(QtCore.QRect(385, 30, 71, 26))
         self.spinValor.setDecimals(2)
@@ -44,13 +38,16 @@ class Ui_Form(object):
         self.labelValor_2 = QtWidgets.QLabel(Form)
         self.labelValor_2.setGeometry(QtCore.QRect(370, 35, 16, 17))
         self.labelValor_2.setObjectName("labelValor_2")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(0, 190, 481, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
         Form.setTabOrder(self.inputReserva, self.spinValor)
         Form.setTabOrder(self.spinValor, self.textComentario)
-        Form.setTabOrder(self.textComentario, self.botaoOk)
-        Form.setTabOrder(self.botaoOk, self.botaoCancela)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -58,7 +55,15 @@ class Ui_Form(object):
         self.labelReserva.setText(_translate("Form", "Reserva"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
         self.labelValor.setText(_translate("Form", "Valor"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.labelValor_2.setText(_translate("Form", "R$"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 
