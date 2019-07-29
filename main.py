@@ -21,6 +21,8 @@ from src.completer import Completer
 
 # declaração das funções
 
+selecionado = -1
+
 def limpa_janela(
         janela=[],
         botao=[],
@@ -462,6 +464,20 @@ def botao_gasto_cancela():
     )
 
 
+def botao_gasto_editar():
+    global selecionado
+    nome = gui.uiGastosEdit.inputGasto.text()
+    valor = gui.uiGastosEdit.spinValor.text()
+    comentario = gui.uiGastosEdit.textComentario.toPlainText()
+    data = gui.uiGastosEdit.calendarWidget.selectedDate()
+    data = data.toString("dd/MM/yyyy")
+    categoria = ComboGastoEditCat.getId()
+    sub = ComboGastoEditSub.getId()
+    print("Antigo\n", Tabela.Saida.tabela.iloc[selecionado])
+    print("Novo\n",nome, valor, comentario, data, Categoria.getNome(categoria), Categoria.getSubNome(categoria, sub))
+
+
+
 def str_dinheiro(valor):
     return "R$"+str(valor).replace(".", ",")
 
@@ -630,8 +646,10 @@ def gasto_click(item):
     tabela = tabela[tabela["data"] == data]
     tabela = tabela[tabela["nome"] == nome]
     tabela = tabela[tabela["valor"] == valor]
+    global selecionado
     if len(tabela) == 1:
         id = tabela.iloc[0].name
+        selecionado = id
         item = Tabela.Saida.tabela.iloc[id]
         gui.uiGastosEdit.inputGasto.setText(item["nome"])
         gui.uiGastosEdit.spinValor.setValue(item["valor"])
@@ -643,6 +661,8 @@ def gasto_click(item):
         gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
         gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
         gui.wGastosEdit.show()
+    else:
+        selecionado = 0
 
 
 # ações dos eventos de mudança
@@ -731,6 +751,8 @@ gui.uiGastosAdd.botaoHoje.clicked.connect(
 gui.uiGastosAdd.buttonBox.accepted.connect(botao_gasto_add)
 gui.uiGastosAdd.buttonBox.rejected.connect(botao_gasto_cancela)
 gui.uiGastosAdd.botaoAdd.clicked.connect(botao_gasto_fila)
+
+gui.uiGastosEdit.buttonBox.accepted.connect(botao_gasto_editar)
 
 gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
 
@@ -925,6 +947,7 @@ Hoje = Hoje(
 GastoCompleter = Completer(
     campos=[
         gui.uiGastosAdd.inputGasto,
+        gui.uiGastosEdit.inputGasto
     ],
     tabelas=Tabela,
     tipo="saida"

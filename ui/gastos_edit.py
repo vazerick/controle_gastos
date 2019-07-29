@@ -52,12 +52,6 @@ class Ui_Form(object):
         self.botaoHoje = QtWidgets.QPushButton(Form)
         self.botaoHoje.setGeometry(QtCore.QRect(310, 140, 41, 25))
         self.botaoHoje.setObjectName("botaoHoje")
-        self.botaoOk = QtWidgets.QPushButton(Form)
-        self.botaoOk.setGeometry(QtCore.QRect(200, 370, 80, 25))
-        self.botaoOk.setObjectName("botaoOk")
-        self.botaoCancela = QtWidgets.QPushButton(Form)
-        self.botaoCancela.setGeometry(QtCore.QRect(300, 370, 80, 25))
-        self.botaoCancela.setObjectName("botaoCancela")
         self.spinValor = QtWidgets.QDoubleSpinBox(Form)
         self.spinValor.setGeometry(QtCore.QRect(495, 30, 71, 26))
         self.spinValor.setDecimals(2)
@@ -70,6 +64,11 @@ class Ui_Form(object):
         self.checkDivida = QtWidgets.QCheckBox(Form)
         self.checkDivida.setGeometry(QtCore.QRect(460, 90, 82, 23))
         self.checkDivida.setObjectName("checkDivida")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(5, 370, 581, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -79,8 +78,6 @@ class Ui_Form(object):
         Form.setTabOrder(self.comboSub, self.textComentario)
         Form.setTabOrder(self.textComentario, self.calendarWidget)
         Form.setTabOrder(self.calendarWidget, self.botaoHoje)
-        Form.setTabOrder(self.botaoHoje, self.botaoOk)
-        Form.setTabOrder(self.botaoOk, self.botaoCancela)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -93,8 +90,6 @@ class Ui_Form(object):
         self.labelSub.setText(_translate("Form", "Sub-categoria"))
         self.labelData.setText(_translate("Form", "Data"))
         self.botaoHoje.setText(_translate("Form", "Hoje"))
-        self.botaoOk.setText(_translate("Form", "Ok"))
-        self.botaoCancela.setText(_translate("Form", "Cancela"))
         self.labelValor_2.setText(_translate("Form", "R$"))
         self.checkDivida.setText(_translate("Form", "Dívida"))
 
