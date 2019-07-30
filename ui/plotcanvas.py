@@ -83,7 +83,7 @@ class PlotPizza(FigureCanvas):
         ]
 
     def func(self, pct, allvals):
-        if pct >= 10:
+        if pct >= 5:
             absolute = int(pct / 100. * np.sum(allvals))
             return "{:.1f}%\n(R${:d})".format(pct, absolute)
         else:
@@ -93,7 +93,7 @@ class PlotPizza(FigureCanvas):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
-        wedges, texts, autotexts = ax.pie(dados, autopct=lambda pct: self.func(pct, dados), pctdistance=0.7,
+        wedges, texts, autotexts = ax.pie(dados, autopct=lambda pct: self.func(pct, dados), pctdistance=0.8,
                                           textprops=dict(color="w"), colors=self.cores)
 
         ax.legend(wedges, rotulo,
