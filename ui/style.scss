@@ -1,12 +1,87 @@
-$myColor: black;
+$fundo: #fff;
+$texto: #1d4646;
 
-QWidget {
-    color: $myColor;
+$corA0: #9FBBD6;	// Main Primary color */
+$corA1: #E1EBF5;
+$corA2: #C2D5E8 ;
+$corA3: #7C9EC0 ;
+$corA4: #5A81A6 ;
+
+$corB0: #AAA7DC ;	// Main Secondary color (1) */
+$corB1: #E5E4F7 ;
+$corB2: #C9C7EB ;
+$corB3: #8A87C9 ;
+$corB4: #6B67B2 ;
+
+$corC0: #9CD9C3 ;	// Main Secondary color (2) */
+$corC1: #E0F6EE ;
+$corC2: #C0E9DB ;
+$corC3: #79C4A9 ;
+$corC4: #57AB8E ;
+
+QDialog, QMainWindow {
+  background-color: $corA1;
 }
 
-QFrame {
-    border: 0px;
+QPushButton {
+  background-color: $corA1;
 }
+
+QLineEdit, QSpinBox, QDoubleSpinBox, QTextEdit{
+  background-color: $corC1;
+}
+
+QComboBox{
+  background-color: $corC0;
+  selection-color: #000;
+  selection-background-color: $corC1;
+}
+
+QStackedWidget {
+  background-color: $corA2;
+}
+
+QGroupBox {
+    background-color: transparent;
+}
+
+QTreeWidget, QListWidget {
+  background-color: $corC1;
+  alternate-background-color: $corC2;
+}
+
+QCalendarWidget QAbstractItemView{
+  background-color: $corA1;
+  selection-background-color: $corC4;
+  alternate-background-color: $corC1;
+  border-style: solid;
+  border-width: 1px;
+  border-color: $corA0;
+}
+
+QScrollBar:vertical {
+        border: 1px solid #999999;
+        background:white;
+        width:10px;
+        margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:vertical {
+        background: $corA0;
+        min-height: 0px;
+    }
+    QScrollBar::add-line:vertical {
+        background: $corA0;
+        height: 0px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+    }
+    QScrollBar::sub-line:vertical {
+        background: $corA0;
+        height: 0 px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+    }
+
 
 *[class=obrigatorio] {
 }
