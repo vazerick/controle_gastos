@@ -467,15 +467,38 @@ def botao_gasto_cancela():
 def botao_gasto_editar():
     global selecionado
     nome = gui.uiGastosEdit.inputGasto.text()
-    valor = gui.uiGastosEdit.spinValor.text()
+    valor = gui.uiGastosEdit.spinValor.value()
     comentario = gui.uiGastosEdit.textComentario.toPlainText()
     data = gui.uiGastosEdit.calendarWidget.selectedDate()
     data = data.toString("dd/MM/yyyy")
     categoria = ComboGastoEditCat.getId()
     sub = ComboGastoEditSub.getId()
+    adicao = Info.data_hora()
     print("Antigo\n", Tabela.Saida.tabela.iloc[selecionado])
     print("Novo\n",nome, valor, comentario, data, Categoria.getNome(categoria), Categoria.getSubNome(categoria, sub))
-
+    Tabela.Saida.editar(selecionado,
+                        [
+                            data,
+                            adicao,
+                            nome,
+                            comentario,
+                            valor,
+                            0,
+                            categoria,
+                            sub,
+                            None,  # divida
+                            None,  # divisao
+                        ])
+    limpa_janela(
+        janela=[gui.wGastosEdit],
+        texto=[
+            gui.uiGastosEdit.inputGasto,
+            gui.uiGastosEdit.textComentario],
+        spin=[gui.uiGastosEdit.spinValor],
+        data=[gui.uiGastosEdit.calendarWidget]
+    )
+    ArvoreSaida.atualiza(Tabela.Saida.tabela)
+    Hoje.atualiza()
 
 
 def str_dinheiro(valor):
