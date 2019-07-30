@@ -688,6 +688,48 @@ def gasto_click(item):
         selecionado = 0
 
 
+def fila_click(item):
+    item = gui.uiGastosAdd.treeWidget.selectedItems()[0]
+    print(item)
+    nome = item.text(0)
+    categoria = item.text(1)
+    sub = item.text(2)
+    valor = float(item.text(3).replace("R$", ""))
+    print("fila:\n", fila_gasto)
+    print("Item:\n", nome, categoria, sub, valor)
+    for i in fila_gasto:
+        if i["nome"] == nome and i["valor"] == valor and Categoria.getNome(
+                i["categoria"]) == categoria and Categoria.getSubNome(i["categoria"], i["sub"]) == sub:
+            gui.uiGastosAdd.inputGasto.setText(i["nome"])
+            gui.uiGastosAdd.spinValor.setValue(i["valor"])
+            gui.uiGastosAdd.comboCategoria.setCurrentText(categoria)
+            gui.uiGastosAdd.comboSub.setCurrentText(sub)
+            fila_gasto.remove(i)
+            validador_gastos()
+            ArvoreFilaGastos.atualiza()
+    # tabela = Tabela.Saida.tabela
+    # tabela = tabela[tabela["data"] == data]
+    # tabela = tabela[tabela["nome"] == nome]
+    # tabela = tabela[tabela["valor"] == valor]
+    # global selecionado
+    # if len(tabela) == 1:
+    #     id = tabela.iloc[0].name
+    #     selecionado = id
+    #     item = Tabela.Saida.tabela.iloc[id]
+    #     gui.uiGastosEdit.inputGasto.setText(item["nome"])
+    #     gui.uiGastosEdit.spinValor.setValue(item["valor"])
+    #     if pandas.notna(item["comentario"]):
+    #         gui.uiGastosEdit.textComentario.setText(item["comentario"])
+    #     gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+    #     print(Categoria.getNome(item["categoria"]))
+    #     gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+    #     gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+    #     gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
+    #     gui.wGastosEdit.show()
+    # else:
+    #     selecionado = 0
+
+
 # ações dos eventos de mudança
 
 
@@ -872,6 +914,8 @@ gui.uiFixoAdd.checkPago.stateChanged.connect(check_fixo)
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
 gui.ui.treeSaida.doubleClicked.connect(gasto_click)
+
+gui.uiGastosAdd.treeWidget.doubleClicked.connect(fila_click)
 
 gui.ui.listMenu.itemClicked.connect(
     lambda: gui.ui.stackedWidget.setCurrentIndex(
