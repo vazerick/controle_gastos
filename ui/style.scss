@@ -82,7 +82,18 @@ QScrollBar:vertical {
         subcontrol-origin: margin;
     }
 
-
-*[class=obrigatorio] {
-}
+//QProgressBar {
+//    border: 1px solid black;
+//    text-align: center;
+//    padding: 1px;
+//    border-radius: 7px;
+//    background: $corB2;
+//    width: 15px;
+//}
+//
+//QProgressBar::chunk {
+//    background: $corB4;
+//    border-radius: 7px;
+//    border: 1px solid black;
+//}
 
