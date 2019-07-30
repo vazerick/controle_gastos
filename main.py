@@ -712,7 +712,8 @@ def troca_subcategoria(comboCat, comboSub):
     comboSub.troca(cat_id)
 
 
-def grafico_barra(grafico, dados, completo=False):
+def grafico_barra(grafico, dados, completo=False, destaque=True):
+    dias_destaque=[]
     inicio = Info.mes_str+"/01/"+Info.ano_str
     if completo:
         periodo = Info.tempo.daysInMonth()
@@ -729,7 +730,24 @@ def grafico_barra(grafico, dados, completo=False):
     i = 0
     for i in range(0, len(rotulos)):
         rotulos[i] = rotulos[i][0:2]
-    grafico.plot(rotulos, tabela["valor"])
+    if destaque:
+        dias_destaque=fim_de_semana(dados)
+    print("|!",dias_destaque)
+    grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque)
+
+
+def fim_de_semana(dados):
+    dias = pd.DataFrame()
+    dias["data"] = dados["data"].copy()
+    dias["time"] = dias.apply(lambda row: time.strptime(row["data"], "%d/%m/%Y"), axis=1)
+    dias["semana"] = dias.apply(lambda row: time.strftime("%w", row["time"]), axis=1)
+    dias["data"] = dias.apply(lambda row: row["data"][0:2], axis=1)
+    print(dias)
+    destaque = []
+    destaque = list((dias[dias["semana"] == "5"]["data"])) + \
+               list((dias[dias["semana"] == "6"]["data"])) + \
+               list((dias[dias["semana"] == "0"]["data"]))
+    return destaque
 
 
 def grafico_pizza(grafico, dados):

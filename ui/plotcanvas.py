@@ -23,7 +23,21 @@ class PlotBarra(FigureCanvas):
         self.nome_valores = "Valores"
         self.nome_rotulos = "Rotulos"
 
-    def plot(self, x, y):
+    def plot(self, x, y, destaque=[]):
+        cor = "#01665E"
+        cor_destaque = '#80CDC1'
+        cores = []
+        if len(destaque):
+            i = 0
+            for i in range(0, len(x)):
+                print("AAA\n\y", x[i], " > ", destaque)
+                if x[i] in destaque:
+                    print("Destaque")
+                    cores.append(cor_destaque)
+                else:
+                    cores.append(cor)
+        else:
+            cores=cor
         ax = self.fig.add_subplot(111)
         ax.clear()
         tick = 10 * round(y.max()/10)
@@ -31,7 +45,7 @@ class PlotBarra(FigureCanvas):
         ax.set_yticks([tick, tick*2, tick*3, tick*4], minor=False)
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
-        ax.bar(x, y)
+        ax.bar(x, y, color=cores)
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
         self.draw()
