@@ -498,6 +498,7 @@ def botao_gasto_editar():
         spin=[gui.uiGastosEdit.spinValor],
         data=[gui.uiGastosEdit.calendarWidget]
     )
+    gasto_atualiza()
 
 
 def str_dinheiro(valor):
@@ -711,10 +712,18 @@ def troca_subcategoria(comboCat, comboSub):
     comboSub.troca(cat_id)
 
 
-def grafico_barra(grafico, dados):
-    tabela = pd.DataFrame()
-    tabela["data"] = dados["data"]
-    tabela["valor"] = dados["valor"]
+def grafico_barra(grafico, dados, completo=False):
+    inicio = Info.mes_str+"/01/"+Info.ano_str
+    if completo:
+        periodo = Info.tempo.daysInMonth()
+        datelist = pd.date_range(start=inicio, periods=periodo).strftime('%d/%m/%Y').tolist()
+    else:
+        fim = Info.mes_str + "/" + Info.dia_str + "/" + Info.ano_str
+        datelist = pd.date_range(start=inicio, end=fim).strftime('%d/%m/%Y').tolist()
+    tabela = pd.DataFrame(datelist, columns=["data"])
+    tabela["valor"] = 0
+    # tabela["data"] = dados["data"]
+    tabela = tabela.append(dados, sort=True)
     tabela = tabela.groupby("data").agg(np.sum)
     rotulos = tabela.index.values
     i = 0

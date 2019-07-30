@@ -29,7 +29,7 @@ class PlotBarra(FigureCanvas):
         tick = 10 * round(y.max()/10)
         tick = round(tick/4)
         ax.set_yticks([tick, tick*2, tick*3, tick*4], minor=False)
-        ax.yaxis.grid(True, which='major', linewidth=2)
+        ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y)
         for tick in ax.get_xticklabels():
