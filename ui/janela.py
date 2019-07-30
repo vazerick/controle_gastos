@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -20,16 +20,17 @@ class Ui_Form(object):
         self.tabWidget.setObjectName("tabWidget")
         self.Hoje = QtWidgets.QWidget()
         self.Hoje.setObjectName("Hoje")
-        self.boxStatus = QtWidgets.QGroupBox(self.Hoje)
-        self.boxStatus.setGeometry(QtCore.QRect(260, 0, 511, 231))
+        self.boxStatus = QtWidgets.QFrame(self.Hoje)
+        self.boxStatus.setGeometry(QtCore.QRect(120, 0, 561, 231))
         self.boxStatus.setObjectName("boxStatus")
         self.frame = QtWidgets.QFrame(self.boxStatus)
-        self.frame.setGeometry(QtCore.QRect(10, 80, 331, 141))
+        self.frame.setGeometry(QtCore.QRect(10, 80, 531, 141))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.boxHoje = QtWidgets.QGroupBox(self.frame)
         self.boxHoje.setGeometry(QtCore.QRect(10, 0, 141, 131))
+        self.boxHoje.setStyleSheet("")
         self.boxHoje.setObjectName("boxHoje")
         self.frameHojeGasto = QtWidgets.QFrame(self.boxHoje)
         self.frameHojeGasto.setGeometry(QtCore.QRect(10, 30, 121, 21))
@@ -65,7 +66,7 @@ class Ui_Form(object):
         self.labelHojeRestaV.setGeometry(QtCore.QRect(50, 0, 71, 17))
         self.labelHojeRestaV.setObjectName("labelHojeRestaV")
         self.progressBarHoje = QtWidgets.QProgressBar(self.boxHoje)
-        self.progressBarHoje.setGeometry(QtCore.QRect(0, 100, 141, 23))
+        self.progressBarHoje.setGeometry(QtCore.QRect(0, 100, 141, 31))
         self.progressBarHoje.setMaximum(100)
         self.progressBarHoje.setProperty("value", 24)
         self.progressBarHoje.setObjectName("progressBarHoje")
@@ -106,82 +107,72 @@ class Ui_Form(object):
         self.labelMesRestaV.setGeometry(QtCore.QRect(50, 0, 71, 17))
         self.labelMesRestaV.setObjectName("labelMesRestaV")
         self.progressBarMes = QtWidgets.QProgressBar(self.boxMes)
-        self.progressBarMes.setGeometry(QtCore.QRect(0, 100, 141, 23))
+        self.progressBarMes.setGeometry(QtCore.QRect(0, 100, 141, 31))
         self.progressBarMes.setProperty("value", 24)
         self.progressBarMes.setObjectName("progressBarMes")
-        self.frameDiario = QtWidgets.QFrame(self.boxStatus)
-        self.frameDiario.setGeometry(QtCore.QRect(350, 80, 141, 131))
-        self.frameDiario.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frameDiario.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameDiario.setObjectName("frameDiario")
-        self.boxMedia = QtWidgets.QGroupBox(self.frameDiario)
-        self.boxMedia.setGeometry(QtCore.QRect(0, 0, 141, 41))
+        self.boxMedia = QtWidgets.QGroupBox(self.frame)
+        self.boxMedia.setGeometry(QtCore.QRect(350, 10, 141, 41))
         self.boxMedia.setAlignment(QtCore.Qt.AlignCenter)
         self.boxMedia.setObjectName("boxMedia")
         self.labelMedia = QtWidgets.QLabel(self.boxMedia)
         self.labelMedia.setGeometry(QtCore.QRect(80, 20, 61, 17))
         self.labelMedia.setObjectName("labelMedia")
-        self.boxLimiteDia = QtWidgets.QGroupBox(self.frameDiario)
-        self.boxLimiteDia.setGeometry(QtCore.QRect(0, 40, 141, 41))
+        self.boxLimiteDia = QtWidgets.QGroupBox(self.frame)
+        self.boxLimiteDia.setGeometry(QtCore.QRect(350, 50, 141, 41))
         self.boxLimiteDia.setAlignment(QtCore.Qt.AlignCenter)
         self.boxLimiteDia.setObjectName("boxLimiteDia")
         self.labelLimiteDia = QtWidgets.QLabel(self.boxLimiteDia)
         self.labelLimiteDia.setGeometry(QtCore.QRect(80, 20, 61, 17))
         self.labelLimiteDia.setObjectName("labelLimiteDia")
-        self.boxAjuste = QtWidgets.QGroupBox(self.frameDiario)
-        self.boxAjuste.setGeometry(QtCore.QRect(0, 80, 141, 41))
+        self.boxAjuste = QtWidgets.QGroupBox(self.frame)
+        self.boxAjuste.setGeometry(QtCore.QRect(350, 90, 141, 41))
         self.boxAjuste.setAlignment(QtCore.Qt.AlignCenter)
         self.boxAjuste.setObjectName("boxAjuste")
         self.labelAjuste = QtWidgets.QLabel(self.boxAjuste)
         self.labelAjuste.setGeometry(QtCore.QRect(80, 20, 61, 17))
         self.labelAjuste.setObjectName("labelAjuste")
-        self.frame_2 = QtWidgets.QFrame(self.boxStatus)
-        self.frame_2.setGeometry(QtCore.QRect(10, 30, 451, 51))
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.labelDia = QtWidgets.QLabel(self.frame_2)
-        self.labelDia.setGeometry(QtCore.QRect(20, 0, 121, 17))
-        self.labelDia.setObjectName("labelDia")
-        self.frameTotalEntrada = QtWidgets.QFrame(self.frame_2)
-        self.frameTotalEntrada.setGeometry(QtCore.QRect(10, 20, 130, 21))
+        self.groupDia = QtWidgets.QGroupBox(self.boxStatus)
+        self.groupDia.setGeometry(QtCore.QRect(10, 20, 531, 55))
+        self.groupDia.setObjectName("groupDia")
+        self.frameTotalEntrada = QtWidgets.QFrame(self.groupDia)
+        self.frameTotalEntrada.setGeometry(QtCore.QRect(10, 30, 151, 21))
         self.frameTotalEntrada.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameTotalEntrada.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameTotalEntrada.setObjectName("frameTotalEntrada")
         self.labelTotalEntrada = QtWidgets.QLabel(self.frameTotalEntrada)
-        self.labelTotalEntrada.setGeometry(QtCore.QRect(0, 0, 54, 17))
+        self.labelTotalEntrada.setGeometry(QtCore.QRect(20, 0, 54, 17))
         self.labelTotalEntrada.setObjectName("labelTotalEntrada")
         self.labelTotalEntradaV = QtWidgets.QLabel(self.frameTotalEntrada)
-        self.labelTotalEntradaV.setGeometry(QtCore.QRect(60, 0, 71, 17))
+        self.labelTotalEntradaV.setGeometry(QtCore.QRect(80, 0, 71, 17))
         self.labelTotalEntradaV.setObjectName("labelTotalEntradaV")
-        self.frameTotalFixo = QtWidgets.QFrame(self.frame_2)
-        self.frameTotalFixo.setGeometry(QtCore.QRect(160, 20, 151, 21))
+        self.frameTotalFixo = QtWidgets.QFrame(self.groupDia)
+        self.frameTotalFixo.setGeometry(QtCore.QRect(180, 30, 171, 21))
         self.frameTotalFixo.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameTotalFixo.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameTotalFixo.setObjectName("frameTotalFixo")
         self.labelTotalFixo = QtWidgets.QLabel(self.frameTotalFixo)
-        self.labelTotalFixo.setGeometry(QtCore.QRect(0, 0, 81, 17))
+        self.labelTotalFixo.setGeometry(QtCore.QRect(20, 0, 81, 17))
         self.labelTotalFixo.setObjectName("labelTotalFixo")
         self.labelTotalFixoV = QtWidgets.QLabel(self.frameTotalFixo)
-        self.labelTotalFixoV.setGeometry(QtCore.QRect(80, 0, 71, 17))
+        self.labelTotalFixoV.setGeometry(QtCore.QRect(100, 0, 71, 17))
         self.labelTotalFixoV.setObjectName("labelTotalFixoV")
-        self.frameTotalReserva = QtWidgets.QFrame(self.frame_2)
-        self.frameTotalReserva.setGeometry(QtCore.QRect(320, 20, 131, 21))
+        self.frameTotalReserva = QtWidgets.QFrame(self.groupDia)
+        self.frameTotalReserva.setGeometry(QtCore.QRect(370, 30, 151, 21))
         self.frameTotalReserva.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameTotalReserva.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameTotalReserva.setObjectName("frameTotalReserva")
         self.labelTotalReserva = QtWidgets.QLabel(self.frameTotalReserva)
-        self.labelTotalReserva.setGeometry(QtCore.QRect(0, 0, 54, 17))
+        self.labelTotalReserva.setGeometry(QtCore.QRect(20, 0, 54, 17))
         self.labelTotalReserva.setObjectName("labelTotalReserva")
         self.labelTotalReservaV = QtWidgets.QLabel(self.frameTotalReserva)
-        self.labelTotalReservaV.setGeometry(QtCore.QRect(60, 0, 71, 17))
+        self.labelTotalReservaV.setGeometry(QtCore.QRect(80, 0, 71, 17))
         self.labelTotalReservaV.setObjectName("labelTotalReservaV")
         self.botaoGasto = QtWidgets.QPushButton(self.Hoje)
         self.botaoGasto.setGeometry(QtCore.QRect(10, 40, 91, 25))
         self.botaoGasto.setObjectName("botaoGasto")
         self.stackedWidget = QtWidgets.QStackedWidget(self.Hoje)
         self.stackedWidget.setEnabled(True)
-        self.stackedWidget.setGeometry(QtCore.QRect(260, 240, 511, 291))
+        self.stackedWidget.setGeometry(QtCore.QRect(130, 240, 511, 291))
         self.stackedWidget.setMouseTracking(False)
         self.stackedWidget.setAutoFillBackground(False)
         self.stackedWidget.setObjectName("stackedWidget")
@@ -236,7 +227,7 @@ class Ui_Form(object):
         self.pageReserva = QtWidgets.QWidget()
         self.pageReserva.setObjectName("pageReserva")
         self.boxSaidas_2 = QtWidgets.QGroupBox(self.pageReserva)
-        self.boxSaidas_2.setGeometry(QtCore.QRect(0, 0, 511, 291))
+        self.boxSaidas_2.setGeometry(QtCore.QRect(0, 0, 521, 291))
         self.boxSaidas_2.setObjectName("boxSaidas_2")
         self.treeReserva = QtWidgets.QTreeWidget(self.boxSaidas_2)
         self.treeReserva.setGeometry(QtCore.QRect(0, 20, 511, 271))
@@ -261,7 +252,10 @@ class Ui_Form(object):
         self.botaoReserva.setGeometry(QtCore.QRect(10, 130, 91, 25))
         self.botaoReserva.setObjectName("botaoReserva")
         self.listMenu = QtWidgets.QListWidget(self.Hoje)
-        self.listMenu.setGeometry(QtCore.QRect(20, 280, 191, 192))
+        self.listMenu.setGeometry(QtCore.QRect(60, 260, 71, 192))
+        self.listMenu.setAlternatingRowColors(False)
+        self.listMenu.setTextElideMode(QtCore.Qt.ElideMiddle)
+        self.listMenu.setProperty("isWrapping", True)
         self.listMenu.setObjectName("listMenu")
         item = QtWidgets.QListWidgetItem()
         self.listMenu.addItem(item)
@@ -272,10 +266,10 @@ class Ui_Form(object):
         item = QtWidgets.QListWidgetItem()
         self.listMenu.addItem(item)
         self.graficoPizza = PlotPizza(self.Hoje)
-        self.graficoPizza.setGeometry(QtCore.QRect(780, 10, 441, 261))
+        self.graficoPizza.setGeometry(QtCore.QRect(670, 10, 551, 261))
         self.graficoPizza.setObjectName("graficoPizza")
         self.graficoBarra = PlotBarra(self.Hoje)
-        self.graficoBarra.setGeometry(QtCore.QRect(780, 270, 441, 261))
+        self.graficoBarra.setGeometry(QtCore.QRect(670, 270, 551, 261))
         self.graficoBarra.setObjectName("graficoBarra")
         self.tabWidget.addTab(self.Hoje, "")
         self.Geral = QtWidgets.QWidget()
@@ -338,7 +332,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Controle de Gastos"))
-        self.boxStatus.setTitle(_translate("Form", "Status"))
+        self.boxHoje.setAccessibleName(_translate("Form", "progresso"))
         self.boxHoje.setTitle(_translate("Form", "Diário"))
         self.labelHojeGasto.setText(_translate("Form", "Gasto:"))
         self.labelHojeGastoV.setText(_translate("Form", "R$1000,00"))
@@ -346,6 +340,7 @@ class Ui_Form(object):
         self.labelHojeLimiteV.setText(_translate("Form", "R$1000,00"))
         self.labelHojeResto.setText(_translate("Form", "Resta:"))
         self.labelHojeRestaV.setText(_translate("Form", "R$1000,00"))
+        self.boxMes.setAccessibleName(_translate("Form", "progresso"))
         self.boxMes.setTitle(_translate("Form", "Mensal"))
         self.labelMesGasto.setText(_translate("Form", "Gasto:"))
         self.labelMesGastoV.setText(_translate("Form", "R$1000,00"))
@@ -353,13 +348,16 @@ class Ui_Form(object):
         self.labelMesLimiteV.setText(_translate("Form", "R$1000,00"))
         self.labelMesResta.setText(_translate("Form", "Resta:"))
         self.labelMesRestaV.setText(_translate("Form", "R$1000,00"))
+        self.boxMedia.setAccessibleName(_translate("Form", "quadro"))
         self.boxMedia.setTitle(_translate("Form", "Média de gasto por dia"))
         self.labelMedia.setText(_translate("Form", "R$100,00"))
+        self.boxLimiteDia.setAccessibleName(_translate("Form", "quadro"))
         self.boxLimiteDia.setTitle(_translate("Form", "Limite por dia"))
         self.labelLimiteDia.setText(_translate("Form", "R$100,00"))
+        self.boxAjuste.setAccessibleName(_translate("Form", "quadro"))
         self.boxAjuste.setTitle(_translate("Form", "{ajuste}"))
         self.labelAjuste.setText(_translate("Form", "R$100,00"))
-        self.labelDia.setText(_translate("Form", "Dia: 02 de 28 (07%)"))
+        self.groupDia.setTitle(_translate("Form", "Dia: 02 de 28 (07%)"))
         self.labelTotalEntrada.setText(_translate("Form", "Entrada:"))
         self.labelTotalEntradaV.setText(_translate("Form", "R$1000,00"))
         self.labelTotalFixo.setText(_translate("Form", "Gastos Fixos:"))
@@ -396,6 +394,7 @@ class Ui_Form(object):
         self.botaoEntrada.setText(_translate("Form", "Nova Entrada"))
         self.botaoFixo.setText(_translate("Form", "Novo Fixo"))
         self.botaoReserva.setText(_translate("Form", "Nova Reserva"))
+        self.listMenu.setAccessibleName(_translate("Form", "selecao"))
         __sortingEnabled = self.listMenu.isSortingEnabled()
         self.listMenu.setSortingEnabled(False)
         item = self.listMenu.item(0)
@@ -411,22 +410,22 @@ class Ui_Form(object):
         self.textBrowser_2.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista e cadastro dos gastos gerais (mensais e etc)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    Padrão de gastos (percentuais)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista dos investimentos</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Informações do ano</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Geração de relatórios</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista e cadastro dos gastos gerais (mensais e etc)</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    Padrão de gastos (percentuais)</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista dos investimentos</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Informações do ano</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Geração de relatórios</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Geral), _translate("Form", "Geral"))
         self.textBrowser_3.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista de dívidas</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que eu devo</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que me devem</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista de dívidas</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que eu devo</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que me devem</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Dividas), _translate("Form", "Dívidas"))
         self.boxConfig.setTitle(_translate("Form", "Configurações"))
         self.boxCategorias.setTitle(_translate("Form", "Categorias"))
@@ -443,13 +442,3 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotPizza
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
-

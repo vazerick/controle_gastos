@@ -8,7 +8,7 @@ import numpy as np
 class PlotBarra(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
-        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#ffffff")
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
         self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
@@ -45,6 +45,7 @@ class PlotBarra(FigureCanvas):
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y, color=cores)
+        ax.set_facecolor("#E1EBF5")
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
         self.draw()
@@ -52,7 +53,7 @@ class PlotBarra(FigureCanvas):
 class PlotPizza(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
-        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#ffffff")
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
         self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
