@@ -1,7 +1,8 @@
 import sys
 import os
 import configparser
-import pandas
+import pandas as pd
+import numpy as np
 import time
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
@@ -132,6 +133,10 @@ def seleciona_pagina():
     )
 
 
+def gasto_atualiza():
+    ArvoreSaida.atualiza(Tabela.Saida.tabela)
+    Hoje.atualiza()
+    grafico_mes()
 
 def subcategorias_lista_click(item):
     gui.subcategorias_remove()
@@ -373,8 +378,7 @@ def botao_reserva_add():
         botao=[gui.uiReservaAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
 
-    ArvoreSaida.atualiza(Tabela.Saida.tabela)
-    Hoje.atualiza()
+    gasto_atualiza()
 
 
 fila_gasto = []
@@ -442,8 +446,7 @@ def botao_gasto_add(): #todo Validação de dados: impedir datas do futuro
     fila_gasto.clear()
     ArvoreFilaGastos.atualiza()
     gui.uiGastosAdd.labelSoma.setText("R$")
-    ArvoreSaida.atualiza(Tabela.Saida.tabela)
-    Hoje.atualiza()
+    gasto_atualiza()
 
 
 def botao_gasto_cancela():
@@ -474,8 +477,6 @@ def botao_gasto_editar():
     categoria = ComboGastoEditCat.getId()
     sub = ComboGastoEditSub.getId()
     adicao = Info.data_hora()
-    print("Antigo\n", Tabela.Saida.tabela.iloc[selecionado])
-    print("Novo\n",nome, valor, comentario, data, Categoria.getNome(categoria), Categoria.getSubNome(categoria, sub))
     Tabela.Saida.editar(selecionado,
                         [
                             data,
@@ -497,8 +498,6 @@ def botao_gasto_editar():
         spin=[gui.uiGastosEdit.spinValor],
         data=[gui.uiGastosEdit.calendarWidget]
     )
-    ArvoreSaida.atualiza(Tabela.Saida.tabela)
-    Hoje.atualiza()
 
 
 def str_dinheiro(valor):
@@ -664,7 +663,6 @@ def gasto_click(item):
     data = item.text(0)
     nome = item.text(1)
     valor = float(item.text(4).replace("R$", ""))
-    print(data, nome, valor)
     tabela = Tabela.Saida.tabela
     tabela = tabela[tabela["data"] == data]
     tabela = tabela[tabela["nome"] == nome]
@@ -676,10 +674,9 @@ def gasto_click(item):
         item = Tabela.Saida.tabela.iloc[id]
         gui.uiGastosEdit.inputGasto.setText(item["nome"])
         gui.uiGastosEdit.spinValor.setValue(item["valor"])
-        if pandas.notna(item["comentario"]):
+        if pd.notna(item["comentario"]):
             gui.uiGastosEdit.textComentario.setText(item["comentario"])
         gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
-        print(Categoria.getNome(item["categoria"]))
         gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
         gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
         gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
@@ -690,13 +687,10 @@ def gasto_click(item):
 
 def fila_click(item):
     item = gui.uiGastosAdd.treeWidget.selectedItems()[0]
-    print(item)
     nome = item.text(0)
     categoria = item.text(1)
     sub = item.text(2)
     valor = float(item.text(3).replace("R$", ""))
-    print("fila:\n", fila_gasto)
-    print("Item:\n", nome, categoria, sub, valor)
     for i in fila_gasto:
         if i["nome"] == nome and i["valor"] == valor and Categoria.getNome(
                 i["categoria"]) == categoria and Categoria.getSubNome(i["categoria"], i["sub"]) == sub:
@@ -707,27 +701,6 @@ def fila_click(item):
             fila_gasto.remove(i)
             validador_gastos()
             ArvoreFilaGastos.atualiza()
-    # tabela = Tabela.Saida.tabela
-    # tabela = tabela[tabela["data"] == data]
-    # tabela = tabela[tabela["nome"] == nome]
-    # tabela = tabela[tabela["valor"] == valor]
-    # global selecionado
-    # if len(tabela) == 1:
-    #     id = tabela.iloc[0].name
-    #     selecionado = id
-    #     item = Tabela.Saida.tabela.iloc[id]
-    #     gui.uiGastosEdit.inputGasto.setText(item["nome"])
-    #     gui.uiGastosEdit.spinValor.setValue(item["valor"])
-    #     if pandas.notna(item["comentario"]):
-    #         gui.uiGastosEdit.textComentario.setText(item["comentario"])
-    #     gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
-    #     print(Categoria.getNome(item["categoria"]))
-    #     gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
-    #     gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-    #     gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
-    #     gui.wGastosEdit.show()
-    # else:
-    #     selecionado = 0
 
 
 # ações dos eventos de mudança
@@ -736,6 +709,41 @@ def fila_click(item):
 def troca_subcategoria(comboCat, comboSub):
     cat_id = comboCat.getId()
     comboSub.troca(cat_id)
+
+
+def grafico_barra(grafico, dados):
+    tabela = pd.DataFrame()
+    tabela["data"] = dados["data"]
+    tabela["valor"] = dados["valor"]
+    tabela = tabela.groupby("data").agg(np.sum)
+    rotulos = tabela.index.values
+    i = 0
+    for i in range(0, len(rotulos)):
+        rotulos[i] = rotulos[i][0:2]
+    grafico.plot(rotulos, tabela["valor"])
+
+
+def grafico_pizza(grafico, dados):
+    tabela = pd.DataFrame()
+    tabela["categoria"] = dados["categoria"]
+    tabela["valor"] = dados["valor"]
+    tabela = tabela.groupby("categoria").agg(np.sum)
+    tabela = tabela.sort_values(["valor"], ascending=False)
+    rotulos = []
+    for rotulo in tabela.index.values:
+        nome = Categoria.getNome(rotulo)
+        nome = nome.replace(" e ", "%e%")
+        nome = nome.replace(" ", "\n")
+        nome = nome.replace("%e%", " e\n")
+        rotulos.append(nome)
+
+    grafico.plot(tabela["valor"], rotulos)
+
+
+def grafico_mes():
+    grafico_barra(gui.ui.graficoBarra, Tabela.Saida.tabela)
+    grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
+
 
 #MAIN
 
@@ -1044,6 +1052,7 @@ ReservaCompleter = Completer(
     tipo="reserva"
 )
 
+grafico_mes()
 
 sys.exit(gui.app.exec_())
 

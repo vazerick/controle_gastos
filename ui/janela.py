@@ -11,23 +11,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1000, 600)
+        Form.resize(1259, 600)
         Form.setMinimumSize(QtCore.QSize(1000, 600))
-        Form.setMaximumSize(QtCore.QSize(1000, 600))
+        Form.setMaximumSize(QtCore.QSize(10000, 600))
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(Form)
         self.tabWidget.setObjectName("tabWidget")
         self.Hoje = QtWidgets.QWidget()
         self.Hoje.setObjectName("Hoje")
-        self.textBrowser = QtWidgets.QTextBrowser(self.Hoje)
-        self.textBrowser.setGeometry(QtCore.QRect(150, 60, 161, 101))
-        self.textBrowser.setObjectName("textBrowser")
         self.boxStatus = QtWidgets.QGroupBox(self.Hoje)
-        self.boxStatus.setGeometry(QtCore.QRect(360, 0, 471, 231))
+        self.boxStatus.setGeometry(QtCore.QRect(260, 0, 511, 231))
         self.boxStatus.setObjectName("boxStatus")
         self.frame = QtWidgets.QFrame(self.boxStatus)
-        self.frame.setGeometry(QtCore.QRect(10, 80, 311, 141))
+        self.frame.setGeometry(QtCore.QRect(10, 80, 331, 141))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -73,7 +70,7 @@ class Ui_Form(object):
         self.progressBarHoje.setProperty("value", 24)
         self.progressBarHoje.setObjectName("progressBarHoje")
         self.boxMes = QtWidgets.QGroupBox(self.frame)
-        self.boxMes.setGeometry(QtCore.QRect(160, 0, 141, 131))
+        self.boxMes.setGeometry(QtCore.QRect(180, 0, 141, 131))
         self.boxMes.setObjectName("boxMes")
         self.frameMesGasto = QtWidgets.QFrame(self.boxMes)
         self.frameMesGasto.setGeometry(QtCore.QRect(10, 30, 121, 21))
@@ -113,7 +110,7 @@ class Ui_Form(object):
         self.progressBarMes.setProperty("value", 24)
         self.progressBarMes.setObjectName("progressBarMes")
         self.frameDiario = QtWidgets.QFrame(self.boxStatus)
-        self.frameDiario.setGeometry(QtCore.QRect(320, 80, 141, 131))
+        self.frameDiario.setGeometry(QtCore.QRect(350, 80, 141, 131))
         self.frameDiario.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameDiario.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameDiario.setObjectName("frameDiario")
@@ -180,21 +177,21 @@ class Ui_Form(object):
         self.labelTotalReservaV.setGeometry(QtCore.QRect(60, 0, 71, 17))
         self.labelTotalReservaV.setObjectName("labelTotalReservaV")
         self.botaoGasto = QtWidgets.QPushButton(self.Hoje)
-        self.botaoGasto.setGeometry(QtCore.QRect(30, 20, 80, 25))
+        self.botaoGasto.setGeometry(QtCore.QRect(10, 40, 91, 25))
         self.botaoGasto.setObjectName("botaoGasto")
         self.stackedWidget = QtWidgets.QStackedWidget(self.Hoje)
         self.stackedWidget.setEnabled(True)
-        self.stackedWidget.setGeometry(QtCore.QRect(260, 240, 651, 291))
+        self.stackedWidget.setGeometry(QtCore.QRect(260, 240, 511, 291))
         self.stackedWidget.setMouseTracking(False)
         self.stackedWidget.setAutoFillBackground(False)
         self.stackedWidget.setObjectName("stackedWidget")
         self.pageGastos = QtWidgets.QWidget()
         self.pageGastos.setObjectName("pageGastos")
         self.boxGastos = QtWidgets.QGroupBox(self.pageGastos)
-        self.boxGastos.setGeometry(QtCore.QRect(0, 0, 651, 291))
+        self.boxGastos.setGeometry(QtCore.QRect(0, 0, 511, 291))
         self.boxGastos.setObjectName("boxGastos")
         self.treeSaida = QtWidgets.QTreeWidget(self.boxGastos)
-        self.treeSaida.setGeometry(QtCore.QRect(0, 20, 651, 271))
+        self.treeSaida.setGeometry(QtCore.QRect(0, 20, 511, 271))
         self.treeSaida.setAlternatingRowColors(True)
         self.treeSaida.setRootIsDecorated(True)
         self.treeSaida.setUniformRowHeights(False)
@@ -209,10 +206,10 @@ class Ui_Form(object):
         self.pageEntrada = QtWidgets.QWidget()
         self.pageEntrada.setObjectName("pageEntrada")
         self.boxEntrada = QtWidgets.QGroupBox(self.pageEntrada)
-        self.boxEntrada.setGeometry(QtCore.QRect(0, 0, 651, 291))
+        self.boxEntrada.setGeometry(QtCore.QRect(0, 0, 511, 291))
         self.boxEntrada.setObjectName("boxEntrada")
         self.treeEntrada = QtWidgets.QTreeWidget(self.boxEntrada)
-        self.treeEntrada.setGeometry(QtCore.QRect(0, 20, 651, 271))
+        self.treeEntrada.setGeometry(QtCore.QRect(0, 20, 511, 271))
         self.treeEntrada.setAlternatingRowColors(True)
         self.treeEntrada.setWordWrap(True)
         self.treeEntrada.setObjectName("treeEntrada")
@@ -221,10 +218,10 @@ class Ui_Form(object):
         self.pageFixo = QtWidgets.QWidget()
         self.pageFixo.setObjectName("pageFixo")
         self.boxFixo = QtWidgets.QGroupBox(self.pageFixo)
-        self.boxFixo.setGeometry(QtCore.QRect(0, 0, 651, 291))
+        self.boxFixo.setGeometry(QtCore.QRect(0, 0, 511, 291))
         self.boxFixo.setObjectName("boxFixo")
         self.treeFixo = QtWidgets.QTreeWidget(self.boxFixo)
-        self.treeFixo.setGeometry(QtCore.QRect(0, 20, 651, 271))
+        self.treeFixo.setGeometry(QtCore.QRect(0, 20, 511, 271))
         self.treeFixo.setAlternatingRowColors(True)
         self.treeFixo.setRootIsDecorated(True)
         self.treeFixo.setUniformRowHeights(False)
@@ -239,17 +236,29 @@ class Ui_Form(object):
         self.pageReserva = QtWidgets.QWidget()
         self.pageReserva.setObjectName("pageReserva")
         self.boxSaidas_2 = QtWidgets.QGroupBox(self.pageReserva)
-        self.boxSaidas_2.setGeometry(QtCore.QRect(10, 10, 641, 281))
+        self.boxSaidas_2.setGeometry(QtCore.QRect(0, 0, 511, 291))
         self.boxSaidas_2.setObjectName("boxSaidas_2")
+        self.treeReserva = QtWidgets.QTreeWidget(self.boxSaidas_2)
+        self.treeReserva.setGeometry(QtCore.QRect(0, 20, 511, 271))
+        self.treeReserva.setAlternatingRowColors(True)
+        self.treeReserva.setRootIsDecorated(True)
+        self.treeReserva.setUniformRowHeights(False)
+        self.treeReserva.setItemsExpandable(False)
+        self.treeReserva.setWordWrap(True)
+        self.treeReserva.setHeaderHidden(True)
+        self.treeReserva.setObjectName("treeReserva")
+        self.treeReserva.header().setVisible(False)
+        self.treeReserva.header().setCascadingSectionResizes(False)
+        self.treeReserva.header().setHighlightSections(False)
         self.stackedWidget.addWidget(self.pageReserva)
         self.botaoEntrada = QtWidgets.QPushButton(self.Hoje)
-        self.botaoEntrada.setGeometry(QtCore.QRect(30, 50, 91, 25))
+        self.botaoEntrada.setGeometry(QtCore.QRect(10, 70, 91, 25))
         self.botaoEntrada.setObjectName("botaoEntrada")
         self.botaoFixo = QtWidgets.QPushButton(self.Hoje)
-        self.botaoFixo.setGeometry(QtCore.QRect(30, 80, 91, 25))
+        self.botaoFixo.setGeometry(QtCore.QRect(10, 100, 91, 25))
         self.botaoFixo.setObjectName("botaoFixo")
         self.botaoReserva = QtWidgets.QPushButton(self.Hoje)
-        self.botaoReserva.setGeometry(QtCore.QRect(30, 120, 91, 25))
+        self.botaoReserva.setGeometry(QtCore.QRect(10, 130, 91, 25))
         self.botaoReserva.setObjectName("botaoReserva")
         self.listMenu = QtWidgets.QListWidget(self.Hoje)
         self.listMenu.setGeometry(QtCore.QRect(20, 280, 191, 192))
@@ -262,6 +271,12 @@ class Ui_Form(object):
         self.listMenu.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.listMenu.addItem(item)
+        self.graficoPizza = PlotPizza(self.Hoje)
+        self.graficoPizza.setGeometry(QtCore.QRect(780, 10, 441, 261))
+        self.graficoPizza.setObjectName("graficoPizza")
+        self.graficoBarra = PlotBarra(self.Hoje)
+        self.graficoBarra.setGeometry(QtCore.QRect(780, 270, 441, 261))
+        self.graficoBarra.setObjectName("graficoBarra")
         self.tabWidget.addTab(self.Hoje, "")
         self.Geral = QtWidgets.QWidget()
         self.Geral.setObjectName("Geral")
@@ -317,19 +332,12 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Controle de Gastos"))
-        self.textBrowser.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de gastos em lista</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">adição de gastos em limbo</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">informações mais essenciais</p></body></html>"))
         self.boxStatus.setTitle(_translate("Form", "Status"))
         self.boxHoje.setTitle(_translate("Form", "Diário"))
         self.labelHojeGasto.setText(_translate("Form", "Gasto:"))
@@ -381,6 +389,10 @@ class Ui_Form(object):
         self.treeFixo.headerItem().setText(4, _translate("Form", "Sub-categoria"))
         self.treeFixo.headerItem().setText(5, _translate("Form", "Valor"))
         self.boxSaidas_2.setTitle(_translate("Form", "Reserva"))
+        self.treeReserva.setSortingEnabled(True)
+        self.treeReserva.headerItem().setText(0, _translate("Form", "Item"))
+        self.treeReserva.headerItem().setText(1, _translate("Form", "Valor"))
+        self.treeReserva.headerItem().setText(2, _translate("Form", "Comentário"))
         self.botaoEntrada.setText(_translate("Form", "Nova Entrada"))
         self.botaoFixo.setText(_translate("Form", "Novo Fixo"))
         self.botaoReserva.setText(_translate("Form", "Nova Reserva"))
@@ -399,22 +411,22 @@ class Ui_Form(object):
         self.textBrowser_2.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista e cadastro dos gastos gerais (mensais e etc)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    Padrão de gastos (percentuais)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista dos investimentos</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Informações do ano</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Geração de relatórios</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista e cadastro dos gastos gerais (mensais e etc)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    Padrão de gastos (percentuais)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista dos investimentos</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Informações do ano</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Geração de relatórios</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Geral), _translate("Form", "Geral"))
         self.textBrowser_3.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista de dívidas</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que eu devo</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que me devem</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista de dívidas</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que eu devo</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que me devem</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Dividas), _translate("Form", "Dívidas"))
         self.boxConfig.setTitle(_translate("Form", "Configurações"))
         self.boxCategorias.setTitle(_translate("Form", "Categorias"))
@@ -430,6 +442,7 @@ class Ui_Form(object):
         self.botaoSubAdicionar.setText(_translate("Form", "Adicionar Sub-Categoria"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
+from ui.plotcanvas import PlotBarra, PlotPizza
 
 if __name__ == "__main__":
     import sys
