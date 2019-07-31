@@ -13,7 +13,7 @@ print("\tQt")
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialogButtonBox
-
+print("\tInterfaces Gráficas")
 # interface gráfica
 from src.gui import gui
 
@@ -779,6 +779,77 @@ def fixo_click(item):
         selecionado = 0
 
 
+def entrada_click(item):
+    item = gui.ui.treeEntrada.selectedItems()[0]
+    nome = item.text(0)
+    previsao = item.text(1)
+    data = item.text(2)
+    valor = float(item.text(3).replace("R$", ""))
+    print(nome, previsao, data, valor)
+    # tabela = Tabela.Fixo.tabela
+    # tabela = tabela[tabela["vencimento"] == vencimento]
+    # tabela = tabela[tabela["nome"] == nome]
+    # tabela = tabela[tabela["valor"] == valor]
+    # global selecionado
+    # print(tabela["nome"])
+    # if len(tabela) == 1:
+    #     id = tabela.iloc[0].name
+    #     selecionado = id
+    #     item = Tabela.Fixo.tabela.iloc[id]
+    #     print(item)
+    #     gui.uiFixoEdit.inputGasto.setText(item["nome"])
+    #     gui.uiFixoEdit.spinValor.setValue(item["valor"])
+    #     if pd.notna(item["comentario"]):
+    #         gui.uiFixoEdit.textComentario.setText(item["comentario"])
+    #     gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
+    #     if item["pago"]:
+    #         gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+    #         gui.uiFixoEdit.checkPago.setCheckState(2)
+    #     else:
+    #         gui.uiFixoEdit.checkPago.setCheckState(0)
+    #     gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+    #     gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+    #     gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
+    #     gui.wFixoEdit.show()
+    # else:
+    #     selecionado = 0
+
+
+def reserva_click(item):
+    item = gui.ui.treeReserva.selectedItems()[0]
+    nome = item.text(0)
+    valor = float(item.text(1).replace("R$", ""))
+    comentario = item.text(2)
+    print(nome, valor, comentario)
+    # tabela = Tabela.Fixo.tabela
+    # tabela = tabela[tabela["vencimento"] == vencimento]
+    # tabela = tabela[tabela["nome"] == nome]
+    # tabela = tabela[tabela["valor"] == valor]
+    # global selecionado
+    # print(tabela["nome"])
+    # if len(tabela) == 1:
+    #     id = tabela.iloc[0].name
+    #     selecionado = id
+    #     item = Tabela.Fixo.tabela.iloc[id]
+    #     print(item)
+    #     gui.uiFixoEdit.inputGasto.setText(item["nome"])
+    #     gui.uiFixoEdit.spinValor.setValue(item["valor"])
+    #     if pd.notna(item["comentario"]):
+    #         gui.uiFixoEdit.textComentario.setText(item["comentario"])
+    #     gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
+    #     if item["pago"]:
+    #         gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+    #         gui.uiFixoEdit.checkPago.setCheckState(2)
+    #     else:
+    #         gui.uiFixoEdit.checkPago.setCheckState(0)
+    #     gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+    #     gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+    #     gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
+    #     gui.wFixoEdit.show()
+    # else:
+    #     selecionado = 0
+
+
 def fila_click(item):
     item = gui.uiGastosAdd.treeWidget.selectedItems()[0]
     nome = item.text(0)
@@ -806,6 +877,7 @@ def troca_subcategoria(comboCat, comboSub):
 
 
 def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, titulo=""):
+    print("Gera gráfico de barras")
     dias_destaque=[]
     inicio = Info.mes_str+"/01/"+Info.ano_str
     if completo:
@@ -844,6 +916,7 @@ def fim_de_semana(dados):
         return []
 
 def grafico_pizza(grafico, dados):
+    print("Gera gráfico de pizza")
     tabela = pd.DataFrame()
     tabela["categoria"] = dados["categoria"]
     tabela["valor"] = dados["valor"]
@@ -943,7 +1016,6 @@ def m_rejeita_tabela():
 # configuração
 
 
-print("Inicia o aplicativo de Controle de Gastos")
 print("Configurações")
 config = configparser.ConfigParser()
 
@@ -1125,6 +1197,8 @@ gui.uiFixoEdit.checkPago.stateChanged.connect(lambda: gui.check_calendario(gui.u
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
 gui.ui.treeSaida.doubleClicked.connect(gasto_click)
 gui.ui.treeFixo.doubleClicked.connect(fixo_click)
+gui.ui.treeEntrada.doubleClicked.connect(entrada_click)
+gui.ui.treeReserva.doubleClicked.connect(reserva_click)
 
 gui.uiGastosAdd.treeWidget.doubleClicked.connect(fila_click)
 
@@ -1208,7 +1282,8 @@ ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 for header in [
     gui.ui.treeSaida.header(),
     gui.ui.treeEntrada.header(),
-    gui.ui.treeFixo.header()
+    gui.ui.treeFixo.header(),
+    gui.ui.treeReserva.header()
 ]:
     header.setVisible(True)
 
