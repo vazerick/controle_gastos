@@ -89,7 +89,7 @@ class PlotPizza(FigureCanvas):
         else:
             return ""
 
-    def plot(self, dados, rotulo, explode=-1):
+    def plot(self, dados, rotulo):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
