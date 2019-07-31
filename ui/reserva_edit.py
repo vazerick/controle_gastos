@@ -46,12 +46,12 @@ class Ui_Form(object):
         self.groupBox = QtWidgets.QGroupBox(Form)
         self.groupBox.setGeometry(QtCore.QRect(470, 10, 91, 81))
         self.groupBox.setObjectName("groupBox")
-        self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(10, 20, 75, 23))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 50, 75, 23))
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.buttonGasto = QtWidgets.QPushButton(self.groupBox)
+        self.buttonGasto.setGeometry(QtCore.QRect(10, 20, 75, 23))
+        self.buttonGasto.setObjectName("buttonGasto")
+        self.buttonFixo = QtWidgets.QPushButton(self.groupBox)
+        self.buttonFixo.setGeometry(QtCore.QRect(10, 50, 75, 23))
+        self.buttonFixo.setObjectName("buttonFixo")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -66,8 +66,8 @@ class Ui_Form(object):
         self.labelValor.setText(_translate("Form", "Valor"))
         self.labelValor_2.setText(_translate("Form", "R$"))
         self.groupBox.setTitle(_translate("Form", "Converter"))
-        self.pushButton.setText(_translate("Form", "Gasto"))
-        self.pushButton_2.setText(_translate("Form", "Fixo"))
+        self.buttonGasto.setText(_translate("Form", "Gasto"))
+        self.buttonFixo.setText(_translate("Form", "Fixo"))
 
 
 if __name__ == "__main__":

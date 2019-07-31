@@ -144,7 +144,7 @@
    <property name="title">
     <string>Converter</string>
    </property>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="buttonGasto">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -157,7 +157,7 @@
      <string>Gasto</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="buttonFixo">
     <property name="geometry">
      <rect>
       <x>10</x>
