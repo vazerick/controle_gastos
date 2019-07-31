@@ -713,7 +713,7 @@ def troca_subcategoria(comboCat, comboSub):
     comboSub.troca(cat_id)
 
 
-def grafico_barra(grafico, dados, completo=False, destaque=True):
+def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, titulo=""):
     dias_destaque=[]
     inicio = Info.mes_str+"/01/"+Info.ano_str
     if completo:
@@ -733,7 +733,7 @@ def grafico_barra(grafico, dados, completo=False, destaque=True):
         rotulos[i] = rotulos[i][0:2]
     if destaque:
         dias_destaque=fim_de_semana(dados)
-    grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque)
+    grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque, fatia=fatia, titulo=titulo)
 
 
 def fim_de_semana(dados):
@@ -788,9 +788,10 @@ def grafico_fatia(grafico, dados, cat):
             nome = nome.replace(" ", "\n")
             nome = nome.replace("%e%", " e\n")
             rotulos.append(nome)
-        grafico.plot(tabela["valor"], rotulos, fatia=True)
-        gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
-        cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', reseta_grafico)
+        grafico.plot(tabela["valor"], rotulos, fatia=True, titulo=cat)
+    grafico_barra(gui.ui.graficoBarra, dados[dados["categoria"] == id_cat], destaque=True, fatia=True, titulo=cat)
+    gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
+    cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', reseta_grafico)
 
 
 def click_pizza(event):
@@ -802,7 +803,7 @@ def click_pizza(event):
 
 def reseta_grafico(event):
     global cid
-    grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
+    grafico_mes()
     gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
     cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
 
@@ -1001,6 +1002,8 @@ gui.ui.listMenu.itemClicked.connect(
 # conect as ações dos clicks nos gráficos
 
 cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
+cid2 = gui.ui.graficoBarra.fig.canvas.mpl_connect('button_press_event', reseta_grafico)
+
 
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 

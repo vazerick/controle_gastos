@@ -23,9 +23,13 @@ class PlotBarra(FigureCanvas):
         self.nome_valores = "Valores"
         self.nome_rotulos = "Rotulos"
 
-    def plot(self, x, y, destaque=[]):
-        cor = "#01665E"
-        cor_destaque = '#80CDC1'
+    def plot(self, x, y, destaque=[], fatia=False, titulo=""):
+        if fatia:
+            cor = "#543005"
+            cor_destaque = '#BF812D'
+        else:
+            cor = "#01665E"
+            cor_destaque = '#80CDC1'
         cores = []
         if len(destaque):
             i = 0
@@ -46,9 +50,15 @@ class PlotBarra(FigureCanvas):
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y, color=cores)
         ax.set_facecolor("#E1EBF5")
+
+        if len(titulo):
+            ax.set_title(titulo)
+
         for tick in ax.get_xticklabels():
-            tick.set_rotation(45)
+            tick.set_rotation(75)
+
         self.draw()
+
 
 class PlotPizza(FigureCanvas):
 
@@ -89,7 +99,7 @@ class PlotPizza(FigureCanvas):
         else:
             return ""
 
-    def plot(self, dados, rotulo, fatia=False):
+    def plot(self, dados, rotulo, fatia=False, titulo=""):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
@@ -110,6 +120,9 @@ class PlotPizza(FigureCanvas):
         for i in range(0, len(wedges)):
             wedges[i].set_picker(True)
             wedges[i].set_label(rotulo[i])
+
+        if len(titulo):
+            ax.set_title(titulo)
 
         ax.axis('equal')
         self.draw()
