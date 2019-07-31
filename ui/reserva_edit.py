@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(476, 228)
+        Form.resize(572, 228)
         self.labelReserva = QtWidgets.QLabel(Form)
         self.labelReserva.setGeometry(QtCore.QRect(20, 10, 51, 17))
         self.labelReserva.setMinimumSize(QtCore.QSize(51, 17))
@@ -21,7 +21,7 @@ class Ui_Form(object):
         self.inputReserva.setGeometry(QtCore.QRect(20, 30, 321, 25))
         self.inputReserva.setObjectName("inputReserva")
         self.textComentario = QtWidgets.QTextEdit(Form)
-        self.textComentario.setGeometry(QtCore.QRect(20, 100, 441, 71))
+        self.textComentario.setGeometry(QtCore.QRect(20, 100, 541, 71))
         self.textComentario.setObjectName("textComentario")
         self.labelComentario = QtWidgets.QLabel(Form)
         self.labelComentario.setGeometry(QtCore.QRect(20, 70, 81, 17))
@@ -39,10 +39,19 @@ class Ui_Form(object):
         self.labelValor_2.setGeometry(QtCore.QRect(370, 35, 16, 17))
         self.labelValor_2.setObjectName("labelValor_2")
         self.buttonBox = QtWidgets.QDialogButtonBox(Form)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 190, 481, 23))
+        self.buttonBox.setGeometry(QtCore.QRect(10, 190, 551, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
+        self.groupBox = QtWidgets.QGroupBox(Form)
+        self.groupBox.setGeometry(QtCore.QRect(470, 10, 91, 81))
+        self.groupBox.setObjectName("groupBox")
+        self.pushButton = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton.setGeometry(QtCore.QRect(10, 20, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 50, 75, 23))
+        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -56,6 +65,9 @@ class Ui_Form(object):
         self.labelComentario.setText(_translate("Form", "Comentário"))
         self.labelValor.setText(_translate("Form", "Valor"))
         self.labelValor_2.setText(_translate("Form", "R$"))
+        self.groupBox.setTitle(_translate("Form", "Converter"))
+        self.pushButton.setText(_translate("Form", "Gasto"))
+        self.pushButton_2.setText(_translate("Form", "Fixo"))
 
 
 if __name__ == "__main__":
