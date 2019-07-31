@@ -52,6 +52,8 @@ class ArvoreFilaGastos():
             ]
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
+        for i in range(0, self.Widget.columnCount()):
+            self.Widget.resizeColumnToContents(i)
 
 
 
