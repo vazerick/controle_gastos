@@ -148,3 +148,20 @@ class ArvoreTabelaEntrada(ArvoreTabela):
             self.Widget.addTopLevelItem(WidgetItem)
 
 
+class ArvoreTabelaReserva(ArvoreTabela):
+
+    def __init__(self, Widget, Tabela):
+        super().__init__(Widget, Tabela)
+
+    def atualiza(self, Tabela):
+        self.Widget.clear()
+        for x in range(0, len(Tabela)):
+            linha = []
+            linha.append(str(Tabela.iloc[x]['nome']))
+            linha.append('R$' + str(Tabela.iloc[x]['valor']))
+            comentario = Tabela.iloc[x]['comentario']
+            if pandas.isna(comentario):
+                comentario = ""
+            linha.append(str(comentario))
+            WidgetItem = QTreeWidgetItem(linha)
+            self.Widget.addTopLevelItem(WidgetItem)

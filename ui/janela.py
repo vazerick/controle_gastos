@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -236,9 +236,9 @@ class Ui_Form(object):
         self.treeReserva.setUniformRowHeights(False)
         self.treeReserva.setItemsExpandable(False)
         self.treeReserva.setWordWrap(True)
-        self.treeReserva.setHeaderHidden(True)
+        self.treeReserva.setHeaderHidden(False)
         self.treeReserva.setObjectName("treeReserva")
-        self.treeReserva.header().setVisible(False)
+        self.treeReserva.header().setVisible(True)
         self.treeReserva.header().setCascadingSectionResizes(False)
         self.treeReserva.header().setHighlightSections(False)
         self.stackedWidget.addWidget(self.pageReserva)
@@ -410,22 +410,22 @@ class Ui_Form(object):
         self.textBrowser_2.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista e cadastro dos gastos gerais (mensais e etc)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    Padrão de gastos (percentuais)</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista dos investimentos</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Informações do ano</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Geração de relatórios</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista e cadastro dos gastos gerais (mensais e etc)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    Padrão de gastos (percentuais)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista dos investimentos</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Informações do ano</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Geração de relatórios</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Noto Sans\'; font-size:9pt;\"><br /></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Geral), _translate("Form", "Geral"))
         self.textBrowser_3.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Noto Sans\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lista de dívidas</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que eu devo</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    O que me devem</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">Lista de dívidas</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que eu devo</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Noto Sans\'; font-size:9pt;\">    O que me devem</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Dividas), _translate("Form", "Dívidas"))
         self.boxConfig.setTitle(_translate("Form", "Configurações"))
         self.boxCategorias.setTitle(_translate("Form", "Categorias"))
@@ -442,3 +442,13 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotPizza
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+

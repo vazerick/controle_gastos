@@ -378,7 +378,7 @@ def botao_reserva_add():
         spin=[gui.uiReservaAdd.spinValor],
         botao=[gui.uiReservaAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
-
+    ArvoreReserva.atualiza(Tabela.Reserva.tabela)
     gasto_atualiza()
 
 
@@ -1075,6 +1075,7 @@ print("Preenche as árvores e tabelas da interface")
 ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela.Saida.tabela, Categoria)
 ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela.Fixo.tabela, Categoria)
 ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela.Entrada.tabela)
+ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 
 for header in [
     gui.ui.treeSaida.header(),
