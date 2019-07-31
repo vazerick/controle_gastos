@@ -998,18 +998,34 @@ def m_atualiza_tabela():
     Info.atualiza()
     print(Info.tempo)
     Tabela = Mensal(Info.ano_int, Info.mes_int)
+    atualiza_completer()
     exit()
-    # ArvoreSaida.atualiza(Tabela.Saida.tabela)
-    # ArvoreFixo.atualiza(Tabela.Fixo.tabela)
-    # ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
-    # ArvoreReserva.atualiza(Tabela.Reserva.tabela)
-    #
-    # Hoje.atualiza()
-    #
-    # grafico_mes()
 
 def m_rejeita_tabela():
     gui.wMensagem.hide()
+
+
+def atualiza_completer():
+    for completer in [
+        GastoCompleter,
+        EntradaCompleter,
+        FixoCompleter,
+        ReservaCompleter
+    ]:
+        completer.atualizar()
+        historico = completer.Anterior
+        atual = completer.ler()
+        if len(historico[0]):
+            novo = list(historico.append(atual).sort_values().str.title().unique())
+        else:
+            if atual is not None:
+                novo = list(atual.sort_values())
+            else:
+                novo = []
+        arquivo = open(completer.arquivo, "w")
+        arquivo.write("\n".join(novo))
+        arquivo.close()
+
 
 #MAIN
 
@@ -1040,6 +1056,7 @@ Pagamentos = Pagamento(config['PAGAMENTO'])
 gui = gui()
 
 gui.ui.stackedWidget.setCurrentIndex(0)
+gui.ui.tabWidget.setCurrentIndex(0)
 gui.ui.listMenu.setCurrentRow(0)
 # objetos de listas
 print("Carrega a lista de pessoas")
@@ -1297,6 +1314,7 @@ Hoje = Hoje(
     Info=Info
 )
 
+
 GastoCompleter = Completer(
     campos=[
         gui.uiGastosAdd.inputGasto,
@@ -1305,6 +1323,8 @@ GastoCompleter = Completer(
     tabelas=Tabela,
     tipo="saida"
 )
+
+
 
 EntradaCompleter = Completer(
     campos=[

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fixo_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -119,14 +119,4 @@ class Ui_Form(object):
         self.labelSub.setText(_translate("Form", "Sub-categoria"))
         self.labelCategoria.setText(_translate("Form", "Categoria"))
         self.labelPagamento.setText(_translate("Form", "Forma de pagamento"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 

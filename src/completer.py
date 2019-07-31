@@ -10,13 +10,22 @@ class Completer:
         self.Tabelas = tabelas
         self.Tipo = tipo
 
+        self.arquivo = "data/completer_"+self.Tipo+".txt"
+        try:
+            f = open(self.arquivo, "r")
+        except:
+            f = open(self.arquivo, "w+")
+        self.Anterior = pd.Series(f.read().split("\n"))
+        f.close()
+
         self.atualizar()
 
     def atualizar(self):
 
         dados = pd.Series()
-
-        dados = dados.append(self.ler(self.Tabelas))
+        historico = self.Anterior
+        dados = dados.append(self.ler())
+        dados = dados.append(historico)
 
         # todo completer que puxe os dados anteriores, sem sobrecarregar a memória
         # for tabela in self.Tabelas:
@@ -27,8 +36,10 @@ class Completer:
                 completer = QCompleter(dados.str.title().unique())
                 completer.setCaseSensitivity(Qt.CaseInsensitive)
                 campo.setCompleter(completer)
+                print(completer.completionModel())
 
-    def ler(self, tabela):
+    def ler(self):
+        tabela = self.Tabelas
         if self.Tipo == "saida":
             return tabela.Saida.tabela['nome']
         if self.Tipo == "entrada":
