@@ -22,7 +22,7 @@ class Hoje:
         self.Tabela = Tabela
         self.Info = Info
 
-        self.Dia = Janela.labelDia
+        self.Dia = Janela.groupDia.setTitle
         self.Inicio = QDate()
         self.Inicio.setDate(self.Info.ano_int, self.Info.mes_int, 1)
         self.Referencia = QDate()
@@ -65,7 +65,7 @@ class Hoje:
         dia_mes = self.Info.referencia
         dia_total = self.Info.tempo.daysInMonth()
         dia_percent = (dia_mes/dia_total)*100
-        self.Dia.setText("Dia: "+str(dia_mes)+" de "+str(dia_total)+" ("+f'{dia_percent:.0f}'+"%)")
+        self.Dia("Dia: "+str(dia_mes)+" de "+str(dia_total)+" ("+f'{dia_percent:.0f}'+"%)")
 
         self.media_dia = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem) / self.Ontem.day()
         self.dia_limite = self.mes_limite / dia_total
