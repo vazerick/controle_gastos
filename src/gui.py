@@ -21,7 +21,7 @@ from ui.fixo_add import Ui_Form as FixoAdd
 from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.janela import Ui_Form as Main
 from ui.gastos_edit import Ui_Form as GastosEdit
-
+from ui.reserva_edit import Ui_Form as ReservaEdit
 
 
 class gui:
@@ -50,6 +50,11 @@ class gui:
         self.uiEntradaAdd = EntradaAdd()
         self.uiEntradaAdd.setupUi(self.wEntradaAdd)
 
+# janela para editar entradas
+        self.wEntradaEdit = QDialog()
+        self.uiEntradaEdit = EntradaAdd()
+        self.uiEntradaEdit.setupUi(self.wEntradaEdit)
+
 # janela para adicionar novos gastos
         self.wGastosAdd = QDialog()
         self.uiGastosAdd = GastosAdd()
@@ -74,6 +79,11 @@ class gui:
         self.wReservaAdd = QDialog()
         self.uiReservaAdd = ReservaAdd()
         self.uiReservaAdd.setupUi(self.wReservaAdd)
+
+# janela para editar reservas
+        self.wReservaEdit = QDialog()
+        self.uiReservaEdit = ReservaEdit()
+        self.uiReservaEdit.setupUi(self.wReservaEdit)
 
 # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
@@ -133,7 +143,9 @@ class gui:
             self.wEntradaAdd,
             self.wReservaAdd,
             self.wFixoAdd,
-            self.wFixoEdit
+            self.wFixoEdit,
+            self.wEntradaEdit,
+            self.wReservaEdit
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

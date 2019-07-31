@@ -238,7 +238,7 @@ class Ui_Form(object):
         self.treeReserva.setWordWrap(True)
         self.treeReserva.setHeaderHidden(False)
         self.treeReserva.setObjectName("treeReserva")
-        self.treeReserva.header().setVisible(True)
+        self.treeReserva.header().setVisible(False)
         self.treeReserva.header().setCascadingSectionResizes(False)
         self.treeReserva.header().setHighlightSections(False)
         self.stackedWidget.addWidget(self.pageReserva)
@@ -326,7 +326,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -381,8 +381,8 @@ class Ui_Form(object):
         self.boxFixo.setTitle(_translate("Form", "Saídas do Mês"))
         self.treeFixo.setSortingEnabled(True)
         self.treeFixo.headerItem().setText(0, _translate("Form", "Item"))
-        self.treeFixo.headerItem().setText(1, _translate("Form", "Data"))
-        self.treeFixo.headerItem().setText(2, _translate("Form", "Item"))
+        self.treeFixo.headerItem().setText(1, _translate("Form", "Vencimento"))
+        self.treeFixo.headerItem().setText(2, _translate("Form", "Pago"))
         self.treeFixo.headerItem().setText(3, _translate("Form", "Categoria"))
         self.treeFixo.headerItem().setText(4, _translate("Form", "Sub-categoria"))
         self.treeFixo.headerItem().setText(5, _translate("Form", "Valor"))

@@ -644,7 +644,7 @@
         <bool>false</bool>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="pageGastos">
         <widget class="QGroupBox" name="boxGastos">
@@ -842,12 +842,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Data</string>
+            <string>Vencimento</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Item</string>
+            <string>Pago</string>
            </property>
           </column>
           <column>
@@ -912,7 +912,7 @@
            <bool>false</bool>
           </property>
           <attribute name="headerVisible">
-           <bool>true</bool>
+           <bool>false</bool>
           </attribute>
           <attribute name="headerCascadingSectionResizes">
            <bool>false</bool>

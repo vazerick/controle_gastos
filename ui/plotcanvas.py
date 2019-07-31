@@ -35,7 +35,6 @@ class PlotBarra(FigureCanvas):
             i = 0
             for i in range(0, len(x)):
                 if x[i] in destaque:
-                    print("Destaque")
                     cores.append(cor_destaque)
                 else:
                     cores.append(cor)
