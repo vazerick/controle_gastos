@@ -22,7 +22,7 @@ from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.janela import Ui_Form as Main
 from ui.gastos_edit import Ui_Form as GastosEdit
 from ui.reserva_edit import Ui_Form as ReservaEdit
-
+from ui.dialog import Ui_Dialog as Mensagem
 
 class gui:
 
@@ -121,6 +121,11 @@ class gui:
         self.uiSubCategoriasEdit = SubCategoriasEdit()
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
+# janela das mensagens
+        self.wMensagem = QDialog()
+        self.uiMensagem = Mensagem()
+        self.uiMensagem.setupUi(self.wMensagem)
+
 # seta a mesma configuração para todas as janelas
         print("Configura a folha de estilos")
         arquivo = open("ui/style.scss")
@@ -145,7 +150,8 @@ class gui:
             self.wFixoAdd,
             self.wFixoEdit,
             self.wEntradaEdit,
-            self.wReservaEdit
+            self.wReservaEdit,
+            self.wMensagem
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

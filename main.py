@@ -1,9 +1,15 @@
+print("Inicia o aplicativo")
+print("Importa as bibliotecas necessárias")
+
+print("\tSistema")
 import sys
 import os
 import configparser
+import time
+print("\tPandas")
 import pandas as pd
 import numpy as np
-import time
+print("\tQt")
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialogButtonBox
@@ -20,6 +26,7 @@ from src.info import Info
 from src.hoje import Hoje
 from src.completer import Completer
 
+print("Declaração das funções")
 # declaração das funções
 
 selecionado = -1
@@ -823,16 +830,18 @@ def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, ti
 
 def fim_de_semana(dados):
     dias = pd.DataFrame()
-    dias["data"] = dados["data"].copy()
-    dias["time"] = dias.apply(lambda row: time.strptime(row["data"], "%d/%m/%Y"), axis=1)
-    dias["semana"] = dias.apply(lambda row: time.strftime("%w", row["time"]), axis=1)
-    dias["data"] = dias.apply(lambda row: row["data"][0:2], axis=1)
-    destaque = []
-    destaque = list((dias[dias["semana"] == "5"]["data"])) + \
-               list((dias[dias["semana"] == "6"]["data"])) + \
-               list((dias[dias["semana"] == "0"]["data"]))
-    return destaque
-
+    if len(dias):
+        dias["data"] = dados["data"].copy()
+        dias["time"] = dias.apply(lambda row: time.strptime(row["data"], "%d/%m/%Y"), axis=1)
+        dias["semana"] = dias.apply(lambda row: time.strftime("%w", row["time"]), axis=1)
+        dias["data"] = dias.apply(lambda row: row["data"][0:2], axis=1)
+        destaque = []
+        destaque = list((dias[dias["semana"] == "5"]["data"])) + \
+                   list((dias[dias["semana"] == "6"]["data"])) + \
+                   list((dias[dias["semana"] == "0"]["data"]))
+        return destaque
+    else:
+        return []
 
 def grafico_pizza(grafico, dados):
     tabela = pd.DataFrame()
@@ -897,6 +906,37 @@ def grafico_mes():
     grafico_barra(gui.ui.graficoBarra, Tabela.Saida.tabela)
     grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
 
+
+def mensagem(titulo, mensagem, aceita, rejeita):
+    gui.wMensagem.setWindowTitle(titulo)
+    gui.uiMensagem.label.setText(mensagem)
+    gui.wMensagem.show()
+    gui.uiMensagem.buttonBox.accepted.disconnect()
+    gui.uiMensagem.buttonBox.rejected.disconnect()
+    gui.wMensagem.rejected.disconnect()
+    gui.uiMensagem.buttonBox.accepted.connect(aceita)
+    gui.uiMensagem.buttonBox.rejected.connect(rejeita)
+    gui.wMensagem.rejected.connect(rejeita)
+
+
+def m_atualiza_tabela():
+    gui.wMensagem.hide()
+    print(Info.tempo)
+    Info.atualiza()
+    print(Info.tempo)
+    Tabela = Mensal(Info.ano_int, Info.mes_int)
+    exit()
+    # ArvoreSaida.atualiza(Tabela.Saida.tabela)
+    # ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+    # ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
+    # ArvoreReserva.atualiza(Tabela.Reserva.tabela)
+    #
+    # Hoje.atualiza()
+    #
+    # grafico_mes()
+
+def m_rejeita_tabela():
+    gui.wMensagem.hide()
 
 #MAIN
 
@@ -1028,6 +1068,10 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(botao_subcategorias_mais)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(botao_subcategorias_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(botao_subcategoria_cancela)
 
+gui.uiMensagem.buttonBox.accepted.connect(print)
+gui.uiMensagem.buttonBox.rejected.connect(print)
+gui.wMensagem.rejected.connect(print)
+
 # desliga os botoes de Ok
 
 colecao_validacao = [
@@ -1135,11 +1179,16 @@ if not os.path.exists('data/'+Info.ano_str):
     os.makedirs('data/'+Info.ano_str)
 
 # confere se já tem a tabela do mês atual
-# Info.set_data(Info.ano_int, Info.mes_int+5, Info.dia_int)
 if tabela_existe(Info.ano_str, Info.mes_str):
     print("Carrega as tabelas do mês atual")
 else:
     print("Tabelas desatualizadas")
+    mensagem(
+        titulo="Tabelas desatualizadas",
+        mensagem="Tabelas desatualizadas\nDeseja iniciar as tabelas deste mês?\nSerá necessário reiniciar o app",
+        aceita=m_atualiza_tabela,
+        rejeita=m_rejeita_tabela,
+    )
     while not tabela_existe(Info.ano_str, Info.mes_str):
         if Info.mes_int == 1:
             Info.set_data(Info.ano_int-1, 12, Info.dia_int)
@@ -1147,22 +1196,6 @@ else:
             Info.set_data(Info.ano_int, Info.mes_int-1, Info.dia_int)
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 #todo opção de iniciar o novo mês, ou de continuar no antigo
-
-# gera as tabelas anteriores
-#
-# if Info.mes_int > 1:
-#     ano = Info.ano_int
-#     mes = Info.mes_int-1
-# else:
-#     ano = Info.ano_int-1
-#     mes = 12
-# while tabela_existe(str(ano), str_mes(mes)):
-#     Tabela.append(Mensal(ano, mes))
-#     if mes == 1:
-#         ano -= 1
-#         mes = 12
-#     else:
-#         mes -= 1
 
 #todo rever caso fique um mês faltando no meio, tem que ter uma forma de criar uma tabela buraco?
 print("Preenche as árvores e tabelas da interface")
