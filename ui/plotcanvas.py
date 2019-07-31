@@ -89,7 +89,7 @@ class PlotPizza(FigureCanvas):
         else:
             return ""
 
-    def plot(self, dados, rotulo):
+    def plot(self, dados, rotulo, explode=-1):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
@@ -99,6 +99,12 @@ class PlotPizza(FigureCanvas):
         ax.legend(wedges, rotulo,
                   loc="center left",
                   bbox_to_anchor=(0.8, 0, 1, 1))
+
+        i = 0
+
+        for i in range(0, len(wedges)):
+            wedges[i].set_picker(True)
+            wedges[i].set_label(rotulo[i])
 
         ax.axis('equal')
         self.draw()

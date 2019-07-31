@@ -765,6 +765,12 @@ def grafico_pizza(grafico, dados):
     grafico.plot(tabela["valor"], rotulos)
 
 
+def click_pizza(event):
+    wedge = event.artist
+    label = wedge.get_label()
+    print(label)
+
+
 def grafico_mes():
     grafico_barra(gui.ui.graficoBarra, Tabela.Saida.tabela)
     grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
@@ -955,6 +961,10 @@ gui.ui.listMenu.itemClicked.connect(
         gui.ui.listMenu.currentRow()
     )
 )
+
+# conect as ações dos clicks nos gráficos
+
+gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
 
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 
