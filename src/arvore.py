@@ -62,6 +62,10 @@ class ArvoreTabela:
         self.Widget = Widget
         self.atualiza(Tabela)
 
+    def colunas(self):
+        for i in range(0,self.Widget.columnCount()):
+            self.Widget.resizeColumnToContents(i)
+
 
 class ArvoreTabelaSaida(ArvoreTabela):
 
@@ -92,6 +96,7 @@ class ArvoreTabelaSaida(ArvoreTabela):
             linha.append('R$'+str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
+        self.colunas()
 
 
 class ArvoreTabelaFixo(ArvoreTabelaSaida):
@@ -125,7 +130,7 @@ class ArvoreTabelaFixo(ArvoreTabelaSaida):
             linha.append('R$' + str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
-
+        self.colunas()
 
 
 class ArvoreTabelaEntrada(ArvoreTabela):
@@ -146,6 +151,7 @@ class ArvoreTabelaEntrada(ArvoreTabela):
             linha.append('R$'+str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
+        self.colunas()
 
 
 class ArvoreTabelaReserva(ArvoreTabela):
@@ -165,3 +171,4 @@ class ArvoreTabelaReserva(ArvoreTabela):
             linha.append(str(comentario))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
+        self.colunas()
