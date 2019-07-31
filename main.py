@@ -902,7 +902,7 @@ def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, ti
 
 def fim_de_semana(dados):
     dias = pd.DataFrame()
-    if len(dias):
+    if len(dados):
         dias["data"] = dados["data"].copy()
         dias["time"] = dias.apply(lambda row: time.strptime(row["data"], "%d/%m/%Y"), axis=1)
         dias["semana"] = dias.apply(lambda row: time.strftime("%w", row["time"]), axis=1)
