@@ -33,6 +33,8 @@ def limpa_janela(
         data=[],
         check=[],
 ):
+    global selecionado
+    selecionado = -1
     for widget in janela:
         widget.hide()
     for widget in texto:
@@ -501,7 +503,6 @@ def botao_gasto_editar():
     )
     gasto_atualiza()
 
-
 def str_dinheiro(valor):
     return "R$"+str(valor).replace(".", ",")
 
@@ -649,6 +650,56 @@ def botao_fixo_add():
     )
     ArvoreFixo.atualiza(Tabela.Fixo.tabela)
     Hoje.atualiza()
+    
+
+def botao_fixo_editar():
+
+    vencimento = gui.uiFixoEdit.calendarWidget.selectedDate()
+    vencimento = vencimento.toString("dd/MM/yyyy")
+    data = ""
+    pago = int(gui.uiFixoEdit.checkPago.checkState())
+    if pago:
+        data = gui.uiFixoEdit.calendarWidget_2.selectedDate()
+        data = data.toString("dd/MM/yyyy")
+    adicao = Info.data_hora()
+    nome = gui.uiFixoEdit.inputGasto.text()
+    comentario = gui.uiFixoEdit.textComentario.toPlainText()
+    valor = gui.uiFixoEdit.spinValor.value()
+
+    pagamento = 0
+    categoria = ComboFixoEditCat.getId()
+    subcategoria = ComboFixoEditSub.getId()
+
+    Tabela.Fixo.editar( selecionado,
+        [
+            data,
+            vencimento,
+            adicao,
+            nome,
+            comentario,
+            valor,
+            pagamento,
+            categoria,
+            subcategoria,
+            pago
+        ]
+    )
+
+    limpa_janela(
+        janela=[gui.wFixoEdit],
+        texto=[
+            gui.uiFixoEdit.inputGasto,
+            gui.uiFixoEdit.textComentario
+        ],
+        data=[
+            gui.uiFixoEdit.calendarWidget,
+            gui.uiFixoEdit.calendarWidget_2
+        ],
+        spin=[gui.uiFixoEdit.spinValor],
+        check=[gui.uiFixoEdit.checkPago]
+    )
+    ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+    Hoje.atualiza()
 
 
 def botao_troca_tela():
@@ -683,6 +734,40 @@ def gasto_click(item):
         gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
         gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
         gui.wGastosEdit.show()
+    else:
+        selecionado = 0
+
+
+def fixo_click(item):
+    item = gui.ui.treeFixo.selectedItems()[0]
+    nome = item.text(0)
+    vencimento = item.text(1)
+    valor = float(item.text(5).replace("R$", ""))
+    tabela = Tabela.Fixo.tabela
+    tabela = tabela[tabela["vencimento"] == vencimento]
+    tabela = tabela[tabela["nome"] == nome]
+    tabela = tabela[tabela["valor"] == valor]
+    global selecionado
+    print(tabela["nome"])
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = Tabela.Fixo.tabela.iloc[id]
+        print(item)
+        gui.uiFixoEdit.inputGasto.setText(item["nome"])
+        gui.uiFixoEdit.spinValor.setValue(item["valor"])
+        if pd.notna(item["comentario"]):
+            gui.uiFixoEdit.textComentario.setText(item["comentario"])
+        gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
+        if item["pago"]:
+            gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+            gui.uiFixoEdit.checkPago.setCheckState(2)
+        else:
+            gui.uiFixoEdit.checkPago.setCheckState(0)
+        gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+        gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+        gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wFixoEdit.show()
     else:
         selecionado = 0
 
@@ -874,6 +959,8 @@ ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
 ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
 ComboFixoCat = Link(gui.uiFixoAdd.comboCategoria, Categoria)
 ComboFixoSub = SubcategoriaLink(gui.uiFixoAdd.comboSub, Categoria)
+ComboFixoEditCat = Link(gui.uiFixoEdit.comboCategoria, Categoria)
+ComboFixoEditSub = SubcategoriaLink(gui.uiFixoEdit.comboSub, Categoria)
 
 # link de pagamento
 ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
@@ -898,6 +985,7 @@ gui.uiGastosEdit.buttonBox.accepted.connect(botao_gasto_editar)
 gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
 
 gui.uiFixoAdd.buttonBox.accepted.connect(botao_fixo_add)
+gui.uiFixoEdit.buttonBox.accepted.connect(botao_fixo_editar)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
     lambda: gui.uiFixoAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -986,10 +1074,13 @@ gui.uiEntradaAdd.checkPago.stateChanged.connect(check_entrada)
 
 gui.uiFixoAdd.checkPago.stateChanged.connect(check_fixo)
 
+gui.uiFixoEdit.checkPago.stateChanged.connect(lambda: gui.check_calendario(gui.uiFixoEdit))
+
 # conecta as ações dos clicks em lista
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(subcategorias_lista_click)
 gui.ui.treeSaida.doubleClicked.connect(gasto_click)
+gui.ui.treeFixo.doubleClicked.connect(fixo_click)
 
 gui.uiGastosAdd.treeWidget.doubleClicked.connect(fila_click)
 
@@ -1023,6 +1114,10 @@ combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categ
     [
         gui.uiFixoAdd.comboCategoria,
         lambda: troca_subcategoria(ComboFixoCat, ComboFixoSub)
+    ],
+    [
+        gui.uiFixoEdit.comboCategoria,
+        lambda: troca_subcategoria(ComboFixoEditCat, ComboFixoEditSub)
     ]
 ]
 for item in combos_dinamicos:

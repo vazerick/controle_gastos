@@ -42,6 +42,8 @@ class gui:
         self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
 
+        self.ui.treeFixo.setColumnWidth(0, 250)
+
         print("Janelas secundárias")
 # janela para adicionar novas entradas
         self.wEntradaAdd = QDialog()
@@ -58,10 +60,15 @@ class gui:
         self.uiGastosEdit = GastosEdit()
         self.uiGastosEdit.setupUi(self.wGastosEdit)
 
-# janela para adicionar novos gastos fixos
+# janela para adicionar novos fixos
         self.wFixoAdd = QDialog()
         self.uiFixoAdd = FixoAdd()
         self.uiFixoAdd.setupUi(self.wFixoAdd)
+
+# janela para editar fixos
+        self.wFixoEdit = QDialog()
+        self.uiFixoEdit = FixoAdd()
+        self.uiFixoEdit.setupUi(self.wFixoEdit)
 
 # janela para adicionar novas reservas
         self.wReservaAdd = QDialog()
@@ -125,7 +132,8 @@ class gui:
             self.wGastosEdit,
             self.wEntradaAdd,
             self.wReservaAdd,
-            self.wFixoAdd
+            self.wFixoAdd,
+            self.wFixoEdit
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
