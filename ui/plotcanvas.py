@@ -89,12 +89,17 @@ class PlotPizza(FigureCanvas):
         else:
             return ""
 
-    def plot(self, dados, rotulo):
+    def plot(self, dados, rotulo, fatia=False):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
+        if fatia:
+            cores = self.cores[::-1]
+        else:
+            cores = self.cores
+
         wedges, texts, autotexts = ax.pie(dados, autopct=lambda pct: self.func(pct, dados), pctdistance=0.8,
-                                          textprops=dict(color="w"), colors=self.cores)
+                                          textprops=dict(color="w"), colors=cores)
 
         ax.legend(wedges, rotulo,
                   loc="center left",

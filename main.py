@@ -767,37 +767,37 @@ def grafico_pizza(grafico, dados):
 
 
 def grafico_fatia(grafico, dados, cat):
-    tabela = pd.DataFrame()
-    tabela["categoria"] = dados["categoria"]
-    tabela["subcategoria"] = dados["subcategoria"]
-    tabela["valor"] = dados["valor"]
+    global cid
     id_cat = -1
     for i in Categoria.getAtivos():
         if i["nome"] == cat:
             id_cat = i["id"]
             break
-    tabela = tabela[tabela["categoria"] == id_cat]
-    tabela = tabela.groupby("subcategoria").agg(np.sum)
-
-    tabela = tabela.sort_values(["valor"], ascending=False)
-    rotulos = []
-    for rotulo in tabela.index.values:
-        nome = Categoria.getSubNome(id_cat, rotulo)
-        nome = nome.replace(" e ", "%e%")
-        nome = nome.replace(" ", "\n")
-        nome = nome.replace("%e%", " e\n")
-        rotulos.append(nome)
-    grafico.plot(tabela["valor"], rotulos)
+    if len(Categoria.subGetAtivos(id_cat)):
+        tabela = pd.DataFrame()
+        tabela["categoria"] = dados["categoria"]
+        tabela["subcategoria"] = dados["subcategoria"]
+        tabela["valor"] = dados["valor"]
+        tabela = tabela[tabela["categoria"] == id_cat]
+        tabela = tabela.groupby("subcategoria").agg(np.sum)
+        tabela = tabela.sort_values(["valor"], ascending=False)
+        rotulos = []
+        for rotulo in tabela.index.values:
+            nome = Categoria.getSubNome(id_cat, rotulo)
+            nome = nome.replace(" e ", "%e%")
+            nome = nome.replace(" ", "\n")
+            nome = nome.replace("%e%", " e\n")
+            rotulos.append(nome)
+        grafico.plot(tabela["valor"], rotulos, fatia=True)
+        gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
+        cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', reseta_grafico)
 
 
 def click_pizza(event):
-    global cid
     wedge = event.artist
     label = wedge.get_label()
     label = label.replace("\n", " ")
     grafico_fatia(gui.ui.graficoPizza, Tabela.Saida.tabela, label)
-    gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
-    cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', reseta_grafico)
 
 
 def reseta_grafico(event):
