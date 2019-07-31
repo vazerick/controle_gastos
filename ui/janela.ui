@@ -35,24 +35,21 @@
       <attribute name="title">
        <string>Hoje</string>
       </attribute>
-      <widget class="QGroupBox" name="boxStatus">
+      <widget class="QFrame" name="boxStatus">
        <property name="geometry">
         <rect>
-         <x>260</x>
+         <x>120</x>
          <y>0</y>
-         <width>511</width>
+         <width>561</width>
          <height>231</height>
         </rect>
-       </property>
-       <property name="title">
-        <string>Status</string>
        </property>
        <widget class="QFrame" name="frame">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>80</y>
-          <width>331</width>
+          <width>531</width>
           <height>141</height>
          </rect>
         </property>
@@ -70,6 +67,12 @@
            <width>141</width>
            <height>131</height>
           </rect>
+         </property>
+         <property name="accessibleName">
+          <string>progresso</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="title">
           <string>Diário</string>
@@ -206,7 +209,7 @@
             <x>0</x>
             <y>100</y>
             <width>141</width>
-            <height>23</height>
+            <height>31</height>
            </rect>
           </property>
           <property name="maximum">
@@ -225,6 +228,9 @@
            <width>141</width>
            <height>131</height>
           </rect>
+         </property>
+         <property name="accessibleName">
+          <string>progresso</string>
          </property>
          <property name="title">
           <string>Mensal</string>
@@ -361,7 +367,7 @@
             <x>0</x>
             <y>100</y>
             <width>141</width>
-            <height>23</height>
+            <height>31</height>
            </rect>
           </property>
           <property name="value">
@@ -369,30 +375,17 @@
           </property>
          </widget>
         </widget>
-       </widget>
-       <widget class="QFrame" name="frameDiario">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>80</y>
-          <width>141</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
         <widget class="QGroupBox" name="boxMedia">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>0</y>
+           <x>350</x>
+           <y>10</y>
            <width>141</width>
            <height>41</height>
           </rect>
+         </property>
+         <property name="accessibleName">
+          <string>quadro</string>
          </property>
          <property name="title">
           <string>Média de gasto por dia</string>
@@ -417,11 +410,14 @@
         <widget class="QGroupBox" name="boxLimiteDia">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>40</y>
+           <x>350</x>
+           <y>50</y>
            <width>141</width>
            <height>41</height>
           </rect>
+         </property>
+         <property name="accessibleName">
+          <string>quadro</string>
          </property>
          <property name="title">
           <string>Limite por dia</string>
@@ -446,11 +442,14 @@
         <widget class="QGroupBox" name="boxAjuste">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>80</y>
+           <x>350</x>
+           <y>90</y>
            <width>141</width>
            <height>41</height>
           </rect>
+         </property>
+         <property name="accessibleName">
+          <string>quadro</string>
          </property>
          <property name="title">
           <string>{ajuste}</string>
@@ -473,40 +472,24 @@
          </widget>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame_2">
+       <widget class="QGroupBox" name="groupDia">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>30</y>
-          <width>451</width>
-          <height>51</height>
+          <y>20</y>
+          <width>531</width>
+          <height>55</height>
          </rect>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+        <property name="title">
+         <string>Dia: 02 de 28 (07%)</string>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="labelDia">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>0</y>
-           <width>121</width>
-           <height>17</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Dia: 02 de 28 (07%)</string>
-         </property>
-        </widget>
         <widget class="QFrame" name="frameTotalEntrada">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>20</y>
-           <width>130</width>
+           <y>30</y>
+           <width>151</width>
            <height>21</height>
           </rect>
          </property>
@@ -519,7 +502,7 @@
          <widget class="QLabel" name="labelTotalEntrada">
           <property name="geometry">
            <rect>
-            <x>0</x>
+            <x>20</x>
             <y>0</y>
             <width>54</width>
             <height>17</height>
@@ -530,48 +513,6 @@
           </property>
          </widget>
          <widget class="QLabel" name="labelTotalEntradaV">
-          <property name="geometry">
-           <rect>
-            <x>60</x>
-            <y>0</y>
-            <width>71</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>R$1000,00</string>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QFrame" name="frameTotalFixo">
-         <property name="geometry">
-          <rect>
-           <x>160</x>
-           <y>20</y>
-           <width>151</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QLabel" name="labelTotalFixo">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>81</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Gastos Fixos:</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="labelTotalFixoV">
           <property name="geometry">
            <rect>
             <x>80</x>
@@ -585,12 +526,54 @@
           </property>
          </widget>
         </widget>
+        <widget class="QFrame" name="frameTotalFixo">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>30</y>
+           <width>171</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="labelTotalFixo">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>0</y>
+            <width>81</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Gastos Fixos:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="labelTotalFixoV">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>0</y>
+            <width>71</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>R$1000,00</string>
+          </property>
+         </widget>
+        </widget>
         <widget class="QFrame" name="frameTotalReserva">
          <property name="geometry">
           <rect>
-           <x>320</x>
-           <y>20</y>
-           <width>131</width>
+           <x>370</x>
+           <y>30</y>
+           <width>151</width>
            <height>21</height>
           </rect>
          </property>
@@ -603,7 +586,7 @@
          <widget class="QLabel" name="labelTotalReserva">
           <property name="geometry">
            <rect>
-            <x>0</x>
+            <x>20</x>
             <y>0</y>
             <width>54</width>
             <height>17</height>
@@ -616,7 +599,7 @@
          <widget class="QLabel" name="labelTotalReservaV">
           <property name="geometry">
            <rect>
-            <x>60</x>
+            <x>80</x>
             <y>0</y>
             <width>71</width>
             <height>17</height>
@@ -648,7 +631,7 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>260</x>
+         <x>130</x>
          <y>240</y>
          <width>511</width>
          <height>291</height>
@@ -891,7 +874,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>511</width>
+           <width>521</width>
            <height>291</height>
           </rect>
          </property>
@@ -998,11 +981,23 @@
       <widget class="QListWidget" name="listMenu">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>280</y>
-         <width>191</width>
+         <x>60</x>
+         <y>260</y>
+         <width>71</width>
          <height>192</height>
         </rect>
+       </property>
+       <property name="accessibleName">
+        <string>selecao</string>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="textElideMode">
+        <enum>Qt::ElideMiddle</enum>
+       </property>
+       <property name="isWrapping" stdset="0">
+        <bool>true</bool>
        </property>
        <item>
         <property name="text">
@@ -1028,9 +1023,9 @@
       <widget class="PlotPizza" name="graficoPizza" native="true">
        <property name="geometry">
         <rect>
-         <x>780</x>
+         <x>670</x>
          <y>10</y>
-         <width>441</width>
+         <width>551</width>
          <height>261</height>
         </rect>
        </property>
@@ -1038,9 +1033,9 @@
       <widget class="PlotBarra" name="graficoBarra" native="true">
        <property name="geometry">
         <rect>
-         <x>780</x>
+         <x>670</x>
          <y>270</y>
-         <width>441</width>
+         <width>551</width>
          <height>261</height>
         </rect>
        </property>
@@ -1063,14 +1058,14 @@
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;Lista e cadastro dos gastos gerais (mensais e etc)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;	Padrão de gastos (percentuais)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;Lista dos investimentos&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;Informações do ano&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;Geração de relatórios&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Lista e cadastro dos gastos gerais (mensais e etc)&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;	Padrão de gastos (percentuais)&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Lista dos investimentos&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Informações do ano&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Geração de relatórios&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>
@@ -1091,10 +1086,10 @@ p, li { white-space: pre-wrap; }
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;Lista de dívidas&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;	O que eu devo&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-size:9pt;&quot;&gt;	O que me devem&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Lista de dívidas&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;	O que eu devo&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;	O que me devem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </widget>

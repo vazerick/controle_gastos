@@ -8,7 +8,7 @@ import numpy as np
 class PlotBarra(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
-        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#ffffff")
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
         self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
@@ -45,6 +45,7 @@ class PlotBarra(FigureCanvas):
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y, color=cores)
+        ax.set_facecolor("#E1EBF5")
         for tick in ax.get_xticklabels():
             tick.set_rotation(45)
         self.draw()
@@ -52,7 +53,7 @@ class PlotBarra(FigureCanvas):
 class PlotPizza(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
-        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#ffffff")
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
         self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
@@ -82,22 +83,33 @@ class PlotPizza(FigureCanvas):
         ]
 
     def func(self, pct, allvals):
-        if pct >= 10:
+        if pct >= 5:
             absolute = int(pct / 100. * np.sum(allvals))
             return "{:.1f}%\n(R${:d})".format(pct, absolute)
         else:
             return ""
 
-    def plot(self, dados, rotulo):
+    def plot(self, dados, rotulo, fatia=False):
         ax = self.fig.add_subplot(111)
         ax.clear()
 
-        wedges, texts, autotexts = ax.pie(dados, autopct=lambda pct: self.func(pct, dados), pctdistance=0.7,
-                                          textprops=dict(color="w"), colors=self.cores)
+        if fatia:
+            cores = self.cores[::-1]
+        else:
+            cores = self.cores
+
+        wedges, texts, autotexts = ax.pie(dados, autopct=lambda pct: self.func(pct, dados), pctdistance=0.8,
+                                          textprops=dict(color="w"), colors=cores)
 
         ax.legend(wedges, rotulo,
                   loc="center left",
                   bbox_to_anchor=(0.8, 0, 1, 1))
+
+        i = 0
+
+        for i in range(0, len(wedges)):
+            wedges[i].set_picker(True)
+            wedges[i].set_label(rotulo[i])
 
         ax.axis('equal')
         self.draw()

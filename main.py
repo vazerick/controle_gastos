@@ -23,6 +23,7 @@ from src.completer import Completer
 # declaração das funções
 
 selecionado = -1
+cid = 0
 
 def limpa_janela(
         janela=[],
@@ -765,6 +766,47 @@ def grafico_pizza(grafico, dados):
     grafico.plot(tabela["valor"], rotulos)
 
 
+def grafico_fatia(grafico, dados, cat):
+    global cid
+    id_cat = -1
+    for i in Categoria.getAtivos():
+        if i["nome"] == cat:
+            id_cat = i["id"]
+            break
+    if len(Categoria.subGetAtivos(id_cat)):
+        tabela = pd.DataFrame()
+        tabela["categoria"] = dados["categoria"]
+        tabela["subcategoria"] = dados["subcategoria"]
+        tabela["valor"] = dados["valor"]
+        tabela = tabela[tabela["categoria"] == id_cat]
+        tabela = tabela.groupby("subcategoria").agg(np.sum)
+        tabela = tabela.sort_values(["valor"], ascending=False)
+        rotulos = []
+        for rotulo in tabela.index.values:
+            nome = Categoria.getSubNome(id_cat, rotulo)
+            nome = nome.replace(" e ", "%e%")
+            nome = nome.replace(" ", "\n")
+            nome = nome.replace("%e%", " e\n")
+            rotulos.append(nome)
+        grafico.plot(tabela["valor"], rotulos, fatia=True)
+        gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
+        cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', reseta_grafico)
+
+
+def click_pizza(event):
+    wedge = event.artist
+    label = wedge.get_label()
+    label = label.replace("\n", " ")
+    grafico_fatia(gui.ui.graficoPizza, Tabela.Saida.tabela, label)
+
+
+def reseta_grafico(event):
+    global cid
+    grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
+    gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
+    cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
+
+
 def grafico_mes():
     grafico_barra(gui.ui.graficoBarra, Tabela.Saida.tabela)
     grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
@@ -955,6 +997,10 @@ gui.ui.listMenu.itemClicked.connect(
         gui.ui.listMenu.currentRow()
     )
 )
+
+# conect as ações dos clicks nos gráficos
+
+cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
 
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 
