@@ -56,6 +56,12 @@ QFrame{
 QTreeWidget, QListWidget {
   background-color: $corC1;
   alternate-background-color: $corC2;
+  selection-background-color: $corC3;
+}
+
+QTreeWidget::item:hover{
+  color: white;
+  background-color: $corC4;
 }
 
 [accessibleName="selecao"]{
@@ -71,6 +77,11 @@ QTreeWidget, QListWidget {
 
 [accessibleName="selecao"]::item:selected{
   background-color: $corC3;
+}
+
+[accessibleName="selecao"]::item:hover{
+  color: white;
+  background-color: $corC4;
 }
 
 QHeaderView{
