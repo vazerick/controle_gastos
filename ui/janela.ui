@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="Hoje">
       <attribute name="title">
@@ -1073,7 +1073,7 @@
          <x>10</x>
          <y>40</y>
          <width>511</width>
-         <height>231</height>
+         <height>241</height>
         </rect>
        </property>
        <property name="title">
@@ -1085,7 +1085,7 @@
           <x>0</x>
           <y>20</y>
           <width>511</width>
-          <height>211</height>
+          <height>221</height>
          </rect>
         </property>
         <property name="alternatingRowColors">
@@ -1151,7 +1151,7 @@
          <x>540</x>
          <y>10</y>
          <width>681</width>
-         <height>531</height>
+         <height>291</height>
         </rect>
        </property>
        <property name="title">
@@ -1287,7 +1287,7 @@
           <x>10</x>
           <y>90</y>
           <width>661</width>
-          <height>401</height>
+          <height>181</height>
          </rect>
         </property>
         <property name="alternatingRowColors">
@@ -1354,8 +1354,8 @@
        <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>500</y>
+          <x>10</x>
+          <y>270</y>
           <width>71</width>
           <height>17</height>
          </rect>
@@ -1369,9 +1369,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>280</y>
+         <y>300</y>
          <width>511</width>
-         <height>231</height>
+         <height>241</height>
         </rect>
        </property>
        <property name="title">
@@ -1383,7 +1383,7 @@
           <x>0</x>
           <y>20</y>
           <width>511</width>
-          <height>211</height>
+          <height>221</height>
          </rect>
         </property>
         <property name="alternatingRowColors">
@@ -1463,6 +1463,44 @@
        </property>
        <property name="arrowType">
         <enum>Qt::DownArrow</enum>
+       </property>
+      </widget>
+      <widget class="QTreeWidget" name="treeAno">
+       <property name="geometry">
+        <rect>
+         <x>540</x>
+         <y>320</y>
+         <width>211</width>
+         <height>221</height>
+        </rect>
+       </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Mês</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Entrada</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Saída</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="PlotLinha" name="graficoLinha" native="true">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>320</y>
+         <width>461</width>
+         <height>221</height>
+        </rect>
        </property>
       </widget>
      </widget>
@@ -1912,6 +1950,12 @@
   </customwidget>
   <customwidget>
    <class>PlotBarra</class>
+   <extends>QWidget</extends>
+   <header location="global">ui.plotcanvas</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PlotLinha</class>
    <extends>QWidget</extends>
    <header location="global">ui.plotcanvas</header>
    <container>1</container>

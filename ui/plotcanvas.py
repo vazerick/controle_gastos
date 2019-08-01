@@ -125,3 +125,12 @@ class PlotPizza(FigureCanvas):
 
         ax.axis('equal')
         self.draw()
+
+
+class PlotLinha(FigureCanvas):
+
+    def __init__(self, parent=None, width=1, height=1, dpi=75):
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
+        self.axes = self.fig.add_subplot(111)
+
+        FigureCanvas.__init__(self, self.fig)
