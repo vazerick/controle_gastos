@@ -27,6 +27,7 @@ class Hoje:
         self.Inicio.setDate(self.Info.ano_int, self.Info.mes_int, 1)
         self.Referencia = QDate()
         self.Referencia.setDate(self.Info.ano_int, self.Info.mes_int, self.Info.referencia)
+
         self.Ontem = self.Referencia.addDays(-1)
 
         self.HojeGasto = Janela.labelHojeGastoV
@@ -61,18 +62,17 @@ class Hoje:
         self.mes_limite = self.soma_entrada-self.soma_fixo-self.soma_reserva
         self.mes_resta = self.mes_limite-self.soma_saida
 
-
         dia_mes = self.Info.referencia
         dia_total = self.Info.tempo.daysInMonth()
         dia_percent = (dia_mes/dia_total)*100
         self.Dia("Dia: "+str(dia_mes)+" de "+str(dia_total)+" ("+f'{dia_percent:.0f}'+"%)")
-        if self.Ontem.day():
+        if self.Referencia.day() > 1:
             self.media_dia = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem) / self.Ontem.day()
-
+            dia_restante = dia_total - self.Ontem.day()
         else:
             self.media_dia = 0
+            dia_restante = dia_total
         self.dia_limite = self.mes_limite / dia_total
-        dia_restante = dia_total - self.Ontem.day()
         gasto_base = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem)
         self.hoje_limite = (self.mes_limite-gasto_base)/dia_restante
         self.hoje_resta = self.hoje_limite-self.soma_hoje
