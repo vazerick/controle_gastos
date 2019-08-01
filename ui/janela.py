@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -359,7 +359,7 @@ class Ui_Form(object):
         self.treeInvestimentos.header().setCascadingSectionResizes(False)
         self.treeInvestimentos.header().setHighlightSections(False)
         self.toolRelatorio = QtWidgets.QToolButton(self.Geral)
-        self.toolRelatorio.setGeometry(QtCore.QRect(10, 10, 121, 24))
+        self.toolRelatorio.setGeometry(QtCore.QRect(10, 10, 131, 24))
         self.toolRelatorio.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.toolRelatorio.setAutoRaise(True)
         self.toolRelatorio.setArrowType(QtCore.Qt.DownArrow)
@@ -369,7 +369,7 @@ class Ui_Form(object):
         self.treeAno.setObjectName("treeAno")
         self.treeAno.header().setVisible(False)
         self.graficoLinha = PlotLinha(self.Geral)
-        self.graficoLinha.setGeometry(QtCore.QRect(760, 320, 461, 221))
+        self.graficoLinha.setGeometry(QtCore.QRect(760, 300, 461, 241))
         self.graficoLinha.setObjectName("graficoLinha")
         self.tabWidget.addTab(self.Geral, "")
         self.Dividas = QtWidgets.QWidget()
@@ -630,3 +630,13 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotLinha, PlotPizza
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+

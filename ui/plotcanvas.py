@@ -141,14 +141,22 @@ class PlotLinha(FigureCanvas):
 
 
     def plot(self, tabela):
-        meses = tabela["mes"]
+        meses = tabela["mes"].copy()
+        if len(meses) > 6:
+            for i in range(0, len(meses)):
+                meses[i] = meses[i][:3]
+
         entrada = tabela["entrada"]
         saida = tabela["saida"]
 
         ax = self.fig.add_subplot(111)
 
-        ax.plot(meses, entrada, 'b-')
-        ax.plot(meses, saida, 'r-')
+        linha_entrada = ax.plot(meses, entrada, 'bD-')
+        linha_entrada[0].set_lw(2)
+        linha_saida = ax.plot(meses, saida, 'rD-')
+        linha_saida[0].set_lw(2)
+
+        ax.set_facecolor('#C2D5E8')
 
         formatter = ticker.FormatStrFormatter('R$%1.0f')
         ax.yaxis.set_major_formatter(formatter)
@@ -156,7 +164,10 @@ class PlotLinha(FigureCanvas):
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
 
+        print(linha_entrada)
+        print(linha_saida)
+
         for label in ax.xaxis.get_ticklabels():
-            label.set_rotation(45)
+            label.set_rotation(10)
 
         self.draw()

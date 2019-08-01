@@ -1033,7 +1033,7 @@ def m_atualiza_tabela():
     Geral.adicionar(
         [Meses[Info.mes_int],
         Hoje.soma_entrada,
-        Hoje.soma_saida+Hoje.soma_fixo+Hoje.soma_reserva]
+        Hoje.soma_saida+Hoje.soma_fixo]
     )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     atualiza_completer()
