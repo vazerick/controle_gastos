@@ -97,3 +97,36 @@ class Tabela:
     def lista_nomes(self):
         return self.tabela['nome'].str.lower().unique()
 
+
+class TabelaGeral:
+
+    colunas = ["mes", "entrada", "saida"]
+
+    def __init__(self, ano):
+
+        self.endereco = 'data/' + str(ano)
+
+        # cria uma pasta para o ano caso não exista
+        if not os.path.exists(self.endereco):
+            os.makedirs(self.endereco)
+
+        self.endereco += '/geral.csv'
+
+        # abre a tabela, ou cria caso não exista
+        try:
+            self.tabela = pd.read_csv(self.endereco, quotechar="'", index_col='id')
+        except FileNotFoundError:
+            self.tabela = pd.DataFrame(columns=self.colunas)
+            self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
+        self.tabela['entrada'] = self.tabela['entrada'].replace(',', '.')
+        self.tabela['saida'] = self.tabela['saida'].replace(',', '.')
+
+
+    def adicionar(self, linha):
+        add = pd.DataFrame(
+            [linha],
+            columns=self.colunas
+        )
+        self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito

@@ -174,3 +174,21 @@ class ArvoreTabelaReserva(ArvoreTabela):
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
         self.colunas()
+
+
+class ArvoreTabelaGeral(ArvoreTabela):
+
+    def __init__(self, Widget, Tabela):
+        self.Tabela = Tabela
+        super().__init__(Widget, Tabela)
+
+    def atualiza(self, Tabela):
+        self.Widget.clear()
+        for x in range(0, len(Tabela)):
+            linha = []
+            linha.append(str(Tabela.iloc[x]['mes']))
+            linha.append('R$' + str(Tabela.iloc[x]['entrada']))
+            linha.append('R$' + str(Tabela.iloc[x]['saida']))
+            WidgetItem = QTreeWidgetItem(linha)
+            self.Widget.addTopLevelItem(WidgetItem)
+        self.colunas()

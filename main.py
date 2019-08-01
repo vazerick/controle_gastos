@@ -25,12 +25,29 @@ from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
 from src.completer import Completer
+from src.tabela import TabelaGeral
 
 print("Declaração das funções")
 # declaração das funções
 
 selecionado = -1
 cid = 0
+
+Meses = [
+    "",
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+]
 
 def limpa_janela(
         janela=[],
@@ -900,6 +917,22 @@ def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, ti
     grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque, fatia=fatia, titulo=titulo)
 
 
+def grafico_linha(grafico, dados):
+    print("Gera gráfico de linhas")
+    # tabela = pd.DataFrame(datelist, columns=["data"])
+    # tabela["valor"] = 0
+    # # tabela["data"] = dados["data"]
+    # tabela = tabela.append(dados, sort=True)
+    # tabela = tabela.groupby("data").agg(np.sum)
+    # rotulos = tabela.index.values
+    # i = 0
+    # for i in range(0, len(rotulos)):
+    #     rotulos[i] = rotulos[i][0:2]
+    # if destaque:
+    #     dias_destaque=fim_de_semana(dados)
+    grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque, fatia=fatia, titulo=titulo)
+
+
 def fim_de_semana(dados):
     dias = pd.DataFrame()
     if len(dados):
@@ -997,6 +1030,11 @@ def m_atualiza_tabela():
     print(Info.tempo)
     Info.atualiza()
     print(Info.tempo)
+    Geral.adicionar(
+        [Meses[Info.mes_int],
+        Hoje.soma_entrada,
+        Hoje.soma_saida+Hoje.soma_fixo+Hoje.soma_reserva]
+    )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     atualiza_completer()
     exit()
@@ -1286,21 +1324,22 @@ else:
         else:
             Info.set_data(Info.ano_int, Info.mes_int-1, Info.dia_int)
 Tabela = Mensal(Info.ano_int, Info.mes_int)
-#todo opção de iniciar o novo mês, ou de continuar no antigo
+Geral = TabelaGeral(Info.ano_int)
 
-#todo rever caso fique um mês faltando no meio, tem que ter uma forma de criar uma tabela buraco?
 print("Preenche as árvores e tabelas da interface")
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
 ArvoreSaida = ArvoreTabelaSaida(gui.ui.treeSaida, Tabela.Saida.tabela, Categoria)
 ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela.Fixo.tabela, Categoria)
 ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela.Entrada.tabela)
 ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
+ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
 
 for header in [
     gui.ui.treeSaida.header(),
     gui.ui.treeEntrada.header(),
     gui.ui.treeFixo.header(),
-    gui.ui.treeReserva.header()
+    gui.ui.treeReserva.header(),
+    gui.ui.treeAno.header()
 ]:
     header.setVisible(True)
 
@@ -1351,6 +1390,7 @@ ReservaCompleter = Completer(
 )
 
 grafico_mes()
+gui.ui.graficoLinha.plot(Geral.tabela)
 
 sys.exit(gui.app.exec_())
 

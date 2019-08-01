@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QSizePolicy
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib.ticker as ticker
 import numpy as np
 
 
@@ -9,7 +10,6 @@ class PlotBarra(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
-        self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
@@ -63,7 +63,6 @@ class PlotPizza(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
-        self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
@@ -131,6 +130,33 @@ class PlotLinha(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
         self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
-        self.axes = self.fig.add_subplot(111)
 
         FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+
+
+    def plot(self, tabela):
+        meses = tabela["mes"]
+        entrada = tabela["entrada"]
+        saida = tabela["saida"]
+
+        ax = self.fig.add_subplot(111)
+
+        ax.plot(meses, entrada, 'b-')
+        ax.plot(meses, saida, 'r-')
+
+        formatter = ticker.FormatStrFormatter('R$%1.0f')
+        ax.yaxis.set_major_formatter(formatter)
+
+        ax.yaxis.grid(True, which='major', linewidth=1)
+        ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
+
+        for label in ax.xaxis.get_ticklabels():
+            label.set_rotation(45)
+
+        self.draw()
