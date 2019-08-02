@@ -46,7 +46,7 @@ class Completer:
             return tabela.Entrada.tabela['nome']
         if self.Tipo == "reserva":
             return tabela.Reserva.tabela['nome']
-        if self.Tipo == "Fixo":
-            return tabela.FixoSaida.tabela['nome']
+        if self.Tipo == "fixo":
+            return tabela.Fixo.tabela['nome']
 
 

@@ -1093,6 +1093,11 @@ Pagamentos = Pagamento(config['PAGAMENTO'])
 # inicia a interface gráfica
 gui = gui()
 
+if Info.dia_int == 1:
+    gui.ui.boxMedia.setVisible(False)
+    gui.ui.boxLimiteDia.setVisible(False)
+    gui.ui.boxAjuste.setVisible(False)
+
 gui.ui.stackedWidget.setCurrentIndex(0)
 gui.ui.tabWidget.setCurrentIndex(0)
 gui.ui.listMenu.setCurrentRow(0)
