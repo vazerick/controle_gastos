@@ -1373,6 +1373,7 @@ GastoCompleter = Completer(
 EntradaCompleter = Completer(
     campos=[
         gui.uiEntradaAdd.inputEntrada,
+        gui.uiEntradaEdit.inputEntrada
     ],
     tabelas=Tabela,
     tipo="entrada"
@@ -1381,6 +1382,7 @@ EntradaCompleter = Completer(
 FixoCompleter = Completer(
     campos=[
         gui.uiFixoAdd.inputGasto,
+        gui.uiFixoEdit.inputGasto
     ],
     tabelas=Tabela,
     tipo="fixo"
@@ -1389,6 +1391,7 @@ FixoCompleter = Completer(
 ReservaCompleter = Completer(
     campos=[
         gui.uiReservaAdd.inputReserva,
+        gui.uiReservaEdit.inputReserva
     ],
     tabelas=Tabela,
     tipo="reserva"
