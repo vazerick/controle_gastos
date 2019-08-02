@@ -1,5 +1,6 @@
 import pandas as pd
 from PyQt5.QtCore import Qt, QDate, QDateTime
+import calendar
 
 class Hoje:
 
@@ -8,12 +9,15 @@ class Hoje:
     soma_fixo = 0
     soma_reserva = 0
     soma_hoje = 0
+    soma_semana = 0
     mes_limite = 0
     mes_resta = 0
     hoje_limite = 0
     hoje_resta = 0
     media_dia = 0
     dia_limite = 0
+    semana_limite = 0
+    semana_resta = 0
     ajuste = 0
 
 
@@ -34,6 +38,11 @@ class Hoje:
         self.HojeLimite = Janela.labelHojeLimiteV
         self.HojeResto = Janela.labelHojeRestaV
         self.HojeBarra = Janela.progressBarHoje
+
+        self.SemanaGasto = Janela.labelSemanaGastoV
+        self.SemanaLimite = Janela.labelSemanaLimiteV
+        self.SemanaResto = Janela.labelSemanaRestaV
+        self.SemanaBarra = Janela.progressBarSemana
 
         self.MesGasto = Janela.labelMesGastoV
         self.MesLimite = Janela.labelMesLimiteV
@@ -83,6 +92,22 @@ class Hoje:
         else:
             self.BoxAjuste.setTitle("Excesso")
 
+        print("Semana\n")
+        calendario = calendar.monthcalendar(self.Info.ano_int, self.Info.mes_int)
+        num_semanas = len(calendario)
+        for i in range(0, num_semanas):
+            if self.Info.dia_int in calendario[i]:
+                semana_atual = calendario[i]
+        ultima_semana = calendario[-1]
+        if semana_atual[0]:
+            self.semana_limite = self.hoje_limite*7
+        else:
+            self.semana_limite = self.dia_limite*sum(1 for x in calendario[0] if x)
+        semana_inicio = QDate(self.Info.ano_int, self.Info.mes_int, sorted(list(set(semana_atual)))[1])
+        semana_fim = QDate(self.Info.ano_int, self.Info.mes_int, max(semana_atual))
+        self.soma_semana = self.Tabela.Saida.soma_intervalo(semana_inicio, semana_fim)
+        self.semana_resta = self.semana_limite - self.soma_semana
+
         self.escreve_dinheiro([
             {
                 'valor': self.soma_saida,
@@ -131,11 +156,24 @@ class Hoje:
             {
                 'valor': self.ajuste,
                 'label': self.Ajuste
+            },
+            {
+                'valor': self.soma_semana,
+                'label': self.SemanaGasto
+            },
+            {
+                'valor': self.semana_limite,
+                'label': self.SemanaLimite
+            },
+            {
+                'valor': self.semana_resta,
+                'label': self.SemanaResto
             }
         ])
 
         self.escreve_barra(self.MesBarra, self.soma_saida, self.mes_limite)
         self.escreve_barra(self.HojeBarra, self.soma_hoje, self.hoje_limite)
+        self.escreve_barra(self.SemanaBarra, self.soma_semana, self.semana_limite)
 
     def escreve_dinheiro(self, itens):
         for item in itens:

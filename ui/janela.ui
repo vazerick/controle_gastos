@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Hoje">
       <attribute name="title">
@@ -62,7 +62,7 @@
         <widget class="QGroupBox" name="boxHoje">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>30</x>
            <y>0</y>
            <width>141</width>
            <height>131</height>
@@ -223,7 +223,7 @@
         <widget class="QGroupBox" name="boxMes">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>350</x>
            <y>0</y>
            <width>141</width>
            <height>131</height>
@@ -375,108 +375,164 @@
           </property>
          </widget>
         </widget>
-        <widget class="QGroupBox" name="boxMedia">
+        <widget class="QGroupBox" name="boxSemana">
          <property name="geometry">
           <rect>
-           <x>350</x>
-           <y>10</y>
+           <x>190</x>
+           <y>0</y>
            <width>141</width>
-           <height>41</height>
+           <height>131</height>
           </rect>
          </property>
          <property name="accessibleName">
-          <string>quadro</string>
+          <string>progresso</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="title">
-          <string>Média de gasto por dia</string>
+          <string>Semanal</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <widget class="QLabel" name="labelMedia">
+         <widget class="QFrame" name="frameSemanaGasto">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>141</width>
-            <height>20</height>
+            <x>10</x>
+            <y>30</y>
+            <width>121</width>
+            <height>21</height>
            </rect>
           </property>
-          <property name="text">
-           <string>R$100,00</string>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
+          <widget class="QLabel" name="labelSemanaGasto">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>54</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Gasto:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="labelSemanaGastoV">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>0</y>
+             <width>71</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>R$1000,00</string>
+           </property>
+          </widget>
          </widget>
-        </widget>
-        <widget class="QGroupBox" name="boxLimiteDia">
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>50</y>
-           <width>141</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="accessibleName">
-          <string>quadro</string>
-         </property>
-         <property name="title">
-          <string>Limite por dia</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <widget class="QLabel" name="labelLimiteDia">
+         <widget class="QFrame" name="frameSemanaLimite">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>20</y>
-            <width>141</width>
-            <height>20</height>
+            <x>10</x>
+            <y>50</y>
+            <width>121</width>
+            <height>21</height>
            </rect>
           </property>
-          <property name="text">
-           <string>R$100,00</string>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
           </property>
+          <widget class="QLabel" name="labelSemanaLimite">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>54</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Limite:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="labelSemanaLimiteV">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>0</y>
+             <width>71</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>R$1000,00</string>
+           </property>
+          </widget>
          </widget>
-        </widget>
-        <widget class="QGroupBox" name="boxAjuste">
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>90</y>
-           <width>141</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="accessibleName">
-          <string>quadro</string>
-         </property>
-         <property name="title">
-          <string>{ajuste}</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <widget class="QLabel" name="labelAjuste">
+         <widget class="QFrame" name="frameSemanaResta">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>121</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLabel" name="labelSemanaResta">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>54</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Resta:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="labelSemanaRestaV">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>0</y>
+             <width>71</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>R$1000,00</string>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QProgressBar" name="progressBarSemana">
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>20</y>
+            <y>100</y>
             <width>141</width>
-            <height>20</height>
+            <height>31</height>
            </rect>
           </property>
-          <property name="text">
-           <string>R$100,00</string>
+          <property name="maximum">
+           <number>100</number>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="value">
+           <number>24</number>
           </property>
          </widget>
         </widget>
@@ -620,19 +676,6 @@
          </widget>
         </widget>
        </widget>
-      </widget>
-      <widget class="QPushButton" name="botaoGasto">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>91</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Novo Gasto</string>
-       </property>
       </widget>
       <widget class="QStackedWidget" name="stackedWidget">
        <property name="enabled">
@@ -948,45 +991,6 @@
         </widget>
        </widget>
       </widget>
-      <widget class="QPushButton" name="botaoEntrada">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>91</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Nova Entrada</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="botaoFixo">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>91</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Novo Fixo</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="botaoReserva">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>130</y>
-         <width>91</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Nova Reserva</string>
-       </property>
-      </widget>
       <widget class="QListWidget" name="listMenu">
        <property name="geometry">
         <rect>
@@ -1061,6 +1065,139 @@
        <property name="text">
         <string>Excluir</string>
        </property>
+      </widget>
+      <widget class="QToolButton" name="toolAdicionar">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>91</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="accessibleName">
+        <string>tool</string>
+       </property>
+       <property name="text">
+        <string>Adicionar</string>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::InstantPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextOnly</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+       <property name="arrowType">
+        <enum>Qt::DownArrow</enum>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="boxAjuste">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>180</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="accessibleName">
+        <string>quadro</string>
+       </property>
+       <property name="title">
+        <string>{ajuste}</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="QLabel" name="labelAjuste">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>R$100,00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="boxLimiteDia">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="accessibleName">
+        <string>quadro</string>
+       </property>
+       <property name="title">
+        <string>Limite por dia</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="QLabel" name="labelLimiteDia">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>R$100,00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="boxMedia">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>121</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="accessibleName">
+        <string>quadro</string>
+       </property>
+       <property name="title">
+        <string>Média de gasto por dia</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="QLabel" name="labelMedia">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>R$100,00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="Geral">

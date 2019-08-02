@@ -12,7 +12,8 @@ import numpy as np
 print("\tQt")
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialogButtonBox
+from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton
+
 print("\tInterfaces Gráficas")
 # interface gráfica
 from src.gui import gui
@@ -1138,12 +1139,32 @@ ComboFixoEditSub = SubcategoriaLink(gui.uiFixoEdit.comboSub, Categoria)
 ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
 
+# gui.ui.toolAdicionar.hide()
+# gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
+acao_gasto = QAction("Gasto")
+acao_gasto.triggered.connect(botao_adicionar_gasto)
+# gui.ui.botaoEntrada.clicked.connect(botao_adicionar_entrada)
+acao_entrada = QAction("Entrada")
+acao_entrada.triggered.connect(botao_adicionar_entrada)
+# gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
+acao_fixo = QAction("Fixo")
+acao_fixo.triggered.connect(botao_adicionar_fixo)
+# gui.ui.botaoReserva.clicked.connect(botao_adicionar_reserva)
+acao_reserva = QAction("Reserva")
+acao_reserva.triggered.connect(botao_adicionar_reserva)
+menu = QMenu()
+menu.addAction(acao_gasto)
+menu.addAction(acao_entrada)
+menu.addAction(acao_fixo)
+menu.addAction(acao_reserva)
+gui.ui.toolAdicionar.setPopupMode(QToolButton.InstantPopup)
+gui.ui.toolAdicionar.setMenu(menu)
 
 # ações
 
 # conecta as ações dos botões
 
-gui.ui.botaoGasto.clicked.connect(botao_adicionar_gasto)
+
 
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -1153,8 +1174,6 @@ gui.uiGastosAdd.buttonBox.rejected.connect(botao_gasto_cancela)
 gui.uiGastosAdd.botaoAdd.clicked.connect(botao_gasto_fila)
 
 gui.uiGastosEdit.buttonBox.accepted.connect(botao_gasto_editar)
-
-gui.ui.botaoFixo.clicked.connect(botao_adicionar_fixo)
 
 gui.uiFixoAdd.buttonBox.accepted.connect(botao_fixo_add)
 gui.uiFixoEdit.buttonBox.accepted.connect(botao_fixo_editar)
@@ -1166,7 +1185,6 @@ gui.uiFixoAdd.botaoHoje_2.clicked.connect(
     lambda: gui.uiFixoAdd.calendarWidget_2.setSelectedDate(QDate.currentDate())
 )
 
-gui.ui.botaoEntrada.clicked.connect(botao_adicionar_entrada)
 
 gui.uiEntradaAdd.botaoHoje.clicked.connect(
     lambda: gui.uiEntradaAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -1177,7 +1195,6 @@ gui.uiEntradaAdd.botaoHoje_2.clicked.connect(
 
 gui.uiEntradaAdd.buttonBox.accepted.connect(botao_entrada_add)
 
-gui.ui.botaoReserva.clicked.connect(botao_adicionar_reserva)
 
 gui.uiReservaAdd.buttonBox.accepted.connect(botao_reserva_add)
 
