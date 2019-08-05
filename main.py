@@ -409,6 +409,33 @@ def botao_reserva_add():
     gasto_atualiza()
 
 
+def botao_reserva_editar():
+    adicao = Info.data_hora()
+    nome = gui.uiReservaEdit.inputReserva.text()
+    comentario = gui.uiReservaEdit.textComentario.toPlainText()
+    valor = gui.uiReservaEdit.spinValor.value()
+
+    Tabela.Reserva.editar(selecionado,
+                             [
+                                adicao,
+                                nome,
+                                comentario,
+                                valor
+                            ]
+    )
+
+    limpa_janela(
+        janela=[gui.wReservaEdit],
+        texto=[
+            gui.uiReservaEdit.inputReserva,
+            gui.uiReservaEdit.textComentario
+        ],
+        spin=[gui.uiReservaEdit.spinValor]
+    )
+    ArvoreReserva.atualiza(Tabela.Reserva.tabela)
+    gasto_atualiza()
+
+
 fila_gasto = []
 
 
@@ -794,7 +821,7 @@ def fixo_click(item):
         gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
         gui.wFixoEdit.show()
     else:
-        selecionado = 0
+        selecionado = -1
 
 
 def entrada_click(item):
@@ -830,7 +857,7 @@ def entrada_click(item):
     #     gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
     #     gui.wFixoEdit.show()
     # else:
-    #     selecionado = 0
+    #     selecionado = -1
 
 
 def reserva_click(item):
@@ -838,34 +865,24 @@ def reserva_click(item):
     nome = item.text(0)
     valor = float(item.text(1).replace("R$", ""))
     comentario = item.text(2)
-    print(nome, valor, comentario)
-    # tabela = Tabela.Fixo.tabela
-    # tabela = tabela[tabela["vencimento"] == vencimento]
-    # tabela = tabela[tabela["nome"] == nome]
-    # tabela = tabela[tabela["valor"] == valor]
-    # global selecionado
-    # print(tabela["nome"])
-    # if len(tabela) == 1:
-    #     id = tabela.iloc[0].name
-    #     selecionado = id
-    #     item = Tabela.Fixo.tabela.iloc[id]
-    #     print(item)
-    #     gui.uiFixoEdit.inputGasto.setText(item["nome"])
-    #     gui.uiFixoEdit.spinValor.setValue(item["valor"])
-    #     if pd.notna(item["comentario"]):
-    #         gui.uiFixoEdit.textComentario.setText(item["comentario"])
-    #     gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
-    #     if item["pago"]:
-    #         gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
-    #         gui.uiFixoEdit.checkPago.setCheckState(2)
-    #     else:
-    #         gui.uiFixoEdit.checkPago.setCheckState(0)
-    #     gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
-    #     gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-    #     gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
-    #     gui.wFixoEdit.show()
-    # else:
-    #     selecionado = 0
+    tabela = Tabela.Reserva.tabela
+    tabela = tabela[tabela["nome"] == nome]
+    tabela = tabela[tabela["valor"] == valor]
+    global selecionado
+    print(tabela["nome"])
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = Tabela.Reserva.tabela.iloc[id]
+        print(item)
+        gui.uiReservaEdit.inputReserva.setText(item["nome"])
+        gui.uiReservaEdit.spinValor.setValue(item["valor"])
+        if pd.notna(item["comentario"]):
+            gui.uiReservaEdit.textComentario.setText(item["comentario"])
+        gui.wReservaEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wReservaEdit.show()
+    else:
+        selecionado = -1
 
 
 def fila_click(item):
@@ -1197,6 +1214,7 @@ gui.uiEntradaAdd.buttonBox.accepted.connect(botao_entrada_add)
 
 
 gui.uiReservaAdd.buttonBox.accepted.connect(botao_reserva_add)
+gui.uiReservaEdit.buttonBox.accepted.connect(botao_reserva_editar)
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(botao_adicionar_categoria)
 gui.ui.botaoPessoaAdicionar.clicked.connect(botao_adicionar_pessoa)
