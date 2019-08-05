@@ -649,6 +649,50 @@ def botao_entrada_add():
     Hoje.atualiza()
 
 
+def botao_entrada_editar():
+
+    previsao = gui.uiEntradaEdit.calendarWidget.selectedDate()
+    previsao = previsao.toString("dd/MM/yyyy")
+    data = ""
+    pago = int(gui.uiEntradaEdit.checkPago.checkState())
+    if pago:
+        data = gui.uiEntradaEdit.calendarWidget_2.selectedDate()
+        data = data.toString("dd/MM/yyyy")
+    adicao = Info.data_hora()
+    nome = gui.uiEntradaEdit.inputEntrada.text()
+    comentario = gui.uiEntradaEdit.textComentario.toPlainText()
+    valor = gui.uiEntradaEdit.spinValor.value()
+
+    Tabela.Entrada.editar(selecionado,
+        [
+            data,
+            previsao,
+            adicao,
+            nome,
+            comentario,
+            valor,
+            pago
+        ]
+    )
+
+    limpa_janela(
+        janela=[gui.wEntradaEdit],
+        texto=[
+            gui.uiEntradaEdit.inputEntrada,
+            gui.uiEntradaEdit.textComentario
+        ],
+        spin=[gui.uiEntradaEdit.spinValor],
+        data=[
+            gui.uiEntradaEdit.calendarWidget,
+            gui.uiEntradaEdit.calendarWidget_2
+        ],
+        check=[gui.uiEntradaEdit.checkPago]
+    )
+
+    ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
+    Hoje.atualiza()
+
+
 def botao_adicionar_fixo():
     gui.wFixoAdd.show()
 
@@ -812,8 +856,8 @@ def fixo_click(item):
             gui.uiFixoEdit.textComentario.setText(item["comentario"])
         gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
         if item["pago"]:
-            gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
             gui.uiFixoEdit.checkPago.setCheckState(2)
+            gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         else:
             gui.uiFixoEdit.checkPago.setCheckState(0)
         gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
@@ -830,34 +874,31 @@ def entrada_click(item):
     previsao = item.text(1)
     data = item.text(2)
     valor = float(item.text(3).replace("R$", ""))
-    print(nome, previsao, data, valor)
-    # tabela = Tabela.Fixo.tabela
-    # tabela = tabela[tabela["vencimento"] == vencimento]
-    # tabela = tabela[tabela["nome"] == nome]
-    # tabela = tabela[tabela["valor"] == valor]
-    # global selecionado
-    # print(tabela["nome"])
-    # if len(tabela) == 1:
-    #     id = tabela.iloc[0].name
-    #     selecionado = id
-    #     item = Tabela.Fixo.tabela.iloc[id]
-    #     print(item)
-    #     gui.uiFixoEdit.inputGasto.setText(item["nome"])
-    #     gui.uiFixoEdit.spinValor.setValue(item["valor"])
-    #     if pd.notna(item["comentario"]):
-    #         gui.uiFixoEdit.textComentario.setText(item["comentario"])
-    #     gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
-    #     if item["pago"]:
-    #         gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
-    #         gui.uiFixoEdit.checkPago.setCheckState(2)
-    #     else:
-    #         gui.uiFixoEdit.checkPago.setCheckState(0)
-    #     gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
-    #     gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-    #     gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
-    #     gui.wFixoEdit.show()
-    # else:
-    #     selecionado = -1
+    tabela = Tabela.Entrada.tabela
+    tabela = tabela[tabela["nome"] == nome]
+    tabela = tabela[tabela["previsao"] == previsao]
+    tabela = tabela[tabela["data"] == data]
+    tabela = tabela[tabela["valor"] == valor]
+    global selecionado
+    print(tabela["nome"])
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = Tabela.Entrada.tabela.iloc[id]
+        gui.uiEntradaEdit.inputEntrada.setText(item["nome"])
+        gui.uiEntradaEdit.spinValor.setValue(item["valor"])
+        if pd.notna(item["comentario"]):
+            gui.uiEntradaEdit.textComentario.setText(item["comentario"])
+        gui.uiEntradaEdit.calendarWidget.setSelectedDate(QDate().fromString(item["previsao"], "dd/MM/yyyy"))
+        if item["data"]:
+            gui.uiEntradaEdit.checkPago.setCheckState(2)
+            gui.uiEntradaEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+        else:
+            gui.uiEntradaEdit.checkPago.setCheckState(0)
+        gui.wEntradaEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wEntradaEdit.show()
+    else:
+        selecionado = -1
 
 
 def reserva_click(item):
@@ -1202,6 +1243,20 @@ gui.uiFixoAdd.botaoHoje_2.clicked.connect(
     lambda: gui.uiFixoAdd.calendarWidget_2.setSelectedDate(QDate.currentDate())
 )
 
+gui.uiFixoEdit.botaoHoje.clicked.connect(
+    lambda: gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate.currentDate())
+)
+gui.uiFixoEdit.botaoHoje_2.clicked.connect(
+    lambda: gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate.currentDate())
+)
+
+gui.uiEntradaEdit.botaoHoje.clicked.connect(
+    lambda: gui.uiEntradaEdit.calendarWidget.setSelectedDate(QDate.currentDate())
+)
+
+gui.uiEntradaEdit.botaoHoje_2.clicked.connect(
+    lambda: gui.uiEntradaEdit.calendarWidget_2.setSelectedDate(QDate.currentDate())
+)
 
 gui.uiEntradaAdd.botaoHoje.clicked.connect(
     lambda: gui.uiEntradaAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -1211,7 +1266,7 @@ gui.uiEntradaAdd.botaoHoje_2.clicked.connect(
 )
 
 gui.uiEntradaAdd.buttonBox.accepted.connect(botao_entrada_add)
-
+gui.uiEntradaEdit.buttonBox.accepted.connect(botao_entrada_editar)
 
 gui.uiReservaAdd.buttonBox.accepted.connect(botao_reserva_add)
 gui.uiReservaEdit.buttonBox.accepted.connect(botao_reserva_editar)
@@ -1286,6 +1341,7 @@ gui.uiEntradaAdd.checkPago.stateChanged.connect(check_entrada)
 gui.uiFixoAdd.checkPago.stateChanged.connect(check_fixo)
 
 gui.uiFixoEdit.checkPago.stateChanged.connect(lambda: gui.check_calendario(gui.uiFixoEdit))
+gui.uiEntradaEdit.checkPago.stateChanged.connect(lambda: gui.check_calendario(gui.uiEntradaEdit))
 
 # conecta as ações dos clicks em lista
 
