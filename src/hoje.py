@@ -1,9 +1,9 @@
+import calendar
 import pandas as pd
 from PyQt5.QtCore import Qt, QDate, QDateTime
-import calendar
+
 
 class Hoje:
-
     soma_entrada = 0
     soma_saida = 0
     soma_fixo = 0
@@ -19,8 +19,6 @@ class Hoje:
     semana_limite = 0
     semana_resta = 0
     ajuste = 0
-
-
 
     def __init__(self, Tabela, Janela, Info):
         self.Tabela = Tabela
@@ -60,7 +58,7 @@ class Hoje:
 
         self.atualiza()
 
-    def atualiza(self): #todo o que fazer na virada da meia noite?? Quando muda o dia? Talvez costum no config?
+    def atualiza(self):  # todo o que fazer na virada da meia noite?? Quando muda o dia? Talvez costum no config?
 
         self.soma_saida = self.Tabela.Saida.soma()
         self.soma_entrada = self.Tabela.Entrada.soma()
@@ -68,13 +66,13 @@ class Hoje:
         self.soma_reserva = self.Tabela.Reserva.soma()
         self.soma_hoje = self.Tabela.Saida.soma_data(self.Referencia)
 
-        self.mes_limite = self.soma_entrada-self.soma_fixo-self.soma_reserva
-        self.mes_resta = self.mes_limite-self.soma_saida
+        self.mes_limite = self.soma_entrada - self.soma_fixo - self.soma_reserva
+        self.mes_resta = self.mes_limite - self.soma_saida
 
         dia_mes = self.Info.referencia
         dia_total = self.Info.tempo.daysInMonth()
-        dia_percent = (dia_mes/dia_total)*100
-        self.Dia("Dia: "+str(dia_mes)+" de "+str(dia_total)+" ("+f'{dia_percent:.0f}'+"%)")
+        dia_percent = (dia_mes / dia_total) * 100
+        self.Dia("Dia: " + str(dia_mes) + " de " + str(dia_total) + " (" + f'{dia_percent:.0f}' + "%)")
         if self.Referencia.day() > 1:
             self.media_dia = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem) / self.Ontem.day()
             dia_restante = dia_total - self.Ontem.day()
@@ -83,8 +81,8 @@ class Hoje:
             dia_restante = dia_total
         self.dia_limite = self.mes_limite / dia_total
         gasto_base = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem)
-        self.hoje_limite = (self.mes_limite-gasto_base)/dia_restante
-        self.hoje_resta = self.hoje_limite-self.soma_hoje
+        self.hoje_limite = (self.mes_limite - gasto_base) / dia_restante
+        self.hoje_resta = self.hoje_limite - self.soma_hoje
 
         self.ajuste = (self.dia_limite - self.media_dia) * self.Ontem.day()
         if self.ajuste >= 0:
@@ -100,9 +98,9 @@ class Hoje:
                 semana_atual = calendario[i]
         ultima_semana = calendario[-1]
         if semana_atual[0]:
-            self.semana_limite = self.hoje_limite*7
+            self.semana_limite = self.hoje_limite * 7
         else:
-            self.semana_limite = self.dia_limite*sum(1 for x in calendario[0] if x)
+            self.semana_limite = self.dia_limite * sum(1 for x in calendario[0] if x)
         semana_inicio = QDate(self.Info.ano_int, self.Info.mes_int, sorted(list(set(semana_atual)))[1])
         semana_fim = QDate(self.Info.ano_int, self.Info.mes_int, max(semana_atual))
         self.soma_semana = self.Tabela.Saida.soma_intervalo(semana_inicio, semana_fim)
@@ -177,7 +175,7 @@ class Hoje:
 
     def escreve_dinheiro(self, itens):
         for item in itens:
-            valor = "R$"+f"{item['valor']:.2f}"
+            valor = "R$" + f"{item['valor']:.2f}"
             valor = valor.replace(".", ",")
             item['label'].setText(valor)
 

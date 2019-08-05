@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QApplication, QWidget
 import pandas
+from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QApplication, QWidget
 
 
 class Arvore:
@@ -48,14 +48,12 @@ class ArvoreFilaGastos():
                 item['nome'],
                 self.Categoria.getNome(item['categoria']),
                 self.Categoria.getSubNome(item['categoria'], item['sub']),
-                "R$"+str(item['valor'])
+                "R$" + str(item['valor'])
             ]
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
         for i in range(0, self.Widget.columnCount()):
             self.Widget.resizeColumnToContents(i)
-
-
 
 
 class ArvoreTabela:
@@ -65,7 +63,7 @@ class ArvoreTabela:
         self.atualiza(Tabela)
 
     def colunas(self):
-        for i in range(0,self.Widget.columnCount()):
+        for i in range(0, self.Widget.columnCount()):
             self.Widget.resizeColumnToContents(i)
 
 
@@ -74,7 +72,6 @@ class ArvoreTabelaSaida(ArvoreTabela):
     def __init__(self, Widget, Tabela, Categoria):
         self.Categoria = Categoria
         super().__init__(Widget, Tabela)
-
 
     def atualiza(self, Tabela):
         self.Widget.clear()
@@ -95,7 +92,7 @@ class ArvoreTabelaSaida(ArvoreTabela):
                              ]['nome'])
             else:
                 linha.append("")
-            linha.append('R$'+str(Tabela.iloc[x]['valor']))
+            linha.append('R$' + str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
         self.colunas()
@@ -146,11 +143,11 @@ class ArvoreTabelaEntrada(ArvoreTabela):
             linha = []
             linha.append(str(Tabela.iloc[x]['nome']))
             linha.append(str(Tabela.iloc[x]['previsao']))
-            if  pandas.isna(Tabela.iloc[x]['data']):
+            if pandas.isna(Tabela.iloc[x]['data']):
                 linha.append("")
             else:
                 linha.append(str(Tabela.iloc[x]['data']))
-            linha.append('R$'+str(Tabela.iloc[x]['valor']))
+            linha.append('R$' + str(Tabela.iloc[x]['valor']))
             WidgetItem = QTreeWidgetItem(linha)
             self.Widget.addTopLevelItem(WidgetItem)
         self.colunas()

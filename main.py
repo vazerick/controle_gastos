@@ -2,20 +2,21 @@ print("Inicia o aplicativo")
 print("Importa as bibliotecas necessárias")
 
 print("\tSistema")
-import sys
-import os
 import configparser
+import os
+import sys
 import time
+
 print("\tPandas")
 import pandas as pd
 import numpy as np
+
 print("\tQt")
 from PyQt5.QtCore import QDate, QDateTime, QPoint
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton
 
 print("\tInterfaces Gráficas")
-# interface gráfica
 from src.gui import gui
 
 # classes
@@ -49,6 +50,7 @@ Meses = [
     "Novembro",
     "Dezembro"
 ]
+
 
 def limpa_janela(
         janela=[],
@@ -129,6 +131,7 @@ def validador_gastos():
     botao.setEnabled(True)
     return 1
 
+
 def vazia(texto):
     return not bool(texto and texto.strip())
 
@@ -146,11 +149,13 @@ def tabela_existe(ano, mes):
     else:
         return False
 
+
 def str_mes(mes):
     if mes < 10:
         return '0' + str(mes)
     else:
         return str(mes)
+
 
 # editar uma subcategoia na edição
 
@@ -166,6 +171,7 @@ def gasto_atualiza():
     Hoje.atualiza()
     grafico_mes()
 
+
 def subcategorias_lista_click(item):
     gui.subcategorias_remove()
     gui.uiSubCategoriasAdd.inputNome.setText(item.text())
@@ -174,8 +180,8 @@ def subcategorias_lista_click(item):
 
 # atualiza os combos após atualizar a lista Categorias
 
-#todo atualizar também a árvore de categorias
-#todo adicionar um combo_sub_atualiza
+# todo atualizar também a árvore de categorias
+# todo adicionar um combo_sub_atualiza
 def combos_categoria_atualiza():
     colecao = [
         ComboSubAdd,
@@ -214,10 +220,11 @@ def botao_adicionar_sub():
     gui.uiSubCategoriasAdd.comboCat.setCurrentIndex(index)
     gui.wSubCategoriasAdd.show()
 
+
 def botao_editar_pessoa():
     index = gui.ui.treePessoas.currentIndex().row()
     if index >= 0:
-        gui.uiPessoasEdit.labelTitulo.setText("Editar: "+Pessoa.id[index]['nome'])
+        gui.uiPessoasEdit.labelTitulo.setText("Editar: " + Pessoa.id[index]['nome'])
         gui.uiPessoasEdit.inputNome.setText(Pessoa.id[index]['nome'])
         ComboPessoaEdit.atualizar()
         ComboPessoaEdit.select(index)
@@ -239,28 +246,29 @@ def botao_editar_pessoa_ok():
     status = int(gui.uiPessoasEdit.checkBox.isChecked())
     combo_id = ComboPessoaEdit.getId()
     if combo_id == -1:
-        ordem = len(Pessoa.id)-1
+        ordem = len(Pessoa.id) - 1
     else:
         ordem = Pessoa.id[combo_id]['ordem']
     Pessoa.edita(index, nome, ordem, status)
     Pessoa.salva()
     gui.wPessoasEdit.hide()
 
-#todo gerar e adicionar os combos de categorias e subcategorias
-#todo adicionar o checkbox de "Ativo"
+
+# todo gerar e adicionar os combos de categorias e subcategorias
+# todo adicionar o checkbox de "Ativo"
 def botao_editar_categoria():
     index = gui.ui.treeCategorias.currentIndex().row()
     pai = gui.ui.treeCategorias.currentIndex().parent().row()
     if index >= 0:
         if pai == -1:
-            gui.uiCategoriasEdit.labelTitulo.setText("Editar: "+Categoria.id[index]['nome'])
+            gui.uiCategoriasEdit.labelTitulo.setText("Editar: " + Categoria.id[index]['nome'])
             gui.uiCategoriasEdit.inputNome.setText(Categoria.id[index]['nome'])
             gui.wCategoriasEdit.show()
         else:
             gui.uiSubCategoriasEdit.labelTitulo.setText(
-                "Editar: "+
-                Categoria.id[pai]['nome']+
-                " - "+
+                "Editar: " +
+                Categoria.id[pai]['nome'] +
+                " - " +
                 Categoria.id[pai]['sub_lista'][index]['nome']
             )
             gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[pai]['sub_lista'][index]['nome'])
@@ -416,13 +424,13 @@ def botao_reserva_editar():
     valor = gui.uiReservaEdit.spinValor.value()
 
     Tabela.Reserva.editar(selecionado,
-                             [
-                                adicao,
-                                nome,
-                                comentario,
-                                valor
-                            ]
-    )
+                          [
+                              adicao,
+                              nome,
+                              comentario,
+                              valor
+                          ]
+                          )
 
     limpa_janela(
         janela=[gui.wReservaEdit],
@@ -439,7 +447,7 @@ def botao_reserva_editar():
 fila_gasto = []
 
 
-def botao_gasto_add(): #todo Validação de dados: impedir datas do futuro
+def botao_gasto_add():  # todo Validação de dados: impedir datas do futuro
 
     data = gui.uiGastosAdd.calendarWidget.selectedDate()
     data = data.toString("dd/MM/yyyy")
@@ -480,8 +488,8 @@ def botao_gasto_add(): #todo Validação de dados: impedir datas do futuro
                 pagamento,
                 categoria,
                 sub,
-                None, #divida
-                None, #divisao
+                None,  # divida
+                None,  # divisao
             ]
         )
 
@@ -555,8 +563,9 @@ def botao_gasto_editar():
     )
     gasto_atualiza()
 
+
 def str_dinheiro(valor):
-    return "R$"+str(valor).replace(".", ",")
+    return "R$" + str(valor).replace(".", ",")
 
 
 def botao_gasto_fila():
@@ -605,7 +614,6 @@ def check_fixo():
 
 
 def botao_entrada_add():
-
     previsao = gui.uiEntradaAdd.calendarWidget.selectedDate()
     previsao = previsao.toString("dd/MM/yyyy")
     data = ""
@@ -650,7 +658,6 @@ def botao_entrada_add():
 
 
 def botao_entrada_editar():
-
     previsao = gui.uiEntradaEdit.calendarWidget.selectedDate()
     previsao = previsao.toString("dd/MM/yyyy")
     data = ""
@@ -664,16 +671,16 @@ def botao_entrada_editar():
     valor = gui.uiEntradaEdit.spinValor.value()
 
     Tabela.Entrada.editar(selecionado,
-        [
-            data,
-            previsao,
-            adicao,
-            nome,
-            comentario,
-            valor,
-            pago
-        ]
-    )
+                          [
+                              data,
+                              previsao,
+                              adicao,
+                              nome,
+                              comentario,
+                              valor,
+                              pago
+                          ]
+                          )
 
     limpa_janela(
         janela=[gui.wEntradaEdit],
@@ -698,7 +705,6 @@ def botao_adicionar_fixo():
 
 
 def botao_fixo_add():
-
     vencimento = gui.uiFixoAdd.calendarWidget.selectedDate()
     vencimento = vencimento.toString("dd/MM/yyyy")
     data = ""
@@ -715,7 +721,7 @@ def botao_fixo_add():
     categoria = ComboFixoCat.getId()
     subcategoria = ComboFixoSub.getId()
 
-    Tabela.Fixo.adicionar( #todo rever  a adição para meses antigos...
+    Tabela.Fixo.adicionar(  # todo rever  a adição para meses antigos...
         [
             data,
             vencimento,
@@ -746,10 +752,9 @@ def botao_fixo_add():
     )
     ArvoreFixo.atualiza(Tabela.Fixo.tabela)
     Hoje.atualiza()
-    
+
 
 def botao_fixo_editar():
-
     vencimento = gui.uiFixoEdit.calendarWidget.selectedDate()
     vencimento = vencimento.toString("dd/MM/yyyy")
     data = ""
@@ -766,20 +771,20 @@ def botao_fixo_editar():
     categoria = ComboFixoEditCat.getId()
     subcategoria = ComboFixoEditSub.getId()
 
-    Tabela.Fixo.editar( selecionado,
-        [
-            data,
-            vencimento,
-            adicao,
-            nome,
-            comentario,
-            valor,
-            pagamento,
-            categoria,
-            subcategoria,
-            pago
-        ]
-    )
+    Tabela.Fixo.editar(selecionado,
+                       [
+                           data,
+                           vencimento,
+                           adicao,
+                           nome,
+                           comentario,
+                           valor,
+                           pagamento,
+                           categoria,
+                           subcategoria,
+                           pago
+                       ]
+                       )
 
     limpa_janela(
         janela=[gui.wFixoEdit],
@@ -828,7 +833,7 @@ def gasto_click(item):
         gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
         gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-        gui.wGastosEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wGastosEdit.setWindowTitle("Editar " + item["nome"])
         gui.wGastosEdit.show()
     else:
         selecionado = 0
@@ -844,12 +849,10 @@ def fixo_click(item):
     tabela = tabela[tabela["nome"] == nome]
     tabela = tabela[tabela["valor"] == valor]
     global selecionado
-    print(tabela["nome"])
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
         item = Tabela.Fixo.tabela.iloc[id]
-        print(item)
         gui.uiFixoEdit.inputGasto.setText(item["nome"])
         gui.uiFixoEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
@@ -862,7 +865,7 @@ def fixo_click(item):
             gui.uiFixoEdit.checkPago.setCheckState(0)
         gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
         gui.uiFixoEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-        gui.wFixoEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wFixoEdit.setWindowTitle("Editar " + item["nome"])
         gui.wFixoEdit.show()
     else:
         selecionado = -1
@@ -880,7 +883,6 @@ def entrada_click(item):
     tabela = tabela[tabela["data"] == data]
     tabela = tabela[tabela["valor"] == valor]
     global selecionado
-    print(tabela["nome"])
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
@@ -895,7 +897,7 @@ def entrada_click(item):
             gui.uiEntradaEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         else:
             gui.uiEntradaEdit.checkPago.setCheckState(0)
-        gui.wEntradaEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wEntradaEdit.setWindowTitle("Editar " + item["nome"])
         gui.wEntradaEdit.show()
     else:
         selecionado = -1
@@ -910,17 +912,15 @@ def reserva_click(item):
     tabela = tabela[tabela["nome"] == nome]
     tabela = tabela[tabela["valor"] == valor]
     global selecionado
-    print(tabela["nome"])
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
         item = Tabela.Reserva.tabela.iloc[id]
-        print(item)
         gui.uiReservaEdit.inputReserva.setText(item["nome"])
         gui.uiReservaEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
             gui.uiReservaEdit.textComentario.setText(item["comentario"])
-        gui.wReservaEdit.setWindowTitle("Editar "+item["nome"])
+        gui.wReservaEdit.setWindowTitle("Editar " + item["nome"])
         gui.wReservaEdit.show()
     else:
         selecionado = -1
@@ -954,8 +954,8 @@ def troca_subcategoria(comboCat, comboSub):
 
 def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, titulo=""):
     print("Gera gráfico de barras")
-    dias_destaque=[]
-    inicio = Info.mes_str+"/01/"+Info.ano_str
+    dias_destaque = []
+    inicio = Info.mes_str + "/01/" + Info.ano_str
     if completo:
         periodo = Info.tempo.daysInMonth()
         datelist = pd.date_range(start=inicio, periods=periodo).strftime('%d/%m/%Y').tolist()
@@ -972,7 +972,7 @@ def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, ti
     for i in range(0, len(rotulos)):
         rotulos[i] = rotulos[i][0:2]
     if destaque:
-        dias_destaque=fim_de_semana(dados)
+        dias_destaque = fim_de_semana(dados)
     grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque, fatia=fatia, titulo=titulo)
 
 
@@ -1006,6 +1006,7 @@ def fim_de_semana(dados):
         return destaque
     else:
         return []
+
 
 def grafico_pizza(grafico, dados):
     print("Gera gráfico de pizza")
@@ -1086,17 +1087,16 @@ def mensagem(titulo, mensagem, aceita, rejeita):
 
 def m_atualiza_tabela():
     gui.wMensagem.hide()
-    print(Info.tempo)
     Info.atualiza()
-    print(Info.tempo)
     Geral.adicionar(
         [Meses[Info.mes_int],
-        Hoje.soma_entrada,
-        Hoje.soma_saida+Hoje.soma_fixo]
+         Hoje.soma_entrada,
+         Hoje.soma_saida + Hoje.soma_fixo]
     )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     atualiza_completer()
     exit()
+
 
 def m_rejeita_tabela():
     gui.wMensagem.hide()
@@ -1124,7 +1124,7 @@ def atualiza_completer():
         arquivo.close()
 
 
-#MAIN
+# MAIN
 
 # configuração
 
@@ -1165,7 +1165,6 @@ print("Carrega a lista de pessoas")
 Pessoa = ListaPessoa("pessoa")
 print("Carrega a lista de categorias")
 Categoria = ListaCategoria("categoria")
-
 
 # objetos de árvores
 
@@ -1221,7 +1220,6 @@ gui.ui.toolAdicionar.setMenu(menu)
 # ações
 
 # conecta as ações dos botões
-
 
 
 gui.uiGastosAdd.botaoHoje.clicked.connect(
@@ -1281,7 +1279,7 @@ gui.uiPessoasAdd.buttonBox.accepted.connect(botao_pessoa_add)
 gui.uiPessoasAdd.buttonBox.rejected.connect(botao_pessoa_cancela)
 
 gui.uiPessoasEdit.buttonBox.accepted.connect(botao_editar_pessoa_ok)
-gui.uiPessoasEdit.buttonBox.rejected.connect(gui.wPessoasEdit.hide) #todo criar uma função para o botão "cancelar"
+gui.uiPessoasEdit.buttonBox.rejected.connect(gui.wPessoasEdit.hide)  # todo criar uma função para o botão "cancelar"
 
 gui.uiCategoriasAdd.buttonBox.accepted.connect(botao_categorias_add)
 gui.uiCategoriasAdd.buttonBox.rejected.connect(botao_categoria_cancela)
@@ -1324,7 +1322,6 @@ colecao_validacao = [
     }
 ]
 
-
 for item in colecao_validacao:
     item["botao"].setEnabled(False)
     conecta_validador(
@@ -1332,7 +1329,6 @@ for item in colecao_validacao:
         texto=item["texto"],
         valor=item["valor"]
     )
-
 
 # conecta as ações das trocas em check box
 
@@ -1364,10 +1360,9 @@ gui.ui.listMenu.itemClicked.connect(
 cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', click_pizza)
 cid2 = gui.ui.graficoBarra.fig.canvas.mpl_connect('button_press_event', reseta_grafico)
 
-
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 
-combos_dinamicos = [ #todo procurar mais combos dinamicos, como no add sub-categorias
+combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-categorias
     [
         gui.uiSubCategoriasAdd.comboCat,
         lambda: troca_subcategoria(ComboSubAddCat, ComboSubAdd)
@@ -1399,9 +1394,9 @@ print("Inicia as tabelas")
 Historico = []
 
 # cria uma pasta para o ano caso não exista
-if not os.path.exists('data/'+Info.ano_str):
+if not os.path.exists('data/' + Info.ano_str):
     print("Cria pasta do ano")
-    os.makedirs('data/'+Info.ano_str)
+    os.makedirs('data/' + Info.ano_str)
 
 # confere se já tem a tabela do mês atual
 if tabela_existe(Info.ano_str, Info.mes_str):
@@ -1416,9 +1411,9 @@ else:
     )
     while not tabela_existe(Info.ano_str, Info.mes_str):
         if Info.mes_int == 1:
-            Info.set_data(Info.ano_int-1, 12, Info.dia_int)
+            Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
         else:
-            Info.set_data(Info.ano_int, Info.mes_int-1, Info.dia_int)
+            Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)
 
@@ -1439,8 +1434,6 @@ for header in [
 ]:
     header.setVisible(True)
 
-
-
 # Calculadora de gastos diários:
 print("Calcula os gastos")
 Hoje = Hoje(
@@ -1448,7 +1441,6 @@ Hoje = Hoje(
     Janela=gui.ui,
     Info=Info
 )
-
 
 GastoCompleter = Completer(
     campos=[
@@ -1458,8 +1450,6 @@ GastoCompleter = Completer(
     tabelas=Tabela,
     tipo="saida"
 )
-
-
 
 EntradaCompleter = Completer(
     campos=[
@@ -1492,6 +1482,5 @@ grafico_mes()
 gui.ui.graficoLinha.plot(Geral.tabela)
 
 sys.exit(gui.app.exec_())
-
 
 # todo 29/07/2019: remover a "ordem" das categorias, é pura bobagem

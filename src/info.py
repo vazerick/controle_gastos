@@ -9,7 +9,6 @@ class Info:
         self.interface = config['LAYOUT']['interface']
         self.atualiza()
 
-
     def atualiza(self):
         self.atrasado = False
 
@@ -47,7 +46,3 @@ class Info:
     def data_hora(self):
 
         return QDateTime.currentDateTime().toString("yyyy.MM.dd-HH:mm:ss")
-
-
-
-

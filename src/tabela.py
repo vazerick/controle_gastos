@@ -1,11 +1,10 @@
-import pandas as pd
 import os
+import pandas as pd
 import time
 from PyQt5.QtCore import QDate, QDateTime
 
 
 class Tabela:
-
     colunas = []
 
     def __init__(self, colunas, ano, mes, nome):
@@ -51,9 +50,9 @@ class Tabela:
             columns=self.colunas
         )
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
-    def editar(self, id, linha,):
+    def editar(self, id, linha, ):
         self.tabela.iloc[id] = linha
         self.tabela.to_csv(self.endereco, quotechar='"', index_label='id')  #
 
@@ -76,7 +75,7 @@ class Tabela:
                 columns=self.colunas
             )
             self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
     def soma(self):
         return self.tabela['valor'].sum()
@@ -86,10 +85,10 @@ class Tabela:
 
     def soma_intervalo(self, data_inicio, data_fim):
         dia_inicial = data_inicio.day()
-        dia_final = data_fim.day()+1
+        dia_final = data_fim.day() + 1
         soma = 0
         data = QDate()
-        for dia in range(dia_inicial, dia_final): #todo e se o intervalo ocupar varios meses?
+        for dia in range(dia_inicial, dia_final):  # todo e se o intervalo ocupar varios meses?
             data.setDate(data_inicio.year(), data_inicio.month(), dia)
             soma += self.soma_data(data)
         return soma
@@ -99,7 +98,6 @@ class Tabela:
 
 
 class TabelaGeral:
-
     colunas = ["mes", "entrada", "saida"]
 
     def __init__(self, ano):
@@ -122,11 +120,10 @@ class TabelaGeral:
         self.tabela['entrada'] = self.tabela['entrada'].replace(',', '.')
         self.tabela['saida'] = self.tabela['saida'].replace(',', '.')
 
-
     def adicionar(self, linha):
         add = pd.DataFrame(
             [linha],
             columns=self.colunas
         )
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
-        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id') #todo revisar se está salvando direito
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito

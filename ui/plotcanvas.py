@@ -1,9 +1,8 @@
-from PyQt5.QtWidgets import QSizePolicy
-
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 import matplotlib.ticker as ticker
 import numpy as np
+from PyQt5.QtWidgets import QSizePolicy
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 
 class PlotBarra(FigureCanvas):
@@ -15,8 +14,8 @@ class PlotBarra(FigureCanvas):
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self,
-                QSizePolicy.Expanding,
-                QSizePolicy.Expanding)
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
         self.titulo = "Título"
@@ -39,12 +38,12 @@ class PlotBarra(FigureCanvas):
                 else:
                     cores.append(cor)
         else:
-            cores=cor
+            cores = cor
         ax = self.fig.add_subplot(111)
         ax.clear()
-        tick = 10 * round(y.max()/10)
-        tick = round(tick/4)
-        ax.set_yticks([tick, tick*2, tick*3, tick*4], minor=False)
+        tick = 10 * round(y.max() / 10)
+        tick = round(tick / 4)
+        ax.set_yticks([tick, tick * 2, tick * 3, tick * 4], minor=False)
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y, color=cores)
@@ -68,8 +67,8 @@ class PlotPizza(FigureCanvas):
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self,
-                QSizePolicy.Expanding,
-                QSizePolicy.Expanding)
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
         self.titulo = "Título"
@@ -139,7 +138,6 @@ class PlotLinha(FigureCanvas):
                                    QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
-
     def plot(self, tabela):
         meses = tabela["mes"].copy()
         if len(meses) > 6:
@@ -163,9 +161,6 @@ class PlotLinha(FigureCanvas):
 
         ax.yaxis.grid(True, which='major', linewidth=1)
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
-
-        print(linha_entrada)
-        print(linha_saida)
 
         for label in ax.xaxis.get_ticklabels():
             label.set_rotation(10)

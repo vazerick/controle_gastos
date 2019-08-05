@@ -50,11 +50,11 @@ QGroupBox {
   background-color: transparent;
 }
 
-QFrame{
+QFrame {
   border-style: none;
 }
 
-[accessibleName="quadro"]{
+[accessibleName="quadro"] {
   border-style: none !important;
 }
 
@@ -64,32 +64,32 @@ QTreeWidget, QListWidget {
   selection-background-color: $corC3;
 }
 
-QTreeWidget::item:hover{
+QTreeWidget::item:hover {
   color: white;
   background-color: $corC4;
 }
 
-[accessibleName="selecao"]{
+[accessibleName="selecao"] {
   background-color: transparent;
   font-size: 14px;
 }
 
-[accessibleName="selecao"]::item{
+[accessibleName="selecao"]::item {
   background-color: $corB2;
   border-right: 1px solid $corC4;
   width: 100px;
 }
 
-[accessibleName="selecao"]::item:selected{
+[accessibleName="selecao"]::item:selected {
   background-color: $corC3;
 }
 
-[accessibleName="selecao"]::item:hover{
+[accessibleName="selecao"]::item:hover {
   color: white;
   background-color: $corC4;
 }
 
-QHeaderView{
+QHeaderView {
   background-color: $corC0;
 }
 
@@ -129,34 +129,34 @@ QScrollBar::sub-line:vertical {
 }
 
 QProgressBar {
-    border: 1px solid black;
-    text-align: center;
-    padding: 2px;
-    border-radius: 3px;
-    background: $corA1;
+  border: 1px solid black;
+  text-align: center;
+  padding: 2px;
+  border-radius: 3px;
+  background: $corA1;
 }
 
 QProgressBar::chunk {
-    background: $corA0;
-    border-radius: 3px;
-    border: 1px solid black;
+  background: $corA0;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 QTabWidget::tab-bar {
-    left: 5px; /* move to the right by 5px */
+  left: 5px; /* move to the right by 5px */
 }
 
 QTabBar::tab {
-    background: $corA1;
-    border: 1px solid $corA3;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  background: $corA1;
+  border: 1px solid $corA3;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   border-bottom: 1px solid $corA2;
-    min-width: 8ex;
-    padding: 2px;
+  min-width: 8ex;
+  padding: 2px;
 }
 
-QTabBar::tab:selected{
+QTabBar::tab:selected {
   background: $corA2;
   border: 1px solid $corA3;
   border-bottom: none;

@@ -1,8 +1,7 @@
-import pandas as pd
 import os
+import pandas as pd
 import time
 from PyQt5.QtCore import QDate, QDateTime
-
 from src.tabela import Tabela
 
 
@@ -11,7 +10,6 @@ from src.tabela import Tabela
 class Mensal:
 
     def __init__(self, ano, mes):
-
         self.ano = ano
         self.mes = mes
 

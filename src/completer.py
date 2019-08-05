@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QCompleter
-from PyQt5.QtCore import Qt
 import pandas as pd
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QCompleter
+
 
 class Completer:
 
@@ -10,7 +11,7 @@ class Completer:
         self.Tabelas = tabelas
         self.Tipo = tipo
 
-        self.arquivo = "data/completer_"+self.Tipo+".txt"
+        self.arquivo = "data/completer_" + self.Tipo + ".txt"
         try:
             f = open(self.arquivo, "r")
         except:
@@ -36,7 +37,6 @@ class Completer:
                 completer = QCompleter(dados.str.title().unique())
                 completer.setCaseSensitivity(Qt.CaseInsensitive)
                 campo.setCompleter(completer)
-                print(completer.completionModel())
 
     def ler(self):
         tabela = self.Tabelas
@@ -48,5 +48,3 @@ class Completer:
             return tabela.Reserva.tabela['nome']
         if self.Tipo == "fixo":
             return tabela.Fixo.tabela['nome']
-
-

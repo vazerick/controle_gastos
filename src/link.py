@@ -57,7 +57,6 @@ class EditarLink:
             return self.ordem[self.Combo.currentIndex()]['id']
 
 
-
 class SubcategoriaLink:
 
     def __init__(self, Combo, Lista, addFim=0):

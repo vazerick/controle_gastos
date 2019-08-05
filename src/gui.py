@@ -1,37 +1,31 @@
-import sys
 import sass
-
-# import do PyQt5
-
-from PyQt5.QtWidgets import QApplication, QDialog
+import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import Qt, QDate
-
-# import das janelas
-
-from ui.pessoas_add import Ui_Form as PessoasAdd
-from ui.pessoas_edit import Ui_Form as PessoasEdit
+from PyQt5.QtWidgets import QApplication, QDialog
 from ui.categorias_add import Ui_Form as CategoriasAdd
 from ui.categorias_edit import Ui_Form as CategoriasEdit
-from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
-from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
-from ui.gastos_add import Ui_Form as GastosAdd
+from ui.dialog import Ui_Dialog as Mensagem
 from ui.entrada_add import Ui_Form as EntradaAdd
 from ui.fixo_add import Ui_Form as FixoAdd
-from ui.reserva_add import Ui_Form as ReservaAdd
-from ui.janela import Ui_Form as Main
+from ui.gastos_add import Ui_Form as GastosAdd
 from ui.gastos_edit import Ui_Form as GastosEdit
+from ui.janela import Ui_Form as Main
+from ui.pessoas_add import Ui_Form as PessoasAdd
+from ui.pessoas_edit import Ui_Form as PessoasEdit
+from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.reserva_edit import Ui_Form as ReservaEdit
-from ui.dialog import Ui_Dialog as Mensagem
+from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
+from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
 
 class gui:
 
     def __init__(self):
-# declarações da interface gráfica
+        # declarações da interface gráfica
         print("Inicia a interface gráfica")
         self.app = QApplication(sys.argv)
 
-# janela principal
+        # janela principal
         print("Janela principal")
         self.wMain = QDialog()
         self.ui = Main()
@@ -45,88 +39,88 @@ class gui:
         self.ui.treeFixo.setColumnWidth(0, 250)
 
         print("Janelas secundárias")
-# janela para adicionar novas entradas
+        # janela para adicionar novas entradas
         self.wEntradaAdd = QDialog()
         self.uiEntradaAdd = EntradaAdd()
         self.uiEntradaAdd.setupUi(self.wEntradaAdd)
 
-# janela para editar entradas
+        # janela para editar entradas
         self.wEntradaEdit = QDialog()
         self.uiEntradaEdit = EntradaAdd()
         self.uiEntradaEdit.setupUi(self.wEntradaEdit)
 
-# janela para adicionar novos gastos
+        # janela para adicionar novos gastos
         self.wGastosAdd = QDialog()
         self.uiGastosAdd = GastosAdd()
         self.uiGastosAdd.setupUi(self.wGastosAdd)
 
-# janela para editar gastos
+        # janela para editar gastos
         self.wGastosEdit = QDialog()
         self.uiGastosEdit = GastosEdit()
         self.uiGastosEdit.setupUi(self.wGastosEdit)
 
-# janela para adicionar novos fixos
+        # janela para adicionar novos fixos
         self.wFixoAdd = QDialog()
         self.uiFixoAdd = FixoAdd()
         self.uiFixoAdd.setupUi(self.wFixoAdd)
 
-# janela para editar fixos
+        # janela para editar fixos
         self.wFixoEdit = QDialog()
         self.uiFixoEdit = FixoAdd()
         self.uiFixoEdit.setupUi(self.wFixoEdit)
 
-# janela para adicionar novas reservas
+        # janela para adicionar novas reservas
         self.wReservaAdd = QDialog()
         self.uiReservaAdd = ReservaAdd()
         self.uiReservaAdd.setupUi(self.wReservaAdd)
 
-# janela para editar reservas
+        # janela para editar reservas
         self.wReservaEdit = QDialog()
         self.uiReservaEdit = ReservaEdit()
         self.uiReservaEdit.setupUi(self.wReservaEdit)
 
-# janela para adicionar novas pessoas
+        # janela para adicionar novas pessoas
         self.wPessoasAdd = QDialog()
         self.uiPessoasAdd = PessoasAdd()
         self.uiPessoasAdd.setupUi(self.wPessoasAdd)
 
-# janela para editar pessoas
+        # janela para editar pessoas
         self.wPessoasEdit = QDialog()
         self.uiPessoasEdit = PessoasEdit()
         self.uiPessoasEdit.setupUi(self.wPessoasEdit)
 
-# janela para adicionar novas categorias
+        # janela para adicionar novas categorias
         self.wCategoriasAdd = QDialog()
         self.uiCategoriasAdd = CategoriasAdd()
         self.uiCategoriasAdd.setupUi(self.wCategoriasAdd)
 
-# janela para editar categorias
+        # janela para editar categorias
         self.wCategoriasEdit = QDialog()
         self.uiCategoriasEdit = CategoriasEdit()
         self.uiCategoriasEdit.setupUi(self.wCategoriasEdit)
 
-# janela para adicionar novas sub-categorias
-        self.altura=250
-        self.extra=0
-        self.fator=10
-        self.lista=''
+        # janela para adicionar novas sub-categorias
+        self.altura = 250
+        self.extra = 0
+        self.fator = 10
+        self.lista = ''
 
         self.wSubCategoriasAdd = QDialog()
         self.uiSubCategoriasAdd = SubCategoriasAdd()
         self.uiSubCategoriasAdd.setupUi(self.wSubCategoriasAdd)
         self.uiSubCategoriasAdd.listWidget.hide()
 
-# janela para editar sub-categorias
+        # janela para editar sub-categorias
         self.wSubCategoriasEdit = QDialog()
         self.uiSubCategoriasEdit = SubCategoriasEdit()
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
-# janela das mensagens
+        # janela das mensagens
         self.wMensagem = QDialog()
         self.uiMensagem = Mensagem()
         self.uiMensagem.setupUi(self.wMensagem)
 
-# seta a mesma configuração para todas as janelas
+        # seta a mesma configuração para todas as janelas
         print("Configura a folha de estilos")
         arquivo = open("ui/style.scss")
 
@@ -156,12 +150,11 @@ class gui:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
 
-
-# inicializa a janela
+        # inicializa a janela
         print("Inicia a janela")
         self.wMain.show()
 
-    def subcategorias_extra(self, nome): # todo arrumar isso aqui que tá tudo zoado
+    def subcategorias_extra(self, nome):  # todo arrumar isso aqui que tá tudo zoado
         self.extra += 1
 
         self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
@@ -170,9 +163,9 @@ class gui:
         )
         self.wSubCategoriasAdd.resize(
             260,
-            self.altura+(self.extra*self.fator)
+            self.altura + (self.extra * self.fator)
         )
-        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
+        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
 
         self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
         self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
@@ -192,9 +185,9 @@ class gui:
         )
         self.wSubCategoriasAdd.resize(
             260,
-            self.altura+(self.extra*self.fator)
+            self.altura + (self.extra * self.fator)
         )
-        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210+(self.extra*self.fator), 80, 25))
+        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
 
         self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
         self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
@@ -204,7 +197,6 @@ class gui:
         self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31 + (self.extra * self.fator)))
         self.uiSubCategoriasAdd.listWidget.takeItem(self.uiSubCategoriasAdd.listWidget.currentRow())
         self.uiSubCategoriasAdd.listWidget.show()
-
 
     def subcategorias_reseta(self):
         self.lista = ''
