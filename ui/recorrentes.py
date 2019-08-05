@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'recorrentes.ui'
+#
+# Created by: PyQt5 UI code generator 5.9
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.setEnabled(True)
+        Form.resize(431, 382)
+        Form.setMinimumSize(QtCore.QSize(431, 382))
+        Form.setMaximumSize(QtCore.QSize(431, 382))
+        self.labelGasto = QtWidgets.QLabel(Form)
+        self.labelGasto.setGeometry(QtCore.QRect(30, 10, 61, 17))
+        self.labelGasto.setObjectName("labelGasto")
+        self.inputGasto = QtWidgets.QLineEdit(Form)
+        self.inputGasto.setGeometry(QtCore.QRect(30, 30, 181, 25))
+        self.inputGasto.setObjectName("inputGasto")
+        self.textComentario = QtWidgets.QTextEdit(Form)
+        self.textComentario.setGeometry(QtCore.QRect(10, 220, 411, 111))
+        self.textComentario.setObjectName("textComentario")
+        self.labelComentario = QtWidgets.QLabel(Form)
+        self.labelComentario.setGeometry(QtCore.QRect(10, 190, 81, 17))
+        self.labelComentario.setObjectName("labelComentario")
+        self.labelValor = QtWidgets.QLabel(Form)
+        self.labelValor.setGeometry(QtCore.QRect(35, 130, 81, 17))
+        self.labelValor.setObjectName("labelValor")
+        self.labelPrevisao = QtWidgets.QLabel(Form)
+        self.labelPrevisao.setGeometry(QtCore.QRect(270, 130, 101, 17))
+        self.labelPrevisao.setObjectName("labelPrevisao")
+        self.spinValor = QtWidgets.QDoubleSpinBox(Form)
+        self.spinValor.setGeometry(QtCore.QRect(50, 150, 71, 26))
+        self.spinValor.setDecimals(2)
+        self.spinValor.setMaximum(99999.99)
+        self.spinValor.setProperty("value", 0.0)
+        self.spinValor.setObjectName("spinValor")
+        self.labelValor_2 = QtWidgets.QLabel(Form)
+        self.labelValor_2.setGeometry(QtCore.QRect(35, 154, 16, 17))
+        self.labelValor_2.setObjectName("labelValor_2")
+        self.comboSub = QtWidgets.QComboBox(Form)
+        self.comboSub.setGeometry(QtCore.QRect(230, 90, 171, 25))
+        self.comboSub.setObjectName("comboSub")
+        self.labelSub = QtWidgets.QLabel(Form)
+        self.labelSub.setGeometry(QtCore.QRect(230, 70, 91, 17))
+        self.labelSub.setObjectName("labelSub")
+        self.labelCategoria = QtWidgets.QLabel(Form)
+        self.labelCategoria.setGeometry(QtCore.QRect(30, 70, 71, 17))
+        self.labelCategoria.setObjectName("labelCategoria")
+        self.comboCategoria = QtWidgets.QComboBox(Form)
+        self.comboCategoria.setGeometry(QtCore.QRect(30, 90, 171, 25))
+        self.comboCategoria.setObjectName("comboCategoria")
+        self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        self.buttonBox.setGeometry(QtCore.QRect(0, 350, 431, 23))
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName("buttonBox")
+        self.comboCategoria_2 = QtWidgets.QComboBox(Form)
+        self.comboCategoria_2.setGeometry(QtCore.QRect(230, 30, 171, 25))
+        self.comboCategoria_2.setObjectName("comboCategoria_2")
+        self.comboCategoria_2.addItem("")
+        self.comboCategoria_2.addItem("")
+        self.comboCategoria_2.addItem("")
+        self.labelCategoria_2 = QtWidgets.QLabel(Form)
+        self.labelCategoria_2.setGeometry(QtCore.QRect(230, 10, 71, 17))
+        self.labelCategoria_2.setObjectName("labelCategoria_2")
+        self.labelValor_3 = QtWidgets.QLabel(Form)
+        self.labelValor_3.setGeometry(QtCore.QRect(150, 130, 101, 17))
+        self.labelValor_3.setObjectName("labelValor_3")
+        self.spinValor_2 = QtWidgets.QSpinBox(Form)
+        self.spinValor_2.setGeometry(QtCore.QRect(160, 150, 51, 26))
+        self.spinValor_2.setObjectName("spinValor_2")
+        self.spinValor_3 = QtWidgets.QSpinBox(Form)
+        self.spinValor_3.setGeometry(QtCore.QRect(280, 150, 51, 26))
+        self.spinValor_3.setObjectName("spinValor_3")
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.inputGasto, self.spinValor)
+        Form.setTabOrder(self.spinValor, self.textComentario)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Adicionar Gasto Recorrente"))
+        self.labelGasto.setText(_translate("Form", "Saída"))
+        self.labelComentario.setText(_translate("Form", "Comentário"))
+        self.labelValor.setText(_translate("Form", "Valor (por mês)"))
+        self.labelPrevisao.setText(_translate("Form", "Dia de vencimento"))
+        self.labelValor_2.setText(_translate("Form", "R$"))
+        self.labelSub.setText(_translate("Form", "Sub-categoria"))
+        self.labelCategoria.setText(_translate("Form", "Categoria"))
+        self.comboCategoria_2.setItemText(0, _translate("Form", "Conta"))
+        self.comboCategoria_2.setItemText(1, _translate("Form", "Assinatura"))
+        self.comboCategoria_2.setItemText(2, _translate("Form", "Prestação"))
+        self.labelCategoria_2.setText(_translate("Form", "Tipo"))
+        self.labelValor_3.setText(_translate("Form", "Parcelas restantes"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+
