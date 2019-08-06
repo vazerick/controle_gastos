@@ -221,7 +221,7 @@ class gui:
         self.uiSubCategoriasAdd.listWidget.clear()
         self.uiSubCategoriasAdd.listWidget.hide()
 
-    def check_calendario(self, janela):
+    def calendario_habilita(self, janela):
         pago = [
             janela.labelPago,
             janela.calendarWidget_2,
