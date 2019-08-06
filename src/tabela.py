@@ -53,7 +53,7 @@ class Tabela:
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
     def editar(self, id, linha, ):
-        self.tabela.iloc[id] = linha
+        self.tabela.loc[id] = linha
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 
     def excluir(self, id):

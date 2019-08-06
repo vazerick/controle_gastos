@@ -816,7 +816,7 @@ def hoje_gasto_click(item):
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
-        item = Tabela.Saida.tabela.iloc[id]
+        item = Tabela.Saida.tabela.loc[id]
         gui.uiGastosEdit.inputGasto.setText(item["nome"])
         gui.uiGastosEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
@@ -844,7 +844,7 @@ def hoje_botao_excluir_gasto():
         if len(tabela) == 1:
             id = tabela.iloc[0].name
             selecionado = id
-            item = Tabela.Saida.tabela.iloc[id]
+            item = Tabela.Saida.tabela.loc[id]
             mensagem(
                 titulo="Excluir " + nome,
                 mensagem="Deseja excluir " + nome + "?",
@@ -868,7 +868,7 @@ def hoje_fixo_click(item):
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
-        item = Tabela.Fixo.tabela.iloc[id]
+        item = Tabela.Fixo.tabela.loc[id]
         gui.uiFixoEdit.inputGasto.setText(item["nome"])
         gui.uiFixoEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
@@ -901,7 +901,7 @@ def hoje_botao_excluir_fixo():
         if len(tabela) == 1:
             id = tabela.iloc[0].name
             selecionado = id
-            item = Tabela.Fixo.tabela.iloc[id]
+            item = Tabela.Fixo.tabela.loc[id]
             mensagem(
                 titulo="Excluir " + nome,
                 mensagem="Deseja excluir " + nome + "?",
@@ -928,7 +928,7 @@ def hoje_botao_excluir_entrada():
         if len(tabela) == 1:
             id = tabela.iloc[0].name
             selecionado = id
-            item = Tabela.Entrada.tabela.iloc[id]
+            item = Tabela.Entrada.tabela.loc[id]
             mensagem(
                 titulo="Excluir "+nome,
                 mensagem="Deseja excluir "+nome+"?",
@@ -954,7 +954,7 @@ def hoje_entrada_click(item):
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
-        item = Tabela.Entrada.tabela.iloc[id]
+        item = Tabela.Entrada.tabela.loc[id]
         gui.uiEntradaEdit.inputEntrada.setText(item["nome"])
         gui.uiEntradaEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
@@ -983,7 +983,7 @@ def hoje_reserva_click(item):
     if len(tabela) == 1:
         id = tabela.iloc[0].name
         selecionado = id
-        item = Tabela.Reserva.tabela.iloc[id]
+        item = Tabela.Reserva.tabela.loc[id]
         gui.uiReservaEdit.inputReserva.setText(item["nome"])
         gui.uiReservaEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
@@ -1007,7 +1007,7 @@ def hoje_botao_excluir_reserva():
         if len(tabela) == 1:
             id = tabela.iloc[0].name
             selecionado = id
-            item = Tabela.Reserva.tabela.iloc[id]
+            item = Tabela.Reserva.tabela.loc[id]
             mensagem(
                 titulo="Excluir " + nome,
                 mensagem="Deseja excluir " + nome + "?",

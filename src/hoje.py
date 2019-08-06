@@ -97,12 +97,22 @@ class Hoje:
             if self.Info.dia_int in calendario[i]:
                 semana_atual = calendario[i]
         ultima_semana = calendario[-1]
+        print(semana_atual)
+        semana_fim = QDate(self.Info.ano_int, self.Info.mes_int, max(semana_atual))
         if semana_atual[0]:
-            self.semana_limite = self.hoje_limite * 7
+            semana_inicio = QDate(self.Info.ano_int, self.Info.mes_int, semana_atual[0])
+            semana_anterior_fim = QDate(self.Info.ano_int, self.Info.mes_int, semana_atual[0]-1)
+            soma_anterior = self.Tabela.Saida.soma_intervalo(self.Inicio, semana_anterior_fim)
+            resta = (self.mes_limite - soma_anterior)/(dia_total-semana_anterior_fim.day())
+            print(resta)
+            count = 0
+            while semana_atual[count] and count < 6:
+                count += 1
+            self.semana_limite = resta * (count+1)
         else:
             self.semana_limite = self.dia_limite * sum(1 for x in calendario[0] if x)
-        semana_inicio = QDate(self.Info.ano_int, self.Info.mes_int, sorted(list(set(semana_atual)))[1])
-        semana_fim = QDate(self.Info.ano_int, self.Info.mes_int, max(semana_atual))
+            semana_inicio = QDate(self.Info.ano_int, self.Info.mes_int, sorted(list(set(semana_atual)))[1])
+        print(semana_inicio, semana_fim)
         self.soma_semana = self.Tabela.Saida.soma_intervalo(semana_inicio, semana_fim)
         self.semana_resta = self.semana_limite - self.soma_semana
 
