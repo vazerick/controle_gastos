@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -280,9 +280,9 @@ class Ui_Form(object):
         self.graficoBarra = PlotBarra(self.Hoje)
         self.graficoBarra.setGeometry(QtCore.QRect(670, 270, 551, 261))
         self.graficoBarra.setObjectName("graficoBarra")
-        self.pushButton = QtWidgets.QPushButton(self.Hoje)
-        self.pushButton.setGeometry(QtCore.QRect(40, 490, 80, 25))
-        self.pushButton.setObjectName("pushButton")
+        self.botaoExcluir = QtWidgets.QPushButton(self.Hoje)
+        self.botaoExcluir.setGeometry(QtCore.QRect(40, 490, 80, 25))
+        self.botaoExcluir.setObjectName("botaoExcluir")
         self.toolAdicionar = QtWidgets.QToolButton(self.Hoje)
         self.toolAdicionar.setGeometry(QtCore.QRect(20, 20, 91, 41))
         self.toolAdicionar.setPopupMode(QtWidgets.QToolButton.InstantPopup)
@@ -538,7 +538,7 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -614,7 +614,7 @@ class Ui_Form(object):
         item = self.listMenu.item(3)
         item.setText(_translate("Form", "Reserva"))
         self.listMenu.setSortingEnabled(__sortingEnabled)
-        self.pushButton.setText(_translate("Form", "Excluir"))
+        self.botaoExcluir.setText(_translate("Form", "Excluir"))
         self.toolAdicionar.setAccessibleName(_translate("Form", "tool"))
         self.toolAdicionar.setText(_translate("Form", "Adicionar"))
         self.boxAjuste.setAccessibleName(_translate("Form", "quadro"))
@@ -709,13 +709,3 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotLinha, PlotPizza
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
-

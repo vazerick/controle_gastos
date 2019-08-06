@@ -54,7 +54,11 @@ class Tabela:
 
     def editar(self, id, linha, ):
         self.tabela.iloc[id] = linha
-        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  #
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
+    def excluir(self, id):
+        self.tabela = self.tabela.drop(id)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 
     def adicionar_lista(self, lista, geral):
         for item in lista:

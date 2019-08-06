@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'reserva_edit.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -68,14 +68,4 @@ class Ui_Form(object):
         self.groupBox.setTitle(_translate("Form", "Converter"))
         self.buttonGasto.setText(_translate("Form", "Gasto"))
         self.buttonFixo.setText(_translate("Form", "Fixo"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 

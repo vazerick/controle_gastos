@@ -830,7 +830,32 @@ def hoje_gasto_click(item):
         selecionado = 0
 
 
-def fixo_click(item):
+def hoje_botao_excluir_gasto():
+    if len(gui.ui.treeSaida.selectedItems()):
+        item = gui.ui.treeSaida.selectedItems()[0]
+        data = item.text(0)
+        nome = item.text(1)
+        valor = float(item.text(4).replace("R$", ""))
+        tabela = Tabela.Saida.tabela
+        tabela = tabela[tabela["data"] == data]
+        tabela = tabela[tabela["nome"] == nome]
+        tabela = tabela[tabela["valor"] == valor]
+        global selecionado
+        if len(tabela) == 1:
+            id = tabela.iloc[0].name
+            selecionado = id
+            item = Tabela.Saida.tabela.iloc[id]
+            mensagem(
+                titulo="Excluir " + nome,
+                mensagem="Deseja excluir " + nome + "?",
+                aceita=lambda: mensagem_excluir_aceita(lambda: Tabela.Saida.excluir(id)),
+                rejeita=mensagem_excluir_rejeita
+            )
+        else:
+            selecionado = 0
+
+
+def hoje_fixo_click(item):
     item = gui.ui.treeFixo.selectedItems()[0]
     nome = item.text(0)
     vencimento = item.text(1)
@@ -860,6 +885,58 @@ def fixo_click(item):
         gui.wFixoEdit.show()
     else:
         selecionado = -1
+
+
+def hoje_botao_excluir_fixo():
+    if len(gui.ui.treeFixo.selectedItems()):
+        item = gui.ui.treeFixo.selectedItems()[0]
+        nome = item.text(0)
+        vencimento = item.text(1)
+        valor = float(item.text(5).replace("R$", ""))
+        tabela = Tabela.Fixo.tabela
+        tabela = tabela[tabela["vencimento"] == vencimento]
+        tabela = tabela[tabela["nome"] == nome]
+        tabela = tabela[tabela["valor"] == valor]
+        global selecionado
+        if len(tabela) == 1:
+            id = tabela.iloc[0].name
+            selecionado = id
+            item = Tabela.Fixo.tabela.iloc[id]
+            mensagem(
+                titulo="Excluir " + nome,
+                mensagem="Deseja excluir " + nome + "?",
+                aceita=lambda: mensagem_excluir_aceita(lambda: Tabela.Fixo.excluir(id)),
+                rejeita=mensagem_excluir_rejeita
+            )
+        else:
+            selecionado = -1
+
+
+def hoje_botao_excluir_entrada():
+    if len(gui.ui.treeEntrada.selectedItems()):
+        item = gui.ui.treeEntrada.selectedItems()[0]
+        nome = item.text(0)
+        previsao = item.text(1)
+        data = item.text(2)
+        valor = float(item.text(3).replace("R$", ""))
+        tabela = Tabela.Entrada.tabela
+        tabela = tabela[tabela["nome"] == nome]
+        tabela = tabela[tabela["previsao"] == previsao]
+        tabela = tabela[tabela["data"] == data]
+        tabela = tabela[tabela["valor"] == valor]
+        global selecionado
+        if len(tabela) == 1:
+            id = tabela.iloc[0].name
+            selecionado = id
+            item = Tabela.Entrada.tabela.iloc[id]
+            mensagem(
+                titulo="Excluir "+nome,
+                mensagem="Deseja excluir "+nome+"?",
+                aceita=lambda: mensagem_excluir_aceita(lambda: Tabela.Entrada.excluir(id)),
+                rejeita=mensagem_excluir_rejeita
+            )
+        else:
+            selecionado = -1
 
 
 def hoje_entrada_click(item):
@@ -915,6 +992,30 @@ def hoje_reserva_click(item):
         gui.wReservaEdit.show()
     else:
         selecionado = -1
+
+
+def hoje_botao_excluir_reserva():
+    if len(gui.ui.treeReserva.selectedItems()):
+        item = gui.ui.treeReserva.selectedItems()[0]
+        nome = item.text(0)
+        valor = float(item.text(1).replace("R$", ""))
+        comentario = item.text(2)
+        tabela = Tabela.Reserva.tabela
+        tabela = tabela[tabela["nome"] == nome]
+        tabela = tabela[tabela["valor"] == valor]
+        global selecionado
+        if len(tabela) == 1:
+            id = tabela.iloc[0].name
+            selecionado = id
+            item = Tabela.Reserva.tabela.iloc[id]
+            mensagem(
+                titulo="Excluir " + nome,
+                mensagem="Deseja excluir " + nome + "?",
+                aceita=lambda: mensagem_excluir_aceita(lambda: Tabela.Reserva.excluir(id)),
+                rejeita=mensagem_excluir_rejeita
+            )
+        else:
+            selecionado = -1
 
 
 def gasto_fila_click(item):
@@ -1093,6 +1194,22 @@ def mensagem_tabela_rejeita():
     gui.wMensagem.hide()
 
 
+def mensagem_excluir_rejeita():
+    gui.wMensagem.hide()
+    global selecionado
+    selecionado=-1
+
+
+def mensagem_excluir_aceita(excluir):
+    gui.wMensagem.hide()
+    selecionado = -1
+    excluir()
+    ArvoreEntrada.atualiza(Tabela.Entrada.tabela)
+    ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+    ArvoreReserva.atualiza(Tabela.Reserva.tabela)
+    gasto_atualiza()
+
+
 def completer_atualiza():
     for completer in [
         GastoCompleter,
@@ -1114,6 +1231,16 @@ def completer_atualiza():
         arquivo.write("\n".join(novo))
         arquivo.close()
 
+
+def botao_excluir():
+    acao = [
+        hoje_botao_excluir_gasto,
+        hoje_botao_excluir_entrada,
+        hoje_botao_excluir_fixo,
+        hoje_botao_excluir_reserva
+    ]
+    arvore = gui.ui.stackedWidget.currentIndex()
+    acao[arvore]()
 
 # MAIN
 
@@ -1279,6 +1406,8 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(sub_botao_cancela)
 
+gui.ui.botaoExcluir.clicked.connect(botao_excluir)
+
 gui.uiMensagem.buttonBox.accepted.connect(print)
 gui.uiMensagem.buttonBox.rejected.connect(print)
 gui.wMensagem.rejected.connect(print)
@@ -1334,7 +1463,7 @@ gui.uiEntradaEdit.checkPago.stateChanged.connect(lambda: gui.calendario_habilita
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(sub_list_click)
 gui.ui.treeSaida.doubleClicked.connect(hoje_gasto_click)
-gui.ui.treeFixo.doubleClicked.connect(fixo_click)
+gui.ui.treeFixo.doubleClicked.connect(hoje_fixo_click)
 gui.ui.treeEntrada.doubleClicked.connect(hoje_entrada_click)
 gui.ui.treeReserva.doubleClicked.connect(hoje_reserva_click)
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gastos_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -120,14 +120,4 @@ class Ui_Form(object):
         self.treeWidget.headerItem().setText(3, _translate("Form", "Valor"))
         self.groupSoma.setTitle(_translate("Form", "Soma"))
         self.labelSoma.setText(_translate("Form", "0,00"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 
