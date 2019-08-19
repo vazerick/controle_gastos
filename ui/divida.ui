@@ -6,193 +6,145 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>291</width>
-    <height>270</height>
+    <width>350</width>
+    <height>218</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>350</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dívida</string>
   </property>
-  <widget class="QLabel" name="labelReserva">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>51</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>51</width>
-     <height>17</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>51</width>
-     <height>17</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>Motivo</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="inputReserva">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>271</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textComentario">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>160</y>
-     <width>271</width>
-     <height>71</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelComentario">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>81</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Comentário</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelValor">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>80</y>
-     <width>41</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Valor</string>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="spinValor">
-   <property name="geometry">
-    <rect>
-     <x>205</x>
-     <y>100</y>
-     <width>71</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="decimals">
-    <number>2</number>
-   </property>
-   <property name="maximum">
-    <double>99999.990000000005239</double>
-   </property>
-   <property name="value">
-    <double>0.000000000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelValor_2">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>105</y>
-     <width>16</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>R$</string>
-   </property>
-  </widget>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>240</y>
-     <width>291</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-   <property name="centerButtons">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButton">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>10</y>
-     <width>82</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Eu devo...</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButton_2">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>10</y>
-     <width>91</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Me devem...</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelReserva_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>51</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>51</width>
-     <height>17</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>51</width>
-     <height>17</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>Pessoa</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>100</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="text">
+        <string>Eu devo...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="text">
+        <string>Me devem...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="labelReserva">
+       <property name="minimumSize">
+        <size>
+         <width>51</width>
+         <height>17</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>51</width>
+         <height>17</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Motivo</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="inputReserva"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="labelReserva_2">
+       <property name="minimumSize">
+        <size>
+         <width>51</width>
+         <height>17</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>51</width>
+         <height>17</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Pessoa</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelValor">
+       <property name="text">
+        <string>Valor</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelValor_2">
+       <property name="text">
+        <string>R$</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="spinValor">
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="maximum">
+        <double>99999.990000000005239</double>
+       </property>
+       <property name="value">
+        <double>0.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelComentario">
+     <property name="text">
+      <string>Comentário</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="textComentario"/>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <tabstops>
   <tabstop>inputReserva</tabstop>

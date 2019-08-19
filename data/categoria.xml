@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
-<!--Criacao: Sat Jul  6 14:24:31 2019-->
+<!--Criacao: Mon Jul 29 09:08:26 2019-->
 <lista>
    <categoria id="0">
       <nome>Alimentos</nome>
       <status>1</status>
-      <ordem>2</ordem>
+      <ordem>3</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -32,7 +32,7 @@
    <categoria id="1">
       <nome>Lazer</nome>
       <status>1</status>
-      <ordem>4</ordem>
+      <ordem>5</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -50,14 +50,14 @@
    <categoria id="2">
       <nome>Bebidas</nome>
       <status>1</status>
-      <ordem>16</ordem>
+      <ordem>17</ordem>
       <sub_status>0</sub_status>
       <sub_lista/>
    </categoria>
    <categoria id="3">
       <nome>Cuidados Pessoais</nome>
       <status>1</status>
-      <ordem>5</ordem>
+      <ordem>6</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -90,7 +90,7 @@
    <categoria id="4">
       <nome>Transporte</nome>
       <status>1</status>
-      <ordem>6</ordem>
+      <ordem>7</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -118,7 +118,7 @@
    <categoria id="5">
       <nome>Educação</nome>
       <status>1</status>
-      <ordem>1</ordem>
+      <ordem>2</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -136,7 +136,7 @@
    <categoria id="6">
       <nome>Leitura</nome>
       <status>1</status>
-      <ordem>0</ordem>
+      <ordem>1</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -169,7 +169,7 @@
    <categoria id="7">
       <nome>Chás e similares</nome>
       <status>1</status>
-      <ordem>7</ordem>
+      <ordem>8</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -197,7 +197,7 @@
    <categoria id="8">
       <nome>Roupas</nome>
       <status>1</status>
-      <ordem>8</ordem>
+      <ordem>9</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -225,7 +225,7 @@
    <categoria id="9">
       <nome>Jogos</nome>
       <status>1</status>
-      <ordem>9</ordem>
+      <ordem>10</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -243,7 +243,7 @@
    <categoria id="10">
       <nome>Doméstico</nome>
       <status>1</status>
-      <ordem>10</ordem>
+      <ordem>11</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -281,7 +281,7 @@
    <categoria id="11">
       <nome>Eletrônico</nome>
       <status>1</status>
-      <ordem>11</ordem>
+      <ordem>12</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -309,7 +309,7 @@
    <categoria id="12">
       <nome>Cidadania</nome>
       <status>1</status>
-      <ordem>12</ordem>
+      <ordem>13</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -332,14 +332,14 @@
    <categoria id="13">
       <nome>Pessoas</nome>
       <status>1</status>
-      <ordem>13</ordem>
+      <ordem>14</ordem>
       <sub_status>0</sub_status>
       <sub_lista/>
    </categoria>
    <categoria id="14">
       <nome>Contas</nome>
       <status>1</status>
-      <ordem>14</ordem>
+      <ordem>15</ordem>
       <sub_status>1</sub_status>
       <sub_lista>
          <sub id="0">
@@ -367,7 +367,14 @@
    <categoria id="15">
       <nome>Crédito anterior</nome>
       <status>1</status>
-      <ordem>15</ordem>
+      <ordem>16</ordem>
+      <sub_status>0</sub_status>
+      <sub_lista/>
+   </categoria>
+   <categoria id="16">
+      <nome>AAAA</nome>
+      <status>1</status>
+      <ordem>0</ordem>
       <sub_status>0</sub_status>
       <sub_lista/>
    </categoria>
