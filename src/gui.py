@@ -231,18 +231,16 @@ class gui:
     def calendario_habilita(self, janela):
         pago = [
             janela.labelPago,
-            janela.calendarWidget_2,
-            janela.botaoHoje_2,
-            self.uiFixoAdd.comboPagamento,
-            self.uiFixoAdd.labelPagamento
+            janela.dateEdit_2,
+            janela.botaoHoje_2
         ]
         if janela.checkPago.checkState():
             for widget in pago:
                 widget.setEnabled(True)
-            janela.calendarWidget_2.setSelectedDate(
-                janela.calendarWidget.selectedDate()
+            janela.dateEdit_2.setDate(
+                janela.dateEdit.date()
             )
         else:
             for widget in pago:
                 widget.setEnabled(False)
-            janela.calendarWidget_2.setSelectedDate(QDate.currentDate())
+            janela.dateEdit_2.setDate(QDate.currentDate())

@@ -70,7 +70,7 @@ def janela_limpa(
     for widget in spin:
         widget.setValue(0)
     for widget in data:
-        widget.setSelectedDate(Info.tempo)
+        widget.setDate(Info.tempo)
     for widget in check:
         widget.setCheckState(0)
     for widget in botao:
@@ -450,16 +450,16 @@ fila_gasto = []
 
 def gasto_botao_add():  # todo Validação de dados: impedir datas do futuro
 
-    data = gui.uiGastosAdd.calendarWidget.selectedDate()
+    data = gui.uiGastosAdd.dateEdit.date()
     data = data.toString("dd/MM/yyyy")
     adicao = Info.data_hora()
     nome = gui.uiGastosAdd.inputGasto.text()
     comentario = gui.uiGastosAdd.textComentario.toPlainText()
     valor = gui.uiGastosAdd.spinValor.value()
-    pagamento = ComboPagamento.getId()
+    pagamento = None
     categoria = ComboGastoCat.getId()
     sub = ComboGastoSub.getId()
-    divida = int(gui.uiGastosAdd.checkDivida.isChecked())
+    divida = None
     if len(fila_gasto):
         if not vazia(nome) and not (valor == "0,00" or valor == "0"):
             fila_gasto.append({
@@ -500,11 +500,8 @@ def gasto_botao_add():  # todo Validação de dados: impedir datas do futuro
             gui.uiGastosAdd.inputGasto,
             gui.uiGastosAdd.textComentario
         ],
-        data=[gui.uiGastosAdd.calendarWidget],
+        data=[gui.uiGastosAdd.dateEdit],
         spin=[gui.uiGastosAdd.spinValor],
-        check=[
-            gui.uiGastosAdd.checkDivida
-        ],
         botao=[gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
     fila_gasto.clear()
@@ -522,11 +519,8 @@ def gasto_botao_cancela():
             gui.uiGastosAdd.inputGasto,
             gui.uiGastosAdd.textComentario
         ],
-        data=[gui.uiGastosAdd.calendarWidget],
+        data=[gui.uiGastosAdd.dateEdit],
         spin=[gui.uiGastosAdd.spinValor],
-        check=[
-            gui.uiGastosAdd.checkDivida
-        ],
         botao=[gui.uiGastosAdd.buttonBox.button(QDialogButtonBox.Ok)]
     )
 
@@ -536,7 +530,7 @@ def gasto_botao_editar():
     nome = gui.uiGastosEdit.inputGasto.text()
     valor = gui.uiGastosEdit.spinValor.value()
     comentario = gui.uiGastosEdit.textComentario.toPlainText()
-    data = gui.uiGastosEdit.calendarWidget.selectedDate()
+    data = gui.uiGastosEdit.dateEdit.date()
     data = data.toString("dd/MM/yyyy")
     categoria = ComboGastoEditCat.getId()
     sub = ComboGastoEditSub.getId()
@@ -560,7 +554,7 @@ def gasto_botao_editar():
             gui.uiGastosEdit.inputGasto,
             gui.uiGastosEdit.textComentario],
         spin=[gui.uiGastosEdit.spinValor],
-        data=[gui.uiGastosEdit.calendarWidget]
+        data=[gui.uiGastosEdit.dateEdit]
     )
     gasto_atualiza()
 
@@ -572,7 +566,7 @@ def str_dinheiro(valor):
 def gasto_botao_fila():
     nome = gui.uiGastosAdd.inputGasto.text()
     valor = gui.uiGastosAdd.spinValor.value()
-    pagamento = ComboPagamento.getId()
+    pagamento = None
     categoria = ComboGastoCat.getId()
     sub = ComboGastoSub.getId()
 
@@ -593,9 +587,6 @@ def gasto_botao_fila():
             gui.uiGastosAdd.inputGasto
         ],
         spin=[gui.uiGastosAdd.spinValor],
-        check=[
-            gui.uiGastosAdd.checkDivida
-        ],
         botao=[gui.uiGastosAdd.botaoAdd]
     )
     gasto_validador()
@@ -615,12 +606,12 @@ def fixo_calendario_habilita():
 
 
 def entrada_botao_add():
-    previsao = gui.uiEntradaAdd.calendarWidget.selectedDate()
+    previsao = gui.uiEntradaAdd.dateEdit.date()
     previsao = previsao.toString("dd/MM/yyyy")
     data = ""
     pago = int(gui.uiEntradaAdd.checkPago.checkState())
     if pago:
-        data = gui.uiEntradaAdd.calendarWidget_2.selectedDate()
+        data = gui.uiEntradaAdd.dateEdit_2.date()
         data = data.toString("dd/MM/yyyy")
     adicao = Info.data_hora()
     nome = gui.uiEntradaAdd.inputEntrada.text()
@@ -647,8 +638,8 @@ def entrada_botao_add():
         ],
         spin=[gui.uiEntradaAdd.spinValor],
         data=[
-            gui.uiEntradaAdd.calendarWidget,
-            gui.uiEntradaAdd.calendarWidget_2
+            gui.uiEntradaAdd.dateEdit,
+            gui.uiEntradaAdd.dateEdit_2
         ],
         check=[gui.uiEntradaAdd.checkPago],
         botao=[gui.uiEntradaAdd.buttonBox.button(QDialogButtonBox.Ok)]
@@ -659,12 +650,12 @@ def entrada_botao_add():
 
 
 def entrada_botao_editar():
-    previsao = gui.uiEntradaEdit.calendarWidget.selectedDate()
+    previsao = gui.uiEntradaEdit.dateEdit.date()
     previsao = previsao.toString("dd/MM/yyyy")
     data = ""
     pago = int(gui.uiEntradaEdit.checkPago.checkState())
     if pago:
-        data = gui.uiEntradaEdit.calendarWidget_2.selectedDate()
+        data = gui.uiEntradaEdit.dateEdit_2.date()
         data = data.toString("dd/MM/yyyy")
     adicao = Info.data_hora()
     nome = gui.uiEntradaEdit.inputEntrada.text()
@@ -691,8 +682,8 @@ def entrada_botao_editar():
         ],
         spin=[gui.uiEntradaEdit.spinValor],
         data=[
-            gui.uiEntradaEdit.calendarWidget,
-            gui.uiEntradaEdit.calendarWidget_2
+            gui.uiEntradaEdit.dateEdit,
+            gui.uiEntradaEdit.dateEdit_2
         ],
         check=[gui.uiEntradaEdit.checkPago]
     )
@@ -706,12 +697,12 @@ def hoje_botao_fixo_add():
 
 
 def fixo_botao_add():
-    vencimento = gui.uiFixoAdd.calendarWidget.selectedDate()
+    vencimento = gui.uiFixoAdd.dateEdit.date()
     vencimento = vencimento.toString("dd/MM/yyyy")
     data = ""
     pago = int(gui.uiFixoAdd.checkPago.checkState())
     if pago:
-        data = gui.uiFixoAdd.calendarWidget_2.selectedDate()
+        data = gui.uiFixoAdd.dateEdit_2.date()
         data = data.toString("dd/MM/yyyy")
     adicao = Info.data_hora()
     nome = gui.uiFixoAdd.inputGasto.text()
@@ -744,8 +735,8 @@ def fixo_botao_add():
             gui.uiFixoAdd.textComentario
         ],
         data=[
-            gui.uiFixoAdd.calendarWidget,
-            gui.uiFixoAdd.calendarWidget_2
+            gui.uiFixoAdd.dateEdit,
+            gui.uiFixoAdd.dateEdit_2
         ],
         spin=[gui.uiFixoAdd.spinValor],
         check=[gui.uiFixoAdd.checkPago],
@@ -753,15 +744,16 @@ def fixo_botao_add():
     )
     ArvoreFixo.atualiza(Tabela.Fixo.tabela)
     Hoje.atualiza()
+    hoje_grafico_escreve()
 
 
 def fixo_botao_editar():
-    vencimento = gui.uiFixoEdit.calendarWidget.selectedDate()
+    vencimento = gui.uiFixoEdit.dateEdit.date()
     vencimento = vencimento.toString("dd/MM/yyyy")
     data = ""
     pago = int(gui.uiFixoEdit.checkPago.checkState())
     if pago:
-        data = gui.uiFixoEdit.calendarWidget_2.selectedDate()
+        data = gui.uiFixoEdit.dateEdit_2.date()
         data = data.toString("dd/MM/yyyy")
     adicao = Info.data_hora()
     nome = gui.uiFixoEdit.inputGasto.text()
@@ -794,8 +786,8 @@ def fixo_botao_editar():
             gui.uiFixoEdit.textComentario
         ],
         data=[
-            gui.uiFixoEdit.calendarWidget,
-            gui.uiFixoEdit.calendarWidget_2
+            gui.uiFixoEdit.dateEdit,
+            gui.uiFixoEdit.dateEdit_2
         ],
         spin=[gui.uiFixoEdit.spinValor],
         check=[gui.uiFixoEdit.checkPago]
@@ -822,7 +814,7 @@ def hoje_gasto_click(item):
         gui.uiGastosEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
             gui.uiGastosEdit.textComentario.setText(item["comentario"])
-        gui.uiGastosEdit.calendarWidget.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+        gui.uiGastosEdit.dateEdit.setDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
         gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
         gui.wGastosEdit.setWindowTitle("Editar " + item["nome"])
@@ -874,10 +866,10 @@ def hoje_fixo_click(item):
         gui.uiFixoEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
             gui.uiFixoEdit.textComentario.setText(item["comentario"])
-        gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
+        gui.uiFixoEdit.dateEdit.setDate(QDate().fromString(item["vencimento"], "dd/MM/yyyy"))
         if item["pago"]:
             gui.uiFixoEdit.checkPago.setCheckState(2)
-            gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+            gui.uiFixoEdit.dateEdit_2.setDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         else:
             gui.uiFixoEdit.checkPago.setCheckState(0)
         gui.uiFixoEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
@@ -960,10 +952,10 @@ def hoje_entrada_click(item):
         gui.uiEntradaEdit.spinValor.setValue(item["valor"])
         if pd.notna(item["comentario"]):
             gui.uiEntradaEdit.textComentario.setText(item["comentario"])
-        gui.uiEntradaEdit.calendarWidget.setSelectedDate(QDate().fromString(item["previsao"], "dd/MM/yyyy"))
+        gui.uiEntradaEdit.dateEdit.setDate(QDate().fromString(item["previsao"], "dd/MM/yyyy"))
         if item["data"]:
             gui.uiEntradaEdit.checkPago.setCheckState(2)
-            gui.uiEntradaEdit.calendarWidget_2.setSelectedDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+            gui.uiEntradaEdit.dateEdit_2.setDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
         else:
             gui.uiEntradaEdit.checkPago.setCheckState(0)
         gui.wEntradaEdit.setWindowTitle("Editar " + item["nome"])
@@ -1253,7 +1245,8 @@ def grafico_fatia(grafico, dados, cat):
             nome = nome.replace("%e%", " e\n")
             rotulos.append(nome)
         grafico.plot(tabela["valor"], rotulos, fatia=True, titulo=cat)
-    grafico_barra(gui.ui.graficoBarra, dados[dados["categoria"] == id_cat], destaque=True, fatia=True, titulo=cat)
+    if gui.ui.comboGrafico.currentIndex() == 0:
+        grafico_barra(gui.ui.graficoBarra, dados[dados["categoria"] == id_cat], destaque=True, fatia=True, titulo=cat)
     gui.ui.graficoPizza.fig.canvas.mpl_disconnect(cid)
     cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', grafico_click_reseta)
 
@@ -1273,8 +1266,16 @@ def grafico_click_reseta(event):
 
 
 def hoje_grafico_escreve():
+    global cid2
+    combo = gui.ui.comboGrafico.currentIndex()
     grafico_barra(gui.ui.graficoBarra, Tabela.Saida.tabela)
-    grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
+    if combo == 0:
+        grafico_pizza(gui.ui.graficoPizza, Tabela.Saida.tabela)
+    elif combo == 1:
+        grafico_pizza(gui.ui.graficoPizza, Tabela.Fixo.tabela)
+    else:
+        soma = Tabela.Saida.tabela.append(Tabela.Fixo.tabela)
+        grafico_pizza(gui.ui.graficoPizza, soma)
 
 
 def mensagem(titulo, mensagem, aceita, rejeita):
@@ -1423,8 +1424,8 @@ ComboFixoEditCat = Link(gui.uiFixoEdit.comboCategoria, Categoria)
 ComboFixoEditSub = SubcategoriaLink(gui.uiFixoEdit.comboSub, Categoria)
 
 # link de pagamento
-ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
-ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
+# ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
+# ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
 
 # gui.ui.toolAdicionar.hide()
 # gui.ui.botaoGasto.clicked.connect(hoje_botao_gasto_add)
@@ -1456,7 +1457,7 @@ gui.ui.botaoAjuste.clicked.connect(hoje_botao_ajuste)
 gui.uiAjuste.pushButton.clicked.connect(lambda: gui.wAjuste.hide())
 
 gui.uiGastosAdd.botaoHoje.clicked.connect(
-    lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiGastosAdd.dateEdit.setDate(QDate.currentDate())
 )
 gui.uiGastosAdd.buttonBox.accepted.connect(gasto_botao_add)
 gui.uiGastosAdd.buttonBox.rejected.connect(gasto_botao_cancela)
@@ -1468,33 +1469,47 @@ gui.uiFixoAdd.buttonBox.accepted.connect(fixo_botao_add)
 gui.uiFixoEdit.buttonBox.accepted.connect(fixo_botao_editar)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
-    lambda: gui.uiFixoAdd.calendarWidget.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiFixoAdd.dateEdit.setDate(QDate.currentDate())
 )
 gui.uiFixoAdd.botaoHoje_2.clicked.connect(
-    lambda: gui.uiFixoAdd.calendarWidget_2.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiFixoAdd.dateEdit_2.setDate(QDate.currentDate())
 )
 
 gui.uiFixoEdit.botaoHoje.clicked.connect(
-    lambda: gui.uiFixoEdit.calendarWidget.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiFixoEdit.dateEdit.setDate(QDate.currentDate())
 )
 gui.uiFixoEdit.botaoHoje_2.clicked.connect(
-    lambda: gui.uiFixoEdit.calendarWidget_2.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiFixoEdit.dateEdit_2.setDate(QDate.currentDate())
 )
 
 gui.uiEntradaEdit.botaoHoje.clicked.connect(
-    lambda: gui.uiEntradaEdit.calendarWidget.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiEntradaEdit.dateEdit.setDate(QDate.currentDate())
 )
 
 gui.uiEntradaEdit.botaoHoje_2.clicked.connect(
-    lambda: gui.uiEntradaEdit.calendarWidget_2.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiEntradaEdit.dateEdit_2.setDate(QDate.currentDate())
 )
 
 gui.uiEntradaAdd.botaoHoje.clicked.connect(
-    lambda: gui.uiEntradaAdd.calendarWidget.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiEntradaAdd.dateEdit.setDate(QDate.currentDate())
 )
 gui.uiEntradaAdd.botaoHoje_2.clicked.connect(
-    lambda: gui.uiEntradaAdd.calendarWidget_2.setSelectedDate(QDate.currentDate())
+    lambda: gui.uiEntradaAdd.dateEdit_2.setDate(QDate.currentDate())
 )
+
+for widget in [
+    gui.uiGastosAdd.dateEdit,
+    gui.uiGastosEdit.dateEdit,
+    gui.uiFixoAdd.dateEdit,
+    gui.uiFixoAdd.dateEdit_2,
+    gui.uiFixoEdit.dateEdit,
+    gui.uiFixoEdit.dateEdit_2,
+    gui.uiEntradaEdit.dateEdit,
+    gui.uiEntradaEdit.dateEdit_2,
+    gui.uiEntradaAdd.dateEdit,
+    gui.uiEntradaAdd.dateEdit_2
+]:
+    widget.setDate(QDate.currentDate())
 
 gui.uiEntradaAdd.buttonBox.accepted.connect(entrada_botao_add)
 gui.uiEntradaEdit.buttonBox.accepted.connect(entrada_botao_editar)
@@ -1624,6 +1639,8 @@ gui.ui.listMenu.itemClicked.connect(
 
 cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', grafico_click_zoom)
 cid2 = gui.ui.graficoBarra.fig.canvas.mpl_connect('button_press_event', grafico_click_reseta)
+
+gui.ui.comboGrafico.currentIndexChanged.connect(hoje_grafico_escreve)
 
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'recorrentes.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -98,4 +98,14 @@ class Ui_Form(object):
         self.comboCategoria_2.setItemText(2, _translate("Form", "Prestação"))
         self.labelCategoria_2.setText(_translate("Form", "Tipo"))
         self.labelValor_3.setText(_translate("Form", "Parcelas restantes"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 
