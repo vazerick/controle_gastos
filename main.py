@@ -1065,7 +1065,8 @@ def grafico_barra(grafico, dados, completo=False, destaque=True, fatia=False, ti
         rotulos[i] = rotulos[i][0:2]
     if destaque:
         dias_destaque = retornar_fds(dados)
-    grafico.plot(rotulos, tabela["valor"], destaque=dias_destaque, fatia=fatia, titulo=titulo)
+    grafico.plot(rotulos, tabela["valor"],
+                 destaque=dias_destaque, fatia=fatia, titulo=titulo, limite=Hoje.dia_limite, media=Hoje.media_dia)
 
 
 def grafico_linha(grafico, dados):

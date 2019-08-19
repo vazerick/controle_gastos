@@ -22,7 +22,7 @@ class PlotBarra(FigureCanvas):
         self.nome_valores = "Valores"
         self.nome_rotulos = "Rotulos"
 
-    def plot(self, x, y, destaque=[], fatia=False, titulo=""):
+    def plot(self, x, y, destaque=[], fatia=False, titulo="", limite=0, media=0):
         if fatia:
             cor = "#543005"
             cor_destaque = '#BF812D'
@@ -48,6 +48,8 @@ class PlotBarra(FigureCanvas):
         ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
         ax.bar(x, y, color=cores)
         ax.set_facecolor("#E1EBF5")
+        ax.axhline(y=limite, zorder=0, color="#c06761", linewidth=2.5)
+        ax.axhline(y=media, zorder=0, color="#4067e0", linewidth=2.5)
 
         if len(titulo):
             ax.set_title(titulo)

@@ -85,10 +85,13 @@ class Hoje:
         self.hoje_resta = self.hoje_limite - self.soma_hoje
 
         self.ajuste = (self.dia_limite - self.media_dia) * self.Ontem.day()
+        economia = 0
         if self.ajuste >= 0:
             self.BoxAjuste.setTitle("Acumulado")
         else:
             self.BoxAjuste.setTitle("Excesso")
+            economia = -self.ajuste/self.dia_limite
+            economia = int(economia) + (economia > 0)
 
         print("Semana\n")
         calendario = calendar.monthcalendar(self.Info.ano_int, self.Info.mes_int)
@@ -179,6 +182,12 @@ class Hoje:
             }
         ])
 
+        if economia:
+            if economia > 1:
+                texto = "\n(" + str(economia)+" dias)"
+            else:
+                texto = "\n(" + str(economia) + " dia)"
+            self.Ajuste.setText(self.Ajuste.text()+texto)
         self.escreve_barra(self.MesBarra, self.soma_saida, self.mes_limite)
         self.escreve_barra(self.HojeBarra, self.soma_hoje, self.hoje_limite)
         self.escreve_barra(self.SemanaBarra, self.soma_semana, self.semana_limite)
