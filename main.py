@@ -1255,7 +1255,14 @@ def grafico_click_zoom(event):
     wedge = event.artist
     label = wedge.get_label()
     label = label.replace("\n", " ")
-    grafico_fatia(gui.ui.graficoPizza, Tabela.Saida.tabela, label)
+    combo = gui.ui.comboGrafico.currentIndex()
+    if combo == 0:
+        grafico_fatia(gui.ui.graficoPizza, Tabela.Saida.tabela, label)
+    elif combo == 1:
+        grafico_fatia(gui.ui.graficoPizza, Tabela.Fixo.tabela, label)
+    else:
+        soma = Tabela.Saida.tabela.append(Tabela.Fixo.tabela)
+        grafico_fatia(gui.ui.graficoPizza, soma, label)
 
 
 def grafico_click_reseta(event):
