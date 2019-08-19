@@ -358,9 +358,11 @@ class Ui_Form(object):
         self.comboCategoria.setObjectName("comboCategoria")
         self.dateInicio = QtWidgets.QDateEdit(self.boxFiltro)
         self.dateInicio.setGeometry(QtCore.QRect(480, 50, 91, 26))
+        self.dateInicio.setCalendarPopup(True)
         self.dateInicio.setObjectName("dateInicio")
         self.dateFim = QtWidgets.QDateEdit(self.boxFiltro)
         self.dateFim.setGeometry(QtCore.QRect(580, 50, 91, 26))
+        self.dateFim.setCalendarPopup(True)
         self.dateFim.setObjectName("dateFim")
         self.treeSaida_2 = QtWidgets.QTreeWidget(self.boxFiltro)
         self.treeSaida_2.setGeometry(QtCore.QRect(10, 90, 661, 181))
@@ -547,7 +549,7 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Form)
 

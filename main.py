@@ -1511,6 +1511,9 @@ for widget in [
 ]:
     widget.setDate(QDate.currentDate())
 
+gui.ui.dateInicio.setDate(QDate(Info.ano_int, Info.mes_int, 1))
+gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int+1, 1))
+
 gui.uiEntradaAdd.buttonBox.accepted.connect(entrada_botao_add)
 gui.uiEntradaEdit.buttonBox.accepted.connect(entrada_botao_editar)
 
