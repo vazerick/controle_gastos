@@ -17,6 +17,7 @@ from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.reserva_edit import Ui_Form as ReservaEdit
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
 from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
+from ui.ajuste import Ui_Form as Ajuste
 
 class gui:
 
@@ -43,6 +44,11 @@ class gui:
         self.wEntradaAdd = QDialog()
         self.uiEntradaAdd = EntradaAdd()
         self.uiEntradaAdd.setupUi(self.wEntradaAdd)
+
+        # janela para ajustes
+        self.wAjuste = QDialog()
+        self.uiAjuste = Ajuste()
+        self.uiAjuste.setupUi(self.wAjuste)
 
         # janela para editar entradas
         self.wEntradaEdit = QDialog()
@@ -145,7 +151,8 @@ class gui:
             self.wFixoEdit,
             self.wEntradaEdit,
             self.wReservaEdit,
-            self.wMensagem
+            self.wMensagem,
+            self.wAjuste
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

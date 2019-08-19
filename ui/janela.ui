@@ -1199,6 +1199,19 @@
         </property>
        </widget>
       </widget>
+      <widget class="QPushButton" name="botaoAjuste">
+       <property name="geometry">
+        <rect>
+         <x>1180</x>
+         <y>0</y>
+         <width>51</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ajuste</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="Geral">
       <attribute name="title">

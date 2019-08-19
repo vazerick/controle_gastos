@@ -6,6 +6,7 @@ import configparser
 import os
 import sys
 import time
+import pyperclip
 
 print("\tPandas")
 import pandas as pd
@@ -1018,6 +1019,116 @@ def hoje_botao_excluir_reserva():
             selecionado = -1
 
 
+def hoje_botao_ajuste():
+    total = Hoje.soma_reserva+Hoje.mes_resta
+    for label, texto in [
+        (gui.uiAjuste.labelReserva, Hoje.soma_reserva),
+        (gui.uiAjuste.labelResto, Hoje.mes_resta),
+        (gui.uiAjuste.labelSoma, total),
+        (gui.uiAjuste.labelApp, total)
+    ]:
+        label.setText(escreve_dinheiro(texto))
+    for label in [
+        gui.uiAjuste.labelTenho,
+        gui.uiAjuste.labelApp,
+        gui.uiAjuste.labelAdd,
+        gui.uiAjuste.labelAjuste,
+    ]:
+        label.clear()
+    gui.uiAjuste.botaoAdd.setText("Ajuste")
+    gui.uiAjuste.botaoAdd.setEnabled(False)
+    gui.wAjuste.show()
+
+
+def ajuste_carteira():
+    soma = 0.00
+    for spin, valor in [
+        (gui.uiAjuste.spin001.value(), 0.01),
+        (gui.uiAjuste.spin005.value(), 0.05),
+        (gui.uiAjuste.spin01.value(), 0.1),
+        (gui.uiAjuste.spin025.value(), 0.25),
+        (gui.uiAjuste.spin05.value(), 0.5),
+        (gui.uiAjuste.spin1.value(), 1),
+        (gui.uiAjuste.spin2.value(), 2),
+        (gui.uiAjuste.spin5.value(), 5),
+        (gui.uiAjuste.spin10.value(), 10),
+        (gui.uiAjuste.spin20.value(), 20),
+        (gui.uiAjuste.spin50.value(), 50),
+        (gui.uiAjuste.spin100.value(), 100),
+    ]:
+        soma += spin*valor
+    gui.uiAjuste.spinCarteira.setValue(soma)
+
+
+def ajuste_soma():
+    soma = 0.0
+    for spin, valor in [
+        (gui.uiAjuste.spinAjusteN.value(), -1),
+        (gui.uiAjuste.spinAjusteP.value(), 1),
+        (gui.uiAjuste.spinCarteira.value(), 1),
+        (gui.uiAjuste.spinConta1.value(), 1),
+        (gui.uiAjuste.spinCredito1.value(), -1),
+        (gui.uiAjuste.spinCredito2.value(), -1),
+        (gui.uiAjuste.spinPoupanca.value(), 1),
+        (gui.uiAjuste.spinPoupanca2.value(), 1),
+        (gui.uiAjuste.spintConta2.value(), 1)
+    ]:
+        soma += spin*valor
+    app = Hoje.soma_reserva+Hoje.mes_resta
+    ajuste = soma-app
+    for label, texto in [
+        (gui.uiAjuste.labelTenho, soma),
+        (gui.uiAjuste.labelAjuste, ajuste),
+        (gui.uiAjuste.labelApp, app)
+    ]:
+        label.setText(escreve_dinheiro(texto))
+    print(ajuste)
+    if ajuste >= 0.01:
+        texto = "Adicionar entrada de " + escreve_dinheiro(ajuste)
+        botao = "Entrada"
+        estado = True
+        funcao = lambda: ajuste_botao_entrada(ajuste)
+    elif ajuste <= -0.01:
+        texto = "Adicionar saida de " + escreve_dinheiro(-ajuste)
+        botao = "Saida"
+        estado = True
+        funcao = lambda: ajuste_botao_gasto(ajuste)
+    else:
+        texto = ""
+        botao = "Ajustar"
+        estado = False
+        funcao = print
+    gui.uiAjuste.labelAdd.setText(texto)
+    gui.uiAjuste.botaoAdd.setEnabled(estado)
+    gui.uiAjuste.botaoAdd.setText(botao)
+
+    gui.uiAjuste.botaoAdd.disconnect()
+    gui.uiAjuste.botaoAdd.clicked.connect(funcao)
+
+    pyperclip.copy( str(f"{abs(ajuste):.2f}").replace(".", ",") )
+
+def ajuste_botao_gasto(valor):
+    gui.wAjuste.hide()
+    gui.wFixoAdd.show()
+    gui.uiFixoAdd.inputGasto.setText("Ajuste de erro")
+    gui.uiFixoAdd.checkPago.setCheckState(2)
+    gui.uiFixoAdd.spinValor.setValue(-valor)
+
+
+def ajuste_botao_entrada(valor):
+    gui.wAjuste.hide()
+    gui.wEntradaAdd.show()
+    gui.uiEntradaAdd.inputEntrada.setText("Ajuste de erro")
+    gui.uiEntradaAdd.checkPago.setCheckState(2)
+    gui.uiEntradaAdd.spinValor.setValue(valor)
+
+
+def escreve_dinheiro(valor):
+    texto = "R$" + f"{valor:.2f}"
+    texto = texto.replace(".", ",")
+    return texto
+
+
 def gasto_fila_click(item):
     item = gui.uiGastosAdd.treeWidget.selectedItems()[0]
     nome = item.text(0)
@@ -1340,6 +1451,9 @@ gui.ui.toolAdicionar.setMenu(menu)
 
 # conecta as ações dos botões
 
+gui.uiAjuste.pushButton.clicked.connect(print)
+gui.ui.botaoAjuste.clicked.connect(hoje_botao_ajuste)
+gui.uiAjuste.pushButton.clicked.connect(lambda: gui.wAjuste.hide())
 
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.calendarWidget.setSelectedDate(QDate.currentDate())
@@ -1459,6 +1573,36 @@ gui.uiFixoAdd.checkPago.stateChanged.connect(fixo_calendario_habilita)
 
 gui.uiFixoEdit.checkPago.stateChanged.connect(lambda: gui.calendario_habilita(gui.uiFixoEdit))
 gui.uiEntradaEdit.checkPago.stateChanged.connect(lambda: gui.calendario_habilita(gui.uiEntradaEdit))
+
+# conecta as ações de atualização dinâmica de campos
+for spin in [
+    gui.uiAjuste.spin001,
+    gui.uiAjuste.spin005,
+    gui.uiAjuste.spin01,
+    gui.uiAjuste.spin025,
+    gui.uiAjuste.spin05,
+    gui.uiAjuste.spin1,
+    gui.uiAjuste.spin2,
+    gui.uiAjuste.spin5,
+    gui.uiAjuste.spin10,
+    gui.uiAjuste.spin20,
+    gui.uiAjuste.spin50,
+    gui.uiAjuste.spin100
+]:
+    spin.valueChanged.connect(ajuste_carteira)
+
+for spin in [
+    gui.uiAjuste.spinAjusteN,
+    gui.uiAjuste.spinAjusteP,
+    gui.uiAjuste.spinCarteira,
+    gui.uiAjuste.spinConta1,
+    gui.uiAjuste.spinCredito1,
+    gui.uiAjuste.spinCredito2,
+    gui.uiAjuste.spinPoupanca,
+    gui.uiAjuste.spinPoupanca2,
+    gui.uiAjuste.spintConta2,
+]:
+    spin.valueChanged.connect(ajuste_soma)
 
 # conecta as ações dos clicks em lista
 

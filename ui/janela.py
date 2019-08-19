@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -314,6 +314,9 @@ class Ui_Form(object):
         self.labelMedia.setGeometry(QtCore.QRect(0, 20, 121, 20))
         self.labelMedia.setAlignment(QtCore.Qt.AlignCenter)
         self.labelMedia.setObjectName("labelMedia")
+        self.botaoAjuste = QtWidgets.QPushButton(self.Hoje)
+        self.botaoAjuste.setGeometry(QtCore.QRect(1180, 0, 51, 23))
+        self.botaoAjuste.setObjectName("botaoAjuste")
         self.tabWidget.addTab(self.Hoje, "")
         self.Geral = QtWidgets.QWidget()
         self.Geral.setObjectName("Geral")
@@ -626,6 +629,7 @@ class Ui_Form(object):
         self.boxMedia.setAccessibleName(_translate("Form", "quadro"))
         self.boxMedia.setTitle(_translate("Form", "Média por dia"))
         self.labelMedia.setText(_translate("Form", "R$100,00"))
+        self.botaoAjuste.setText(_translate("Form", "Ajuste"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Hoje), _translate("Form", "Hoje"))
         self.boxGeralGastos.setTitle(_translate("Form", "Gastos recorrentes"))
         self.treeGeralGastos.setSortingEnabled(True)
@@ -709,3 +713,13 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotLinha, PlotPizza
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+
