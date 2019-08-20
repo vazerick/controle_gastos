@@ -13,9 +13,9 @@ import pandas as pd
 import numpy as np
 
 print("\tQt")
-from PyQt5.QtCore import QDate, QDateTime, QPoint
+from PyQt5.QtCore import QDate, QDateTime, QPoint, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton
+from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton, QCompleter
 
 print("\tInterfaces Gráficas")
 from src.gui import gui
@@ -1362,6 +1362,90 @@ def botao_excluir():
     arvore = gui.ui.stackedWidget.currentIndex()
     acao[arvore]()
 
+def filtro():
+    Saida = Tabela.Saida.tabela.copy()[["nome", "data", "categoria", "subcategoria", "valor"]]
+    Saida["tipo"] = "gasto"
+    Fixo = Tabela.Fixo.tabela.copy()[["nome", "vencimento", "categoria", "subcategoria", "valor"]]
+    Fixo["tipo"] = "fixo"
+    Fixo = Fixo.rename(columns={"vencimento": "data"})
+    Entrada = Tabela.Entrada.tabela.copy()[["nome", "previsao", "valor"]]
+    Entrada["tipo"] = "entrada"
+    Entrada["categoria"] = None
+    Entrada["subcategoria"] = None
+    Entrada = Entrada.rename(columns={"previsao": "data"})
+    Filtro = pd.DataFrame(Saida.append(
+        Fixo.append(
+            Entrada
+        )
+    ))
+
+    completer = QCompleter(Filtro["nome"].str.title().unique())
+    completer.setCaseSensitivity(Qt.CaseInsensitive)
+    gui.ui.inputFiltro.setCompleter(completer)
+
+    if gui.ui.checkRelTipo.checkState():
+        Filtro = Filtro[Filtro["tipo"] == gui.ui.comboTipo.currentText()]
+    if gui.ui.checkRelNome.checkState():
+        nome = gui.ui.inputFiltro.text()
+        while "  " in nome:
+            nome = nome.replace("  ", " ")
+        while nome[0] == " ":
+            nome = nome[:0] + nome[(0 + 1):]
+        while nome[-1] == " ":
+            nome = nome[:-1]
+        nome = nome.capitalize()
+        gui.ui.inputFiltro.setText(nome)
+        Filtro = Filtro[Filtro["nome"].str.contains(nome, case=False)]
+    if gui.ui.checkRelCat.checkState():
+        id = ComboFiltroCat.getId()
+        Filtro = Filtro[Filtro["categoria"] == id]
+        if not len(ComboFiltroSub.ativosSub):
+            gui.ui.checkRelSub.setCheckState(0)
+    if gui.ui.checkRelSub.checkState():
+        id = ComboFiltroCat.getId()
+        sub = ComboFiltroSub.getId()
+        Filtro = Filtro[Filtro["subcategoria"] == sub]
+    if gui.ui.checkRelFim.checkState() or gui.ui.checkRelInicio.checkState():
+        if gui.ui.dateFim.date() < gui.ui.dateInicio.date():
+            print("!!")
+            gui.ui.dateFim.setDate(gui.ui.dateInicio.date())
+        Filtro["data2"] = Filtro.apply(lambda row: QDate.fromString(row["data"], "dd/MM/yyyy"), axis=1)
+        if gui.ui.checkRelInicio.checkState():
+            Filtro = Filtro[Filtro["data2"] >= gui.ui.dateInicio.date()]
+        if gui.ui.checkRelFim.checkState():
+            Filtro = Filtro[Filtro["data2"] <= gui.ui.dateFim.date()]
+
+    gui.ui.labelSomaFiltro.setText(escreve_dinheiro(Filtro['valor'].sum()))
+    ArvoreFiltro = ArvoreTabelaFiltro(gui.ui.treeFiltro, Filtro, Categoria)
+
+
+def filtro_check(check, widget):
+    state = bool(check.checkState())
+    widget.setEnabled(state)
+
+
+def filtro_limpa():
+    for check in [
+        gui.ui.checkRelTipo,
+        gui.ui.checkRelNome,
+        gui.ui.checkRelCat,
+        gui.ui.checkRelSub,
+        gui.ui.checkRelInicio,
+        gui.ui.checkRelFim,
+    ]:
+        check.setCheckState(0)
+
+    for combo in[
+        gui.ui.comboTipo,
+        gui.ui.comboCategoria,
+        gui.ui.comboSub,
+    ]:
+        combo.setCurrentIndex(0)
+
+    gui.ui.inputFiltro.clear()
+    gui.ui.dateInicio.setDate(QDate(Info.ano_int, Info.mes_int, 1))
+    gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int, QDate(Info.ano_int, Info.mes_int, 1).daysInMonth()))
+
 # MAIN
 
 # configuração
@@ -1417,6 +1501,8 @@ ArvoreFilaGastos = ArvoreFilaGastos(gui.uiGastosAdd.treeWidget, fila_gasto, Cate
 ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
 ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
+ComboFiltroCat = Link(gui.ui.comboCategoria, Categoria)
+ComboFiltroSub = SubcategoriaLink(gui.ui.comboSub, Categoria)
 ComboGastoCat = Link(gui.uiGastosAdd.comboCategoria, Categoria)
 ComboGastoSub = SubcategoriaLink(gui.uiGastosAdd.comboSub, Categoria)
 ComboGastoEditCat = Link(gui.uiGastosEdit.comboCategoria, Categoria)
@@ -1519,7 +1605,7 @@ for widget in [
     widget.setDate(QDate.currentDate())
 
 gui.ui.dateInicio.setDate(QDate(Info.ano_int, Info.mes_int, 1))
-gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int+1, 1))
+gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int, QDate(Info.ano_int, Info.mes_int, 1).daysInMonth()))
 
 gui.uiEntradaAdd.buttonBox.accepted.connect(entrada_botao_add)
 gui.uiEntradaEdit.buttonBox.accepted.connect(entrada_botao_editar)
@@ -1645,6 +1731,26 @@ gui.ui.listMenu.itemClicked.connect(
     )
 )
 
+for check, widget in [
+    (gui.ui.checkRelTipo, gui.ui.comboTipo),
+    (gui.ui.checkRelNome, gui.ui.inputFiltro),
+    (gui.ui.checkRelCat, gui.ui.comboCategoria),
+    (gui.ui.checkRelSub, gui.ui.comboSub),
+    (gui.ui.checkRelInicio, gui.ui.dateInicio),
+    (gui.ui.checkRelFim, gui.ui.dateFim)
+]:
+    widget.setEnabled(False)
+
+gui.ui.checkRelTipo.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelTipo, gui.ui.comboTipo))
+gui.ui.checkRelNome.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelNome, gui.ui.inputFiltro))
+gui.ui.checkRelCat.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelCat, gui.ui.comboCategoria))
+gui.ui.checkRelSub.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelSub, gui.ui.comboSub))
+gui.ui.checkRelInicio.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelInicio, gui.ui.dateInicio))
+gui.ui.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelFim, gui.ui.dateFim))
+
+gui.ui.botaoFiltro.clicked.connect(filtro)
+gui.ui.botaoLimpa.clicked.connect(filtro_limpa)
+
 # conect as ações dos clicks nos gráficos
 
 cid = gui.ui.graficoPizza.fig.canvas.mpl_connect('pick_event', grafico_click_zoom)
@@ -1674,6 +1780,10 @@ combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-cat
     [
         gui.uiFixoEdit.comboCategoria,
         lambda: combo_sub_troca(ComboFixoEditCat, ComboFixoEditSub)
+    ],
+    [
+        gui.ui.comboCategoria,
+        lambda: combo_sub_troca(ComboFiltroCat, ComboFiltroSub)
     ]
 ]
 for item in combos_dinamicos:
@@ -1722,7 +1832,8 @@ for header in [
     gui.ui.treeEntrada.header(),
     gui.ui.treeFixo.header(),
     gui.ui.treeReserva.header(),
-    gui.ui.treeAno.header()
+    gui.ui.treeAno.header(),
+    gui.ui.treeFiltro.header()
 ]:
     header.setVisible(True)
 
@@ -1772,7 +1883,7 @@ ReservaCompleter = Completer(
 
 hoje_grafico_escreve()
 gui.ui.graficoLinha.plot(Geral.tabela)
-
+filtro()
 sys.exit(gui.app.exec_())
 
 # todo 29/07/2019: remover a "ordem" das categorias, é pura bobagem

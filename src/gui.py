@@ -2,7 +2,7 @@ import sass
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import Qt, QDate
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 from ui.categorias_add import Ui_Form as CategoriasAdd
 from ui.categorias_edit import Ui_Form as CategoriasEdit
 from ui.dialog import Ui_Dialog as Mensagem
