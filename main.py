@@ -28,7 +28,7 @@ from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
 from src.completer import Completer
-from src.tabela import TabelaGeral
+from src.tabela import TabelaGeral, TabelaInicia
 
 print("Declaração das funções")
 # declaração das funções
@@ -1610,22 +1610,70 @@ def recorrente_combo():
 
 
 def recorrente_add():
+    adicao = Info.data_hora()
     item = gui.uiRecorrente.inputGasto.text()
     tipo = gui.uiRecorrente.comboTipo.currentText()
     categoria = ComboRecorrenteCat.getId()
     sub = ComboRecorrenteSub.getId()
-    valor = gui.uiRecorrente.spinValor.text()
+    valor = gui.uiRecorrente.spinValor.value()
     parcelas =  gui.uiRecorrente.spinParcelas.text()
     vencimento = gui.uiRecorrente.spinVencimento.text()
     comentario = gui.uiRecorrente.textComentario.toPlainText()
-    print(item, tipo, categoria, sub, valor, parcelas, vencimento, comentario)
+    for i in [
+            adicao,
+            tipo,
+            item,
+            comentario,
+            valor,
+            parcelas,
+            vencimento,
+            categoria,
+            sub
+        ]:
+        print(i)
+    TabelaRecorrente.adicionar(
+        [
+            adicao,
+            tipo,
+            item,
+            comentario,
+            valor,
+            parcelas,
+            vencimento,
+            categoria,
+            sub
+        ]
+    )
 
+# TabelaRecorrente = TabelaInicia(
+#     colunas=[
+#             'adicao',
+#             'tipo',
+#             'nome',
+#             'comentario',
+#             'valor',
+#             'parcelas',
+#             'vencimento',
+#             'categoria',
+#             'subcategoria',
+#         ],
+#     nome="recorrente"
+# )
 
 def investimento_add():
+    adicao = Info.data_hora()
     item = gui.uiInvestimento.inputGasto.text()
-    valor = gui.uiInvestimento.spinValor.text()
+    valor = gui.uiInvestimento.spinValor.value()
     comentario = gui.uiInvestimento.textComentario.toPlainText()
-    print(item, valor, comentario)
+    TabelaInvestimento.adicionar(
+        [
+            adicao,
+            item,
+            comentario,
+            valor
+        ]
+    )
+
 
 # MAIN
 
@@ -2032,6 +2080,29 @@ else:
             Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)
+TabelaRecorrente = TabelaInicia(
+    colunas=[
+            'adicao',
+            'tipo',
+            'nome',
+            'comentario',
+            'valor',
+            'parcelas',
+            'vencimento',
+            'categoria',
+            'subcategoria',
+        ],
+    nome="recorrente"
+)
+TabelaInvestimento = TabelaInicia(
+    colunas=[
+            'adicao',
+            'nome',
+            'comentario',
+            'valor'
+        ],
+    nome="investimento"
+)
 
 print("Preenche as árvores e tabelas da interface")
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)

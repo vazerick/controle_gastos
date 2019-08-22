@@ -131,3 +131,42 @@ class TabelaGeral:
         )
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
+
+
+class TabelaInicia:
+
+    colunas = []
+    endereco = ""
+
+    def __init__(self, colunas, nome):
+
+        self.colunas = colunas
+        self.nome = nome
+
+        self.endereco = 'data/' + self.nome + '.csv'
+
+        # abre a tabela, ou cria caso não exista
+        try:
+            self.tabela = pd.read_csv(self.endereco, quotechar="'", index_col='id')
+        except FileNotFoundError:
+            self.tabela = pd.DataFrame(columns=self.colunas)
+            self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
+        if 'valor' in self.tabela.columns:
+            self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
+
+    def adicionar(self, linha):
+        add = pd.DataFrame(
+            [linha],
+            columns=self.colunas
+        )
+        self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
+
+    def editar(self, id, linha, ):
+        self.tabela.loc[id] = linha
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
+    def excluir(self, id):
+        self.tabela = self.tabela.drop(id)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
