@@ -8,7 +8,8 @@ class Link:
         self.addFim = addFim
         self.Combo = Combo
         self.Lista = Lista
-        self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        #self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('nome'))
         for item in range(len(self.ativos)):
             self.Combo.addItem(self.ativos[item]['nome'])
         if self.addFim:
@@ -23,7 +24,8 @@ class Link:
     def atualiza(self):
         self.ativos = []
         self.Combo.clear()
-        self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        # self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        self.ativos = sorted(self.Lista.getAtivos(), key=itemgetter('nome'))
         for item in range(len(self.ativos)):
             self.Combo.addItem(self.ativos[item]['nome'])
         if self.addFim:
@@ -35,7 +37,8 @@ class EditarLink:
     def __init__(self, Combo, Lista):
         self.Combo = Combo
         self.Lista = Lista
-        self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        # self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        self.ordem = sorted(self.Lista.id, key=itemgetter('nome'))
         for item in range(len(self.ordem)):
             self.Combo.addItem(self.ordem[item]['nome'])
         self.Combo.addItem("Fim da lista")
@@ -45,7 +48,8 @@ class EditarLink:
 
     def atualizar(self):
         self.Combo.clear()
-        self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        # self.ordem = sorted(self.Lista.id, key=itemgetter('ordem'))
+        self.ordem = sorted(self.Lista.id, key=itemgetter('nome'))
         for item in range(len(self.ordem)):
             self.Combo.addItem(self.ordem[item]['nome'])
         self.Combo.addItem("Fim da lista")
@@ -64,7 +68,8 @@ class SubcategoriaLink:
         self.Lista = Lista
         self.addFim = addFim
         self.ativosSub = []
-        self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        # self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('nome'))
         if len(self.ativosCat[0]['sub_lista']):
             self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
                                     key=itemgetter('ordem'))
@@ -86,7 +91,8 @@ class SubcategoriaLink:
     def troca(self, cat):
         self.ativosSub = []
         self.Combo.clear()
-        self.ativosSub = sorted(self.Lista.subGetAtivos(cat), key=itemgetter('ordem'))
+        # self.ativosSub = sorted(self.Lista.subGetAtivos(cat), key=itemgetter('ordem'))
+        self.ativosSub = sorted(self.Lista.subGetAtivos(cat), key=itemgetter('nome'))
         for item in range(len(self.ativosSub)):
             self.Combo.addItem(self.ativosSub[item]['nome'])
         if self.addFim:
@@ -100,7 +106,8 @@ class SubcategoriaLink:
         self.ativosCat = []
         self.ativosSub = []
         self.Combo.clear()
-        self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        # self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
+        self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('nome'))
         if len(self.ativosCat[0]['sub_lista']):
             self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
                                     key=itemgetter('ordem'))
