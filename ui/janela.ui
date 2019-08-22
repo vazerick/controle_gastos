@@ -1036,12 +1036,27 @@
         </attribute>
         <column>
          <property name="text">
-          <string>Item</string>
+          <string>Nome</string>
          </property>
         </column>
         <column>
          <property name="text">
           <string>Tipo</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Valor</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Vencimento</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Prestação</string>
          </property>
         </column>
         <column>
@@ -1052,11 +1067,6 @@
         <column>
          <property name="text">
           <string>Sub-categoria</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
          </property>
         </column>
        </widget>
@@ -1351,22 +1361,7 @@
         </attribute>
         <column>
          <property name="text">
-          <string>Item</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Tipo</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Categoria</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Sub-categoria</string>
+          <string>Nome</string>
          </property>
         </column>
         <column>

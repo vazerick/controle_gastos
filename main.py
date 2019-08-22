@@ -1619,6 +1619,12 @@ def recorrente_add():
     parcelas =  gui.uiRecorrente.spinParcelas.text()
     vencimento = gui.uiRecorrente.spinVencimento.text()
     comentario = gui.uiRecorrente.textComentario.toPlainText()
+    if tipo == "Conta":
+        valor = None
+        parcelas = None
+        vencimento = None
+    elif tipo == "Assinatura":
+        parcelas = None
     for i in [
             adicao,
             tipo,
@@ -1644,6 +1650,21 @@ def recorrente_add():
             sub
         ]
     )
+    janela_limpa(
+        janela=[gui.wRecorrente],
+        texto=[
+            gui.uiRecorrente.inputGasto,
+            gui.uiRecorrente.textComentario
+        ],
+        spin=[
+            gui.uiRecorrente.spinValor,
+            gui.uiRecorrente.spinParcelas,
+            gui.uiRecorrente.spinVencimento
+        ],
+        # botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+    ArvoreRecorrente.atualiza(TabelaRecorrente.tabela)
+    # gui.wRecorrente.hide()
 
 # TabelaRecorrente = TabelaInicia(
 #     colunas=[
@@ -2111,6 +2132,7 @@ ArvoreFixo = ArvoreTabelaFixo(gui.ui.treeFixo, Tabela.Fixo.tabela, Categoria)
 ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela.Entrada.tabela)
 ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
+ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorrente.tabela, Categoria)
 
 for header in [
     gui.ui.treeSaida.header(),
@@ -2118,7 +2140,9 @@ for header in [
     gui.ui.treeFixo.header(),
     gui.ui.treeReserva.header(),
     gui.ui.treeAno.header(),
-    gui.ui.treeFiltro.header()
+    gui.ui.treeFiltro.header(),
+    gui.ui.treeGeralGastos.header(),
+    gui.ui.treeInvestimentos.header()
 ]:
     header.setVisible(True)
 
