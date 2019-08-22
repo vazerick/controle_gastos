@@ -1573,6 +1573,10 @@ def hoje_botao_recorrente_add():
     recorrente_combo()
 
 
+def hoje_botao_investimento_add():
+    gui.wInvestimento.show()
+
+
 def recorrente_combo():
     tipo = gui.uiRecorrente.comboTipo.currentText()
     habilitar = []
@@ -1615,6 +1619,13 @@ def recorrente_add():
     vencimento = gui.uiRecorrente.spinVencimento.text()
     comentario = gui.uiRecorrente.textComentario.toPlainText()
     print(item, tipo, categoria, sub, valor, parcelas, vencimento, comentario)
+
+
+def investimento_add():
+    item = gui.uiInvestimento.inputGasto.text()
+    valor = gui.uiInvestimento.spinValor.text()
+    comentario = gui.uiInvestimento.textComentario.toPlainText()
+    print(item, valor, comentario)
 
 # MAIN
 
@@ -1814,10 +1825,11 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(sub_botao_cancela)
 
-gui.ui.botaoNovoInvestimento.clicked.connect(lambda: gui.wInvestimento.show())
-
 gui.ui.botaoNovoRecorrente.clicked.connect(hoje_botao_recorrente_add)
 gui.uiRecorrente.buttonBox.accepted.connect(recorrente_add)
+
+gui.ui.botaoNovoInvestimento.clicked.connect(hoje_botao_investimento_add)
+gui.uiInvestimento.buttonBox.accepted.connect(investimento_add)
 
 gui.ui.botaoExcluir.clicked.connect(botao_excluir)
 

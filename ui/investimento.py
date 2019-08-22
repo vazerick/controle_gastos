@@ -22,9 +22,9 @@ class Ui_Form(object):
         self.labelReserva.setMaximumSize(QtCore.QSize(51, 17))
         self.labelReserva.setObjectName("labelReserva")
         self.horizontalLayout.addWidget(self.labelReserva)
-        self.inputReserva = QtWidgets.QLineEdit(Form)
-        self.inputReserva.setObjectName("inputReserva")
-        self.horizontalLayout.addWidget(self.inputReserva)
+        self.inputGasto = QtWidgets.QLineEdit(Form)
+        self.inputGasto.setObjectName("inputGasto")
+        self.horizontalLayout.addWidget(self.inputGasto)
         self.labelValor = QtWidgets.QLabel(Form)
         self.labelValor.setObjectName("labelValor")
         self.horizontalLayout.addWidget(self.labelValor)
@@ -52,7 +52,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        Form.setTabOrder(self.inputReserva, self.spinValor)
+        Form.setTabOrder(self.inputGasto, self.spinValor)
         Form.setTabOrder(self.spinValor, self.textComentario)
 
     def retranslateUi(self, Form):

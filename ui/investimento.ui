@@ -42,7 +42,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="inputReserva"/>
+      <widget class="QLineEdit" name="inputGasto"/>
      </item>
      <item>
       <widget class="QLabel" name="labelValor">
@@ -96,7 +96,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>inputReserva</tabstop>
+  <tabstop>inputGasto</tabstop>
   <tabstop>spinValor</tabstop>
   <tabstop>textComentario</tabstop>
  </tabstops>
