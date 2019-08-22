@@ -1567,6 +1567,55 @@ def converte_fixo_botao_add():
     gui.wReservaEdit.hide()
     hoje_botao_excluir_reserva()
 
+
+def hoje_botao_recorrente_add():
+    gui.wRecorrente.show()
+    recorrente_combo()
+
+
+def recorrente_combo():
+    tipo = gui.uiRecorrente.comboTipo.currentText()
+    habilitar = []
+    if tipo == "Conta":
+        habilitar = [
+            (gui.uiRecorrente.labelValor, False),
+            (gui.uiRecorrente.labelRS, False),
+            (gui.uiRecorrente.spinValor, False),
+            (gui.uiRecorrente.labelParcelas, False),
+            (gui.uiRecorrente.spinParcelas, False)
+        ]
+    elif tipo == "Assinatura":
+        habilitar = [
+            (gui.uiRecorrente.labelValor, True),
+            (gui.uiRecorrente.labelRS, True),
+            (gui.uiRecorrente.spinValor, True),
+            (gui.uiRecorrente.labelParcelas, False),
+            (gui.uiRecorrente.spinParcelas, False)
+        ]
+    elif tipo == "Prestação":
+        habilitar = [
+            (gui.uiRecorrente.labelValor, True),
+            (gui.uiRecorrente.labelRS, True),
+            (gui.uiRecorrente.spinValor, True),
+            (gui.uiRecorrente.labelParcelas, True),
+            (gui.uiRecorrente.spinParcelas, True)
+        ]
+    for widget, estado in habilitar:
+        widget.setEnabled(estado)
+    print(tipo)
+
+
+def recorrente_add():
+    item = gui.uiRecorrente.inputGasto.text()
+    tipo = gui.uiRecorrente.comboTipo.currentText()
+    categoria = ComboRecorrenteCat.getId()
+    sub = ComboRecorrenteSub.getId()
+    valor = gui.uiRecorrente.spinValor.text()
+    parcelas =  gui.uiRecorrente.spinParcelas.text()
+    vencimento = gui.uiRecorrente.spinVencimento.text()
+    comentario = gui.uiRecorrente.textComentario.toPlainText()
+    print(item, tipo, categoria, sub, valor, parcelas, vencimento, comentario)
+
 # MAIN
 
 # configuração
@@ -1640,6 +1689,8 @@ ComboGastoConverteCat =  Link(gui.uiGastosConverte.comboCategoria, Categoria)
 ComboGastoConverteSub =  SubcategoriaLink(gui.uiGastosConverte.comboSub, Categoria)
 ComboFixoConverteCat =  Link(gui.uiFixoConverte.comboCategoria, Categoria)
 ComboFixoConverteSub =  SubcategoriaLink(gui.uiFixoConverte.comboSub, Categoria)
+ComboRecorrenteCat =  Link(gui.uiRecorrente.comboCategoria, Categoria)
+ComboRecorrenteSub =  SubcategoriaLink(gui.uiRecorrente.comboSub, Categoria)
 # link de pagamento
 # ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 # ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
@@ -1762,6 +1813,11 @@ gui.uiCategoriasAdd.buttonBox.rejected.connect(cat_botao_cancela)
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(sub_botao_cancela)
+
+gui.ui.botaoNovoInvestimento.clicked.connect(lambda: gui.wInvestimento.show())
+
+gui.ui.botaoNovoRecorrente.clicked.connect(hoje_botao_recorrente_add)
+gui.uiRecorrente.buttonBox.accepted.connect(recorrente_add)
 
 gui.ui.botaoExcluir.clicked.connect(botao_excluir)
 
@@ -1924,10 +1980,16 @@ combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-cat
     [
         gui.uiFixoConverte.comboCategoria,
         lambda: combo_sub_troca(ComboFixoConverteCat, ComboFixoConverteSub)
+    ],
+    [
+        gui.uiRecorrente.comboCategoria,
+        lambda: combo_sub_troca(ComboRecorrenteCat, ComboRecorrenteSub)
     ]
 ]
 for item in combos_dinamicos:
     item[0].currentIndexChanged.connect(item[1])
+
+gui.uiRecorrente.comboTipo.currentIndexChanged.connect(recorrente_combo)
 
 # inicia as tabelas
 

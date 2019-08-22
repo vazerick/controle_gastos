@@ -9,13 +9,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
+    <width>495</width>
     <height>300</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
+    <width>200</width>
     <height>300</height>
    </size>
   </property>
@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboCategoria_2">
+      <widget class="QComboBox" name="comboTipo">
        <item>
         <property name="text">
          <string>Conta</string>
@@ -103,7 +103,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelValor_2">
+      <widget class="QLabel" name="labelRS">
        <property name="text">
         <string>R$</string>
        </property>
@@ -123,14 +123,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelValor_3">
+      <widget class="QLabel" name="labelParcelas">
        <property name="text">
         <string>Parcelas restantes</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinValor_2"/>
+      <widget class="QSpinBox" name="spinParcelas"/>
      </item>
      <item>
       <widget class="QLabel" name="labelPrevisao">
@@ -140,7 +140,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinValor_3"/>
+      <widget class="QSpinBox" name="spinVencimento"/>
      </item>
     </layout>
    </item>
@@ -168,12 +168,12 @@
  </widget>
  <tabstops>
   <tabstop>inputGasto</tabstop>
-  <tabstop>comboCategoria_2</tabstop>
+  <tabstop>comboTipo</tabstop>
   <tabstop>comboCategoria</tabstop>
   <tabstop>comboSub</tabstop>
   <tabstop>spinValor</tabstop>
-  <tabstop>spinValor_2</tabstop>
-  <tabstop>spinValor_3</tabstop>
+  <tabstop>spinParcelas</tabstop>
+  <tabstop>spinVencimento</tabstop>
   <tabstop>textComentario</tabstop>
  </tabstops>
  <resources/>

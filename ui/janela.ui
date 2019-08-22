@@ -1060,7 +1060,7 @@
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="buttonNovoRecorrente">
+       <widget class="QPushButton" name="botaoNovoRecorrente">
         <property name="geometry">
          <rect>
           <x>420</x>
@@ -1114,7 +1114,7 @@
          <bool>true</bool>
         </property>
         <property name="headerHidden">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <attribute name="headerVisible">
          <bool>false</bool>
@@ -1187,7 +1187,7 @@
          <string>R$0,00</string>
         </property>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1375,7 +1375,7 @@
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="buttonNovoInvestimento">
+       <widget class="QPushButton" name="botaoNovoInvestimento">
         <property name="geometry">
          <rect>
           <x>420</x>
