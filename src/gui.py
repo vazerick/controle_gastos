@@ -65,10 +65,20 @@ class gui:
         self.uiGastosEdit = GastosEdit()
         self.uiGastosEdit.setupUi(self.wGastosEdit)
 
+        # janela para converter para gastos
+        self.wGastosConverte = QDialog()
+        self.uiGastosConverte = GastosEdit()
+        self.uiGastosConverte.setupUi(self.wGastosConverte)
+
         # janela para adicionar novos fixos
         self.wFixoAdd = QDialog()
         self.uiFixoAdd = FixoAdd()
         self.uiFixoAdd.setupUi(self.wFixoAdd)
+
+        # janela para converter para fixo
+        self.wFixoConverte = QDialog()
+        self.uiFixoConverte = FixoAdd()
+        self.uiFixoConverte.setupUi(self.wFixoConverte)
 
         # janela para editar fixos
         self.wFixoEdit = QDialog()
@@ -145,10 +155,12 @@ class gui:
             self.wSubCategoriasEdit,
             self.wGastosAdd,
             self.wGastosEdit,
+            self.wGastosConverte,
             self.wEntradaAdd,
             self.wReservaAdd,
             self.wFixoAdd,
             self.wFixoEdit,
+            self.wFixoConverte,
             self.wEntradaEdit,
             self.wReservaEdit,
             self.wMensagem,

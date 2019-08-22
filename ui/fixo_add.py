@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fixo_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -74,6 +74,7 @@ class Ui_Form(object):
         self.labelPago.setObjectName("labelPago")
         self.horizontalLayout_3.addWidget(self.labelPago)
         self.dateEdit_2 = QtWidgets.QDateEdit(Form)
+        self.dateEdit_2.setEnabled(False)
         self.dateEdit_2.setCalendarPopup(True)
         self.dateEdit_2.setObjectName("dateEdit_2")
         self.horizontalLayout_3.addWidget(self.dateEdit_2)
@@ -121,4 +122,14 @@ class Ui_Form(object):
         self.labelPago.setText(_translate("Form", "Pago"))
         self.botaoHoje_2.setText(_translate("Form", "Hoje"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

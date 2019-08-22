@@ -90,7 +90,7 @@
          <property name="title">
           <string>Converter</string>
          </property>
-         <widget class="QPushButton" name="buttonGasto">
+         <widget class="QPushButton" name="botaoGasto">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -103,7 +103,7 @@
            <string>Gasto</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="buttonFixo">
+         <widget class="QPushButton" name="botaoFixo">
           <property name="geometry">
            <rect>
             <x>10</x>

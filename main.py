@@ -445,6 +445,31 @@ def reserva_botao_editar():
     gasto_atualiza()
 
 
+def reserva_converte_gasto():
+    global selecionado
+    item = Tabela.Reserva.tabela.loc[selecionado]
+    gui.uiGastosConverte.inputGasto.setText(item["nome"])
+    gui.uiGastosConverte.spinValor.setValue(item["valor"])
+    if pd.notna(item["comentario"]):
+        gui.uiGastosConverte.textComentario.setText(item["comentario"])
+    gui.uiGastosConverte.dateEdit.setDate(QDate.currentDate())
+    gui.wGastosConverte.setWindowTitle("Converter " + item["nome"] + " para gasto")
+    gui.wGastosConverte.show()
+
+
+def reserva_converte_fixo():
+    global selecionado
+    item = Tabela.Reserva.tabela.loc[selecionado]
+    gui.uiFixoConverte.inputGasto.setText(item["nome"])
+    gui.uiFixoConverte.spinValor.setValue(item["valor"])
+    if pd.notna(item["comentario"]):
+        gui.uiFixoConverte.textComentario.setText(item["comentario"])
+    gui.uiFixoConverte.dateEdit.setDate(QDate.currentDate())
+    gui.uiFixoConverte.dateEdit_2.setDate(QDate.currentDate())
+    gui.wFixoConverte.setWindowTitle("Converter " + item["nome"] + " para fixo")
+    gui.wFixoConverte.show()
+
+
 fila_gasto = []
 
 
@@ -1446,6 +1471,102 @@ def filtro_limpa():
     gui.ui.dateInicio.setDate(QDate(Info.ano_int, Info.mes_int, 1))
     gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int, QDate(Info.ano_int, Info.mes_int, 1).daysInMonth()))
 
+
+def converte_gasto_botao_add():
+    data = gui.uiGastosConverte.dateEdit.date()
+    data = data.toString("dd/MM/yyyy")
+    adicao = Info.data_hora()
+    nome = gui.uiGastosConverte.inputGasto.text()
+    comentario = gui.uiGastosConverte.textComentario.toPlainText()
+    valor = gui.uiGastosConverte.spinValor.value()
+    pagamento = None
+    categoria = ComboGastoCat.getId()
+    sub = ComboGastoSub.getId()
+    divida = None
+    Tabela.Saida.adicionar(
+        [
+            data,
+            adicao,
+            nome,
+            comentario,
+            valor,
+            pagamento,
+            categoria,
+            sub,
+            None,  # divida
+            None,  # divisao
+        ]
+    )
+
+    janela_limpa(
+        janela=[gui.wGastosConverte],
+        texto=[
+            gui.uiGastosConverte.inputGasto,
+            gui.uiGastosConverte.textComentario
+        ],
+        data=[gui.uiGastosConverte.dateEdit],
+        spin=[gui.uiGastosConverte.spinValor],
+        botao=[gui.uiGastosConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+    gasto_atualiza()
+    gui.wGastosConverte.hide()
+    gui.wReservaEdit.hide()
+    hoje_botao_excluir_reserva()
+
+
+def converte_fixo_botao_add():
+    vencimento = gui.uiFixoConverte.dateEdit.date()
+    vencimento = vencimento.toString("dd/MM/yyyy")
+    data = ""
+    pago = int(gui.uiFixoConverte.checkPago.checkState())
+    if pago:
+        data = gui.uiFixoConverte.dateEdit_2.date()
+        data = data.toString("dd/MM/yyyy")
+    adicao = Info.data_hora()
+    nome = gui.uiFixoConverte.inputGasto.text()
+    comentario = gui.uiFixoConverte.textComentario.toPlainText()
+    valor = gui.uiFixoConverte.spinValor.value()
+
+    pagamento = 0
+    categoria = ComboFixoCat.getId()
+    subcategoria = ComboFixoSub.getId()
+
+    Tabela.Fixo.adicionar(  # todo rever  a adição para meses antigos...
+        [
+            data,
+            vencimento,
+            adicao,
+            nome,
+            comentario,
+            valor,
+            pagamento,
+            categoria,
+            subcategoria,
+            pago
+        ]
+    )
+
+    janela_limpa(
+        janela=[gui.wFixoConverte],
+        texto=[
+            gui.uiFixoConverte.inputGasto,
+            gui.uiFixoConverte.textComentario
+        ],
+        data=[
+            gui.uiFixoConverte.dateEdit,
+            gui.uiFixoConverte.dateEdit_2
+        ],
+        spin=[gui.uiFixoConverte.spinValor],
+        check=[gui.uiFixoConverte.checkPago],
+        botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+    ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+    Hoje.atualiza()
+    hoje_grafico_escreve()
+    gui.wFixoConverte.hide()
+    gui.wReservaEdit.hide()
+    hoje_botao_excluir_reserva()
+
 # MAIN
 
 # configuração
@@ -1515,7 +1636,10 @@ ComboFixoCat = Link(gui.uiFixoAdd.comboCategoria, Categoria)
 ComboFixoSub = SubcategoriaLink(gui.uiFixoAdd.comboSub, Categoria)
 ComboFixoEditCat = Link(gui.uiFixoEdit.comboCategoria, Categoria)
 ComboFixoEditSub = SubcategoriaLink(gui.uiFixoEdit.comboSub, Categoria)
-
+ComboGastoConverteCat =  Link(gui.uiGastosConverte.comboCategoria, Categoria)
+ComboGastoConverteSub =  SubcategoriaLink(gui.uiGastosConverte.comboSub, Categoria)
+ComboFixoConverteCat =  Link(gui.uiFixoConverte.comboCategoria, Categoria)
+ComboFixoConverteSub =  SubcategoriaLink(gui.uiFixoConverte.comboSub, Categoria)
 # link de pagamento
 # ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 # ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
@@ -1552,7 +1676,11 @@ gui.uiAjuste.pushButton.clicked.connect(lambda: gui.wAjuste.hide())
 gui.uiGastosAdd.botaoHoje.clicked.connect(
     lambda: gui.uiGastosAdd.dateEdit.setDate(QDate.currentDate())
 )
+gui.uiGastosConverte.botaoHoje.clicked.connect(
+    lambda: gui.uiGastosConverte.dateEdit.setDate(QDate.currentDate())
+)
 gui.uiGastosAdd.buttonBox.accepted.connect(gasto_botao_add)
+gui.uiGastosConverte.buttonBox.accepted.connect(converte_gasto_botao_add)
 gui.uiGastosAdd.buttonBox.rejected.connect(gasto_botao_cancela)
 gui.uiGastosAdd.botaoAdd.clicked.connect(gasto_botao_fila)
 
@@ -1560,6 +1688,7 @@ gui.uiGastosEdit.buttonBox.accepted.connect(gasto_botao_editar)
 
 gui.uiFixoAdd.buttonBox.accepted.connect(fixo_botao_add)
 gui.uiFixoEdit.buttonBox.accepted.connect(fixo_botao_editar)
+gui.uiFixoConverte.buttonBox.accepted.connect(converte_fixo_botao_add)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
     lambda: gui.uiFixoAdd.dateEdit.setDate(QDate.currentDate())
@@ -1612,6 +1741,8 @@ gui.uiEntradaEdit.buttonBox.accepted.connect(entrada_botao_editar)
 
 gui.uiReservaAdd.buttonBox.accepted.connect(reserva_botao_add)
 gui.uiReservaEdit.buttonBox.accepted.connect(reserva_botao_editar)
+gui.uiReservaEdit.botaoFixo.clicked.connect(reserva_converte_fixo)
+gui.uiReservaEdit.botaoGasto.clicked.connect(reserva_converte_gasto)
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(conf_botao_cat_add)
 gui.ui.botaoPessoaAdicionar.clicked.connect(conf_botao_pessoa_add)
@@ -1684,6 +1815,7 @@ gui.uiFixoAdd.checkPago.stateChanged.connect(fixo_calendario_habilita)
 
 gui.uiFixoEdit.checkPago.stateChanged.connect(lambda: gui.calendario_habilita(gui.uiFixoEdit))
 gui.uiEntradaEdit.checkPago.stateChanged.connect(lambda: gui.calendario_habilita(gui.uiEntradaEdit))
+gui.uiFixoConverte.checkPago.stateChanged.connect(lambda: gui.calendario_habilita(gui.uiFixoConverte))
 
 # conecta as ações de atualização dinâmica de campos
 for spin in [
@@ -1784,6 +1916,14 @@ combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-cat
     [
         gui.ui.comboCategoria,
         lambda: combo_sub_troca(ComboFiltroCat, ComboFiltroSub)
+    ],
+    [
+        gui.uiGastosConverte.comboCategoria,
+        lambda: combo_sub_troca(ComboGastoConverteCat, ComboGastoConverteSub)
+    ],
+    [
+        gui.uiFixoConverte.comboCategoria,
+        lambda: combo_sub_troca(ComboFixoConverteCat, ComboFixoConverteSub)
     ]
 ]
 for item in combos_dinamicos:

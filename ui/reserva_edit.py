@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'reserva_edit.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -44,12 +44,12 @@ class Ui_Form(object):
         self.groupBox = QtWidgets.QGroupBox(Form)
         self.groupBox.setMinimumSize(QtCore.QSize(95, 80))
         self.groupBox.setObjectName("groupBox")
-        self.buttonGasto = QtWidgets.QPushButton(self.groupBox)
-        self.buttonGasto.setGeometry(QtCore.QRect(10, 20, 75, 23))
-        self.buttonGasto.setObjectName("buttonGasto")
-        self.buttonFixo = QtWidgets.QPushButton(self.groupBox)
-        self.buttonFixo.setGeometry(QtCore.QRect(10, 50, 75, 23))
-        self.buttonFixo.setObjectName("buttonFixo")
+        self.botaoGasto = QtWidgets.QPushButton(self.groupBox)
+        self.botaoGasto.setGeometry(QtCore.QRect(10, 20, 75, 23))
+        self.botaoGasto.setObjectName("botaoGasto")
+        self.botaoFixo = QtWidgets.QPushButton(self.groupBox)
+        self.botaoFixo.setGeometry(QtCore.QRect(10, 50, 75, 23))
+        self.botaoFixo.setObjectName("botaoFixo")
         self.horizontalLayout.addWidget(self.groupBox)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.labelComentario = QtWidgets.QLabel(Form)
@@ -77,7 +77,17 @@ class Ui_Form(object):
         self.labelValor.setText(_translate("Form", "Valor"))
         self.labelValor_2.setText(_translate("Form", "R$"))
         self.groupBox.setTitle(_translate("Form", "Converter"))
-        self.buttonGasto.setText(_translate("Form", "Gasto"))
-        self.buttonFixo.setText(_translate("Form", "Fixo"))
+        self.botaoGasto.setText(_translate("Form", "Gasto"))
+        self.botaoFixo.setText(_translate("Form", "Fixo"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 
