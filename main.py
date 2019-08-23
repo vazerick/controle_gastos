@@ -845,7 +845,7 @@ def hoje_gasto_click(item):
         gui.wGastosEdit.setWindowTitle("Editar " + item["nome"])
         gui.wGastosEdit.show()
     else:
-        selecionado = 0
+        selecionado = -1
 
 
 def hoje_botao_excluir_gasto():
@@ -870,7 +870,7 @@ def hoje_botao_excluir_gasto():
                 rejeita=mensagem_excluir_rejeita
             )
         else:
-            selecionado = 0
+            selecionado = -1
 
 
 def hoje_fixo_click(item):
@@ -1568,41 +1568,42 @@ def converte_fixo_botao_add():
     hoje_botao_excluir_reserva()
 
 
-def hoje_botao_recorrente_add():
+def geral_botao_recorrente_add():
     gui.wRecorrente.show()
-    recorrente_combo()
+    recorrente_combo(gui.uiRecorrente)
+    dia_limite(gui.uiRecorrente.spinVencimento)
 
 
-def hoje_botao_investimento_add():
+def geral_botao_investimento_add():
     gui.wInvestimento.show()
 
 
-def recorrente_combo():
-    tipo = gui.uiRecorrente.comboTipo.currentText()
+def recorrente_combo(janela):
+    tipo = janela.comboTipo.currentText()
     habilitar = []
     if tipo == "Conta":
         habilitar = [
-            (gui.uiRecorrente.labelValor, False),
-            (gui.uiRecorrente.labelRS, False),
-            (gui.uiRecorrente.spinValor, False),
-            (gui.uiRecorrente.labelParcelas, False),
-            (gui.uiRecorrente.spinParcelas, False)
+            (janela.labelValor, False),
+            (janela.labelRS, False),
+            (janela.spinValor, False),
+            (janela.labelParcelas, False),
+            (janela.spinParcelas, False)
         ]
     elif tipo == "Assinatura":
         habilitar = [
-            (gui.uiRecorrente.labelValor, True),
-            (gui.uiRecorrente.labelRS, True),
-            (gui.uiRecorrente.spinValor, True),
-            (gui.uiRecorrente.labelParcelas, False),
-            (gui.uiRecorrente.spinParcelas, False)
+            (janela.labelValor, True),
+            (janela.labelRS, True),
+            (janela.spinValor, True),
+            (janela.labelParcelas, False),
+            (janela.spinParcelas, False)
         ]
     elif tipo == "Prestação":
         habilitar = [
-            (gui.uiRecorrente.labelValor, True),
-            (gui.uiRecorrente.labelRS, True),
-            (gui.uiRecorrente.spinValor, True),
-            (gui.uiRecorrente.labelParcelas, True),
-            (gui.uiRecorrente.spinParcelas, True)
+            (janela.labelValor, True),
+            (janela.labelRS, True),
+            (janela.spinValor, True),
+            (janela.labelParcelas, True),
+            (janela.spinParcelas, True)
         ]
     for widget, estado in habilitar:
         widget.setEnabled(estado)
@@ -1663,23 +1664,54 @@ def recorrente_add():
         ],
         # botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
     )
-    ArvoreRecorrente.atualiza(TabelaRecorrente.tabela)
-    # gui.wRecorrente.hide()
+    ArvoreRecorrente.atualiza(TabelaRecorrente.tabela)    
 
-# TabelaRecorrente = TabelaInicia(
-#     colunas=[
-#             'adicao',
-#             'tipo',
-#             'nome',
-#             'comentario',
-#             'valor',
-#             'parcelas',
-#             'vencimento',
-#             'categoria',
-#             'subcategoria',
-#         ],
-#     nome="recorrente"
-# )
+
+def recorrente_editar():
+    global selecionado
+    adicao = Info.data_hora()
+    item = gui.uiRecorrenteEdit.inputGasto.text()
+    tipo = gui.uiRecorrenteEdit.comboTipo.currentText()
+    categoria = ComboRecorrenteCat.getId()
+    sub = ComboRecorrenteSub.getId()
+    valor = gui.uiRecorrenteEdit.spinValor.value()
+    parcelas =  gui.uiRecorrenteEdit.spinParcelas.text()
+    vencimento = gui.uiRecorrenteEdit.spinVencimento.text()
+    comentario = gui.uiRecorrenteEdit.textComentario.toPlainText()
+    if tipo == "Conta":
+        valor = None
+        parcelas = None
+        vencimento = None
+    elif tipo == "Assinatura":
+        parcelas = None
+    TabelaRecorrente.editar(selecionado,
+        [
+            adicao,
+            tipo,
+            item,
+            comentario,
+            valor,
+            parcelas,
+            vencimento,
+            categoria,
+            sub
+        ]
+    )
+    janela_limpa(
+        janela=[gui.wRecorrenteEdit],
+        texto=[
+            gui.uiRecorrenteEdit.inputGasto,
+            gui.uiRecorrenteEdit.textComentario
+        ],
+        spin=[
+            gui.uiRecorrenteEdit.spinValor,
+            gui.uiRecorrenteEdit.spinParcelas,
+            gui.uiRecorrenteEdit.spinVencimento
+        ],
+        # botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+    ArvoreRecorrente.atualiza(TabelaRecorrente.tabela)
+
 
 def investimento_add():
     adicao = Info.data_hora()
@@ -1694,6 +1726,313 @@ def investimento_add():
             valor
         ]
     )
+    ArvoreInvestimento.atualiza(TabelaInvestimento.tabela)
+    janela_limpa(
+        janela=[gui.wInvestimento],
+        texto=[
+            gui.uiInvestimento.inputGasto,
+            gui.uiInvestimento.textComentario
+        ],
+        spin=[
+            gui.uiInvestimento.spinValor
+        ],
+        # botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+
+
+def investimento_editar():
+    adicao = Info.data_hora()
+    item = gui.uiInvestimentoEdit.inputGasto.text()
+    valor = gui.uiInvestimentoEdit.spinValor.value()
+    comentario = gui.uiInvestimentoEdit.textComentario.toPlainText()
+    TabelaInvestimento.editar( selecionado,
+        [
+            adicao,
+            item,
+            comentario,
+            valor
+        ]
+    )
+    ArvoreInvestimento.atualiza(TabelaInvestimento.tabela)
+    janela_limpa(
+        janela=[gui.wInvestimentoEdit],
+        texto=[
+            gui.uiInvestimentoEdit.inputGasto,
+            gui.uiInvestimentoEdit.textComentario
+        ],
+        spin=[
+            gui.uiInvestimentoEdit.spinValor
+        ],
+        # botao=[gui.uiFixoConverte.buttonBox.button(QDialogButtonBox.Ok)]
+    )
+
+
+def geral_recorrente_click(item):
+    item = gui.ui.treeGeralGastos.selectedItems()[0]
+    nome = item.text(0)
+    tipo = item.text(1)
+    tabela = TabelaRecorrente.tabela
+    tabela = tabela[tabela["tipo"] == tipo]
+    tabela = tabela[tabela["nome"] == nome]
+    global selecionado
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = TabelaRecorrente.tabela.loc[id]
+        tipo = item["tipo"]
+        gui.uiRecorrenteEdit.inputGasto.setText(item["nome"])
+        gui.uiRecorrenteEdit.comboTipo.setCurrentText(tipo)
+        gui.uiRecorrenteEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+        gui.uiRecorrenteEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+        gui.uiRecorrenteEdit.spinVencimento.setValue(int(item["vencimento"]))
+
+        if pd.notna(item["comentario"]):
+            gui.uiRecorrenteEdit.textComentario.setText(item["comentario"])
+
+        if tipo == "Conta":
+            gui.uiRecorrenteEdit.spinValor.setValue(0)
+            gui.uiRecorrenteEdit.spinParcelas.setValue(0)
+        elif tipo == "Assinatura":
+            gui.uiRecorrenteEdit.spinValor.setValue(item["valor"])
+            gui.uiRecorrenteEdit.spinParcelas.setValue(0)
+        elif tipo == "Prestação":
+            gui.uiRecorrenteEdit.spinValor.setValue(item["valor"])
+            gui.uiRecorrenteEdit.spinParcelas.setValue(int(item["parcelas"]))
+
+
+        dia_limite(gui.uiRecorrenteEdit.spinVencimento)
+        recorrente_combo(gui.uiRecorrenteEdit)
+        gui.wRecorrenteEdit.setWindowTitle("Editar " + item["nome"])
+        gui.wRecorrenteEdit.show()
+
+        print(item)
+    else:
+        selecionado = -1
+
+
+def geral_investimento_click(item):
+    item = gui.ui.treeInvestimentos.selectedItems()[0]
+    nome = item.text(0)
+    valor = float(item.text(1).replace("R$", ""))
+    comentario = item.text(2)
+    tabela = TabelaInvestimento.tabela
+    tabela = tabela[tabela["nome"] == nome]
+    tabela = tabela[tabela["valor"] == valor]
+    print(tabela)
+    global selecionado
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = TabelaInvestimento.tabela.loc[id]
+        gui.uiInvestimentoEdit.inputGasto.setText(item["nome"])
+        gui.uiInvestimentoEdit.spinValor.setValue(item["valor"])
+        if pd.notna(item["comentario"]):
+            gui.uiInvestimentoEdit.textComentario.setText(item["comentario"])
+        gui.wInvestimentoEdit.setWindowTitle("Editar " + item["nome"])
+        gui.wInvestimentoEdit.show()
+    else:
+        selecionado = -1
+
+
+def dia_limite(spin):
+    if spin.value() > 31:
+        spin.setValue(31)
+    if spin.value() == 0:
+        spin.setValue(1)
+
+
+def gerador_seleciona_investimento(item):
+    global TabelaInvestimentoTemp
+    gui.uiGerador.pushButton.clicked.disconnect()
+    gui.uiGerador.pushButton.clicked.connect(gerador_investimento_salva)
+    for widget in [
+        gui.uiGerador.comboSub,
+        gui.uiGerador.dateEdit,
+        gui.uiGerador.labelCategoria,
+        gui.uiGerador.comboCategoria,
+        gui.uiGerador.labelPrevisao,
+        gui.uiGerador.labelSub,
+    ]:
+        widget.setEnabled(False)
+    item = gui.uiGerador.treeInvestimentos.selectedItems()[0]
+    nome = item.text(0)
+    tabela = TabelaInvestimentoTemp.tabela
+    tabela = tabela[tabela["nome"] == nome]
+    global selecionado
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = TabelaInvestimentoTemp.tabela.loc[id]
+        gui.uiGerador.inputGasto.setText(item["nome"])
+        gui.uiGerador.comboCategoria.setCurrentIndex(0)
+        gui.uiGerador.comboSub.setCurrentIndex(0)
+        if pd.notna(item["comentario"]):
+            gui.uiGerador.textComentario.setText(item["comentario"])
+        gui.uiGerador.spinValor.setValue(item["valor"])
+        gui.uiGerador.dateEdit.setDate(QDate.currentDate())
+    else:
+        selecionado = -1
+
+
+def gerador_seleciona_recorrente(item):
+    global TabelaRecorrenteTemp
+    gui.uiGerador.pushButton.clicked.disconnect()
+    gui.uiGerador.pushButton.clicked.connect(gerador_recorrente_salva)
+    for widget in [
+        gui.uiGerador.comboSub,
+        gui.uiGerador.dateEdit,
+        gui.uiGerador.labelCategoria,
+        gui.uiGerador.comboCategoria,
+        gui.uiGerador.labelPrevisao,
+        gui.uiGerador.labelSub,
+    ]:
+        widget.setEnabled(True)
+    item = gui.uiGerador.treeGeralGastos.selectedItems()[0]
+    nome = item.text(0)
+    tabela = TabelaRecorrenteTemp.tabela
+    tabela = tabela[tabela["nome"] == nome]
+    global selecionado
+    if len(tabela) == 1:
+        id = tabela.iloc[0].name
+        selecionado = id
+        item = TabelaRecorrenteTemp.tabela.loc[id]
+        tipo = item["tipo"]
+        gui.uiGerador.inputGasto.setText(item["nome"])
+        gui.uiGerador.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+        gui.uiGerador.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+
+        if pd.notna(item["comentario"]):
+            gui.uiGerador.textComentario.setText(item["comentario"])
+        if pd.notna(item["valor"]):
+            gui.uiGerador.spinValor.setValue(item["valor"])
+        else:
+            gui.uiGerador.spinValor.setValue(0)
+
+        if pd.notna(item["vencimento"]):
+            vencimento = int(item["vencimento"])
+            if vencimento > QDate.currentDate().daysInMonth() :
+                vencimento = QDate.currentDate().daysInMonth()
+            elif vencimento < 1:
+                vencimento = 1
+
+            gui.uiGerador.dateEdit.setDate(QDate(
+                QDate.currentDate().year(),
+                QDate.currentDate().month(),
+                vencimento
+            ))
+        else:
+            gui.uiGerador.dateEdit.setDate(QDate.currentDate())
+    else:
+        selecionado = -1
+
+
+def gerador_recorrente_salva():
+    global TabelaRecorrenteTemp
+    global ArvoreGeradorRecorrente
+    global selecionado
+
+    item = TabelaRecorrenteTemp.tabela.loc[selecionado]
+    adicao = Info.data_hora()
+    tipo = item["tipo"]
+    parcelas = item["parcelas"]
+    nome = gui.uiGerador.inputGasto.text()
+    valor = gui.uiGerador.spinValor.value()
+    comentario = gui.uiGerador.textComentario.toPlainText()
+    vencimento = gui.uiGerador.dateEdit.date()
+    vencimento = vencimento.toString("dd")
+    categoria = ComboGeradorCat.getId()
+    sub = ComboGeradorSub.getId()
+
+    TabelaRecorrenteTemp.editar(selecionado,
+                            [
+                                adicao,
+                                tipo,
+                                nome,
+                                comentario,
+                                valor,
+                                parcelas,
+                                vencimento,
+                                categoria,
+                                sub
+                            ],
+                            temp=True
+                            )
+    ArvoreGeradorRecorrente.atualiza(TabelaRecorrenteTemp.tabela)
+    gerador_valida()
+
+
+def gerador_investimento_salva():
+    global TabelaInvestimentoTemp
+    global ArvoreGeradorInvestimento
+    global selecionado
+
+    item = gui.uiGerador.inputGasto.text()
+    valor = gui.uiGerador.spinValor.value()
+    comentario = gui.uiGerador.textComentario.toPlainText()
+    adicao = Info.data_hora()
+    TabelaInvestimentoTemp.editar(
+        selecionado,
+        [
+            adicao,
+            item,
+            comentario,
+            valor
+        ],
+        temp=True,
+    )
+    ArvoreGeradorInvestimento.atualiza(TabelaInvestimentoTemp.tabela)
+
+
+def gerador_salva():
+    global TabelaRecorrenteTemp
+    global TabelaInvestimentoTemp
+    fixo = []
+    for i in range(0, len(TabelaRecorrenteTemp.tabela)):
+        item = TabelaRecorrenteTemp.tabela.iloc[i]
+        linha = [
+            None,
+            item["vencimento"],
+            item["adicao"],
+            item["nome"],
+            item["comentario"],
+            item["valor"],
+            None,
+            item["categoria"],
+            item["subcategoria"],
+            0
+        ]
+        fixo.append(linha)
+    for i in fixo:
+        Tabela.Fixo.adicionar(i)
+    ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+
+def gerador_inicia():
+    global TabelaRecorrenteTemp
+    global TabelaInvestimentoTemp
+    global ArvoreGeradorRecorrente
+    global ArvoreGeradorInvestimento
+
+    TabelaRecorrenteTemp = TabelaRecorrente
+    TabelaInvestimentoTemp = TabelaInvestimento
+    ArvoreGeradorRecorrente = ArvoreTabelaGerador(gui.uiGerador.treeGeralGastos, TabelaRecorrenteTemp.tabela, Categoria)
+    ArvoreGeradorInvestimento = ArvoreTabelaReserva(gui.uiGerador.treeInvestimentos, TabelaInvestimentoTemp.tabela)
+    gui.wGerador.show()
+    gerador_valida()
+
+
+def gerador_valida():
+    global TabelaRecorrenteTemp
+    print("valida")
+    for i in range(0, len(TabelaRecorrenteTemp.tabela)):
+        item = TabelaRecorrenteTemp.tabela.iloc[i]
+        if pd.isna(item["valor"]) or pd.isna(item["vencimento"]):
+            print("É NaN!")
+            print("Valor:", pd.isna(item["valor"]))
+            print("Vencimento:", pd.isna(item["vencimento"]))
+            gui.uiGerador.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
+            return False
+    gui.uiGerador.buttonBox.button(QDialogButtonBox.Ok).setEnabled(True)
+    return True
 
 
 # MAIN
@@ -1771,6 +2110,10 @@ ComboFixoConverteCat =  Link(gui.uiFixoConverte.comboCategoria, Categoria)
 ComboFixoConverteSub =  SubcategoriaLink(gui.uiFixoConverte.comboSub, Categoria)
 ComboRecorrenteCat =  Link(gui.uiRecorrente.comboCategoria, Categoria)
 ComboRecorrenteSub =  SubcategoriaLink(gui.uiRecorrente.comboSub, Categoria)
+ComboRecorrenteEditCat =  Link(gui.uiRecorrenteEdit.comboCategoria, Categoria)
+ComboRecorrenteEditSub =  SubcategoriaLink(gui.uiRecorrenteEdit.comboSub, Categoria)
+ComboGeradorCat =  Link(gui.uiGerador.comboCategoria, Categoria)
+ComboGeradorSub =  SubcategoriaLink(gui.uiGerador.comboSub, Categoria)
 # link de pagamento
 # ComboPagamento = Link(gui.uiGastosAdd.comboPagamento, Pagamentos)
 # ComboFixoPag = Link(gui.uiFixoAdd.comboPagamento, Pagamentos)
@@ -1820,6 +2163,8 @@ gui.uiGastosEdit.buttonBox.accepted.connect(gasto_botao_editar)
 gui.uiFixoAdd.buttonBox.accepted.connect(fixo_botao_add)
 gui.uiFixoEdit.buttonBox.accepted.connect(fixo_botao_editar)
 gui.uiFixoConverte.buttonBox.accepted.connect(converte_fixo_botao_add)
+
+gui.uiGerador.buttonBox.accepted.connect(gerador_salva)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
     lambda: gui.uiFixoAdd.dateEdit.setDate(QDate.currentDate())
@@ -1894,17 +2239,21 @@ gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(sub_botao_cancela)
 
-gui.ui.botaoNovoRecorrente.clicked.connect(hoje_botao_recorrente_add)
+gui.ui.botaoNovoRecorrente.clicked.connect(geral_botao_recorrente_add)
 gui.uiRecorrente.buttonBox.accepted.connect(recorrente_add)
+gui.uiRecorrenteEdit.buttonBox.accepted.connect(recorrente_editar)
 
-gui.ui.botaoNovoInvestimento.clicked.connect(hoje_botao_investimento_add)
+gui.ui.botaoNovoInvestimento.clicked.connect(geral_botao_investimento_add)
 gui.uiInvestimento.buttonBox.accepted.connect(investimento_add)
+gui.uiInvestimentoEdit.buttonBox.accepted.connect(investimento_editar)
 
 gui.ui.botaoExcluir.clicked.connect(botao_excluir)
 
 gui.uiMensagem.buttonBox.accepted.connect(print)
 gui.uiMensagem.buttonBox.rejected.connect(print)
 gui.wMensagem.rejected.connect(print)
+
+gui.uiGerador.pushButton.clicked.connect(print)
 
 # desliga os botoes de Ok
 
@@ -1984,6 +2333,9 @@ for spin in [
 ]:
     spin.valueChanged.connect(ajuste_soma)
 
+gui.uiRecorrente.spinVencimento.valueChanged.connect(lambda: dia_limite(gui.uiRecorrente.spinVencimento))
+gui.uiRecorrenteEdit.spinVencimento.valueChanged.connect(lambda: dia_limite(gui.uiRecorrenteEdit.spinVencimento))
+
 # conecta as ações dos clicks em lista
 
 gui.uiSubCategoriasAdd.listWidget.itemDoubleClicked.connect(sub_list_click)
@@ -1994,10 +2346,21 @@ gui.ui.treeReserva.doubleClicked.connect(hoje_reserva_click)
 
 gui.uiGastosAdd.treeWidget.doubleClicked.connect(gasto_fila_click)
 
+gui.ui.treeGeralGastos.doubleClicked.connect(geral_recorrente_click)
+gui.ui.treeInvestimentos.doubleClicked.connect(geral_investimento_click)
+
 gui.ui.listMenu.itemClicked.connect(
     lambda: gui.ui.stackedWidget.setCurrentIndex(
         gui.ui.listMenu.currentRow()
     )
+)
+
+gui.uiGerador.treeInvestimentos.itemClicked.connect(
+    gerador_seleciona_investimento
+)
+
+gui.uiGerador.treeGeralGastos.itemClicked.connect(
+    gerador_seleciona_recorrente
 )
 
 for check, widget in [
@@ -2065,12 +2428,21 @@ combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-cat
     [
         gui.uiRecorrente.comboCategoria,
         lambda: combo_sub_troca(ComboRecorrenteCat, ComboRecorrenteSub)
+    ],
+    [
+        gui.uiRecorrenteEdit.comboCategoria,
+        lambda: combo_sub_troca(ComboRecorrenteEditCat, ComboRecorrenteEditSub)
+    ],
+    [
+        gui.uiGerador.comboCategoria,
+        lambda: combo_sub_troca(ComboGeradorCat, ComboGeradorSub)
     ]
 ]
 for item in combos_dinamicos:
     item[0].currentIndexChanged.connect(item[1])
 
-gui.uiRecorrente.comboTipo.currentIndexChanged.connect(recorrente_combo)
+gui.uiRecorrente.comboTipo.currentIndexChanged.connect(lambda: recorrente_combo(gui.uiRecorrente))
+gui.uiRecorrenteEdit.comboTipo.currentIndexChanged.connect(lambda: recorrente_combo(gui.uiRecorrenteEdit))
 
 # inicia as tabelas
 
@@ -2133,6 +2505,7 @@ ArvoreEntrada = ArvoreTabelaEntrada(gui.ui.treeEntrada, Tabela.Entrada.tabela)
 ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
 ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorrente.tabela, Categoria)
+ArvoreInvestimento = ArvoreTabelaReserva(gui.ui.treeInvestimentos, TabelaInvestimento.tabela)
 
 for header in [
     gui.ui.treeSaida.header(),
@@ -2142,7 +2515,9 @@ for header in [
     gui.ui.treeAno.header(),
     gui.ui.treeFiltro.header(),
     gui.ui.treeGeralGastos.header(),
-    gui.ui.treeInvestimentos.header()
+    gui.ui.treeInvestimentos.header(),
+    gui.uiGerador.treeGeralGastos.header(),
+    gui.uiGerador.treeInvestimentos.header()
 ]:
     header.setVisible(True)
 
@@ -2193,6 +2568,9 @@ ReservaCompleter = Completer(
 hoje_grafico_escreve()
 gui.ui.graficoLinha.plot(Geral.tabela)
 filtro()
+
+# gerador_inicia()
+
 sys.exit(gui.app.exec_())
 
 # todo 29/07/2019: remover a "ordem" das categorias, é pura bobagem

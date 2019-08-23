@@ -20,6 +20,7 @@ from ui.subcategorias_edit import Ui_Form as SubCategoriasEdit
 from ui.ajuste import Ui_Form as Ajuste
 from ui.investimento import Ui_Form as Investimento
 from ui.recorrentes import Ui_Form as Recorrente
+from ui.gerador import Ui_Form as Gerador
 
 class gui:
 
@@ -51,9 +52,17 @@ class gui:
         self.uiInvestimento = Investimento()
         self.uiInvestimento.setupUi(self.wInvestimento)
 
+        self.wInvestimentoEdit = QDialog()
+        self.uiInvestimentoEdit = Investimento()
+        self.uiInvestimentoEdit.setupUi(self.wInvestimentoEdit)
+
         self.wRecorrente = QDialog()
         self.uiRecorrente = Recorrente()
         self.uiRecorrente.setupUi(self.wRecorrente)
+
+        self.wRecorrenteEdit = QDialog()
+        self.uiRecorrenteEdit = Recorrente()
+        self.uiRecorrenteEdit.setupUi(self.wRecorrenteEdit)
         
         # janela para ajustes
         self.wAjuste = QDialog()
@@ -146,6 +155,11 @@ class gui:
         self.uiMensagem = Mensagem()
         self.uiMensagem.setupUi(self.wMensagem)
 
+        # janela do gerador de novo mês
+        self.wGerador = QDialog()
+        self.uiGerador = Gerador()
+        self.uiGerador.setupUi(self.wGerador)
+
         # seta a mesma configuração para todas as janelas
         print("Configura a folha de estilos")
         arquivo = open("ui/style.scss")
@@ -176,7 +190,10 @@ class gui:
             self.wMensagem,
             self.wAjuste,
             self.wRecorrente,
-            self.wInvestimento
+            self.wInvestimento,
+            self.wRecorrenteEdit,
+            self.wInvestimentoEdit,
+            self.wGerador
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

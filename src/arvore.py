@@ -189,15 +189,15 @@ class ArvoreTabelaRecorrente(ArvoreTabelaSaida):
             else:
                 valor = ""
             linha.append(valor)
-            vencimento = str(Tabela.iloc[x]['vencimento'])
+            vencimento = Tabela.iloc[x]['vencimento']
             if pandas.notna(vencimento):
-                vencimento = str(vencimento)
+                vencimento = '{:d}'.format(int(vencimento))
             else:
                 vencimento = ""
             linha.append(vencimento)
             parcelas = Tabela.iloc[x]['parcelas']
             if pandas.notna(parcelas):
-                parcelas = str(parcelas)
+                parcelas = '{:d}'.format(int(parcelas))
             else:
                 parcelas = ""
             linha.append(parcelas)
@@ -227,6 +227,66 @@ class ArvoreTabelaRecorrente(ArvoreTabelaSaida):
             self.Widget.resizeColumnToContents(i)
         for i in [3,4]:
             self.Widget.setColumnWidth(i, 75)
+
+
+class ArvoreTabelaGerador(ArvoreTabelaSaida):
+
+    def __init__(self, Widget, Tabela, Categoria):
+        super().__init__(Widget, Tabela, Categoria)
+
+    def atualiza(self, Tabela):
+        self.Widget.clear()
+        for x in range(0, len(Tabela)):
+            linha = []
+            linha.append(str(Tabela.iloc[x]['nome']))
+            valor = Tabela.iloc[x]['valor']
+            if pandas.notna(valor):
+                valor = ('R$' + str(valor))
+            else:
+                valor = ""
+            linha.append(valor)
+            vencimento = Tabela.iloc[x]['vencimento']
+            if pandas.notna(vencimento):
+                vencimento = '{:d}'.format(int(vencimento))
+            else:
+                vencimento = ""
+            linha.append(vencimento)
+            parcelas = Tabela.iloc[x]['parcelas']
+            if pandas.notna(parcelas):
+                parcelas = '{:d}'.format(int(parcelas))
+            else:
+                parcelas = ""
+            linha.append(parcelas)
+            # if pandas.isna(Tabela.iloc[x]['data']):
+            #     linha.append("")
+            # else:
+            #     linha.append(str(Tabela.iloc[x]['data']))
+            linha.append(self.Categoria.id[
+                             Tabela.iloc[x]['categoria']
+                         ]['nome'])
+            if self.Categoria.id[
+                Tabela.iloc[x]['categoria']
+            ]['sub_status']:
+                linha.append(self.Categoria.id[
+                                 Tabela.iloc[x]['categoria']
+                             ]['sub_lista'][
+                                 Tabela.iloc[x]['subcategoria']
+                             ]['nome'])
+            else:
+                linha.append("")
+            WidgetItem = QTreeWidgetItem(linha)
+            self.Widget.addTopLevelItem(WidgetItem)
+        self.colunas()
+
+    def colunas(self):
+        for i in [0,1,4,5]:
+            self.Widget.resizeColumnToContents(i)
+        for i in [1]:
+            self.Widget.setColumnWidth(i, 45)
+        for i in [2, 3]:
+            self.Widget.setColumnWidth(i, 75)
+
+
 
 class ArvoreTabelaEntrada(ArvoreTabela):
 
