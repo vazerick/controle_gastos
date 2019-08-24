@@ -1623,7 +1623,6 @@ def recorrente_add():
     if tipo == "Conta":
         valor = None
         parcelas = None
-        vencimento = None
     elif tipo == "Assinatura":
         parcelas = None
     for i in [
