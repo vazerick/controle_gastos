@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<!--Criacao: Mon Jul 29 09:08:26 2019-->
+<!--Criacao: Thu Aug  1 23:02:18 2019-->
 <lista>
    <categoria id="0">
       <nome>Alimentos</nome>
@@ -10,22 +10,32 @@
          <sub id="0">
             <nome>Restaurante</nome>
             <status>1</status>
-            <ordem>0</ordem>
+            <ordem>1</ordem>
          </sub>
          <sub id="1">
             <nome>Rua</nome>
             <status>1</status>
-            <ordem>1</ordem>
+            <ordem>2</ordem>
          </sub>
          <sub id="2">
             <nome>Mercado</nome>
             <status>1</status>
-            <ordem>2</ordem>
+            <ordem>3</ordem>
          </sub>
          <sub id="3">
             <nome>Padaria e Confeitaria</nome>
             <status>1</status>
-            <ordem>3</ordem>
+            <ordem>4</ordem>
+         </sub>
+         <sub id="4">
+            <nome>Café</nome>
+            <status>1</status>
+            <ordem>0</ordem>
+         </sub>
+         <sub id="5">
+            <nome>Feira</nome>
+            <status>1</status>
+            <ordem>5</ordem>
          </sub>
       </sub_lista>
    </categoria>
@@ -51,8 +61,19 @@
       <nome>Bebidas</nome>
       <status>1</status>
       <ordem>17</ordem>
-      <sub_status>0</sub_status>
-      <sub_lista/>
+      <sub_status>1</sub_status>
+      <sub_lista>
+         <sub id="0">
+            <nome>Bar</nome>
+            <status>1</status>
+            <ordem>0</ordem>
+         </sub>
+         <sub id="1">
+            <nome>Mercado</nome>
+            <status>1</status>
+            <ordem>1</ordem>
+         </sub>
+      </sub_lista>
    </categoria>
    <categoria id="3">
       <nome>Cuidados Pessoais</nome>
@@ -124,10 +145,15 @@
          <sub id="0">
             <nome>Evento</nome>
             <status>1</status>
-            <ordem>1</ordem>
+            <ordem>2</ordem>
          </sub>
          <sub id="1">
             <nome>Curso</nome>
+            <status>1</status>
+            <ordem>1</ordem>
+         </sub>
+         <sub id="2">
+            <nome>Cópia e Impressão</nome>
             <status>1</status>
             <ordem>0</ordem>
          </sub>
@@ -276,6 +302,11 @@
             <status>1</status>
             <ordem>5</ordem>
          </sub>
+         <sub id="6">
+            <nome>Serviço</nome>
+            <status>1</status>
+            <ordem>6</ordem>
+         </sub>
       </sub_lista>
    </categoria>
    <categoria id="11">
@@ -333,8 +364,14 @@
       <nome>Pessoas</nome>
       <status>1</status>
       <ordem>14</ordem>
-      <sub_status>0</sub_status>
-      <sub_lista/>
+      <sub_status>1</sub_status>
+      <sub_lista>
+         <sub id="0">
+            <nome>Presente</nome>
+            <status>1</status>
+            <ordem>0</ordem>
+         </sub>
+      </sub_lista>
    </categoria>
    <categoria id="14">
       <nome>Contas</nome>
@@ -362,6 +399,16 @@
             <status>1</status>
             <ordem>3</ordem>
          </sub>
+         <sub id="4">
+            <nome>Plano de Saúde</nome>
+            <status>1</status>
+            <ordem>5</ordem>
+         </sub>
+         <sub id="5">
+            <nome>Serviços</nome>
+            <status>1</status>
+            <ordem>4</ordem>
+         </sub>
       </sub_lista>
    </categoria>
    <categoria id="15">
@@ -372,7 +419,7 @@
       <sub_lista/>
    </categoria>
    <categoria id="16">
-      <nome>AAAA</nome>
+      <nome>Não Classificáveis</nome>
       <status>1</status>
       <ordem>0</ordem>
       <sub_status>0</sub_status>

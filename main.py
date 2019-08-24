@@ -1680,7 +1680,6 @@ def recorrente_editar():
     if tipo == "Conta":
         valor = None
         parcelas = None
-        vencimento = None
     elif tipo == "Assinatura":
         parcelas = None
     TabelaRecorrente.editar(selecionado,
