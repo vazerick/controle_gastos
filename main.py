@@ -1480,8 +1480,8 @@ def converte_gasto_botao_add():
     comentario = gui.uiGastosConverte.textComentario.toPlainText()
     valor = gui.uiGastosConverte.spinValor.value()
     pagamento = None
-    categoria = ComboGastoCat.getId()
-    sub = ComboGastoSub.getId()
+    categoria = ComboGastoConverteCat.getId()
+    sub = ComboGastoConverteSub.getId()
     divida = None
     Tabela.Saida.adicionar(
         [
@@ -1528,8 +1528,8 @@ def converte_fixo_botao_add():
     valor = gui.uiFixoConverte.spinValor.value()
 
     pagamento = 0
-    categoria = ComboFixoCat.getId()
-    subcategoria = ComboFixoSub.getId()
+    categoria = ComboFixoConverteCat.getId()
+    subcategoria = ComboFixoConverteSub.getId()
 
     Tabela.Fixo.adicionar(  # todo rever  a adição para meses antigos...
         [
