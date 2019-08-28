@@ -1984,13 +1984,15 @@ def gerador_investimento_salva():
 def gerador_salva():
     global TabelaRecorrenteTemp
     global TabelaInvestimentoTemp
-    fixo = []
+
+    adicao = Info.data_hora()
+
     for i in range(0, len(TabelaRecorrenteTemp.tabela)):
         item = TabelaRecorrenteTemp.tabela.iloc[i]
         linha = [
             None,
             item["vencimento"],
-            item["adicao"],
+            adicao,
             item["nome"],
             item["comentario"],
             item["valor"],
@@ -1999,10 +2001,36 @@ def gerador_salva():
             item["subcategoria"],
             0
         ]
-        fixo.append(linha)
-    for i in fixo:
-        Tabela.Fixo.adicionar(i)
+        Tabela.Fixo.adicionar(linha)
+        if item["tipo"] == "Prestação":
+            print(item.name, item["tipo"], item["parcelas"])
+
+            editar = TabelaRecorrente.tabela.loc[item.name].copy()
+            if editar["parcelas"]>1:
+                print("Editar", editar["parcelas"])
+                editar["parcelas"] -= 1
+                TabelaRecorrente.editar(editar.name, editar)
+            else:
+                print("Excluir", editar.name)
+                TabelaRecorrente.excluir(editar.name)
+            # print(editar)
     ArvoreFixo.atualiza(Tabela.Fixo.tabela)
+    ArvoreRecorrente.atualiza(TabelaRecorrente.tabela)
+
+
+    for i in range(0, len(TabelaInvestimentoTemp.tabela)):
+        item = TabelaInvestimentoTemp.tabela.iloc[i]
+        linha = [
+            adicao,
+            item["nome"],
+            item["comentario"],
+            item["valor"]
+        ]
+        Tabela.Reserva.adicionar(linha)
+    ArvoreReserva.atualiza(Tabela.Reserva.tabela)
+    ArvoreInvestimento.atualiza(TabelaInvestimento.tabela)
+
+    gui.wGerador.hide()
 
 def gerador_inicia():
     global TabelaRecorrenteTemp
@@ -2010,8 +2038,30 @@ def gerador_inicia():
     global ArvoreGeradorRecorrente
     global ArvoreGeradorInvestimento
 
-    TabelaRecorrenteTemp = TabelaRecorrente
-    TabelaInvestimentoTemp = TabelaInvestimento
+    TabelaRecorrenteTemp = TabelaInicia(
+        colunas=[
+            'adicao',
+            'tipo',
+            'nome',
+            'comentario',
+            'valor',
+            'parcelas',
+            'vencimento',
+            'categoria',
+            'subcategoria',
+        ],
+        nome="recorrente"
+    )
+    TabelaInvestimentoTemp = TabelaInicia(
+        colunas=[
+            'adicao',
+            'nome',
+            'comentario',
+            'valor'
+        ],
+        nome="investimento"
+    )
+
     ArvoreGeradorRecorrente = ArvoreTabelaGerador(gui.uiGerador.treeGeralGastos, TabelaRecorrenteTemp.tabela, Categoria)
     ArvoreGeradorInvestimento = ArvoreTabelaReserva(gui.uiGerador.treeInvestimentos, TabelaInvestimentoTemp.tabela)
     gui.wGerador.show()
@@ -2380,6 +2430,8 @@ gui.ui.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelFim,
 
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)
+
+gui.ui.botaoConverter.clicked.connect(gerador_inicia)
 
 # conect as ações dos clicks nos gráficos
 

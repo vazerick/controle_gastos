@@ -165,6 +165,7 @@ class TabelaInicia:
 
     def editar(self, id, linha, temp=False):
         self.tabela.loc[id] = linha
+        print(self.tabela.loc[id])
         if not temp:
             self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 

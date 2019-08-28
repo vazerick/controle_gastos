@@ -11,8 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(810, 407)
-        Form.setMinimumSize(QtCore.QSize(786, 400))
+        Form.resize(845, 407)
+        Form.setMinimumSize(QtCore.QSize(845, 400))
         Form.setMaximumSize(QtCore.QSize(9999, 9999))
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
@@ -57,6 +57,8 @@ class Ui_Form(object):
         self.verticalLayout_2.addWidget(self.treeInvestimentos)
         self.verticalLayout_4.addWidget(self.boxInvestimentos)
         self.horizontalLayout_6.addLayout(self.verticalLayout_4)
+        spacerItem = QtWidgets.QSpacerItem(5, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -133,7 +135,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Adicionar Entrada"))
+        Form.setWindowTitle(_translate("Form", "Gerar um novo mês"))
         self.boxGeralGastos.setTitle(_translate("Form", "Gastos recorrentes - converte para gastos fixos"))
         self.treeGeralGastos.setSortingEnabled(True)
         self.treeGeralGastos.headerItem().setText(0, _translate("Form", "Nome"))
