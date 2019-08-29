@@ -20,7 +20,7 @@ class Info:
 
         self.inicio_dia = 0
         self.referencia = 0
-        if QDateTime.currentDateTime().time().hour() > self.inicio_dia:
+        if QDateTime.currentDateTime().time().hour() >= self.inicio_dia:
             self.referencia = self.dia_int
         else:
             self.referencia = self.dia_int - 1

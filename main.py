@@ -1332,7 +1332,8 @@ def mensagem_tabela_aceita():
     )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     completer_atualiza()
-    exit()
+    gerador_inicia()
+    # exit()
 
 
 def mensagem_tabela_rejeita():
