@@ -1909,7 +1909,7 @@ def gerador_seleciona_recorrente(item):
 
         if pd.notna(item["vencimento"]):
             vencimento = int(item["vencimento"])
-            if vencimento > QDate.currentDate().daysInMonth() :
+            if vencimento > QDate.currentDate().daysInMonth():
                 vencimento = QDate.currentDate().daysInMonth()
             elif vencimento < 1:
                 vencimento = 1
@@ -1992,7 +1992,11 @@ def gerador_salva():
         item = TabelaRecorrenteTemp.tabela.iloc[i]
         linha = [
             None,
-            item["vencimento"],
+            QDate(
+                QDate.currentDate().year(),
+                QDate.currentDate().month(),
+                int(item["vencimento"])
+            ).toString("dd/MM/yyyy"),
             adicao,
             item["nome"],
             item["comentario"],
