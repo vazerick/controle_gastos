@@ -1088,7 +1088,8 @@ def ajuste_soma():
         (gui.uiAjuste.spinCredito2.value(), -1),
         (gui.uiAjuste.spinPoupanca.value(), 1),
         (gui.uiAjuste.spinPoupanca2.value(), 1),
-        (gui.uiAjuste.spintConta2.value(), 1)
+        (gui.uiAjuste.spinConta2.value(), 1),
+        (gui.uiAjuste.spinConta3.value(), 1)
     ]:
         soma += spin*valor
     app = Hoje.soma_reserva+Hoje.mes_resta
@@ -1326,14 +1327,14 @@ def mensagem_tabela_aceita():
     gui.wMensagem.hide()
     Info.atualiza()
     Geral.adicionar(
-        [Meses[Info.mes_int],
+        [Meses[Info.mes_int-1],
          Hoje.soma_entrada,
          Hoje.soma_saida + Hoje.soma_fixo]
     )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     completer_atualiza()
-    gerador_inicia()
-    # exit()
+    # gerador_inicia()
+    exit()
 
 
 def mensagem_tabela_rejeita():
@@ -2382,7 +2383,8 @@ for spin in [
     gui.uiAjuste.spinCredito2,
     gui.uiAjuste.spinPoupanca,
     gui.uiAjuste.spinPoupanca2,
-    gui.uiAjuste.spintConta2,
+    gui.uiAjuste.spinConta2,
+    gui.uiAjuste.spinConta3,
 ]:
     spin.valueChanged.connect(ajuste_soma)
 
@@ -2562,6 +2564,11 @@ ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
 ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorrente.tabela, Categoria)
 ArvoreInvestimento = ArvoreTabelaReserva(gui.ui.treeInvestimentos, TabelaInvestimento.tabela)
 
+gui.ui.treeEntrada.sortByColumn(1, Qt.AscendingOrder)
+gui.ui.treeFixo.sortByColumn(5, Qt.DescendingOrder)
+gui.ui.treeGeralGastos.sortByColumn(1, Qt.AscendingOrder)
+gui.ui.treeInvestimentos.sortByColumn(0, Qt.DescendingOrder)
+
 for header in [
     gui.ui.treeSaida.header(),
     gui.ui.treeEntrada.header(),
@@ -2615,6 +2622,24 @@ ReservaCompleter = Completer(
     campos=[
         gui.uiReservaAdd.inputReserva,
         gui.uiReservaEdit.inputReserva
+    ],
+    tabelas=Tabela,
+    tipo="reserva"
+)
+
+RecorrenteCompleter = Completer(
+    campos=[
+        gui.uiRecorrente.inputGasto,
+        gui.uiRecorrenteEdit.inputGasto
+    ],
+    tabelas=Tabela,
+    tipo="fixo"
+)
+
+InvestimentoCompleter = Completer(
+    campos=[
+        gui.uiRecorrente.inputGasto,
+        gui.uiRecorrenteEdit.inputGasto
     ],
     tabelas=Tabela,
     tipo="reserva"

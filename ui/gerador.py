@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(845, 407)
+        Form.resize(906, 407)
         Form.setMinimumSize(QtCore.QSize(845, 400))
         Form.setMaximumSize(QtCore.QSize(9999, 9999))
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(Form)
@@ -57,7 +57,7 @@ class Ui_Form(object):
         self.verticalLayout_2.addWidget(self.treeInvestimentos)
         self.verticalLayout_4.addWidget(self.boxInvestimentos)
         self.horizontalLayout_6.addLayout(self.verticalLayout_4)
-        spacerItem = QtWidgets.QSpacerItem(5, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")

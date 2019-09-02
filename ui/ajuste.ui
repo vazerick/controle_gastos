@@ -65,10 +65,45 @@
      <item>
       <widget class="QFrame" name="formFrame">
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="0">
-         <widget class="QLabel" name="contaCorrente1Label">
+        <item row="11" column="1">
+         <widget class="QDoubleSpinBox" name="spinAjusteN">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="spinConta3">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="cateiraLabel">
           <property name="text">
-           <string>Conta Corrente 1</string>
+           <string>Carteira</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="contaCorrente3Label">
+          <property name="text">
+           <string>Conta Corrente 3</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QDoubleSpinBox" name="spinAjusteP">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="poupanca1Label">
+          <property name="text">
+           <string>Poupança 1</string>
           </property>
          </widget>
         </item>
@@ -79,113 +114,92 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="poupanca1Label">
-          <property name="text">
-           <string>Poupança 1</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
-         <widget class="QDoubleSpinBox" name="spinPoupanca">
+         <widget class="QDoubleSpinBox" name="spinConta2">
           <property name="maximum">
            <double>9999.989999999999782</double>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="contaCorrente2Label">
+        <item row="0" column="0">
+         <widget class="QLabel" name="contaCorrente1Label">
           <property name="text">
-           <string>Conta Corrente 2</string>
+           <string>Conta Corrente 1</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="spintConta2">
-          <property name="maximum">
-           <double>9999.989999999999782</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="poupanca2Label">
-          <property name="text">
-           <string>Poupança 2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QDoubleSpinBox" name="spinPoupanca2">
-          <property name="maximum">
-           <double>9999.989999999999782</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="cateiraLabel">
-          <property name="text">
-           <string>Carteira</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QDoubleSpinBox" name="spinCarteira">
-          <property name="maximum">
-           <double>9999.989999999999782</double>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="cartaoDeCreditoLabel">
-          <property name="text">
-           <string>Cartão de Crédito 1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QDoubleSpinBox" name="spinCredito1">
-          <property name="maximum">
-           <double>9999.989999999999782</double>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="cartaoDeCreditoLabel_2">
-          <property name="text">
-           <string>Cartão de Crédito 2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QDoubleSpinBox" name="spinCredito2">
-          <property name="maximum">
-           <double>9999.989999999999782</double>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
+        <item row="10" column="0">
          <widget class="QLabel" name="ajusteLabel">
           <property name="text">
            <string>Ajuste +</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
-         <widget class="QDoubleSpinBox" name="spinAjusteP">
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="spinPoupanca">
           <property name="maximum">
            <double>9999.989999999999782</double>
           </property>
          </widget>
         </item>
-        <item row="8" column="0">
+        <item row="5" column="0">
+         <widget class="QLabel" name="poupanca2Label">
+          <property name="text">
+           <string>Poupança 2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QDoubleSpinBox" name="spinPoupanca2">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="contaCorrente2Label">
+          <property name="text">
+           <string>Conta Corrente 2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QDoubleSpinBox" name="spinCarteira">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
          <widget class="QLabel" name="ajusteLabel_2">
           <property name="text">
            <string>Ajuste -</string>
           </property>
          </widget>
         </item>
+        <item row="9" column="0">
+         <widget class="QLabel" name="cartaoDeCreditoLabel_2">
+          <property name="text">
+           <string>Cartão de Crédito 2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="cartaoDeCreditoLabel">
+          <property name="text">
+           <string>Cartão de Crédito 1</string>
+          </property>
+         </widget>
+        </item>
         <item row="8" column="1">
-         <widget class="QDoubleSpinBox" name="spinAjusteN">
+         <widget class="QDoubleSpinBox" name="spinCredito1">
+          <property name="maximum">
+           <double>9999.989999999999782</double>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QDoubleSpinBox" name="spinCredito2">
           <property name="maximum">
            <double>9999.989999999999782</double>
           </property>
@@ -284,10 +298,46 @@
           </item>
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="0" column="0">
-             <widget class="QLabel" name="r100Label">
+            <item row="3" column="0">
+             <widget class="QLabel" name="r10Label">
               <property name="text">
-               <string>R$100</string>
+               <string>R$10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="spin20"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="r5Label">
+              <property name="text">
+               <string>R$5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="r2Label">
+              <property name="text">
+               <string>R$2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QSpinBox" name="spin10"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QSpinBox" name="spin2"/>
+            </item>
+            <item row="4" column="1">
+             <widget class="QSpinBox" name="spin5"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="spin50"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="r50Label">
+              <property name="text">
+               <string>R$50</string>
               </property>
              </widget>
             </item>
@@ -298,16 +348,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="r50Label">
-              <property name="text">
-               <string>R$50</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QSpinBox" name="spin50"/>
-            </item>
             <item row="2" column="0">
              <widget class="QLabel" name="r20Label">
               <property name="text">
@@ -315,38 +355,12 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QSpinBox" name="spin20"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="r10Label">
+            <item row="0" column="0">
+             <widget class="QLabel" name="r100Label">
               <property name="text">
-               <string>R$10</string>
+               <string>R$100</string>
               </property>
              </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QSpinBox" name="spin10"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="r5Label">
-              <property name="text">
-               <string>R$5</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QSpinBox" name="spin5"/>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="r2Label">
-              <property name="text">
-               <string>R$2</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QSpinBox" name="spin2"/>
             </item>
            </layout>
           </item>
@@ -515,15 +529,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>spinConta1</tabstop>
-  <tabstop>spinPoupanca</tabstop>
-  <tabstop>spintConta2</tabstop>
-  <tabstop>spinPoupanca2</tabstop>
-  <tabstop>spinCarteira</tabstop>
-  <tabstop>spinCredito1</tabstop>
-  <tabstop>spinCredito2</tabstop>
-  <tabstop>spinAjusteP</tabstop>
-  <tabstop>spinAjusteN</tabstop>
   <tabstop>spin100</tabstop>
   <tabstop>spin50</tabstop>
   <tabstop>spin20</tabstop>
