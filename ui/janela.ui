@@ -1418,7 +1418,7 @@
          <x>760</x>
          <y>300</y>
          <width>461</width>
-         <height>241</height>
+         <height>211</height>
         </rect>
        </property>
       </widget>
@@ -1434,6 +1434,45 @@
        <property name="text">
         <string>Converter</string>
        </property>
+      </widget>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>760</x>
+         <y>509</y>
+         <width>461</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_16">
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelRelatorio">
+            <property name="text">
+             <string>Gerar relatório de:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="comboRelatorio"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="botaoRelatorio">
+          <property name="text">
+           <string>gerar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
      <widget class="QWidget" name="Dividas">
