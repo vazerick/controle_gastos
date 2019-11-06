@@ -21,6 +21,7 @@ from ui.ajuste import Ui_Form as Ajuste
 from ui.investimento import Ui_Form as Investimento
 from ui.recorrentes import Ui_Form as Recorrente
 from ui.gerador import Ui_Form as Gerador
+from ui.relatorio import Ui_Form as Relatorio
 
 class gui:
 
@@ -63,7 +64,12 @@ class gui:
         self.wRecorrenteEdit = QDialog()
         self.uiRecorrenteEdit = Recorrente()
         self.uiRecorrenteEdit.setupUi(self.wRecorrenteEdit)
-        
+
+        # janela para relatório
+        self.wRelatorio = QDialog()
+        self.uiRelatorio = Relatorio()
+        self.uiRelatorio.setupUi(self.wRelatorio)
+
         # janela para ajustes
         self.wAjuste = QDialog()
         self.uiAjuste = Ajuste()
@@ -193,7 +199,8 @@ class gui:
             self.wInvestimento,
             self.wRecorrenteEdit,
             self.wInvestimentoEdit,
-            self.wGerador
+            self.wGerador,
+            self.wRelatorio
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

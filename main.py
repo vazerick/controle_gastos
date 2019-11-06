@@ -1576,6 +1576,10 @@ def geral_botao_recorrente_add():
     dia_limite(gui.uiRecorrente.spinVencimento)
 
 
+def geral_botao_relatorio():
+    gui.wRelatorio.show()
+
+
 def geral_botao_investimento_add():
     gui.wInvestimento.show()
 
@@ -2292,6 +2296,8 @@ gui.uiCategoriasAdd.buttonBox.rejected.connect(cat_botao_cancela)
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)
 gui.uiSubCategoriasAdd.buttonBox.rejected.connect(sub_botao_cancela)
+
+gui.ui.botaoRelatorio.clicked.connect(geral_botao_relatorio)
 
 gui.ui.botaoNovoRecorrente.clicked.connect(geral_botao_recorrente_add)
 gui.uiRecorrente.buttonBox.accepted.connect(recorrente_add)

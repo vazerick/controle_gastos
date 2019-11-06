@@ -529,6 +529,11 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>spinConta1</tabstop>
+  <tabstop>spinConta2</tabstop>
+  <tabstop>spinConta3</tabstop>
+  <tabstop>spinPoupanca</tabstop>
+  <tabstop>spinPoupanca2</tabstop>
   <tabstop>spin100</tabstop>
   <tabstop>spin50</tabstop>
   <tabstop>spin20</tabstop>
@@ -541,6 +546,12 @@
   <tabstop>spin01</tabstop>
   <tabstop>spin005</tabstop>
   <tabstop>spin001</tabstop>
+  <tabstop>spinCarteira</tabstop>
+  <tabstop>spinCredito1</tabstop>
+  <tabstop>spinCredito2</tabstop>
+  <tabstop>spinAjusteP</tabstop>
+  <tabstop>spinAjusteN</tabstop>
+  <tabstop>botaoAdd</tabstop>
   <tabstop>pushButton</tabstop>
  </tabstops>
  <resources/>
