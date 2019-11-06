@@ -2547,6 +2547,7 @@ else:
             Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
         else:
             Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
+
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)
 TabelaRecorrente = TabelaInicia(
@@ -2572,6 +2573,19 @@ TabelaInvestimento = TabelaInicia(
         ],
     nome="investimento"
 )
+
+print("Lista as tabelas anteriores")
+r_ano = Info.ano_int
+r_mes = Info.mes_int-1
+while tabela_existe(str(r_ano), str_mes(r_mes)):
+    print("!")
+    print(r_ano,r_mes)
+    gui.ui.comboRelatorio.addItem(str(r_ano)+"/"+Meses[r_mes])
+    if r_mes == 1:
+        r_ano = r_ano - 1
+        r_mes = 12
+    else:
+        r_mes = r_mes - 1
 
 print("Preenche as árvores e tabelas da interface")
 # WidgetSaida = TabelaLink(gui.ui.tableSaida)
