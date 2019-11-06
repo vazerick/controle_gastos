@@ -1474,6 +1474,29 @@ def filtro_limpa():
     gui.ui.dateFim.setDate(QDate(Info.ano_int, Info.mes_int, QDate(Info.ano_int, Info.mes_int, 1).daysInMonth()))
 
 
+def relatorio_limpa():
+    for check in [
+        gui.uiRelatorio.checkRelTipo,
+        gui.uiRelatorio.checkRelNome,
+        gui.uiRelatorio.checkRelCat,
+        gui.uiRelatorio.checkRelSub,
+        gui.uiRelatorio.checkRelInicio,
+        gui.uiRelatorio.checkRelFim,
+    ]:
+        check.setCheckState(0)
+
+    for combo in[
+        gui.uiRelatorio.comboTipo,
+        gui.uiRelatorio.comboCategoria,
+        gui.uiRelatorio.comboSub,
+    ]:
+        combo.setCurrentIndex(0)
+
+    gui.uiRelatorio.inputFiltro.clear()
+    gui.uiRelatorio.dateInicio.setDate(QDate(Info.ano_int, Info.mes_int, 1))
+    gui.uiRelatorio.dateFim.setDate(QDate(Info.ano_int, Info.mes_int, QDate(Info.ano_int, Info.mes_int, 1).daysInMonth()))
+
+
 def converte_gasto_botao_add():
     data = gui.uiGastosConverte.dateEdit.date()
     data = data.toString("dd/MM/yyyy")
@@ -1578,11 +1601,113 @@ def geral_botao_recorrente_add():
 
 def geral_botao_relatorio():
     selecionado = gui.ui.comboRelatorio.currentText()
-    print(selecionado)
     selecionado = selecionado.split("/")
-    print(selecionado[0], Meses.index(selecionado[1]))
+    relatorio_inicia(int(selecionado[0]), Meses.index(selecionado[1]))
+
+
+Relatorio = pd.DataFrame()
+
+
+def relatorio_inicia(ano_f, mes_f):
+
+    global Relatorio
+
+    relatorio_limpa()
+
+    print(ano_f, mes_f)
+    lista = []
+    ano = Info.ano_int
+    mes = Info.mes_int - 1
+    while ano > ano_f:
+        print(ano)
+        while mes > 0:
+            lista.append(
+                (ano, mes)
+            )
+            mes -= 1
+        mes = 12
+        ano -= 1
+    if ano == ano_f:
+        while mes >= mes_f:
+            lista.append(
+                (ano, mes)
+            )
+            mes -= 1
+    print(lista)
+    print(lista[0][0], lista[0][1])        
+    for item in lista:
+
+        TabelaRelatorio = Mensal(item[0], item[1])
+
+        Saida = TabelaRelatorio.Saida.tabela.copy()[["nome", "data", "categoria", "subcategoria", "valor"]]
+        Saida["tipo"] = "gasto"
+        Fixo = TabelaRelatorio.Fixo.tabela.copy()[["nome", "vencimento", "categoria", "subcategoria", "valor"]]
+        Fixo["tipo"] = "fixo"
+        Fixo = Fixo.rename(columns={"vencimento": "data"})
+        Entrada = TabelaRelatorio.Entrada.tabela.copy()[["nome", "previsao", "valor"]]
+        Entrada["tipo"] = "entrada"
+        Entrada["categoria"] = None
+        Entrada["subcategoria"] = None
+        Entrada = Entrada.rename(columns={"previsao": "data"})
+        Relatorio = pd.DataFrame(Relatorio.append(
+            Saida.append(
+                Fixo.append(
+                    Entrada
+                )
+            )
+        ))
+    print(Relatorio)
+
+    completer = QCompleter(Relatorio["nome"].str.title().unique())
+    completer.setCaseSensitivity(Qt.CaseInsensitive)
+    gui.uiRelatorio.inputFiltro.setCompleter(completer)
+
+    relatorio_filtro()
+    
     gui.wRelatorio.show()
 
+
+def relatorio_filtro():
+
+    global Relatorio
+    
+    Filtro = Relatorio.copy()
+
+    gui.uiRelatorio.treeFiltro.clear()
+
+    if gui.uiRelatorio.checkRelTipo.checkState():
+        Filtro = Filtro[Filtro["tipo"] == gui.uiRelatorio.comboTipo.currentText()]
+    if gui.uiRelatorio.checkRelNome.checkState():
+        nome = gui.uiRelatorio.inputFiltro.text()
+        while "  " in nome:
+            nome = nome.replace("  ", " ")
+        while nome[0] == " ":
+            nome = nome[:0] + nome[(0 + 1):]
+        while nome[-1] == " ":
+            nome = nome[:-1]
+        nome = nome.capitalize()
+        gui.uiRelatorio.inputFiltro.setText(nome)
+        Filtro = Filtro[Filtro["nome"].str.contains(nome, case=False)]
+    if gui.uiRelatorio.checkRelCat.checkState():
+        id = ComboRelatorioCat.getId()
+        Filtro = Filtro[Filtro["categoria"] == id]
+        if not len(ComboRelatorioSub.ativosSub):
+            gui.uiRelatorio.checkRelSub.setCheckState(0)
+    if gui.uiRelatorio.checkRelSub.checkState():
+        id = ComboRelatorioCat.getId()
+        sub = ComboRelatorioSub.getId()
+        Filtro = Filtro[Filtro["subcategoria"] == sub]
+    if gui.uiRelatorio.checkRelFim.checkState() or gui.uiRelatorio.checkRelInicio.checkState():
+        if gui.uiRelatorio.dateFim.date() < gui.uiRelatorio.dateInicio.date():
+            print("!!")
+            gui.uiRelatorio.dateFim.setDate(gui.uiRelatorio.dateInicio.date())
+        Filtro["data2"] = Filtro.apply(lambda row: QDate.fromString(row["data"], "dd/MM/yyyy"), axis=1)
+        if gui.uiRelatorio.checkRelInicio.checkState():
+            Filtro = Filtro[Filtro["data2"] >= gui.uiRelatorio.dateInicio.date()]
+        if gui.uiRelatorio.checkRelFim.checkState():
+            Filtro = Filtro[Filtro["data2"] <= gui.uiRelatorio.dateFim.date()]
+
+    ArvoreRelatorio = ArvoreTabelaFiltro(gui.uiRelatorio.treeFiltro, Filtro, Categoria)
 
 def geral_botao_investimento_add():
     gui.wInvestimento.show()
@@ -2154,6 +2279,8 @@ ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
 ComboFiltroCat = Link(gui.ui.comboCategoria, Categoria)
 ComboFiltroSub = SubcategoriaLink(gui.ui.comboSub, Categoria)
+ComboRelatorioCat = Link(gui.uiRelatorio.comboCategoria, Categoria)
+ComboRelatorioSub = SubcategoriaLink(gui.uiRelatorio.comboSub, Categoria)
 ComboGastoCat = Link(gui.uiGastosAdd.comboCategoria, Categoria)
 ComboGastoSub = SubcategoriaLink(gui.uiGastosAdd.comboSub, Categoria)
 ComboGastoEditCat = Link(gui.uiGastosEdit.comboCategoria, Categoria)
@@ -2461,6 +2588,9 @@ gui.uiRelatorio.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.uiRela
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)
 
+gui.uiRelatorio.botaoFiltro.clicked.connect(relatorio_filtro)
+gui.uiRelatorio.botaoLimpa.clicked.connect(relatorio_limpa)
+
 gui.ui.botaoConverter.clicked.connect(gerador_inicia)
 
 # conect as ações dos clicks nos gráficos
@@ -2496,6 +2626,10 @@ combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-cat
     [
         gui.ui.comboCategoria,
         lambda: combo_sub_troca(ComboFiltroCat, ComboFiltroSub)
+    ],
+    [
+        gui.uiRelatorio.comboCategoria,
+        lambda: combo_sub_troca(ComboRelatorioCat, ComboRelatorioSub)
     ],
     [
         gui.uiGastosConverte.comboCategoria,
