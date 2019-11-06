@@ -1577,6 +1577,10 @@ def geral_botao_recorrente_add():
 
 
 def geral_botao_relatorio():
+    selecionado = gui.ui.comboRelatorio.currentText()
+    print(selecionado)
+    selecionado = selecionado.split("/")
+    print(selecionado[0], Meses.index(selecionado[1]))
     gui.wRelatorio.show()
 
 
