@@ -6,57 +6,284 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
-    <height>301</height>
+    <width>1300</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1300</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1500</width>
+    <height>750</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QRadioButton" name="radioButton">
-       <property name="text">
-        <string>Geral</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="text">
+          <string>Geral</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_2">
+         <property name="text">
+          <string>Foco</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox"/>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_2">
-       <property name="text">
-        <string>Foco</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox"/>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QFrame" name="boxFiltro">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="3">
+             <widget class="QCheckBox" name="checkRelSub">
+              <property name="text">
+               <string>Sub-categoria</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QCheckBox" name="checkRelFim">
+              <property name="text">
+               <string>Fim</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QComboBox" name="comboCategoria"/>
+            </item>
+            <item row="1" column="5">
+             <widget class="QDateEdit" name="dateFim">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QCheckBox" name="checkRelCat">
+              <property name="text">
+               <string>Categoria</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QCheckBox" name="checkRelInicio">
+              <property name="text">
+               <string>Início</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QComboBox" name="comboSub"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="inputFiltro"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QDateEdit" name="dateInicio">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="checkRelTipo">
+              <property name="text">
+               <string>Tipo</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QComboBox" name="comboTipo">
+              <item>
+               <property name="text">
+                <string>gasto</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>entrada</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>fixo</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="checkRelNome">
+              <property name="text">
+               <string>Nome</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="6">
+             <widget class="QPushButton" name="botaoFiltro">
+              <property name="text">
+               <string>Filtro</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="6">
+             <widget class="QPushButton" name="botaoLimpa">
+              <property name="text">
+               <string>Limpa</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTreeWidget" name="treeFiltro">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="rootIsDecorated">
+             <bool>true</bool>
+            </property>
+            <property name="uniformRowHeights">
+             <bool>false</bool>
+            </property>
+            <property name="itemsExpandable">
+             <bool>false</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="headerHidden">
+             <bool>true</bool>
+            </property>
+            <attribute name="headerVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="headerHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Tipo</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Item</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Data</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Categoria</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Sub-categoria</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Valor</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Comentários</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="PlotLinha" name="grafico" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>250</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="PlotLinha" name="grafico_2" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>250</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="PlotLinha" name="grafico" native="true">
-     <property name="minimumSize">
-      <size>
-       <width>600</width>
-       <height>250</height>
-      </size>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>
