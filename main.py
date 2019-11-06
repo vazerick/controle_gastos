@@ -2430,7 +2430,13 @@ for check, widget in [
     (gui.ui.checkRelCat, gui.ui.comboCategoria),
     (gui.ui.checkRelSub, gui.ui.comboSub),
     (gui.ui.checkRelInicio, gui.ui.dateInicio),
-    (gui.ui.checkRelFim, gui.ui.dateFim)
+    (gui.ui.checkRelFim, gui.ui.dateFim),
+    (gui.uiRelatorio.checkRelTipo, gui.uiRelatorio.comboTipo),
+    (gui.uiRelatorio.checkRelNome, gui.uiRelatorio.inputFiltro),
+    (gui.uiRelatorio.checkRelCat, gui.uiRelatorio.comboCategoria),
+    (gui.uiRelatorio.checkRelSub, gui.uiRelatorio.comboSub),
+    (gui.uiRelatorio.checkRelInicio, gui.uiRelatorio.dateInicio),
+    (gui.uiRelatorio.checkRelFim, gui.uiRelatorio.dateFim)
 ]:
     widget.setEnabled(False)
 
@@ -2440,6 +2446,13 @@ gui.ui.checkRelCat.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelCat,
 gui.ui.checkRelSub.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelSub, gui.ui.comboSub))
 gui.ui.checkRelInicio.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelInicio, gui.ui.dateInicio))
 gui.ui.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.ui.checkRelFim, gui.ui.dateFim))
+
+gui.uiRelatorio.checkRelTipo.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelTipo, gui.uiRelatorio.comboTipo))
+gui.uiRelatorio.checkRelNome.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelNome, gui.uiRelatorio.inputFiltro))
+gui.uiRelatorio.checkRelCat.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelCat, gui.uiRelatorio.comboCategoria))
+gui.uiRelatorio.checkRelSub.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelSub, gui.uiRelatorio.comboSub))
+gui.uiRelatorio.checkRelInicio.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelInicio, gui.uiRelatorio.dateInicio))
+gui.uiRelatorio.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelFim, gui.uiRelatorio.dateFim))
 
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)

@@ -47,14 +47,17 @@
         </spacer>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="radioGeral">
          <property name="text">
           <string>Geral</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="radioFoco">
          <property name="text">
           <string>Foco</string>
          </property>

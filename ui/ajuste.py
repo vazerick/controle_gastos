@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ajuste.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -251,6 +251,11 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.spinConta1, self.spinConta2)
+        Form.setTabOrder(self.spinConta2, self.spinConta3)
+        Form.setTabOrder(self.spinConta3, self.spinPoupanca)
+        Form.setTabOrder(self.spinPoupanca, self.spinPoupanca2)
+        Form.setTabOrder(self.spinPoupanca2, self.spin100)
         Form.setTabOrder(self.spin100, self.spin50)
         Form.setTabOrder(self.spin50, self.spin20)
         Form.setTabOrder(self.spin20, self.spin10)
@@ -262,7 +267,13 @@ class Ui_Form(object):
         Form.setTabOrder(self.spin025, self.spin01)
         Form.setTabOrder(self.spin01, self.spin005)
         Form.setTabOrder(self.spin005, self.spin001)
-        Form.setTabOrder(self.spin001, self.pushButton)
+        Form.setTabOrder(self.spin001, self.spinCarteira)
+        Form.setTabOrder(self.spinCarteira, self.spinCredito1)
+        Form.setTabOrder(self.spinCredito1, self.spinCredito2)
+        Form.setTabOrder(self.spinCredito2, self.spinAjusteP)
+        Form.setTabOrder(self.spinAjusteP, self.spinAjusteN)
+        Form.setTabOrder(self.spinAjusteN, self.botaoAdd)
+        Form.setTabOrder(self.botaoAdd, self.pushButton)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -305,14 +316,4 @@ class Ui_Form(object):
         self.labelAdd.setText(_translate("Form", "{Add Entrada/Fixo}"))
         self.botaoAdd.setText(_translate("Form", "{Adicionar}"))
         self.pushButton.setText(_translate("Form", "OK"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'janela.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -465,11 +465,30 @@ class Ui_Form(object):
         self.treeAno.setObjectName("treeAno")
         self.treeAno.header().setVisible(False)
         self.graficoLinha = PlotLinha(self.Geral)
-        self.graficoLinha.setGeometry(QtCore.QRect(760, 300, 461, 241))
+        self.graficoLinha.setGeometry(QtCore.QRect(760, 300, 461, 211))
         self.graficoLinha.setObjectName("graficoLinha")
         self.botaoConverter = QtWidgets.QPushButton(self.Geral)
         self.botaoConverter.setGeometry(QtCore.QRect(440, 0, 75, 21))
         self.botaoConverter.setObjectName("botaoConverter")
+        self.frame = QtWidgets.QFrame(self.Geral)
+        self.frame.setGeometry(QtCore.QRect(760, 509, 461, 41))
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout(self.frame)
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setObjectName("formLayout")
+        self.labelRelatorio = QtWidgets.QLabel(self.frame)
+        self.labelRelatorio.setObjectName("labelRelatorio")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.labelRelatorio)
+        self.comboRelatorio = QtWidgets.QComboBox(self.frame)
+        self.comboRelatorio.setObjectName("comboRelatorio")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.comboRelatorio)
+        self.horizontalLayout_16.addLayout(self.formLayout)
+        self.botaoRelatorio = QtWidgets.QPushButton(self.frame)
+        self.botaoRelatorio.setObjectName("botaoRelatorio")
+        self.horizontalLayout_16.addWidget(self.botaoRelatorio)
         self.tabWidget.addTab(self.Geral, "")
         self.Dividas = QtWidgets.QWidget()
         self.Dividas.setObjectName("Dividas")
@@ -718,6 +737,8 @@ class Ui_Form(object):
         self.treeAno.headerItem().setText(1, _translate("Form", "Entrada"))
         self.treeAno.headerItem().setText(2, _translate("Form", "Saída"))
         self.botaoConverter.setText(_translate("Form", "Converter"))
+        self.labelRelatorio.setText(_translate("Form", "Gerar relatório de:"))
+        self.botaoRelatorio.setText(_translate("Form", "gerar"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Geral), _translate("Form", "Geral"))
         self.pushButton_2.setText(_translate("Form", "Nova Dívida"))
         self.boxSaidas_3.setTitle(_translate("Form", "Eu devo..."))
@@ -761,13 +782,3 @@ class Ui_Form(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Config), _translate("Form", "Configurações"))
 
 from ui.plotcanvas import PlotBarra, PlotLinha, PlotPizza
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
-
