@@ -90,8 +90,11 @@ class Hoje:
             self.BoxAjuste.setTitle("Acumulado")
         else:
             self.BoxAjuste.setTitle("Excesso")
-            economia = -self.ajuste/self.dia_limite
-            economia = int(economia) + (economia > 0)
+            if self.dia_limite == 0:
+                economia = -999
+            else:
+                economia = -self.ajuste/self.dia_limite
+                economia = int(economia) + (economia > 0)
 
         print("Semana\n")
         calendario = calendar.monthcalendar(self.Info.ano_int, self.Info.mes_int)
