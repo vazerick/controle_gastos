@@ -1,6 +1,7 @@
 import matplotlib.ticker as ticker
 import numpy as np
 from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtCore import QDate, QDateTime
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
@@ -168,3 +169,49 @@ class PlotLinha(FigureCanvas):
             label.set_rotation(10)
 
         self.draw()
+
+class PlotRelatorio(FigureCanvas):
+
+    def __init__(self, parent=None, width=1, height=1, dpi=75):
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="#C2D5E8")
+
+        FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+
+    def plot(self, relatorio, filtro):
+        print("!")
+        # print("!!!", relatorio, filtro)
+
+        # print(filtro.iloc[0]["data"])
+        # meses = tabela["mes"].copy()
+        # if len(meses) > 6:
+        #     for i in range(0, len(meses)):
+        #         meses[i] = meses[i][:3]
+        #
+        # entrada = tabela["entrada"]
+        # saida = tabela["saida"]
+        #
+        # ax = self.fig.add_subplot(111)
+        #
+        # linha_entrada = ax.plot(meses, entrada, 'bD-')
+        # linha_entrada[0].set_lw(2)
+        # linha_saida = ax.plot(meses, saida, 'rD-')
+        # linha_saida[0].set_lw(2)
+        #
+        # ax.set_facecolor('#C2D5E8')
+        #
+        # formatter = ticker.FormatStrFormatter('R$%1.0f')
+        # ax.yaxis.set_major_formatter(formatter)
+        #
+        # ax.yaxis.grid(True, which='major', linewidth=1)
+        # ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
+        #
+        # for label in ax.xaxis.get_ticklabels():
+        #     label.set_rotation(10)
+        #
+        # self.draw()

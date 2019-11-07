@@ -13,7 +13,8 @@ class Info:
         self.atrasado = False
 
         self.tempo = QDate.currentDate()
-
+        print(QDate.currentDate())
+        print(self.tempo)
         self.ano_int = self.tempo.year()
         self.mes_int = self.tempo.month()
         self.dia_int = self.tempo.day()

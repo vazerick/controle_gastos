@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'relatorio.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -20,8 +20,10 @@ class Ui_Form(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
         self.radioGeral = QtWidgets.QRadioButton(Form)
         self.radioGeral.setChecked(True)
         self.radioGeral.setObjectName("radioGeral")
@@ -31,9 +33,11 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.radioFoco)
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.horizontalLayout.addWidget(self.comboBox)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.verticalLayout_3.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -106,14 +110,10 @@ class Ui_Form(object):
         self.horizontalLayout_2.addWidget(self.boxFiltro)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.grafico = PlotLinha(Form)
+        self.grafico = PlotRelatorio(Form)
         self.grafico.setMinimumSize(QtCore.QSize(600, 250))
         self.grafico.setObjectName("grafico")
         self.verticalLayout_2.addWidget(self.grafico)
-        self.grafico_2 = PlotLinha(Form)
-        self.grafico_2.setMinimumSize(QtCore.QSize(600, 250))
-        self.grafico_2.setObjectName("grafico_2")
-        self.verticalLayout_2.addWidget(self.grafico_2)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
         self.verticalLayout_4.addLayout(self.verticalLayout_3)
@@ -126,6 +126,8 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.radioGeral.setText(_translate("Form", "Geral"))
         self.radioFoco.setText(_translate("Form", "Foco"))
+        self.comboBox.setItemText(0, _translate("Form", "Geral"))
+        self.comboBox.setItemText(1, _translate("Form", "Fixo"))
         self.checkRelSub.setText(_translate("Form", "Sub-categoria"))
         self.checkRelFim.setText(_translate("Form", "Fim"))
         self.checkRelCat.setText(_translate("Form", "Categoria"))
@@ -146,4 +148,14 @@ class Ui_Form(object):
         self.treeFiltro.headerItem().setText(5, _translate("Form", "Valor"))
         self.treeFiltro.headerItem().setText(6, _translate("Form", "Comentários"))
 
-from ui.plotcanvas import PlotLinha
+from ui.plotcanvas import PlotRelatorio
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+

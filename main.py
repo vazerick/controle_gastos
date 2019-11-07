@@ -13,9 +13,9 @@ import pandas as pd
 import numpy as np
 
 print("\tQt")
-from PyQt5.QtCore import QDate, QDateTime, QPoint, Qt
+from PyQt5.QtCore import QDate, QDateTime, QPoint, Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton, QCompleter
+from PyQt5.QtWidgets import QDialogButtonBox, QMenu, QAction, QToolButton, QCompleter, QDialog
 
 print("\tInterfaces Gráficas")
 from src.gui import gui
@@ -1633,8 +1633,7 @@ def relatorio_inicia(ano_f, mes_f):
                 (ano, mes)
             )
             mes -= 1
-    print(lista)
-    print(lista[0][0], lista[0][1])        
+
     for item in lista:
 
         TabelaRelatorio = Mensal(item[0], item[1])
@@ -1663,7 +1662,7 @@ def relatorio_inicia(ano_f, mes_f):
     gui.uiRelatorio.inputFiltro.setCompleter(completer)
 
     relatorio_filtro()
-    
+
     gui.wRelatorio.show()
 
 
@@ -1708,6 +1707,22 @@ def relatorio_filtro():
             Filtro = Filtro[Filtro["data2"] <= gui.uiRelatorio.dateFim.date()]
 
     ArvoreRelatorio = ArvoreTabelaFiltro(gui.uiRelatorio.treeFiltro, Filtro, Categoria)
+    # gui.uiRelatorio.grafico.plot(Relatorio, Filtro)
+    relatorio_escreve_grafico(Filtro)
+
+
+def relatorio_escreve_grafico(filtro):
+    saida = Relatorio[Relatorio["tipo"] == "gasto"].copy()
+    saida = saida.append(Relatorio[Relatorio["tipo"] == "fixo"])
+    saida = saida[["data","valor"]]
+    saida["data"] = pd.to_datetime(saida["data"], format='%d/%m/%Y')
+    saida = saida.set_index("data")
+    print(saida)
+    saida = saida.groupby(pd.Grouper(freq='M'))
+    # saida = saida.apply(lambda x: [1, 2], axis=1)
+
+    print("!!!\n", saida.agg(np.sum))
+
 
 def geral_botao_investimento_add():
     gui.wInvestimento.show()
@@ -2747,6 +2762,7 @@ for header in [
     gui.ui.treeReserva.header(),
     gui.ui.treeAno.header(),
     gui.ui.treeFiltro.header(),
+    gui.uiRelatorio.treeFiltro.header(),
     gui.ui.treeGeralGastos.header(),
     gui.ui.treeInvestimentos.header(),
     gui.uiGerador.treeGeralGastos.header(),

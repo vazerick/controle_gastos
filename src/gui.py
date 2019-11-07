@@ -2,7 +2,7 @@ import sass
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtCore import Qt, QDate
-from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QSplashScreen, QDesktopWidget
 from ui.categorias_add import Ui_Form as CategoriasAdd
 from ui.categorias_edit import Ui_Form as CategoriasEdit
 from ui.dialog import Ui_Dialog as Mensagem
@@ -22,6 +22,8 @@ from ui.investimento import Ui_Form as Investimento
 from ui.recorrentes import Ui_Form as Recorrente
 from ui.gerador import Ui_Form as Gerador
 from ui.relatorio import Ui_Form as Relatorio
+from ui.barra import Ui_Dialog as Barra
+
 
 class gui:
 
@@ -161,6 +163,11 @@ class gui:
         self.uiMensagem = Mensagem()
         self.uiMensagem.setupUi(self.wMensagem)
 
+        # janela da barra
+        self.wBarra = QDialog()
+        self.uiBarra = Barra()
+        self.uiBarra.setupUi(self.wBarra)
+
         # janela do gerador de novo mês
         self.wGerador = QDialog()
         self.uiGerador = Gerador()
@@ -200,7 +207,8 @@ class gui:
             self.wRecorrenteEdit,
             self.wInvestimentoEdit,
             self.wGerador,
-            self.wRelatorio
+            self.wRelatorio,
+            self.wBarra
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
