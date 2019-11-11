@@ -198,7 +198,7 @@ class PlotRelatorio(FigureCanvas):
             '#543005'
         ]
 
-    def plot(self, tabela, categorias):
+    def plot(self, tabela, categorias, filtro):
 
         self.fig.clear()
 
@@ -208,19 +208,31 @@ class PlotRelatorio(FigureCanvas):
         entrada = tabela["entrada"]
         saida = tabela["saida"]
 
-        ax_linha = self.fig.add_subplot(313)
-        ax_linha.clear()
+        if filtro in [0, 3]:
 
-        ax_linha.yaxis.grid(True, which='major', linewidth=1)
-        ax_linha.xaxis.grid(True, linestyle="--", linewidth=0.5)
+            if filtro == 3:
+                j = 111
+            else:
+                j = 313
 
-        linha_entrada = ax_linha.plot(meses, entrada, 'bD-')
-        linha_entrada[0].set_lw(2)
-        linha_saida = ax_linha.plot(meses, saida, 'rD-')
-        linha_saida[0].set_lw(2)
+            ax_linha = self.fig.add_subplot(j)
+            ax_linha.clear()
 
-        for label in ax_linha.xaxis.get_ticklabels():
-            label.set_rotation(10)
+            ax_linha.yaxis.grid(True, which='major', linewidth=1)
+            ax_linha.xaxis.grid(True, linestyle="--", linewidth=0.5)
+
+            linha_entrada = ax_linha.plot(meses, entrada, 'bD-')
+            linha_entrada[0].set_lw(2)
+            linha_saida = ax_linha.plot(meses, saida, 'rD-')
+            linha_saida[0].set_lw(2)
+
+            for label in ax_linha.xaxis.get_ticklabels():
+                label.set_rotation(10)
+
+            ax_linha.set_facecolor('#C2D5E8')
+
+            formatter = ticker.FormatStrFormatter('R$%1.0f')
+            ax_linha.yaxis.set_major_formatter(formatter)
 
         lista_categorias = list(categorias.index)
         colunas = list(tabela.columns)
@@ -246,48 +258,60 @@ class PlotRelatorio(FigureCanvas):
             for i in range(0, len(list(tabela[categoria]))):
                 print(valores[i])
 
-        y = np.vstack(stack_total)
+        if filtro in [0, 1]:
 
-        ax_total = self.fig.add_subplot(311)
-        ax_total.clear()
+            y = np.vstack(stack_total)
 
-        ax_total.yaxis.grid(True, which='major', linewidth=0.2)
-        ax_total.xaxis.grid(True, linestyle="--", linewidth=0.1)
+            if filtro == 1:
+                j = 111
+            else:
+                j = 311
 
-        ax_total.stackplot(meses, y, labels=labels, colors=self.cores)
-        # ax_total.legend(loc='upper left')
+            ax_total = self.fig.add_subplot(j)
+            ax_total.clear()
 
-        formatter = ticker.FormatStrFormatter('R$%1.0f')
-        ax_linha.yaxis.set_major_formatter(formatter)
-        ax_total.yaxis.set_major_formatter(formatter)
+            ax_total.yaxis.grid(True, which='major', linewidth=0.2)
+            ax_total.xaxis.grid(True, linestyle="--", linewidth=0.1)
 
-        tabela = tabela.divide(tabela.sum(axis=1), axis=0)
-        print("ABV\n", tabela)
-        for categoria in lista_categorias:
-            stack_percet.append(list(tabela[categoria]))
+            ax_total.stackplot(meses, y, labels=labels, colors=self.cores)
+            # ax_total.legend(loc='upper left')
 
-        y = np.vstack(stack_percet)
+            formatter = ticker.FormatStrFormatter('R$%1.0f')
+            ax_total.yaxis.set_major_formatter(formatter)
 
-        ax_perc = self.fig.add_subplot(312)
-        ax_perc.clear()
+            if filtro == 1:
+                handles, labels = ax_total.get_legend_handles_labels()
+                self.fig.legend(handles, labels, loc='upper center', ncol=4)
 
-        ax_perc.yaxis.grid(True, which='major', linewidth=0.2)
-        ax_perc.xaxis.grid(True, linestyle="--", linewidth=0.1)
+            ax_total.set_facecolor('#C2D5E8')
 
-        ax_perc.stackplot(meses, y, labels=labels, colors=self.cores)
+        if filtro in [0, 2]:
 
-        handles, labels = ax_perc.get_legend_handles_labels()
-        self.fig.legend(handles, labels, loc='upper center', ncol=4)
+            tabela = tabela.divide(tabela.sum(axis=1), axis=0)
+            print("ABV\n", tabela)
+            for categoria in lista_categorias:
+                stack_percet.append(list(tabela[categoria]))
 
-        # self.fig.legend(loc='upper left')
+            y = np.vstack(stack_percet)
 
-        ax_perc.yaxis.set_major_formatter(formatter)
+            if filtro == 2:
+                j = 111
+            else:
+                j = 312
 
-        for grafico in [
-            ax_linha,
-            ax_total,
-            ax_perc
-        ]:
-            grafico.set_facecolor('#C2D5E8')
+            ax_perc = self.fig.add_subplot(j)
+            ax_perc.clear()
+
+            ax_perc.yaxis.grid(True, which='major', linewidth=0.2)
+            ax_perc.xaxis.grid(True, linestyle="--", linewidth=0.1)
+
+            ax_perc.stackplot(meses, y, labels=labels, colors=self.cores)
+
+            handles, labels = ax_perc.get_legend_handles_labels()
+            self.fig.legend(handles, labels, loc='upper center', ncol=4)
+
+            # self.fig.legend(loc='upper left')
+
+            ax_perc.set_facecolor('#C2D5E8')
 
         self.draw()
