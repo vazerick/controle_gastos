@@ -57,9 +57,22 @@
         </spacer>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioGeral">
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioTodos">
          <property name="text">
-          <string>Geral</string>
+          <string>Todos</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -67,24 +80,24 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioFoco">
+        <widget class="QRadioButton" name="radioTotal">
          <property name="text">
-          <string>Foco</string>
+          <string>Saída absoluto</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>Geral</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Fixo</string>
-          </property>
-         </item>
+        <widget class="QRadioButton" name="radioPercent">
+         <property name="text">
+          <string>Saída percentual</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="text">
+          <string>Entrada e Saída</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -176,12 +189,17 @@
               </item>
               <item>
                <property name="text">
-                <string>entrada</string>
+                <string>fixo</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>fixo</string>
+                <string>gasto+fixo</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>entrada</string>
                </property>
               </item>
              </widget>
@@ -276,6 +294,45 @@
               <string>Comentários</string>
              </property>
             </column>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Soma: </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelSomaFiltro">
+               <property name="text">
+                <string>R$0,00</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

@@ -170,6 +170,7 @@ class PlotLinha(FigureCanvas):
 
         self.draw()
 
+
 class PlotRelatorio(FigureCanvas):
 
     def __init__(self, parent=None, width=1, height=1, dpi=75):
@@ -183,35 +184,112 @@ class PlotRelatorio(FigureCanvas):
                                    QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
-    def plot(self, relatorio, filtro):
-        print("!")
-        # print("!!!", relatorio, filtro)
+        self.cores = [
+            '#003C30',
+            '#01665E',
+            '#35978F',
+            '#80CDC1',
+            '#C7EAE5',
+            '#F5F5F5',
+            '#F6E8C3',
+            '#DFC27D',
+            '#BF812D',
+            '#8C510A',
+            '#543005'
+        ]
 
-        # print(filtro.iloc[0]["data"])
-        # meses = tabela["mes"].copy()
-        # if len(meses) > 6:
-        #     for i in range(0, len(meses)):
-        #         meses[i] = meses[i][:3]
-        #
-        # entrada = tabela["entrada"]
-        # saida = tabela["saida"]
-        #
-        # ax = self.fig.add_subplot(111)
-        #
-        # linha_entrada = ax.plot(meses, entrada, 'bD-')
-        # linha_entrada[0].set_lw(2)
-        # linha_saida = ax.plot(meses, saida, 'rD-')
-        # linha_saida[0].set_lw(2)
-        #
-        # ax.set_facecolor('#C2D5E8')
-        #
-        # formatter = ticker.FormatStrFormatter('R$%1.0f')
-        # ax.yaxis.set_major_formatter(formatter)
-        #
-        # ax.yaxis.grid(True, which='major', linewidth=1)
-        # ax.xaxis.grid(True, linestyle="--", linewidth=0.5)
-        #
-        # for label in ax.xaxis.get_ticklabels():
-        #     label.set_rotation(10)
-        #
-        # self.draw()
+    def plot(self, tabela, categorias, filtro):
+
+        self.fig.clear()
+
+        print(filtro)
+
+        meses = tabela.index.copy()
+        meses = meses.strftime('%m/%y')
+
+        entrada = tabela["entrada"]
+        saida = tabela["saida"]
+
+        ax_linha = self.fig.add_subplot(313)
+        ax_linha.clear()
+
+        ax_linha.yaxis.grid(True, which='major', linewidth=1)
+        ax_linha.xaxis.grid(True, linestyle="--", linewidth=0.5)
+
+        linha_entrada = ax_linha.plot(meses, entrada, 'bD-')
+        linha_entrada[0].set_lw(2)
+        linha_saida = ax_linha.plot(meses, saida, 'rD-')
+        linha_saida[0].set_lw(2)
+
+        for label in ax_linha.xaxis.get_ticklabels():
+            label.set_rotation(10)
+
+        lista_categorias = list(categorias.index)
+        colunas = list(tabela.columns)
+
+        outros = list(set(colunas) - set(lista_categorias+["entrada", "saida"]))
+
+        lista_categorias.append("outros")
+
+        tabela["outros"] = tabela[outros].sum(axis=1)
+
+        print("OUTROS:\n", tabela)
+
+        tabela = tabela[lista_categorias]
+
+        labels = []
+        stack_total = []
+        stack_percet = []
+
+        for categoria in lista_categorias:
+            labels.append(categoria)
+            valores = list(tabela[categoria])
+            stack_total.append(list(tabela[categoria]))
+            for i in range(0, len(list(tabela[categoria]))):
+                print(valores[i])
+
+        y = np.vstack(stack_total)
+
+        ax_total = self.fig.add_subplot(311)
+        ax_total.clear()
+
+        ax_total.yaxis.grid(True, which='major', linewidth=0.2)
+        ax_total.xaxis.grid(True, linestyle="--", linewidth=0.1)
+
+        ax_total.stackplot(meses, y, labels=labels, colors=self.cores)
+        # ax_total.legend(loc='upper left')
+
+        formatter = ticker.FormatStrFormatter('R$%1.0f')
+        ax_linha.yaxis.set_major_formatter(formatter)
+        ax_total.yaxis.set_major_formatter(formatter)
+
+        tabela = tabela.divide(tabela.sum(axis=1), axis=0)
+        print("ABV\n", tabela)
+        for categoria in lista_categorias:
+            stack_percet.append(list(tabela[categoria]))
+
+        y = np.vstack(stack_percet)
+
+        ax_perc = self.fig.add_subplot(312)
+        ax_perc.clear()
+
+        ax_perc.yaxis.grid(True, which='major', linewidth=0.2)
+        ax_perc.xaxis.grid(True, linestyle="--", linewidth=0.1)
+
+        ax_perc.stackplot(meses, y, labels=labels, colors=self.cores)
+
+        handles, labels = ax_perc.get_legend_handles_labels()
+        self.fig.legend(handles, labels, loc='upper center', ncol=4)
+
+        # self.fig.legend(loc='upper left')
+
+        ax_perc.yaxis.set_major_formatter(formatter)
+
+        for grafico in [
+            ax_linha,
+            ax_total,
+            ax_perc
+        ]:
+            grafico.set_facecolor('#C2D5E8')
+
+        self.draw()

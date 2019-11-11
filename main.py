@@ -1,3 +1,5 @@
+#python -m PyQt5.uic.pyuic -x relatorio.ui -o relatorio.py
+
 print("Inicia o aplicativo")
 print("Importa as bibliotecas necessárias")
 
@@ -1475,6 +1477,10 @@ def filtro_limpa():
 
 
 def relatorio_limpa():
+    global Relatorio
+
+    Relatorio = pd.DataFrame()
+
     for check in [
         gui.uiRelatorio.checkRelTipo,
         gui.uiRelatorio.checkRelNome,
@@ -1675,7 +1681,10 @@ def relatorio_filtro():
     gui.uiRelatorio.treeFiltro.clear()
 
     if gui.uiRelatorio.checkRelTipo.checkState():
-        Filtro = Filtro[Filtro["tipo"] == gui.uiRelatorio.comboTipo.currentText()]
+        if gui.uiRelatorio.comboTipo.currentText() == "gasto+fixo":
+            Filtro = Filtro[Filtro["tipo"] == "gasto"].append(Filtro[Filtro["tipo"] == "fixo"])
+        else:
+            Filtro = Filtro[Filtro["tipo"] == gui.uiRelatorio.comboTipo.currentText()]
     if gui.uiRelatorio.checkRelNome.checkState():
         nome = gui.uiRelatorio.inputFiltro.text()
         while "  " in nome:
@@ -1708,21 +1717,93 @@ def relatorio_filtro():
 
     ArvoreRelatorio = ArvoreTabelaFiltro(gui.uiRelatorio.treeFiltro, Filtro, Categoria)
     # gui.uiRelatorio.grafico.plot(Relatorio, Filtro)
+    gui.uiRelatorio.labelSomaFiltro.setText(escreve_dinheiro(Filtro['valor'].sum()))
     relatorio_escreve_grafico(Filtro)
 
 
 def relatorio_escreve_grafico(filtro):
-    saida = Relatorio[Relatorio["tipo"] == "gasto"].copy()
-    saida = saida.append(Relatorio[Relatorio["tipo"] == "fixo"])
+
+    print("Filtro\n", filtro)
+    saida = filtro[filtro["tipo"] == "gasto"].copy()
+    saida = saida.append(filtro[filtro["tipo"] == "fixo"])
     saida = saida[["data","valor"]]
     saida["data"] = pd.to_datetime(saida["data"], format='%d/%m/%Y')
     saida = saida.set_index("data")
-    print(saida)
     saida = saida.groupby(pd.Grouper(freq='M'))
-    # saida = saida.apply(lambda x: [1, 2], axis=1)
+    saida = saida.agg(np.sum)
+    saida = saida.rename(columns={"valor":"saida"})
+    print("Saída\n", saida)
+    entrada = filtro[filtro["tipo"] == "entrada"].copy()
+    entrada = entrada[["data","valor"]]
+    entrada["data"] = pd.to_datetime(entrada["data"], format='%d/%m/%Y')
+    entrada = entrada.set_index("data")
+    entrada = entrada.groupby(pd.Grouper(freq='M'))
+    entrada = entrada.agg(np.sum)
+    entrada = entrada.rename(columns={"valor": "entrada"})
 
-    print("!!!\n", saida.agg(np.sum))
+    if len(entrada) == 0 and len(saida) > 0:
+        entrada = saida.copy()
+        entrada["saida"] = 0
+        entrada = entrada.rename(columns={"saida": "entrada"})
+    elif len(saida) == 0 and len(entrada) > 0:
+        saida = entrada.copy()
+        saida["entrada"] = 0
+        saida = saida.rename(columns={"entrada": "saida"})
+    elif len(entrada) == 0 and len(saida) == 0:
+        grafico = pd.DataFrame([[0, 0]], columns=["entrada", "saida"])
+    print("Entrada\n", entrada)
 
+    grafico = pd.merge(entrada,saida,on="data")
+
+    # if len(grafico) == 0:
+    #
+
+    lista = []
+
+    for item in Categoria.id:
+
+        lista.append(item["nome"])
+
+        cat = filtro[filtro["categoria"] == item["id"]].copy()
+        cat = cat[["data", "valor"]]
+        cat["data"] = pd.to_datetime(cat["data"], format='%d/%m/%Y')
+        cat = cat.set_index("data")
+        cat = cat.groupby(pd.Grouper(freq='M'))
+        cat = cat.agg(np.sum)
+        cat = cat.rename(columns={"valor": item["nome"]})
+
+        # linha = pd.DataFrame([[item["nome"], cat.sum().item()]], columns=["nome","valor"])
+        # lista = lista.append(linha)
+
+        grafico = pd.merge(grafico, cat, on="data", how='left')
+
+    grafico = grafico.fillna(0)
+
+    CAT_MAX = 10
+
+    count = CAT_MAX+1
+    top = CAT_MAX
+    while count > CAT_MAX:
+        geral = pd.DataFrame(columns=["nome","valor"])
+        for mes in grafico.index:
+            head = pd.DataFrame(columns=["nome","valor"])
+            for cat in lista:
+                linha = pd.DataFrame([[cat, grafico.loc[mes][cat]]], columns=["nome", "valor"])
+                # print("linha",linha)
+                head = head.append(linha)
+            head = head.sort_values(by=['valor'], ascending=False)
+            head = head.head(top)
+            # print("head",head)
+            geral = geral.append(head)
+            geral = geral.sort_values(by=['valor'], ascending=False)
+            grupo = geral.groupby("nome").agg(np.sum).sort_values(by=['valor'], ascending=False)
+            grupo = grupo.drop(grupo[grupo["valor"] == 0].index)
+            if len(grupo) > CAT_MAX:
+                break
+        top -= 1
+        count = len(grupo)
+
+    gui.uiRelatorio.grafico.plot(grafico, grupo, 0)
 
 def geral_botao_investimento_add():
     gui.wInvestimento.show()
