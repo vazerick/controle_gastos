@@ -94,7 +94,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="radioEntSai">
          <property name="text">
           <string>Entrada e Saída</string>
          </property>

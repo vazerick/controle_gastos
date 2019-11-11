@@ -1723,6 +1723,16 @@ def relatorio_filtro():
 
 def relatorio_escreve_grafico(filtro):
 
+    tipo = 0
+    if gui.uiRelatorio.radioTodos.isChecked():
+        tipo = 0
+    elif gui.uiRelatorio.radioTotal.isChecked():
+        tipo = 1
+    elif gui.uiRelatorio.radioPercent.isChecked():
+        tipo = 2
+    elif gui.uiRelatorio.radioEntSai.isChecked():
+        tipo = 3
+
     print("Filtro\n", filtro)
     saida = filtro[filtro["tipo"] == "gasto"].copy()
     saida = saida.append(filtro[filtro["tipo"] == "fixo"])
@@ -1803,7 +1813,7 @@ def relatorio_escreve_grafico(filtro):
         top -= 1
         count = len(grupo)
 
-    gui.uiRelatorio.grafico.plot(grafico, grupo, 0)
+    gui.uiRelatorio.grafico.plot(grafico, grupo, tipo)
 
 def geral_botao_investimento_add():
     gui.wInvestimento.show()

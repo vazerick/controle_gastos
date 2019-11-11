@@ -198,11 +198,9 @@ class PlotRelatorio(FigureCanvas):
             '#543005'
         ]
 
-    def plot(self, tabela, categorias, filtro):
+    def plot(self, tabela, categorias):
 
         self.fig.clear()
-
-        print(filtro)
 
         meses = tabela.index.copy()
         meses = meses.strftime('%m/%y')
