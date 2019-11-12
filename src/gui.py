@@ -22,7 +22,6 @@ from ui.investimento import Ui_Form as Investimento
 from ui.recorrentes import Ui_Form as Recorrente
 from ui.gerador import Ui_Form as Gerador
 from ui.relatorio import Ui_Form as Relatorio
-from ui.barra import Ui_Dialog as Barra
 
 
 class gui:
@@ -163,11 +162,6 @@ class gui:
         self.uiMensagem = Mensagem()
         self.uiMensagem.setupUi(self.wMensagem)
 
-        # janela da barra
-        self.wBarra = QDialog()
-        self.uiBarra = Barra()
-        self.uiBarra.setupUi(self.wBarra)
-
         # janela do gerador de novo mês
         self.wGerador = QDialog()
         self.uiGerador = Gerador()
@@ -208,7 +202,6 @@ class gui:
             self.wInvestimentoEdit,
             self.wGerador,
             self.wRelatorio,
-            self.wBarra
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
