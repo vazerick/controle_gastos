@@ -1733,7 +1733,6 @@ def relatorio_escreve_grafico(filtro):
     elif gui.uiRelatorio.radioEntSai.isChecked():
         tipo = 3
 
-    print("Filtro\n", filtro)
     saida = filtro[filtro["tipo"] == "gasto"].copy()
     saida = saida.append(filtro[filtro["tipo"] == "fixo"])
     saida = saida[["data","valor"]]
@@ -1742,7 +1741,6 @@ def relatorio_escreve_grafico(filtro):
     saida = saida.groupby(pd.Grouper(freq='M'))
     saida = saida.agg(np.sum)
     saida = saida.rename(columns={"valor":"saida"})
-    print("Saída\n", saida)
     entrada = filtro[filtro["tipo"] == "entrada"].copy()
     entrada = entrada[["data","valor"]]
     entrada["data"] = pd.to_datetime(entrada["data"], format='%d/%m/%Y')
@@ -1761,7 +1759,6 @@ def relatorio_escreve_grafico(filtro):
         saida = saida.rename(columns={"entrada": "saida"})
     elif len(entrada) == 0 and len(saida) == 0:
         grafico = pd.DataFrame([[0, 0]], columns=["entrada", "saida"])
-    print("Entrada\n", entrada)
 
     grafico = pd.merge(entrada,saida,on="data")
 
@@ -1770,11 +1767,20 @@ def relatorio_escreve_grafico(filtro):
 
     lista = []
 
-    for item in Categoria.id:
+    rotulos = Categoria.id
+    foco = "categoria"
+
+    if gui.uiRelatorio.checkRelCat.checkState():
+        id = ComboRelatorioCat.getId()
+        if int(Categoria.id[id]['sub_status']):
+            rotulos = Categoria.id[id]['sub_lista']
+            foco = "subcategoria"
+
+    for item in rotulos:
 
         lista.append(item["nome"])
 
-        cat = filtro[filtro["categoria"] == item["id"]].copy()
+        cat = filtro[filtro[foco] == item["id"]].copy()
         cat = cat[["data", "valor"]]
         cat["data"] = pd.to_datetime(cat["data"], format='%d/%m/%Y')
         cat = cat.set_index("data")
@@ -1788,6 +1794,8 @@ def relatorio_escreve_grafico(filtro):
         grafico = pd.merge(grafico, cat, on="data", how='left')
 
     grafico = grafico.fillna(0)
+
+    grupo = pd.DataFrame()
 
     CAT_MAX = 10
 
@@ -1813,7 +1821,11 @@ def relatorio_escreve_grafico(filtro):
         top -= 1
         count = len(grupo)
 
-    gui.uiRelatorio.grafico.plot(grafico, grupo, tipo)
+    print("!!!\n",len(grafico),"\n",grafico)
+    if len(grafico) > 0:
+        gui.uiRelatorio.grafico.plot(grafico, grupo, tipo)
+    else:
+        gui.uiRelatorio.grafico.limpar()
 
 def geral_botao_investimento_add():
     gui.wInvestimento.show()

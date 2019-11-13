@@ -243,8 +243,6 @@ class PlotRelatorio(FigureCanvas):
 
         tabela["outros"] = tabela[outros].sum(axis=1)
 
-        print("OUTROS:\n", tabela)
-
         tabela = tabela[lista_categorias]
 
         labels = []
@@ -314,4 +312,8 @@ class PlotRelatorio(FigureCanvas):
 
             ax_perc.set_facecolor('#C2D5E8')
 
+        self.draw()
+
+    def limpar(self):
+        self.fig.clear()
         self.draw()
