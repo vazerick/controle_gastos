@@ -2340,6 +2340,49 @@ def gerador_valida():
     return True
 
 
+def hoje_botao_dividir():
+    gui.wDividir.show()
+    ArvoreDividir = ArvoreTabelaDividir(
+        gui.uiDividir.treeSaida,
+        Tabela.Saida.tabela
+    )
+    gui.uiDividir.spinPessoas.setValue(2)
+    gui.uiDividir.labelSoma.setText("R$0")
+    gui.uiDividir.labelDividido.setText("R$0")
+
+
+def dividir_atualiza():
+    selecionados = dividir_ler_selecionados()
+    soma = selecionados['valor'].sum()
+    pessoas = gui.uiDividir.spinPessoas.value()
+    divisao = soma/pessoas
+    gui.uiDividir.labelSoma.setText(escreve_dinheiro(soma))
+    gui.uiDividir.labelDividido.setText(escreve_dinheiro(divisao))
+
+
+def dividir_ler_selecionados():
+    selecionados = pd.DataFrame(columns=["data", "nome","valor"])
+    raiz = gui.uiDividir.treeSaida.invisibleRootItem()
+    count = raiz.childCount()
+
+    for i in range(count):
+        item = raiz.child(i)
+        if item.checkState(0):
+            data = item.text(0)
+            nome = item.text(1)
+            valor = float(item.text(2).strip("R$"))
+            add = pd.DataFrame(
+                [[
+                    data,
+                    nome,
+                    valor
+                ]],
+                columns=["data", "nome", "valor"]
+            )
+            selecionados = selecionados.append(add, ignore_index=True, sort=False)
+    return selecionados
+
+
 # MAIN
 
 # configuração
@@ -2470,6 +2513,8 @@ gui.uiGastosEdit.buttonBox.accepted.connect(gasto_botao_editar)
 gui.uiFixoAdd.buttonBox.accepted.connect(fixo_botao_add)
 gui.uiFixoEdit.buttonBox.accepted.connect(fixo_botao_editar)
 gui.uiFixoConverte.buttonBox.accepted.connect(converte_fixo_botao_add)
+
+gui.ui.botaoDividir.clicked.connect(hoje_botao_dividir)
 
 gui.uiGerador.buttonBox.accepted.connect(gerador_salva)
 
@@ -2702,6 +2747,9 @@ gui.uiRelatorio.checkRelCat.stateChanged.connect(lambda: filtro_check(gui.uiRela
 gui.uiRelatorio.checkRelSub.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelSub, gui.uiRelatorio.comboSub))
 gui.uiRelatorio.checkRelInicio.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelInicio, gui.uiRelatorio.dateInicio))
 gui.uiRelatorio.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.uiRelatorio.checkRelFim, gui.uiRelatorio.dateFim))
+
+gui.uiDividir.treeSaida.itemChanged.connect(dividir_atualiza)
+gui.uiDividir.spinPessoas.valueChanged.connect(dividir_atualiza)
 
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)

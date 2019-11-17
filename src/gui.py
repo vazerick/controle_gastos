@@ -22,6 +22,7 @@ from ui.investimento import Ui_Form as Investimento
 from ui.recorrentes import Ui_Form as Recorrente
 from ui.gerador import Ui_Form as Gerador
 from ui.relatorio import Ui_Form as Relatorio
+from ui.dividir import Ui_Form as Dividir
 
 
 class gui:
@@ -157,6 +158,11 @@ class gui:
         self.uiSubCategoriasEdit = SubCategoriasEdit()
         self.uiSubCategoriasEdit.setupUi(self.wSubCategoriasEdit)
 
+        # janela para Dividir
+        self.wDividir = QDialog()
+        self.uiDividir = Dividir()
+        self.uiDividir.setupUi(self.wDividir)
+
         # janela das mensagens
         self.wMensagem = QDialog()
         self.uiMensagem = Mensagem()
@@ -202,6 +208,7 @@ class gui:
             self.wInvestimentoEdit,
             self.wGerador,
             self.wRelatorio,
+            self.wDividir
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)

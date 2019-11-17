@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Hoje">
       <attribute name="title">
@@ -532,7 +532,7 @@
                <bool>false</bool>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="pageGastos">
                <widget class="QGroupBox" name="boxGastos">
@@ -869,22 +869,36 @@
                </property>
               </item>
              </widget>
-             <widget class="QPushButton" name="botaoExcluir">
+             <widget class="QWidget" name="">
               <property name="geometry">
                <rect>
-                <x>9</x>
-                <y>240</y>
+                <x>10</x>
+                <y>220</y>
                 <width>91</width>
-                <height>25</height>
+                <height>58</height>
                </rect>
               </property>
-              <property name="text">
-               <string>Excluir</string>
-              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="QPushButton" name="botaoDividir">
+                 <property name="text">
+                  <string>Dividir</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="botaoExcluir">
+                 <property name="text">
+                  <string>Excluir</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
              <zorder>listMenu</zorder>
              <zorder>stackedWidget</zorder>
              <zorder>botaoExcluir</zorder>
+             <zorder>botaoDividir</zorder>
             </widget>
            </item>
           </layout>
