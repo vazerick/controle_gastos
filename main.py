@@ -2351,13 +2351,43 @@ def hoje_botao_dividir():
     gui.uiDividir.labelDividido.setText("R$0")
 
 
+dividir_pessoas = 0
+dividir_lista = []
+
+
 def dividir_atualiza():
+    global dividir_pessoas
+    global dividir_lista
     selecionados = dividir_ler_selecionados()
     soma = selecionados['valor'].sum()
-    pessoas = gui.uiDividir.spinPessoas.value()
-    divisao = soma/pessoas
+    dividir_pessoas = gui.uiDividir.spinPessoas.value()
+    if dividir_pessoas < 2:
+        gui.uiDividir.spinPessoas.setValue(2)
+        dividir_pessoas = 2
+    divisao = soma/dividir_pessoas
     gui.uiDividir.labelSoma.setText(escreve_dinheiro(soma))
     gui.uiDividir.labelDividido.setText(escreve_dinheiro(divisao))
+
+    dividir_lista = []
+
+    for i in range(0, len(selecionados)):
+        print(selecionados.loc[i])
+        data = selecionados.loc[i]["data"]
+        nome = selecionados.loc[i]["nome"]
+        valor = selecionados.loc[i]["valor"]
+        tabela = Tabela.Saida.tabela.copy()
+        tabela = tabela[tabela["data"] == data][tabela["nome"] == nome][tabela["valor"] == valor]
+        dividir_lista.append(tabela.index.item())
+
+    print(dividir_lista)
+
+
+def dividir_botao_dividir():
+    global dividir_pessoas
+    global dividir_lista
+    Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
+    gasto_atualiza()
+    gui.wDividir.hide()
 
 
 def dividir_ler_selecionados():
@@ -2750,6 +2780,7 @@ gui.uiRelatorio.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.uiRela
 
 gui.uiDividir.treeSaida.itemChanged.connect(dividir_atualiza)
 gui.uiDividir.spinPessoas.valueChanged.connect(dividir_atualiza)
+gui.uiDividir.pushButton.clicked.connect(dividir_botao_dividir)
 
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)

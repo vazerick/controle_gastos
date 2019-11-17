@@ -56,6 +56,16 @@ class Tabela:
         self.tabela.loc[id] = linha
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 
+    def dividir(self, pessoas, lista):
+        print(pessoas)
+        for id in lista:
+            print(self.tabela.loc[id])
+            valor = self.tabela.loc[id]["valor"]
+            valor = round(valor/pessoas, 2)
+            self.tabela.set_value(id, "valor", valor)
+            print(self.tabela.loc[id])
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
     def excluir(self, id):
         self.tabela = self.tabela.drop(id)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
