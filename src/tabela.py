@@ -159,8 +159,8 @@ class TabelaDivida:
 
         self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
 
-        self.devo = self.tabela[self.tabela['valor'] > 0].copy()
-        self.devem = self.tabela[self.tabela['valor'] < 0].copy()
+        self.devo = self.tabela[self.tabela['valor'] < 0].copy()
+        self.devem = self.tabela[self.tabela['valor'] > 0].copy()
 
     def adicionar(self, linha):
         add = pd.DataFrame(

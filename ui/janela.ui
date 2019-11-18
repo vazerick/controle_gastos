@@ -1512,6 +1512,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
                <widget class="QGroupBox" name="boxMedia_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
                 <property name="accessibleName">
                  <string>quadro</string>
                 </property>
@@ -1523,7 +1529,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_12">
                  <item>
-                  <widget class="QLabel" name="labelMedia_2">
+                  <widget class="QLabel" name="labelDevo">
                    <property name="text">
                     <string>R$100,00</string>
                    </property>
@@ -1537,6 +1543,12 @@
               </item>
               <item>
                <widget class="QGroupBox" name="boxLimiteDia_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
                 <property name="accessibleName">
                  <string>quadro</string>
                 </property>
@@ -1548,7 +1560,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_13">
                  <item>
-                  <widget class="QLabel" name="labelLimiteDia_2">
+                  <widget class="QLabel" name="labelDevem">
                    <property name="text">
                     <string>R$100,00</string>
                    </property>
@@ -1562,6 +1574,12 @@
               </item>
               <item>
                <widget class="QGroupBox" name="boxAjuste_2">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>50</height>
+                 </size>
+                </property>
                 <property name="accessibleName">
                  <string>quadro</string>
                 </property>
@@ -1573,7 +1591,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14">
                  <item>
-                  <widget class="QLabel" name="labelAjuste_2">
+                  <widget class="QLabel" name="labelGeral">
                    <property name="text">
                     <string>R$100,00</string>
                    </property>
