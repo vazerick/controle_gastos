@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Hoje">
       <attribute name="title">
@@ -869,7 +869,7 @@
                </property>
               </item>
              </widget>
-             <widget class="QWidget" name="">
+             <widget class="QWidget" name="layoutWidget">
               <property name="geometry">
                <rect>
                 <x>10</x>
@@ -895,10 +895,9 @@
                </item>
               </layout>
              </widget>
+             <zorder>layoutWidget</zorder>
              <zorder>listMenu</zorder>
              <zorder>stackedWidget</zorder>
-             <zorder>botaoExcluir</zorder>
-             <zorder>botaoDividir</zorder>
             </widget>
            </item>
           </layout>
@@ -1493,346 +1492,250 @@
       <attribute name="title">
        <string>Dívidas</string>
       </attribute>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>80</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Nova Dívida</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="boxSaidas_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>80</y>
-         <width>441</width>
-         <height>461</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Eu devo...</string>
-       </property>
-       <widget class="QTreeWidget" name="treeReserva_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>441</width>
-          <height>441</height>
-         </rect>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>true</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>true</bool>
-        </property>
-        <attribute name="headerVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Item</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Pessoa</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Comentário</string>
-         </property>
-        </column>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="boxSaidas_4">
-       <property name="geometry">
-        <rect>
-         <x>460</x>
-         <y>80</y>
-         <width>441</width>
-         <height>461</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Me deve...</string>
-       </property>
-       <widget class="QTreeWidget" name="treeReserva_3">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>441</width>
-          <height>441</height>
-         </rect>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>true</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>true</bool>
-        </property>
-        <attribute name="headerVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Item</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Comentário</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Pessoa</string>
-         </property>
-        </column>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>0</y>
-         <width>461</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Soma</string>
-       </property>
-       <widget class="QGroupBox" name="boxMedia_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>141</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="accessibleName">
-         <string>quadro</string>
-        </property>
-        <property name="title">
-         <string>Eu devo...</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <widget class="QLabel" name="labelMedia_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>20</y>
-           <width>141</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>R$100,00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="boxLimiteDia_2">
-        <property name="geometry">
-         <rect>
-          <x>160</x>
-          <y>20</y>
-          <width>141</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="accessibleName">
-         <string>quadro</string>
-        </property>
-        <property name="title">
-         <string>Me devem...</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <widget class="QLabel" name="labelLimiteDia_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>20</y>
-           <width>141</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>R$100,00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="boxAjuste_2">
-        <property name="geometry">
-         <rect>
-          <x>310</x>
-          <y>20</y>
-          <width>141</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="accessibleName">
-         <string>quadro</string>
-        </property>
-        <property name="title">
-         <string>Geral</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <widget class="QLabel" name="labelAjuste_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>20</y>
-           <width>141</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>R$100,00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="boxSaidas_5">
-       <property name="geometry">
-        <rect>
-         <x>910</x>
-         <y>80</y>
-         <width>311</width>
-         <height>461</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Pessoas</string>
-       </property>
-       <widget class="QTreeWidget" name="treeReserva_4">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>311</width>
-          <height>441</height>
-         </rect>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>true</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>true</bool>
-        </property>
-        <attribute name="headerVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="headerHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Pessoa</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Valor</string>
-         </property>
-        </column>
-       </widget>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_16">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_15">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_19">
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Nova Dívida</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Soma</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_18">
+              <item>
+               <widget class="QGroupBox" name="boxMedia_2">
+                <property name="accessibleName">
+                 <string>quadro</string>
+                </property>
+                <property name="title">
+                 <string>Eu devo...</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <item>
+                  <widget class="QLabel" name="labelMedia_2">
+                   <property name="text">
+                    <string>R$100,00</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="boxLimiteDia_2">
+                <property name="accessibleName">
+                 <string>quadro</string>
+                </property>
+                <property name="title">
+                 <string>Me devem...</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_13">
+                 <item>
+                  <widget class="QLabel" name="labelLimiteDia_2">
+                   <property name="text">
+                    <string>R$100,00</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="boxAjuste_2">
+                <property name="accessibleName">
+                 <string>quadro</string>
+                </property>
+                <property name="title">
+                 <string>Geral</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_14">
+                 <item>
+                  <widget class="QLabel" name="labelAjuste_2">
+                   <property name="text">
+                    <string>R$100,00</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_17">
+           <item>
+            <widget class="QGroupBox" name="boxSaidas_3">
+             <property name="title">
+              <string>Eu devo...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QTreeWidget" name="treeDevo">
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="rootIsDecorated">
+                 <bool>true</bool>
+                </property>
+                <property name="uniformRowHeights">
+                 <bool>false</bool>
+                </property>
+                <property name="itemsExpandable">
+                 <bool>false</bool>
+                </property>
+                <property name="sortingEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+                <property name="headerHidden">
+                 <bool>true</bool>
+                </property>
+                <attribute name="headerVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="headerCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="headerHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>Data</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Item</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Comentário</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Valor</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="boxSaidas_4">
+             <property name="title">
+              <string>Me deve...</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_11">
+              <item>
+               <widget class="QTreeWidget" name="treeDevem">
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="rootIsDecorated">
+                 <bool>true</bool>
+                </property>
+                <property name="uniformRowHeights">
+                 <bool>false</bool>
+                </property>
+                <property name="itemsExpandable">
+                 <bool>false</bool>
+                </property>
+                <property name="sortingEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+                <property name="headerHidden">
+                 <bool>true</bool>
+                </property>
+                <attribute name="headerVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="headerCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="headerHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>Data</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Item</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Comentário</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Valor</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="Config">
       <attribute name="title">

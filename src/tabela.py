@@ -143,6 +143,34 @@ class TabelaGeral:
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
 
+class TabelaDivida:
+    colunas = ["pessoa", "data", "item", "comentario", "valor"]
+
+    def __init__(self):
+
+        self.endereco = 'data/dividas.csv'
+
+        # abre a tabela, ou cria caso não exista
+        try:
+            self.tabela = pd.read_csv(self.endereco, quotechar="'", index_col='id')
+        except FileNotFoundError:
+            self.tabela = pd.DataFrame(columns=self.colunas)
+            self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
+
+        self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
+
+        self.devo = self.tabela[self.tabela['valor'] > 0].copy()
+        self.devem = self.tabela[self.tabela['valor'] < 0].copy()
+
+    def adicionar(self, linha):
+        add = pd.DataFrame(
+            [linha],
+            columns=self.colunas
+        )
+        self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
+
+
 class TabelaInicia:
 
     colunas = []

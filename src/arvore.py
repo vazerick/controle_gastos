@@ -122,6 +122,45 @@ class ArvoreTabelaDividir(ArvoreTabela):
         self.colunas()
 
 
+class ArvoreTabelaDivida(ArvoreTabela):
+
+    def __init__(self, Widget, Tabela):
+        super().__init__(Widget, Tabela)
+
+    def atualiza(self, Tabela):
+        self.Widget.clear()
+
+        pessoas = Tabela["pessoa"]
+        pessoas = list(set(pessoas))
+
+        print("!!!")
+        for pessoa in pessoas:
+            Itens = Tabela[Tabela["pessoa"] == pessoa].copy()
+            linha = []
+            linha.append(str(pessoa))
+            linha.append(str(Itens["valor"].sum()))
+            ItemPai = QTreeWidgetItem(linha)
+
+            for x in range(0, len(Itens)):
+                linha = []
+                linha.append(str(Itens.iloc[x]['data']))
+                linha.append(str(Itens.iloc[x]['item']))
+                linha.append(str(Itens.iloc[x]['comentario']))
+                linha.append(str(Itens.iloc[x]['valor']))
+                # data, item, comentario, valor
+
+                # linha.append(str(Tabela.iloc[x]['nome']))
+                # linha.append('R$' + str(Tabela.iloc[x]['valor']))
+                WidgetItem = QTreeWidgetItem(linha)
+                # WidgetItem.setFlags(WidgetItem.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
+                # WidgetItem.setCheckState(0, Qt.Unchecked)
+                ItemPai.addChild(WidgetItem)
+
+            self.Widget.addTopLevelItem(ItemPai)
+        self.Widget.expandAll()
+        self.colunas()
+
+
 class ArvoreTabelaFiltro(ArvoreTabela):
 
     def __init__(self, Widget, Tabela, Categoria):
