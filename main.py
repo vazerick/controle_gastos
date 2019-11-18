@@ -30,7 +30,7 @@ from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
 from src.completer import Completer
-from src.tabela import TabelaGeral, TabelaInicia
+from src.tabela import TabelaGeral, TabelaInicia, TabelaDivida
 
 print("Declaração das funções")
 # declaração das funções
@@ -173,6 +173,17 @@ def gasto_atualiza():
     ArvoreSaida.atualiza(Tabela.Saida.tabela)
     Hoje.atualiza()
     hoje_grafico_escreve()
+
+
+def divida_atualiza():
+    devem = escreve_dinheiro(Divida.devem["valor"].sum())
+    devo = escreve_dinheiro(Divida.devo["valor"].sum())
+    divida = escreve_dinheiro(Divida.devem["valor"].sum() + Divida.devo["valor"].sum())
+    gui.ui.labelDevo.setText(devo)
+    gui.ui.labelDevem.setText(devem)
+    gui.ui.labelGeral.setText(divida)
+    ArvoreDevem.atualiza(Divida.devem)
+    ArvoreDevo.atualiza(Divida.devo)
 
 
 def sub_list_click(item):
@@ -2931,6 +2942,10 @@ ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
 ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorrente.tabela, Categoria)
 ArvoreInvestimento = ArvoreTabelaReserva(gui.ui.treeInvestimentos, TabelaInvestimento.tabela)
+ArvoreDevo = ArvoreTabelaDivida(gui.ui.treeDevo, Divida.devo, Pessoa)
+ArvoreDevem = ArvoreTabelaDivida(gui.ui.treeDevem, Divida.devem, Pessoa)
+
+divida_atualiza()
 
 gui.ui.treeEntrada.sortByColumn(1, Qt.AscendingOrder)
 gui.ui.treeFixo.sortByColumn(5, Qt.DescendingOrder)
