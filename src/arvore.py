@@ -125,7 +125,8 @@ class ArvoreTabelaDividir(ArvoreTabela):
 class ArvoreTabelaDivida(ArvoreTabela):
 
     def __init__(self, Widget, Tabela, Pessoas):
-        Tabela["pessoa"] = Tabela.apply(lambda row: Pessoas.id[row["pessoa"]]["nome"], axis=1)
+        if len(Tabela):
+            Tabela["pessoa"] = Tabela.apply(lambda row: Pessoas.id[row["pessoa"]]["nome"], axis=1)
         super().__init__(Widget, Tabela)
 
     def atualiza(self, Tabela):

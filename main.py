@@ -2872,6 +2872,8 @@ print("Inicia as tabelas")
 
 Historico = []
 
+Divida = TabelaDivida()
+
 # cria uma pasta para o ano caso não exista
 if not os.path.exists('data/' + Info.ano_str):
     print("Cria pasta do ano")
