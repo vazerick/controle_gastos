@@ -42,6 +42,12 @@ QComboBox {
   selection-background-color: $corC1;
 }
 
+QComboBox:focus, QComboBox:hover {
+  background-color: $corC3;
+  selection-color: #000;
+  selection-background-color: $corC1;
+}
+
 QStackedWidget {
   background-color: $corA2;
 }
