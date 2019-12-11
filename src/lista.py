@@ -9,9 +9,25 @@ class Lista:
 
     def __init__(self, nome):
         self.endereco = "data/" + nome + ".xml"
-        arquivo = xml.dom.minidom.parse(self.endereco)
-        lista = arquivo.documentElement  # lê o nó <lista> do arquivo
-        self.itens = lista.getElementsByTagName(nome)  # gera a lista de nós de cada item
+        try:
+            arquivo = xml.dom.minidom.parse(self.endereco)
+        except FileNotFoundError:
+            arvore = xml.dom.minidom.Document()
+            arvore.appendChild(arvore.createComment("Criacao: %s" % time.asctime(time.localtime(time.time()))))
+            lista = arvore.createElement('lista')
+            arvore.appendChild(lista)
+
+            arquivo = open(self.endereco, "w", encoding='utf-8')
+            arquivo.write(arvore.toprettyxml(indent='   '))
+
+            arquivo = []
+
+        try:
+            lista = arquivo.documentElement  # lê o nó <lista> do arquivo
+            self.itens = lista.getElementsByTagName(nome)  # gera a lista de nós de cada item
+        except AttributeError:
+            lista = []
+            self.itens = []
         self.id = []  # lista vazia para abrigar os itens
 
     def adiciona(self, add):

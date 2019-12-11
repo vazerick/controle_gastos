@@ -2461,6 +2461,11 @@ gui.ui.stackedWidget.setCurrentIndex(0)
 gui.ui.tabWidget.setCurrentIndex(0)
 gui.ui.listMenu.setCurrentRow(0)
 # objetos de listas
+
+# cria uma pasta para os dados caso não exista
+if not os.path.exists('data'):
+    os.makedirs('data')
+
 print("Carrega a lista de pessoas")
 Pessoa = ListaPessoa("pessoa")
 print("Carrega a lista de categorias")
@@ -2883,18 +2888,19 @@ if not os.path.exists('data/' + Info.ano_str):
 if tabela_existe(Info.ano_str, Info.mes_str):
     print("Carrega as tabelas do mês atual")
 else:
-    print("Tabelas desatualizadas")
-    mensagem(
-        titulo="Tabelas desatualizadas",
-        mensagem="Tabelas desatualizadas\nDeseja iniciar as tabelas deste mês?\nSerá necessário reiniciar o app",
-        aceita=mensagem_tabela_aceita,
-        rejeita=mensagem_tabela_rejeita,
-    )
-    while not tabela_existe(Info.ano_str, Info.mes_str):
-        if Info.mes_int == 1:
-            Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
-        else:
-            Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
+    if len([x[0] for x in os.walk('data/' + Info.ano_str)]) > 1:
+        print("Tabelas desatualizadas")
+        mensagem(
+            titulo="Tabelas desatualizadas",
+            mensagem="Tabelas desatualizadas\nDeseja iniciar as tabelas deste mês?\nSerá necessário reiniciar o app",
+            aceita=mensagem_tabela_aceita,
+            rejeita=mensagem_tabela_rejeita,
+        )
+        while not tabela_existe(Info.ano_str, Info.mes_str):
+            if Info.mes_int == 1:
+                Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
+            else:
+                Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
 
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)

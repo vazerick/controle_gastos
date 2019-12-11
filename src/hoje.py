@@ -71,7 +71,10 @@ class Hoje:
 
         dia_mes = self.Info.referencia
         dia_total = self.Info.tempo.daysInMonth()
-        dia_percent = (dia_mes / dia_total) * 100
+        try:
+            dia_percent = (dia_mes / dia_total) * 100
+        except ZeroDivisionError:
+            dia_percent = 0
         self.Dia("Dia: " + str(dia_mes) + " de " + str(dia_total) + " (" + f'{dia_percent:.0f}' + "%)")
         if self.Referencia.day() > 1:
             self.media_dia = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem) / self.Ontem.day()
@@ -79,9 +82,15 @@ class Hoje:
         else:
             self.media_dia = 0
             dia_restante = dia_total
-        self.dia_limite = self.mes_limite / dia_total
+        try:
+            self.dia_limite = self.mes_limite / dia_total
+        except ZeroDivisionError:
+            self.dia_limite = 0
         gasto_base = self.Tabela.Saida.soma_intervalo(self.Inicio, self.Ontem)
-        self.hoje_limite = (self.mes_limite - gasto_base) / dia_restante
+        try:
+            self.hoje_limite = (self.mes_limite - gasto_base) / dia_restante
+        except ZeroDivisionError:
+            self.hoje_limite = 0
         self.hoje_resta = self.hoje_limite - self.soma_hoje
 
         self.ajuste = (self.dia_limite - self.media_dia) * self.Ontem.day()

@@ -70,13 +70,16 @@ class SubcategoriaLink:
         self.ativosSub = []
         # self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('ordem'))
         self.ativosCat = sorted(self.Lista.getAtivos(), key=itemgetter('nome'))
-        if len(self.ativosCat[0]['sub_lista']):
-            # self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
-            #                         key=itemgetter('ordem'))
-            self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
-                                    key=itemgetter('nome'))
-            for item in range(len(self.ativosSub)):
-                self.Combo.addItem(self.ativosSub[item]['nome'])
+        try:
+            if len(self.ativosCat[0]['sub_lista']):
+                # self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
+                #                         key=itemgetter('ordem'))
+                self.ativosSub = sorted(self.Lista.subGetAtivos(self.ativosCat[0]['sub_lista'][0]['id']),
+                                        key=itemgetter('nome'))
+                for item in range(len(self.ativosSub)):
+                    self.Combo.addItem(self.ativosSub[item]['nome'])
+        except IndexError:
+            self.ativosSub = []
         if self.addFim:
             self.Combo.addItem("Fim da lista")
 
