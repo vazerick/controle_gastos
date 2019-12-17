@@ -231,6 +231,8 @@ def conf_botao_sub_add():
     index = gui.ui.treeCategorias.currentIndex().parent().row()
     if index == -1:
         index = gui.ui.treeCategorias.currentIndex().row()
+    if index == -1:
+        index = 0
     gui.uiSubCategoriasAdd.comboCat.setCurrentIndex(index)
     gui.wSubCategoriasAdd.show()
 
@@ -381,6 +383,7 @@ def sub_botao_add():
             'ordem': ordem
         })
     filaSubCategorias.clear()
+    ArvoreCategorias.atualiza()
     gui.uiSubCategoriasAdd.inputNome.clear()
     gui.subcategorias_reseta()
     gui.wSubCategoriasAdd.hide()
