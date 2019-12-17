@@ -1,4 +1,5 @@
 import pandas
+from operator import itemgetter
 from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QApplication, QWidget
 from PyQt5.QtCore import Qt
 
@@ -12,7 +13,10 @@ class Arvore:
 
     def atualiza(self):
         self.Widget.clear()
-        for item in self.Lista.id:
+
+        lista = sorted(self.Lista.id, key=itemgetter('nome'))
+
+        for item in lista:
             linha = [item['nome']]
             if item['status']:
                 linha.append("Ativo")
@@ -22,7 +26,8 @@ class Arvore:
 
             if 'sub_status' in item:
                 if item['sub_status']:
-                    for sub in item['sub_lista']:
+                    lista_sub = sorted(item['sub_lista'], key=itemgetter('nome'))
+                    for sub in lista_sub:
                         child = [sub['nome']]
                         if sub['status']:
                             child.append("Ativo")

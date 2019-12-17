@@ -229,6 +229,15 @@ class ListaCategoria(Lista):
             )
         return ativos
 
+    def getId(self, nome):
+        for item in self.id:
+            if item["nome"] == nome:
+                return item["id"]
+
+    def getSubId(self, cat, nome):
+        for item in self.id[cat]['sub_lista']:
+            if item["nome"] == nome:
+                return item["id"]
 
 class Pagamento:
 

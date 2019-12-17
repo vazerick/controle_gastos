@@ -151,7 +151,6 @@ class gui:
         self.wSubCategoriasAdd = QDialog()
         self.uiSubCategoriasAdd = SubCategoriasAdd()
         self.uiSubCategoriasAdd.setupUi(self.wSubCategoriasAdd)
-        self.uiSubCategoriasAdd.listWidget.hide()
 
         # janela para editar sub-categorias
         self.wSubCategoriasEdit = QDialog()
@@ -216,67 +215,6 @@ class gui:
         # inicializa a janela
         print("Inicia a janela")
         self.wMain.show()
-
-    def subcategorias_extra(self, nome):  # todo arrumar isso aqui que tá tudo zoado
-        self.extra += 1
-
-        self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
-            260,
-            self.altura + (self.extra * self.fator))
-        )
-        self.wSubCategoriasAdd.resize(
-            260,
-            self.altura + (self.extra * self.fator)
-        )
-        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
-
-        self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100 + (self.extra * self.fator), 111, 17))
-        self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120 + (self.extra * self.fator), 241, 25))
-
-        self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31 + (self.extra * self.fator)))
-        self.uiSubCategoriasAdd.listWidget.addItem(nome)
-        self.uiSubCategoriasAdd.listWidget.show()
-
-    def subcategorias_remove(self):
-        self.extra -= 1
-
-        self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
-            260,
-            self.altura + (self.extra * self.fator))
-        )
-        self.wSubCategoriasAdd.resize(
-            260,
-            self.altura + (self.extra * self.fator)
-        )
-        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
-
-        self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100 + (self.extra * self.fator), 111, 17))
-        self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120 + (self.extra * self.fator), 241, 25))
-
-        self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31 + (self.extra * self.fator)))
-        self.uiSubCategoriasAdd.listWidget.takeItem(self.uiSubCategoriasAdd.listWidget.currentRow())
-        self.uiSubCategoriasAdd.listWidget.show()
-
-    def subcategorias_reseta(self):
-        self.lista = ''
-        self.extra = 0
-
-        self.wSubCategoriasAdd.setMaximumSize(QtCore.QSize(
-            260,
-            self.altura)
-        )
-        self.wSubCategoriasAdd.resize(
-            260,
-            self.altura
-        )
-        self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210, 80, 25))
-
-        self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100, 111, 17))
-        self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120, 241, 25))
-
-        self.uiSubCategoriasAdd.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31))
-        self.uiSubCategoriasAdd.listWidget.clear()
-        self.uiSubCategoriasAdd.listWidget.hide()
 
     def calendario_habilita(self, janela):
         pago = [

@@ -187,9 +187,9 @@ def divida_atualiza():
 
 
 def sub_list_click(item):
-    gui.subcategorias_remove()
     gui.uiSubCategoriasAdd.inputNome.setText(item.text())
     filaSubCategorias.remove(item.text())
+    gui.uiSubCategoriasAdd.listWidget.takeItem(gui.uiSubCategoriasAdd.listWidget.currentRow())
 
 
 # atualiza os combos após atualizar a lista Categorias
@@ -268,24 +268,29 @@ def pessoa_botao_editar():
     gui.wPessoasEdit.hide()
 
 
-# todo gerar e adicionar os combos de categorias e subcategorias
-# todo adicionar o checkbox de "Ativo"
-def conf_botao_cat_editar():
+def conf_cat_click(item):
+    item = gui.ui.treeCategorias.selectedItems()[0]
+    nome = item.text(0)
     index = gui.ui.treeCategorias.currentIndex().row()
     pai = gui.ui.treeCategorias.currentIndex().parent().row()
+
     if index >= 0:
         if pai == -1:
-            gui.uiCategoriasEdit.labelTitulo.setText("Editar: " + Categoria.id[index]['nome'])
-            gui.uiCategoriasEdit.inputNome.setText(Categoria.id[index]['nome'])
+            id = Categoria.getId(nome)
+            gui.uiCategoriasEdit.labelTitulo.setText("Editar: " + Categoria.id[id]['nome'])
+            gui.uiCategoriasEdit.inputNome.setText(Categoria.id[id]['nome'])
             gui.wCategoriasEdit.show()
         else:
+            cat_nome = gui.ui.treeCategorias.currentItem().parent().text(0)
+            cat_id = Categoria.getId(cat_nome)
+            sub_id = Categoria.getSubId(cat_id, nome)
             gui.uiSubCategoriasEdit.labelTitulo.setText(
                 "Editar: " +
-                Categoria.id[pai]['nome'] +
+                Categoria.id[cat_id]['nome'] +
                 " - " +
-                Categoria.id[pai]['sub_lista'][index]['nome']
+                Categoria.id[cat_id]['sub_lista'][sub_id]['nome']
             )
-            gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[pai]['sub_lista'][index]['nome'])
+            gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[cat_id]['sub_lista'][sub_id]['nome'])
             gui.wSubCategoriasEdit.show()
 
 
@@ -347,7 +352,7 @@ def sub_botao_fila():
         return 0
     nome = gui.uiSubCategoriasAdd.inputNome.text()
     filaSubCategorias.append(nome)
-    gui.subcategorias_extra(nome)
+    gui.uiSubCategoriasAdd.listWidget.addItem(nome)
     gui.uiSubCategoriasAdd.inputNome.clear()
     del nome
 
@@ -367,7 +372,6 @@ def sub_botao_add():
     filaSubCategorias.clear()
     ArvoreCategorias.atualiza()
     gui.uiSubCategoriasAdd.inputNome.clear()
-    gui.subcategorias_reseta()
     gui.wSubCategoriasAdd.hide()
     Categoria.salva()
     combos_categoria_atualiza()
@@ -376,7 +380,6 @@ def sub_botao_add():
 def sub_botao_cancela():
     filaSubCategorias.clear()
     gui.uiSubCategoriasAdd.inputNome.clear()
-    gui.subcategorias_reseta()
     gui.wSubCategoriasAdd.hide()
 
 
@@ -2604,7 +2607,7 @@ gui.ui.botaoCategoriaAdicionar.clicked.connect(conf_botao_cat_add)
 gui.ui.botaoPessoaAdicionar.clicked.connect(conf_botao_pessoa_add)
 gui.ui.botaoSubAdicionar.clicked.connect(conf_botao_sub_add)
 gui.ui.botaoPessoaEditar.clicked.connect(conf_botao_pessoa_editar)
-gui.ui.botaoCategoriaEditar.clicked.connect(conf_botao_cat_editar)
+gui.ui.treeCategorias.doubleClicked.connect(conf_cat_click)
 
 gui.uiPessoasAdd.buttonBox.accepted.connect(pessoa_botao_add)
 gui.uiPessoasAdd.buttonBox.rejected.connect(pessoa_botao_cancela)
