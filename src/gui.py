@@ -230,8 +230,6 @@ class gui:
         )
         self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
 
-        self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
-        self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
         self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100 + (self.extra * self.fator), 111, 17))
         self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120 + (self.extra * self.fator), 241, 25))
 
@@ -252,8 +250,6 @@ class gui:
         )
         self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210 + (self.extra * self.fator), 80, 25))
 
-        self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170 + (self.extra * self.fator), 241, 25))
-        self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150 + (self.extra * self.fator), 111, 17))
         self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100 + (self.extra * self.fator), 111, 17))
         self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120 + (self.extra * self.fator), 241, 25))
 
@@ -275,8 +271,6 @@ class gui:
         )
         self.uiSubCategoriasAdd.buttonBox.setGeometry(QtCore.QRect(40, 210, 80, 25))
 
-        self.uiSubCategoriasAdd.comboSub.setGeometry(QtCore.QRect(10, 170, 241, 25))
-        self.uiSubCategoriasAdd.labelAntes.setGeometry(QtCore.QRect(20, 150, 111, 17))
         self.uiSubCategoriasAdd.labelCategoria.setGeometry(QtCore.QRect(20, 100, 111, 17))
         self.uiSubCategoriasAdd.comboCat.setGeometry(QtCore.QRect(10, 120, 241, 25))
 

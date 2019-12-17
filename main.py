@@ -198,9 +198,7 @@ def sub_list_click(item):
 # todo adicionar um combo_sub_atualiza
 def combos_categoria_atualiza():
     colecao = [
-        ComboSubAdd,
         ComboSubAddCat,
-        ComboCategoriaAdd,
         ComboGastoCat,
         ComboGastoEditCat,
         ComboFixoCat
@@ -329,20 +327,12 @@ def cat_botao_add():
     if nao_valida([gui.uiCategoriasAdd.inputNome]):
         return 0
     nome = gui.uiCategoriasAdd.inputNome.text()
-    combo_id = ComboCategoriaAdd.getId()
-    if combo_id == -1:
-        ordem = len(Categoria.id)
-    else:
-        ordem = Categoria.id[combo_id]['ordem']
-    Categoria.reordena(ordem)
     Categoria.adiciona({
         'nome': nome,
-        'ordem': ordem,
         'sub_status': 0,
         'sub_lista': ''
     })
     Categoria.salva()
-    ComboCategoriaAdd.atualiza()
     ArvoreCategorias.atualiza()
     gui.wCategoriasAdd.hide()
     gui.uiCategoriasAdd.inputNome.clear()
@@ -364,12 +354,6 @@ def sub_botao_fila():
 
 def sub_botao_add():
     cat = ComboSubAddCat.getId()
-    combo_id = ComboSubAdd.getId()
-
-    if combo_id == -1:
-        ordem = len(Categoria.id[cat]['sub_lista'])
-    else:
-        ordem = Categoria.id[cat]['sub_lista'][combo_id]['ordem']
 
     if nao_valida([gui.uiSubCategoriasAdd.inputNome]):
         if len(filaSubCategorias) == 0:
@@ -377,10 +361,8 @@ def sub_botao_add():
     else:
         filaSubCategorias.append(gui.uiSubCategoriasAdd.inputNome.text())
     for nome in filaSubCategorias[::-1]:
-        Categoria.reordenaSubcategoria(cat, ordem)
         Categoria.adicionaSubcategoria(cat, {
             'nome': nome,
-            'ordem': ordem
         })
     filaSubCategorias.clear()
     ArvoreCategorias.atualiza()
@@ -2495,10 +2477,7 @@ ComboGastoCat = Link(gui.uiGastosAdd.comboCategoria, Categoria)
 ComboGastoSub = SubcategoriaLink(gui.uiGastosAdd.comboSub, Categoria)
 ComboGastoEditCat = Link(gui.uiGastosEdit.comboCategoria, Categoria)
 ComboGastoEditSub = SubcategoriaLink(gui.uiGastosEdit.comboSub, Categoria)
-ComboCategoriaAdd = Link(gui.uiCategoriasAdd.comboBox, Categoria, addFim=1)
-ComboCategoriaEdit = EditarLink(gui.uiCategoriasEdit.comboBox, Categoria)
 ComboSubAddCat = Link(gui.uiSubCategoriasAdd.comboCat, Categoria)
-ComboSubAdd = SubcategoriaLink(gui.uiSubCategoriasAdd.comboSub, Categoria, addFim=1)
 ComboFixoCat = Link(gui.uiFixoAdd.comboCategoria, Categoria)
 ComboFixoSub = SubcategoriaLink(gui.uiFixoAdd.comboSub, Categoria)
 ComboFixoEditCat = Link(gui.uiFixoEdit.comboCategoria, Categoria)
@@ -2819,10 +2798,6 @@ gui.ui.comboGrafico.currentIndexChanged.connect(hoje_grafico_escreve)
 # combos dinâmicos que mudam de valores conforme a seleção em combo pai
 
 combos_dinamicos = [  # todo procurar mais combos dinamicos, como no add sub-categorias
-    [
-        gui.uiSubCategoriasAdd.comboCat,
-        lambda: combo_sub_troca(ComboSubAddCat, ComboSubAdd)
-    ],
     [
         gui.uiGastosAdd.comboCategoria,
         lambda: combo_sub_troca(ComboGastoCat, ComboGastoSub)

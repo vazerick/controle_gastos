@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'categorias_edit.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,31 +11,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(230, 200)
-        Form.setMinimumSize(QtCore.QSize(230, 200))
+        Form.resize(230, 88)
+        Form.setMinimumSize(QtCore.QSize(0, 0))
         Form.setMaximumSize(QtCore.QSize(230, 200))
         Form.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.inputNome = QtWidgets.QLineEdit(Form)
-        self.inputNome.setGeometry(QtCore.QRect(10, 60, 211, 25))
-        self.inputNome.setObjectName("inputNome")
-        self.labelNome = QtWidgets.QLabel(Form)
-        self.labelNome.setGeometry(QtCore.QRect(20, 40, 54, 17))
-        self.labelNome.setObjectName("labelNome")
-        self.labelAntes = QtWidgets.QLabel(Form)
-        self.labelAntes.setGeometry(QtCore.QRect(20, 90, 151, 17))
-        self.labelAntes.setObjectName("labelAntes")
-        self.comboBox = QtWidgets.QComboBox(Form)
-        self.comboBox.setGeometry(QtCore.QRect(10, 110, 211, 25))
-        self.comboBox.setObjectName("comboBox")
+        self.verticalLayout = QtWidgets.QVBoxLayout(Form)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.labelTitulo = QtWidgets.QLabel(Form)
-        self.labelTitulo.setGeometry(QtCore.QRect(20, 20, 191, 17))
         self.labelTitulo.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTitulo.setObjectName("labelTitulo")
+        self.verticalLayout.addWidget(self.labelTitulo)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.labelNome = QtWidgets.QLabel(Form)
+        self.labelNome.setObjectName("labelNome")
+        self.horizontalLayout.addWidget(self.labelNome)
+        self.inputNome = QtWidgets.QLineEdit(Form)
+        self.inputNome.setObjectName("inputNome")
+        self.horizontalLayout.addWidget(self.inputNome)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.buttonBox = QtWidgets.QDialogButtonBox(Form)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 160, 231, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
+        self.verticalLayout.addWidget(self.buttonBox)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -43,7 +42,16 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Editar Categoria"))
-        self.labelNome.setText(_translate("Form", "Nome"))
-        self.labelAntes.setText(_translate("Form", "Adicionar antes de"))
         self.labelTitulo.setText(_translate("Form", "Editar [nome]"))
+        self.labelNome.setText(_translate("Form", "Nome"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 

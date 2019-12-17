@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'subcategorias_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,41 +11,40 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(260, 250)
+        Form.resize(260, 200)
         Form.setMinimumSize(QtCore.QSize(260, 200))
         Form.setMaximumSize(QtCore.QSize(260, 250))
         Form.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.inputNome = QtWidgets.QLineEdit(Form)
-        self.inputNome.setGeometry(QtCore.QRect(10, 22, 211, 25))
-        self.inputNome.setObjectName("inputNome")
+        self.verticalLayout = QtWidgets.QVBoxLayout(Form)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.labelNome = QtWidgets.QLabel(Form)
-        self.labelNome.setGeometry(QtCore.QRect(20, 2, 54, 17))
         self.labelNome.setObjectName("labelNome")
+        self.horizontalLayout.addWidget(self.labelNome)
+        self.inputNome = QtWidgets.QLineEdit(Form)
+        self.inputNome.setObjectName("inputNome")
+        self.horizontalLayout.addWidget(self.inputNome)
         self.botaoMais = QtWidgets.QPushButton(Form)
-        self.botaoMais.setGeometry(QtCore.QRect(230, 22, 25, 25))
         self.botaoMais.setMinimumSize(QtCore.QSize(25, 25))
         self.botaoMais.setMaximumSize(QtCore.QSize(20, 20))
         self.botaoMais.setObjectName("botaoMais")
-        self.comboSub = QtWidgets.QComboBox(Form)
-        self.comboSub.setGeometry(QtCore.QRect(10, 170, 241, 25))
-        self.comboSub.setObjectName("comboSub")
-        self.labelAntes = QtWidgets.QLabel(Form)
-        self.labelAntes.setGeometry(QtCore.QRect(20, 150, 111, 17))
-        self.labelAntes.setObjectName("labelAntes")
-        self.labelCategoria = QtWidgets.QLabel(Form)
-        self.labelCategoria.setGeometry(QtCore.QRect(20, 100, 111, 17))
-        self.labelCategoria.setObjectName("labelCategoria")
-        self.comboCat = QtWidgets.QComboBox(Form)
-        self.comboCat.setGeometry(QtCore.QRect(10, 120, 241, 25))
-        self.comboCat.setObjectName("comboCat")
+        self.horizontalLayout.addWidget(self.botaoMais)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.listWidget = QtWidgets.QListWidget(Form)
-        self.listWidget.setGeometry(QtCore.QRect(10, 60, 241, 31))
         self.listWidget.setObjectName("listWidget")
+        self.verticalLayout.addWidget(self.listWidget)
+        self.labelCategoria = QtWidgets.QLabel(Form)
+        self.labelCategoria.setObjectName("labelCategoria")
+        self.verticalLayout.addWidget(self.labelCategoria)
+        self.comboCat = QtWidgets.QComboBox(Form)
+        self.comboCat.setObjectName("comboCat")
+        self.verticalLayout.addWidget(self.comboCat)
         self.buttonBox = QtWidgets.QDialogButtonBox(Form)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 220, 261, 23))
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
+        self.verticalLayout.addWidget(self.buttonBox)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -55,6 +54,15 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Nova Sub-Categoria"))
         self.labelNome.setText(_translate("Form", "Nome"))
         self.botaoMais.setText(_translate("Form", "+"))
-        self.labelAntes.setText(_translate("Form", "Adicionar antes de"))
         self.labelCategoria.setText(_translate("Form", "Categoria"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 
