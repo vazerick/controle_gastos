@@ -2338,8 +2338,19 @@ def hoje_botao_dividir():
 
 
 def hoje_botao_ajustar():
+    gui.uiAjustar.spinAjuste.setValue(Info.erro)
+    gui.uiAjustar.spinHistorico.setValue(Info.reserva)
     gui.wAjustar.show()
 
+
+def ajustar_botao_ok():
+    erro = gui.uiAjustar.spinAjuste.value()
+    reserva = gui.uiAjustar.spinHistorico.value()
+    Info.erro = erro
+    Info.reserva = reserva
+    Info.salvar()
+    Hoje.atualiza()
+    gui.wAjustar.hide()
 
 dividir_pessoas = 0
 dividir_lista = []
@@ -2536,6 +2547,9 @@ gui.uiFixoConverte.buttonBox.accepted.connect(converte_fixo_botao_add)
 
 gui.ui.botaoDividir.clicked.connect(hoje_botao_dividir)
 gui.ui.botaoAjustes.clicked.connect(hoje_botao_ajustar)
+
+gui.uiAjustar.buttonBox.accepted.connect(ajustar_botao_ok)
+gui.uiAjustar.buttonBox.rejected.connect(gui.wAjustar.hide)
 
 gui.uiGerador.buttonBox.accepted.connect(gerador_salva)
 

@@ -54,7 +54,7 @@
          <item>
           <widget class="QLabel" name="labelAjuste">
            <property name="text">
-            <string>Ajuste de erro:</string>
+            <string>Ajuste de erro: R$</string>
            </property>
           </widget>
          </item>
@@ -75,7 +75,7 @@
          <item>
           <widget class="QLabel" name="labelHistorico">
            <property name="text">
-            <string>Uso de Reserva:</string>
+            <string>Uso de Reserva: R$</string>
            </property>
           </widget>
          </item>

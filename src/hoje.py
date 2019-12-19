@@ -52,6 +52,7 @@ class Hoje:
         self.LimiteDia = Janela.labelLimiteDia
         self.Media = Janela.labelMedia
 
+        self.TotalAjuste = Janela.labelTotalAjustesV
         self.TotalEntrada = Janela.labelTotalEntradaV
         self.TotalFixo = Janela.labelTotalFixoV
         self.TotalReserva = Janela.labelTotalReservaV
@@ -66,7 +67,9 @@ class Hoje:
         self.soma_reserva = self.Tabela.Reserva.soma()
         self.soma_hoje = self.Tabela.Saida.soma_data(self.Referencia)
 
-        self.mes_limite = self.soma_entrada - self.soma_fixo - self.soma_reserva
+        self.soma_ajuste = self.Info.reserva + self.Info.erro
+
+        self.mes_limite = self.soma_entrada + self.soma_ajuste - self.soma_fixo - self.soma_reserva
         self.mes_resta = self.mes_limite - self.soma_saida
 
         dia_mes = self.Info.referencia
@@ -191,6 +194,10 @@ class Hoje:
             {
                 'valor': self.semana_resta,
                 'label': self.SemanaResto
+            },
+            {
+                'valor': self.soma_ajuste,
+                'label': self.TotalAjuste
             }
         ])
 

@@ -60,8 +60,8 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Ajustes"))
-        self.labelAjuste.setText(_translate("Form", "Ajuste de erro:"))
-        self.labelHistorico.setText(_translate("Form", "Uso de Reserva:"))
+        self.labelAjuste.setText(_translate("Form", "Ajuste de erro: R$"))
+        self.labelHistorico.setText(_translate("Form", "Uso de Reserva: R$"))
 
 
 if __name__ == "__main__":
