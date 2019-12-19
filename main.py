@@ -1027,6 +1027,7 @@ def hoje_botao_excluir_reserva():
 def hoje_botao_ajuste():
     total = Hoje.soma_reserva+Hoje.mes_resta
     for label, texto in [
+        (gui.uiAjuste.labelAjustes, Hoje.soma_ajuste),
         (gui.uiAjuste.labelReserva, Hoje.soma_reserva),
         (gui.uiAjuste.labelResto, Hoje.mes_resta),
         (gui.uiAjuste.labelSoma, total),
@@ -1042,6 +1043,7 @@ def hoje_botao_ajuste():
         label.clear()
     gui.uiAjuste.botaoAdd.setText("Ajuste")
     gui.uiAjuste.botaoAdd.setEnabled(False)
+    gui.uiAjuste.botaoAtualizar.setEnabled(False)
     gui.wAjuste.show()
 
 
@@ -1111,6 +1113,10 @@ def ajuste_soma():
     gui.uiAjuste.botaoAdd.disconnect()
     gui.uiAjuste.botaoAdd.clicked.connect(funcao)
 
+    gui.uiAjuste.botaoAtualizar.setEnabled(estado)
+    gui.uiAjuste.botaoAtualizar.disconnect()
+    gui.uiAjuste.botaoAtualizar.clicked.connect(lambda: ajuste_botao_atualizar(ajuste))
+
     pyperclip.copy( str(f"{abs(ajuste):.2f}").replace(".", ",") )
 
 def ajuste_botao_gasto(valor):
@@ -1127,6 +1133,19 @@ def ajuste_botao_entrada(valor):
     gui.uiEntradaAdd.inputEntrada.setText("Ajuste de erro")
     gui.uiEntradaAdd.checkPago.setCheckState(2)
     gui.uiEntradaAdd.spinValor.setValue(valor)
+
+
+def ajuste_botao_atualizar(valor):
+    gui.wAjuste.hide()
+    gui.wAjustar.show()
+    gui.uiAjustar.spinHistorico.setValue(Info.reserva)
+    atual = Info.erro
+    novo = valor+atual
+    print(atual, valor, novo)
+    gui.uiAjustar.spinAjuste.setValue(novo)
+
+
+# def ajuste_botao_atualizar()
 
 
 def escreve_dinheiro(valor):
