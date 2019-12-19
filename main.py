@@ -2337,6 +2337,10 @@ def hoje_botao_dividir():
     gui.uiDividir.labelDividido.setText("R$0")
 
 
+def hoje_botao_ajustar():
+    gui.wAjustar.show()
+
+
 dividir_pessoas = 0
 dividir_lista = []
 
@@ -2531,6 +2535,7 @@ gui.uiFixoEdit.buttonBox.accepted.connect(fixo_botao_editar)
 gui.uiFixoConverte.buttonBox.accepted.connect(converte_fixo_botao_add)
 
 gui.ui.botaoDividir.clicked.connect(hoje_botao_dividir)
+gui.ui.botaoAjustes.clicked.connect(hoje_botao_ajustar)
 
 gui.uiGerador.buttonBox.accepted.connect(gerador_salva)
 

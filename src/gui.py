@@ -23,7 +23,7 @@ from ui.recorrentes import Ui_Form as Recorrente
 from ui.gerador import Ui_Form as Gerador
 from ui.relatorio import Ui_Form as Relatorio
 from ui.dividir import Ui_Form as Dividir
-
+from ui.ajustar import Ui_Form as Ajustar
 
 class gui:
 
@@ -162,6 +162,11 @@ class gui:
         self.uiDividir = Dividir()
         self.uiDividir.setupUi(self.wDividir)
 
+        # janela para Ajustar
+        self.wAjustar = QDialog()
+        self.uiAjustar = Ajustar()
+        self.uiAjustar.setupUi(self.wAjustar)
+
         # janela das mensagens
         self.wMensagem = QDialog()
         self.uiMensagem = Mensagem()
@@ -207,7 +212,8 @@ class gui:
             self.wInvestimentoEdit,
             self.wGerador,
             self.wRelatorio,
-            self.wDividir
+            self.wDividir,
+            self.wAjustar
         ]:
             janela.setStyleSheet(self.style)
             janela.setWindowModality(Qt.ApplicationModal)
