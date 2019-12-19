@@ -298,18 +298,10 @@ def pessoa_botao_add():
     if nao_valida([gui.uiPessoasAdd.inputNome]):
         return 0
     nome = gui.uiPessoasAdd.inputNome.text()
-    combo_id = ComboPessoaAdd.getId()
-    if combo_id == -1:
-        ordem = len(Pessoa.id)
-    else:
-        ordem = Pessoa.id[combo_id]['ordem']
-    Pessoa.reordena(ordem)
     Pessoa.adiciona({
         'nome': nome,
-        'ordem': ordem
     })
     Pessoa.salva()
-    ComboPessoaAdd.atualiza()
     ArvorePessoa.atualiza()
     gui.wPessoasAdd.hide()
     gui.uiPessoasAdd.inputNome.clear()

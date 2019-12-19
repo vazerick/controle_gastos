@@ -57,13 +57,11 @@ class ListaPessoa(Lista):
         for item in self.itens:  # para cada item da lista, cria um dicionário com os atributos definidos
             nome = item.getElementsByTagName("nome")[0]
             status = item.getElementsByTagName("status")[0]
-            ordem = item.getElementsByTagName("ordem")[0]
             self.id.append(
                 {
                     'id': int(item.getAttribute("id")),
                     'nome': nome.childNodes[0].data,
                     'status': int(status.childNodes[0].data),
-                    'ordem': int(ordem.childNodes[0].data)
                 }
             )
 
@@ -75,7 +73,6 @@ class ListaPessoa(Lista):
                     {
                         'id': self.id[item]["id"],
                         'nome': self.id[item]["nome"],
-                        'ordem': self.id[item]["ordem"]
                     }
                 )
         return ativos
@@ -97,10 +94,6 @@ class ListaPessoa(Lista):
             status = doc.createElement('status')
             item.appendChild(status)
             status.appendChild(doc.createTextNode(str(indice['status'])))
-
-            ordem = doc.createElement('ordem')
-            item.appendChild(ordem)
-            ordem.appendChild(doc.createTextNode(str(indice['ordem'])))
 
         doc.appendChild(lista)
 
