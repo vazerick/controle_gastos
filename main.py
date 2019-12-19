@@ -235,16 +235,16 @@ def conf_botao_sub_add():
     gui.wSubCategoriasAdd.show()
 
 
-def conf_botao_pessoa_editar():
+def conf_pessoa_click(item):
+    item = gui.ui.treePessoas.selectedItems()[0]
+    nome = item.text(0)
     index = gui.ui.treePessoas.currentIndex().row()
     if index >= 0:
-        gui.uiPessoasEdit.labelTitulo.setText("Editar: " + Pessoa.id[index]['nome'])
-        gui.uiPessoasEdit.inputNome.setText(Pessoa.id[index]['nome'])
-        ComboPessoaEdit.atualizar()
-        ComboPessoaEdit.select(index)
-        gui.uiPessoasEdit.comboBox.setCurrentIndex(index)
+        id = Pessoa.getId(nome)
+        gui.uiPessoasEdit.labelTitulo.setText("Editar: " + Pessoa.id[id]['nome'])
+        gui.uiPessoasEdit.inputNome.setText(Pessoa.id[id]['nome'])
 
-        if Pessoa.id[index]['status']:
+        if Pessoa.id[id]['status']:
             gui.uiPessoasEdit.checkBox.setChecked(1)
         else:
             gui.uiPessoasEdit.checkBox.setChecked(0)
@@ -258,12 +258,7 @@ def pessoa_botao_editar():
         return 0
     nome = gui.uiPessoasEdit.inputNome.text()
     status = int(gui.uiPessoasEdit.checkBox.isChecked())
-    combo_id = ComboPessoaEdit.getId()
-    if combo_id == -1:
-        ordem = len(Pessoa.id) - 1
-    else:
-        ordem = Pessoa.id[combo_id]['ordem']
-    Pessoa.edita(index, nome, ordem, status)
+    Pessoa.edita(index, nome, status)
     Pessoa.salva()
     gui.wPessoasEdit.hide()
 
@@ -2461,8 +2456,6 @@ ArvoreFilaGastos = ArvoreFilaGastos(gui.uiGastosAdd.treeWidget, fila_gasto, Cate
 # objetos de link de combos
 
 # links de pessoa
-ComboPessoaAdd = Link(gui.uiPessoasAdd.comboBox, Pessoa, addFim=1)
-ComboPessoaEdit = EditarLink(gui.uiPessoasEdit.comboBox, Pessoa)
 # links de categoria
 ComboFiltroCat = Link(gui.ui.comboCategoria, Categoria)
 ComboFiltroSub = SubcategoriaLink(gui.ui.comboSub, Categoria)
@@ -2598,7 +2591,7 @@ gui.uiReservaEdit.botaoGasto.clicked.connect(reserva_converte_gasto)
 gui.ui.botaoCategoriaAdicionar.clicked.connect(conf_botao_cat_add)
 gui.ui.botaoPessoaAdicionar.clicked.connect(conf_botao_pessoa_add)
 gui.ui.botaoSubAdicionar.clicked.connect(conf_botao_sub_add)
-gui.ui.botaoPessoaEditar.clicked.connect(conf_botao_pessoa_editar)
+gui.ui.treePessoas.doubleClicked.connect(conf_pessoa_click)
 gui.ui.treeCategorias.doubleClicked.connect(conf_cat_click)
 
 gui.uiPessoasAdd.buttonBox.accepted.connect(pessoa_botao_add)

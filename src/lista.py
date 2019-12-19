@@ -35,19 +35,10 @@ class Lista:
         add['status'] = 1
         self.id.append(add)
 
-    def edita(self, index, nome, ordem_nova, status):
-        ordem_velha = self.id[index]['ordem']
+    def edita(self, index, nome, status):
         self.id[index]['nome'] = nome
         self.id[index]['status'] = status
-        if ordem_nova > ordem_velha:
-            for item in self.id:
-                if ( item['ordem'] > ordem_velha) and (item['ordem'] <= ordem_nova):
-                    item['ordem'] -= 1
-        else:
-            for item in self.id:
-                if ( item['ordem'] >= ordem_nova) and (item['ordem'] < ordem_velha):
-                    item['ordem'] += 1
-        self.id[index]['ordem'] = ordem_nova
+
 
 class ListaPessoa(Lista):
 
@@ -99,6 +90,14 @@ class ListaPessoa(Lista):
 
         arquivo = open(self.endereco, "w", encoding='utf-8')
         arquivo.write(doc.toprettyxml(indent='   '))
+
+    def getId(self, nome):
+        for item in self.id:
+            if item["nome"] == nome:
+                return item["id"]
+
+    def getNome(self, id):
+        return self.id[id]['nome']
 
 
 class ListaCategoria(Lista):
