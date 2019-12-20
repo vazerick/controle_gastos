@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ajustar.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -62,14 +62,4 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Ajustes"))
         self.labelAjuste.setText(_translate("Form", "Ajuste de erro: R$"))
         self.labelHistorico.setText(_translate("Form", "Uso de Reserva: R$"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 
