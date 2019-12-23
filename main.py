@@ -1145,9 +1145,6 @@ def ajuste_botao_atualizar(valor):
     gui.uiAjustar.spinAjuste.setValue(novo)
 
 
-# def ajuste_botao_atualizar()
-
-
 def escreve_dinheiro(valor):
     texto = "R$" + f"{valor:.2f}"
     texto = texto.replace(".", ",")
@@ -1331,6 +1328,73 @@ def mensagem(titulo, mensagem, aceita, rejeita):
 
 
 def mensagem_tabela_aceita():
+    if Info.erro or Info.reserva:
+        mensagem(
+            titulo="Ajuste",
+            mensagem="Ajuste: erros e valores anteriores\nDeseja deseja limpar os dados do ajuste?",
+            aceita=mensagem_ajuste_aceita,
+            rejeita=mensagem_ajuste_rejeita,
+        )
+    else:
+        mensagem_ajuste_rejeita()
+
+
+def mensagem_ajuste_aceita():
+    Info.erro = 0
+    Info.reserva = 0
+    Info.salvar()
+    mensagem_ajuste_rejeita()
+
+
+def mensagem_ajuste_rejeita():
+    if len(Tabela.Reserva.tabela):
+        mensagem(
+            titulo="Reserva",
+            mensagem="Existem itens na Reserva!\nDeseja preservar a Reserva atual?",
+            aceita=mensagem_reserva_aceita,
+            rejeita=mensagem_reserva_rejeita,
+        )
+    else:
+        mensagem_reserva_rejeita()
+
+
+def mensagem_reserva_aceita():
+    global Tabela
+    temp = Tabela.Reserva.tabela.copy().reset_index(drop=True)
+    atualiza_tabela()
+    Tabela.Reserva.tabela = temp
+    Tabela.Reserva.salvar()
+    mensagem_reserva_rejeita()
+
+
+def mensagem_reserva_rejeita():
+    atualiza_tabela()
+    if len(TabelaRecorrente.tabela):
+        mensagem(
+            titulo="Recorrente",
+            mensagem="Deseja fazer a conversão dos gastos Recorrentes?",
+            aceita=mensagem_recorrente_aceita,
+            rejeita=exit,
+        )
+    else:
+        exit()
+
+
+def mensagem_recorrente_aceita():
+    gui.uiGerador.buttonBox.accepted.disconnect()
+    gui.uiGerador.buttonBox.rejected.disconnect()
+    gui.uiGerador.buttonBox.accepted.connect(mensagem_gerador_ok)
+    gui.uiGerador.buttonBox.rejected.connect(exit)
+    gerador_inicia()
+
+
+def mensagem_gerador_ok():
+    gerador_salva()
+    exit()
+
+
+def atualiza_tabela():
+    global Tabela
     gui.wMensagem.hide()
     Info.atualiza()
     Geral.adicionar(
@@ -1340,8 +1404,6 @@ def mensagem_tabela_aceita():
     )
     Tabela = Mensal(Info.ano_int, Info.mes_int)
     completer_atualiza()
-    # gerador_inicia()
-    exit()
 
 
 def mensagem_tabela_rejeita():
@@ -2571,6 +2633,7 @@ gui.uiAjustar.buttonBox.accepted.connect(ajustar_botao_ok)
 gui.uiAjustar.buttonBox.rejected.connect(gui.wAjustar.hide)
 
 gui.uiGerador.buttonBox.accepted.connect(gerador_salva)
+gui.uiGerador.buttonBox.rejected.connect(gui.wGerador.hide)
 
 gui.uiFixoAdd.botaoHoje.clicked.connect(
     lambda: gui.uiFixoAdd.dateEdit.setDate(QDate.currentDate())
@@ -2905,6 +2968,7 @@ else:
                 Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
             else:
                 Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
+            print(Info.ano_str, Info.mes_str)
 
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)
