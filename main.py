@@ -242,6 +242,10 @@ def conf_cat_click(item):
             id = Categoria.getId(nome)
             gui.uiCategoriasEdit.labelTitulo.setText("Editar: " + Categoria.id[id]['nome'])
             gui.uiCategoriasEdit.inputNome.setText(Categoria.id[id]['nome'])
+            if int(Categoria.id[id]['status']):
+                gui.uiCategoriasEdit.checkBox.setChecked(2)
+            else:
+                gui.uiCategoriasEdit.checkBox.setChecked(0)
             gui.wCategoriasEdit.show()
         else:
             cat_nome = gui.ui.treeCategorias.currentItem().parent().text(0)
@@ -254,6 +258,10 @@ def conf_cat_click(item):
                 Categoria.id[cat_id]['sub_lista'][sub_id]['nome']
             )
             gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[cat_id]['sub_lista'][sub_id]['nome'])
+            if int(Categoria.id[cat_id]['sub_lista'][sub_id]['status']):
+                gui.uiSubCategoriasEdit.checkBox.setChecked(2)
+            else:
+                gui.uiSubCategoriasEdit.checkBox.setChecked(0)
             gui.wSubCategoriasEdit.show()
 
 
@@ -278,6 +286,34 @@ def cat_botao_add():
     gui.wCategoriasAdd.hide()
     gui.uiCategoriasAdd.inputNome.clear()
     combos_categoria_atualiza()
+
+
+def cat_botao_editar():
+    item = gui.ui.treeCategorias.selectedItems()[0]
+    nome = item.text(0)
+    id = Categoria.getId(nome)
+
+    nome = gui.uiCategoriasEdit.inputNome.text()
+    status = int(gui.uiCategoriasEdit.checkBox.isChecked())
+    Categoria.edita(id, nome, status)
+    ArvoreCategorias.atualiza()
+    combos_categoria_atualiza()
+    gui.wCategoriasEdit.hide()
+
+
+def sub_botao_editar():
+    item = gui.ui.treeCategorias.selectedItems()[0]
+    nome = item.text(0)
+    cat_nome = gui.ui.treeCategorias.currentItem().parent().text(0)
+    cat_id = Categoria.getId(cat_nome)
+    sub_id = Categoria.getSubId(cat_id, nome)
+
+    nome = gui.uiSubCategoriasEdit.inputNome.text()
+    status = int(gui.uiSubCategoriasEdit.checkBox.isChecked())
+    Categoria.editaSub(cat_id, sub_id, nome, status)
+    ArvoreCategorias.atualiza()
+    combos_categoria_atualiza()
+    gui.wSubCategoriasEdit.hide()
 
 
 filaSubCategorias = []
@@ -2640,6 +2676,13 @@ gui.ui.treeCategorias.doubleClicked.connect(conf_cat_click)
 
 gui.uiCategoriasAdd.buttonBox.accepted.connect(cat_botao_add)
 gui.uiCategoriasAdd.buttonBox.rejected.connect(cat_botao_cancela)
+
+gui.uiCategoriasEdit.buttonBox.accepted.connect(cat_botao_editar)
+gui.uiCategoriasEdit.buttonBox.rejected.connect(gui.wCategoriasEdit.hide)
+
+gui.uiSubCategoriasEdit.buttonBox.accepted.connect(sub_botao_editar)
+gui.uiSubCategoriasEdit.buttonBox.rejected.connect(gui.wSubCategoriasEdit.hide)
+
 
 gui.uiSubCategoriasAdd.botaoMais.clicked.connect(sub_botao_fila)
 gui.uiSubCategoriasAdd.buttonBox.accepted.connect(sub_botao_add)

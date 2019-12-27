@@ -66,7 +66,7 @@ class ListaCategoria(Lista):
                         'status': int(sstatus.childNodes[0].data),
                     }
                 )
-
+            print(nome.childNodes[0].data)
             self.id.append(
                 {
                     'id': int(item.getAttribute("id")),
@@ -76,6 +76,15 @@ class ListaCategoria(Lista):
                     'sub_lista': sub
                 }
             )
+
+    def edita(self, index, nome, status):
+        super(ListaCategoria, self).edita(index, nome, status)
+        self.salva()
+
+    def editaSub(self, id_cat, id_sub, nome, status):
+        self.id[id_cat]['sub_lista'][id_sub]['nome'] = nome
+        self.id[id_cat]['sub_lista'][id_sub]['status'] = status
+        self.salva()
 
     def getNome(self, id):
         return self.id[id]['nome']
@@ -153,12 +162,13 @@ class ListaCategoria(Lista):
     def subGetAtivos(self, cat):
         ativos = []
         for item in range(len(self.id[cat]['sub_lista'])):
-            ativos.append(
-                {
-                    'id': self.id[cat]['sub_lista'][item]["id"],
-                    'nome': self.id[cat]['sub_lista'][item]["nome"],
-                }
-            )
+            if self.id[cat]['sub_lista'][item]['status']:
+                ativos.append(
+                    {
+                        'id': self.id[cat]['sub_lista'][item]["id"],
+                        'nome': self.id[cat]['sub_lista'][item]["nome"],
+                    }
+                )
         return ativos
 
     def getId(self, nome):

@@ -17,6 +17,8 @@ class Ui_Form(object):
         self.horizontalLayout_27 = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout_27.setObjectName("horizontalLayout_27")
         self.tabWidget = QtWidgets.QTabWidget(Form)
+        self.tabWidget.setMovable(True)
+        self.tabWidget.setTabBarAutoHide(False)
         self.tabWidget.setObjectName("tabWidget")
         self.Hoje = QtWidgets.QWidget()
         self.Hoje.setObjectName("Hoje")
@@ -722,7 +724,7 @@ class Ui_Form(object):
         self.horizontalLayout_27.addWidget(self.tabWidget)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
