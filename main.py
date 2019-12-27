@@ -217,11 +217,11 @@ def combos_categoria_atualiza():
 # ações de botões
 
 
-def conf_botao_cat_add():
+def outros_botao_cat_add():
     gui.wCategoriasAdd.show()
 
 
-def conf_botao_sub_add():
+def outros_botao_sub_add():
     index = gui.ui.treeCategorias.currentIndex().parent().row()
     if index == -1:
         index = gui.ui.treeCategorias.currentIndex().row()
@@ -231,7 +231,7 @@ def conf_botao_sub_add():
     gui.wSubCategoriasAdd.show()
 
 
-def conf_cat_click(item):
+def outros_cat_click(item):
     item = gui.ui.treeCategorias.selectedItems()[0]
     nome = item.text(0)
     index = gui.ui.treeCategorias.currentIndex().row()
@@ -558,7 +558,7 @@ def gasto_botao_editar():
 
 
 def str_dinheiro(valor):
-    return "R$" + str(valor).replace(".", ",")
+    return ("R$" + "{:0.2f}".format(valor)).replace(".", ",")
 
 
 def gasto_botao_fila():
@@ -2401,7 +2401,7 @@ def hoje_botao_dividir():
     gui.uiDividir.spinPessoas.setValue(2)
     gui.uiDividir.labelSoma.setText("R$0")
     gui.uiDividir.labelDividido.setText("R$0")
-
+    dividir_radio()
 
 def hoje_botao_ajustar():
     gui.uiAjustar.spinAjuste.setValue(Info.erro)
@@ -2478,6 +2478,21 @@ def dividir_ler_selecionados():
             )
             selecionados = selecionados.append(add, ignore_index=True, sort=False)
     return selecionados
+
+
+def dividir_radio():
+    if gui.uiDividir.radioButton.isChecked():
+        gui.uiDividir.frameSemDividir.show()
+        gui.uiDividir.frameDevo.hide()
+        gui.uiDividir.frameDeve.hide()
+    if gui.uiDividir.radioButtonDevem.isChecked():
+        gui.uiDividir.frameSemDividir.hide()
+        gui.uiDividir.frameDevo.hide()
+        gui.uiDividir.frameDeve.show()
+    if gui.uiDividir.radioButtonDevo.isChecked():
+        gui.uiDividir.frameSemDividir.hide()
+        gui.uiDividir.frameDevo.show()
+        gui.uiDividir.frameDeve.hide()
 
 
 # MAIN
@@ -2670,9 +2685,9 @@ gui.uiReservaEdit.buttonBox.accepted.connect(reserva_botao_editar)
 gui.uiReservaEdit.botaoFixo.clicked.connect(reserva_converte_fixo)
 gui.uiReservaEdit.botaoGasto.clicked.connect(reserva_converte_gasto)
 
-gui.ui.botaoCategoriaAdicionar.clicked.connect(conf_botao_cat_add)
-gui.ui.botaoSubAdicionar.clicked.connect(conf_botao_sub_add)
-gui.ui.treeCategorias.doubleClicked.connect(conf_cat_click)
+gui.ui.botaoCategoriaAdicionar.clicked.connect(outros_botao_cat_add)
+gui.ui.botaoSubAdicionar.clicked.connect(outros_botao_sub_add)
+gui.ui.treeCategorias.doubleClicked.connect(outros_cat_click)
 
 gui.uiCategoriasAdd.buttonBox.accepted.connect(cat_botao_add)
 gui.uiCategoriasAdd.buttonBox.rejected.connect(cat_botao_cancela)
@@ -2705,6 +2720,10 @@ gui.uiMensagem.buttonBox.rejected.connect(print)
 gui.wMensagem.rejected.connect(print)
 
 gui.uiGerador.pushButton.clicked.connect(print)
+
+gui.uiDividir.radioButton.toggled.connect(dividir_radio)
+gui.uiDividir.radioButtonDevo.toggled.connect(dividir_radio)
+gui.uiDividir.radioButtonDevem.toggled.connect(dividir_radio)
 
 # desliga os botoes de Ok
 

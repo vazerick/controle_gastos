@@ -1567,7 +1567,7 @@
          <property name="title">
           <string>Dívidas</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_15">
+         <layout class="QVBoxLayout" name="verticalLayout_16">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_19">
             <item>
@@ -1577,11 +1577,29 @@
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_18">
                <item>
-                <widget class="QPushButton" name="pushButton_2">
-                 <property name="text">
-                  <string>Nova Dívida</string>
-                 </property>
-                </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_15">
+                 <item>
+                  <widget class="QPushButton" name="botaoDividaNova">
+                   <property name="text">
+                    <string>Nova Dívida</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="botaoDividaPagar">
+                   <property name="text">
+                    <string>Pagar Dívida</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="botaoDividaUnificar">
+                   <property name="text">
+                    <string>Unificar Dívida</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <spacer name="horizontalSpacer_3">
