@@ -137,8 +137,10 @@ class ArvoreTabelaDivida(ArvoreTabela):
 
         pessoas = Tabela["pessoa"]
         pessoas = list(set(pessoas))
+        pessoas.sort()
 
         for pessoa in pessoas:
+            print("###>", pessoa)
             Itens = Tabela[Tabela["pessoa"] == pessoa].copy()
             linha = []
             linha.append(str(pessoa))
@@ -148,8 +150,11 @@ class ArvoreTabelaDivida(ArvoreTabela):
             for x in range(0, len(Itens)):
                 linha = []
                 linha.append(str(Itens.iloc[x]['data']))
-                linha.append(str(Itens.iloc[x]['item']))
-                linha.append(str(Itens.iloc[x]['comentario']))
+                linha.append(Itens.iloc[x]['item'])
+                comentario = Itens.iloc[x]['comentario']
+                if pandas.isna(comentario):
+                    comentario = ""
+                linha.append(comentario)
                 linha.append("R$"+str(Itens.iloc[x]['valor']))
                 # data, item, comentario, valor
 
@@ -162,6 +167,7 @@ class ArvoreTabelaDivida(ArvoreTabela):
 
             self.Widget.addTopLevelItem(ItemPai)
         self.Widget.expandAll()
+        self.Widget.sortByColumn(0, Qt.AscendingOrder)
         self.colunas()
 
 

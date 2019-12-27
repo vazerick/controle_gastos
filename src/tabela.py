@@ -173,6 +173,21 @@ class TabelaDivida:
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
+    def adicionar_lista(self, lista, comentario):
+        for item in lista:
+            linha = [
+                item["pessoa"],
+                item["data"],
+                item["nome"],
+                comentario,
+                item["valor"]
+            ]
+            add = pd.DataFrame(
+                [linha],
+                columns=self.colunas
+            )
+            self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
+        self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
 
 class TabelaInicia:
 

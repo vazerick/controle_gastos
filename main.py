@@ -29,7 +29,7 @@ from src.arvore import *
 from src.mensal import Mensal
 from src.info import Info
 from src.hoje import Hoje
-from src.completer import Completer
+from src.completer import Completer, CompleterPessoa
 from src.tabela import TabelaGeral, TabelaInicia, TabelaDivida
 
 print("Declaração das funções")
@@ -557,10 +557,6 @@ def gasto_botao_editar():
     gasto_atualiza()
 
 
-def str_dinheiro(valor):
-    return ("R$" + "{:0.2f}".format(valor)).replace(".", ",")
-
-
 def gasto_botao_fila():
     nome = gui.uiGastosAdd.inputGasto.text()
     valor = gui.uiGastosAdd.spinValor.value()
@@ -578,7 +574,7 @@ def gasto_botao_fila():
 
     for item in fila_gasto:
         soma += item["valor"]
-    gui.uiGastosAdd.labelSoma.setText(str_dinheiro(soma))
+    gui.uiGastosAdd.labelSoma.setText(escreve_dinheiro(soma))
 
     janela_limpa(
         texto=[
@@ -2420,17 +2416,52 @@ def ajustar_botao_ok():
 
 dividir_pessoas = 0
 dividir_lista = []
+dividir_devo = ""
+dividir_lista_pessoas = []
+
+
+def dividir_botao_adicionar():
+    global dividir_lista_pessoas
+    nome = gui.uiDividir.inputDeve.text()
+    if nome not in dividir_lista_pessoas:
+        gui.uiDividir.inputDeve.clear()
+        dividir_lista_pessoas.append(nome)
+        gui.uiDividir.listDeve.clear()
+        dividir_lista_pessoas.sort()
+        gui.uiDividir.listDeve.addItems(dividir_lista_pessoas)
+    print(nome)
+
+
+def dividir_pessoa_click(item):
+    global dividir_lista_pessoas
+    dividir_lista_pessoas.remove(item.text())
+    gui.uiDividir.listDeve.clear()
+    gui.uiDividir.listDeve.addItems(dividir_lista_pessoas)
 
 
 def dividir_atualiza():
     global dividir_pessoas
     global dividir_lista
+    global dividir_devo
+    global dividir_lista_pessoas
     selecionados = dividir_ler_selecionados()
     soma = selecionados['valor'].sum()
-    dividir_pessoas = gui.uiDividir.spinPessoas.value()
-    if dividir_pessoas < 2:
-        gui.uiDividir.spinPessoas.setValue(2)
+
+    for spin in [
+        gui.uiDividir.spinPessoas,
+        gui.uiDividir.spinDevo
+    ]:
+        if spin.value() < 2:
+            spin.setValue(2)
+
+    if gui.uiDividir.radioButton.isChecked():
+        dividir_pessoas = gui.uiDividir.spinPessoas.value()
+    if gui.uiDividir.radioButtonDevem.isChecked():
         dividir_pessoas = 2
+        # dividir_pessoas = gui.uiDividir.spinPessoas.value()
+    if gui.uiDividir.radioButtonDevo.isChecked():
+        dividir_pessoas = gui.uiDividir.spinDevo.value()
+
     divisao = soma/dividir_pessoas
     gui.uiDividir.labelSoma.setText(escreve_dinheiro(soma))
     gui.uiDividir.labelDividido.setText(escreve_dinheiro(divisao))
@@ -2446,16 +2477,56 @@ def dividir_atualiza():
         tabela = tabela[tabela["data"] == data][tabela["nome"] == nome][tabela["valor"] == valor]
         dividir_lista.append(tabela.index.item())
 
-    print(dividir_lista)
-
 
 def dividir_botao_dividir():
     global dividir_pessoas
     global dividir_lista
-    Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
-    gasto_atualiza()
-    gui.wDividir.hide()
+    global dividir_valor
+    global dividir_devo
+    global dividir_lista_pessoas
 
+    if gui.uiDividir.radioButton.isChecked():
+        Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
+        return True
+    elif gui.uiDividir.radioButtonDevo.isChecked():
+        if vazia(gui.uiDividir.inputDevo.text()):
+            return False
+        pessoas = [gui.uiDividir.inputDevo.text()]
+        comentario = gui.uiDividir.textEdit.toPlainText()
+        fator = -1
+    elif gui.uiDividir.radioButtonDevem.isChecked():
+        if not vazia(gui.uiDividir.inputDeve.text()):
+            dividir_lista_pessoas.append(gui.uiDividir.inputDeve.text())
+        if not len(dividir_lista_pessoas):
+            return False
+        dividir_pessoas = len(dividir_lista_pessoas)
+        pessoas = dividir_lista_pessoas
+        comentario = gui.uiDividir.textEdit2.toPlainText()
+        fator = 1
+
+    Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
+
+    lista = []
+
+    for pessoa in pessoas:
+        for item in dividir_lista:
+            print("!@#", Tabela.Saida.tabela.loc[item])
+            lista.append(
+                {
+                    "pessoa": pessoa,
+                    "data": Tabela.Saida.tabela.loc[item]["data"],
+                    "nome": Tabela.Saida.tabela.loc[item]["nome"],
+                    "valor": Tabela.Saida.tabela.loc[item]["valor"] * fator
+                }
+            )
+    print(lista)
+    Divida.adicionar_lista(lista, comentario)
+
+    gui.wDividir.hide()
+    gasto_atualiza()
+    divida_atualiza()
+
+    return True
 
 def dividir_ler_selecionados():
     selecionados = pd.DataFrame(columns=["data", "nome","valor"])
@@ -2493,6 +2564,7 @@ def dividir_radio():
         gui.uiDividir.frameSemDividir.hide()
         gui.uiDividir.frameDevo.show()
         gui.uiDividir.frameDeve.hide()
+    dividir_atualiza()
 
 
 # MAIN
@@ -2866,7 +2938,10 @@ gui.uiRelatorio.checkRelFim.stateChanged.connect(lambda: filtro_check(gui.uiRela
 
 gui.uiDividir.treeSaida.itemChanged.connect(dividir_atualiza)
 gui.uiDividir.spinPessoas.valueChanged.connect(dividir_atualiza)
+gui.uiDividir.spinDevo.valueChanged.connect(dividir_atualiza)
 gui.uiDividir.pushButton.clicked.connect(dividir_botao_dividir)
+gui.uiDividir.botaoAdicionar.clicked.connect(dividir_botao_adicionar)
+gui.uiDividir.listDeve.itemDoubleClicked.connect(dividir_pessoa_click)
 
 gui.ui.botaoFiltro.clicked.connect(filtro)
 gui.ui.botaoLimpa.clicked.connect(filtro_limpa)
@@ -3102,6 +3177,14 @@ InvestimentoCompleter = Completer(
     ],
     tabelas=Tabela,
     tipo="reserva"
+)
+
+PessoaCompleter = CompleterPessoa(
+    campos=[
+        gui.uiDividir.inputDevo,
+        gui.uiDividir.inputDeve
+    ],
+    tabela=Divida
 )
 
 hoje_grafico_escreve()

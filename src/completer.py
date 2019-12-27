@@ -28,10 +28,6 @@ class Completer:
         dados = dados.append(self.ler())
         dados = dados.append(historico)
 
-        # todo completer que puxe os dados anteriores, sem sobrecarregar a memória
-        # for tabela in self.Tabelas:
-        #     dados = dados.append(self.ler(tabela))
-
         if len(dados):
             for campo in self.Campo:
                 completer = QCompleter(dados.str.title().unique())
@@ -48,3 +44,23 @@ class Completer:
             return tabela.Reserva.tabela['nome']
         if self.Tipo == "fixo":
             return tabela.Fixo.tabela['nome']
+
+
+class CompleterPessoa():
+
+    def __init__(self, campos, tabela):
+        self.Campos = campos
+        self.Tabela = tabela
+        self.atualizar()
+
+    def atualizar(self):
+
+        dados = pd.Series()
+        dados = dados.append(self.Tabela.devo["pessoa"])
+        dados = dados.append(self.Tabela.devem["pessoa"])
+
+        if len(dados):
+            for campo in self.Campos:
+                completer = QCompleter(dados.str.title().unique())
+                completer.setCaseSensitivity(Qt.CaseInsensitive)
+                campo.setCompleter(completer)
