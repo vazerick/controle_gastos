@@ -160,8 +160,10 @@ class TabelaDivida:
             self.tabela = pd.DataFrame(columns=self.colunas)
             self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 
-        self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
+        self.atualiza()
 
+    def atualiza(self):
+        self.tabela['valor'] = self.tabela['valor'].replace(',', '.')
         self.devo = self.tabela[self.tabela['valor'] < 0].copy()
         self.devem = self.tabela[self.tabela['valor'] > 0].copy()
 
@@ -172,6 +174,7 @@ class TabelaDivida:
         )
         self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
+        self.atualiza()
 
     def adicionar_lista(self, lista, comentario):
         for item in lista:
@@ -188,6 +191,7 @@ class TabelaDivida:
             )
             self.tabela = self.tabela.append(add, ignore_index=True, sort=False)
         self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')  # todo revisar se está salvando direito
+        self.atualiza()
 
 class TabelaInicia:
 
@@ -221,7 +225,6 @@ class TabelaInicia:
 
     def editar(self, id, linha, temp=False):
         self.tabela.loc[id] = linha
-        print(self.tabela.loc[id])
         if not temp:
             self.tabela.to_csv(self.endereco, quotechar="'", index_label='id')
 

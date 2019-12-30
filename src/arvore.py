@@ -134,7 +134,7 @@ class ArvoreTabelaDivida(ArvoreTabela):
 
     def atualiza(self, Tabela):
         self.Widget.clear()
-
+        print("!!!!\n!!!!\n!!!!\nATUALIZA")
         pessoas = Tabela["pessoa"]
         pessoas = list(set(pessoas))
         pessoas.sort()
@@ -156,13 +156,9 @@ class ArvoreTabelaDivida(ArvoreTabela):
                     comentario = ""
                 linha.append(comentario)
                 linha.append("R$"+str(Itens.iloc[x]['valor']))
-                # data, item, comentario, valor
 
-                # linha.append(str(Tabela.iloc[x]['nome']))
-                # linha.append('R$' + str(Tabela.iloc[x]['valor']))
                 WidgetItem = QTreeWidgetItem(linha)
-                # WidgetItem.setFlags(WidgetItem.flags() | Qt.ItemIsTristate | Qt.ItemIsUserCheckable)
-                # WidgetItem.setCheckState(0, Qt.Unchecked)
+
                 ItemPai.addChild(WidgetItem)
 
             self.Widget.addTopLevelItem(ItemPai)

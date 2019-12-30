@@ -2487,6 +2487,8 @@ def dividir_botao_dividir():
 
     if gui.uiDividir.radioButton.isChecked():
         Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
+        gui.wDividir.hide()
+        gasto_atualiza()
         return True
     elif gui.uiDividir.radioButtonDevo.isChecked():
         if vazia(gui.uiDividir.inputDevo.text()):
@@ -2499,18 +2501,17 @@ def dividir_botao_dividir():
             dividir_lista_pessoas.append(gui.uiDividir.inputDeve.text())
         if not len(dividir_lista_pessoas):
             return False
-        dividir_pessoas = len(dividir_lista_pessoas)
+        dividir_pessoas = len(dividir_lista_pessoas) + 1
         pessoas = dividir_lista_pessoas
         comentario = gui.uiDividir.textEdit2.toPlainText()
         fator = 1
-
+    print("Nº: ", dividir_pessoas)
     Tabela.Saida.dividir(dividir_pessoas, dividir_lista)
 
     lista = []
 
     for pessoa in pessoas:
         for item in dividir_lista:
-            print("!@#", Tabela.Saida.tabela.loc[item])
             lista.append(
                 {
                     "pessoa": pessoa,
@@ -2519,7 +2520,9 @@ def dividir_botao_dividir():
                     "valor": Tabela.Saida.tabela.loc[item]["valor"] * fator
                 }
             )
+
     print(lista)
+
     Divida.adicionar_lista(lista, comentario)
 
     gui.wDividir.hide()
@@ -3094,8 +3097,6 @@ ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorren
 ArvoreInvestimento = ArvoreTabelaReserva(gui.ui.treeInvestimentos, TabelaInvestimento.tabela)
 ArvoreDevo = ArvoreTabelaDivida(gui.ui.treeDevo, Divida.devo)
 ArvoreDevem = ArvoreTabelaDivida(gui.ui.treeDevem, Divida.devem)
-
-divida_atualiza()
 
 gui.ui.treeEntrada.sortByColumn(1, Qt.AscendingOrder)
 gui.ui.treeFixo.sortByColumn(5, Qt.DescendingOrder)

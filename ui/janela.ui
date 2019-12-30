@@ -1592,10 +1592,21 @@
                    </property>
                   </widget>
                  </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_18">
                  <item>
                   <widget class="QPushButton" name="botaoDividaUnificar">
                    <property name="text">
                     <string>Unificar Dívida</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="text">
+                    <string>Relatório</string>
                    </property>
                   </widget>
                  </item>
