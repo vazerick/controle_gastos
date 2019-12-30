@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gastos_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -101,6 +101,9 @@ class Ui_Form(object):
         self.textComentario = QtWidgets.QTextEdit(Form)
         self.textComentario.setObjectName("textComentario")
         self.verticalLayout.addWidget(self.textComentario)
+        self.checkBox = QtWidgets.QCheckBox(Form)
+        self.checkBox.setObjectName("checkBox")
+        self.verticalLayout.addWidget(self.checkBox)
         self.horizontalLayout_3.addLayout(self.verticalLayout)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.buttonBox = QtWidgets.QDialogButtonBox(Form)
@@ -154,4 +157,15 @@ class Ui_Form(object):
         self.labelData.setText(_translate("Form", "Data"))
         self.botaoHoje.setText(_translate("Form", "Hoje"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
+        self.checkBox.setText(_translate("Form", "Dividir lista de gastos"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    Form = QtWidgets.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
 
