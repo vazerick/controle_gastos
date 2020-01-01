@@ -2951,9 +2951,13 @@ TabelaInvestimento = TabelaInicia(
 print("Lista as tabelas anteriores")
 r_ano = Info.ano_int
 r_mes = Info.mes_int-1
+if not r_mes:
+    r_ano -= 1
+    r_mes = 12
+print("!!!")
 while tabela_existe(str(r_ano), str_mes(r_mes)):
     print("!")
-    print(r_ano,r_mes)
+    print(r_ano, r_mes)
     gui.ui.comboRelatorio.addItem(str(r_ano)+"/"+Meses[r_mes])
     if r_mes == 1:
         r_ano = r_ano - 1
