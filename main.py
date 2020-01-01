@@ -23,7 +23,7 @@ print("\tInterfaces Gráficas")
 from src.gui import gui
 
 # classes
-from src.lista import ListaPessoa, ListaCategoria, Pagamento
+from src.lista import ListaCategoria, Pagamento
 from src.link import Link, EditarLink, SubcategoriaLink
 from src.arvore import *
 from src.mensal import Mensal
@@ -217,10 +217,6 @@ def combos_categoria_atualiza():
 # ações de botões
 
 
-def conf_botao_pessoa_add():
-    gui.wPessoasAdd.show()
-
-
 def conf_botao_cat_add():
     gui.wCategoriasAdd.show()
 
@@ -233,34 +229,6 @@ def conf_botao_sub_add():
         index = 0
     gui.uiSubCategoriasAdd.comboCat.setCurrentIndex(index)
     gui.wSubCategoriasAdd.show()
-
-
-def conf_pessoa_click(item):
-    item = gui.ui.treePessoas.selectedItems()[0]
-    nome = item.text(0)
-    index = gui.ui.treePessoas.currentIndex().row()
-    if index >= 0:
-        id = Pessoa.getId(nome)
-        gui.uiPessoasEdit.labelTitulo.setText("Editar: " + Pessoa.id[id]['nome'])
-        gui.uiPessoasEdit.inputNome.setText(Pessoa.id[id]['nome'])
-
-        if Pessoa.id[id]['status']:
-            gui.uiPessoasEdit.checkBox.setChecked(1)
-        else:
-            gui.uiPessoasEdit.checkBox.setChecked(0)
-
-        gui.wPessoasEdit.show()
-
-
-def pessoa_botao_editar():
-    index = gui.ui.treePessoas.currentIndex().row()
-    if nao_valida([gui.uiPessoasEdit.inputNome]):
-        return 0
-    nome = gui.uiPessoasEdit.inputNome.text()
-    status = int(gui.uiPessoasEdit.checkBox.isChecked())
-    Pessoa.edita(index, nome, status)
-    Pessoa.salva()
-    gui.wPessoasEdit.hide()
 
 
 def conf_cat_click(item):
@@ -287,25 +255,6 @@ def conf_cat_click(item):
             )
             gui.uiSubCategoriasEdit.inputNome.setText(Categoria.id[cat_id]['sub_lista'][sub_id]['nome'])
             gui.wSubCategoriasEdit.show()
-
-
-def pessoa_botao_add():
-    if nao_valida([gui.uiPessoasAdd.inputNome]):
-        return 0
-    nome = gui.uiPessoasAdd.inputNome.text()
-    Pessoa.adiciona({
-        'nome': nome,
-    })
-    Pessoa.salva()
-    ArvorePessoa.atualiza()
-    gui.wPessoasAdd.hide()
-    gui.uiPessoasAdd.inputNome.clear()
-
-
-def pessoa_botao_cancela():
-    gui.uiPessoasAdd.inputNome.setText("")
-    gui.uiPessoasAdd.comboBox.setCurrentIndex(0)
-    gui.wPessoasAdd.hide()
 
 
 def cat_botao_cancela():
@@ -2537,21 +2486,17 @@ gui.ui.listMenu.setCurrentRow(0)
 if not os.path.exists('data'):
     os.makedirs('data')
 
-print("Carrega a lista de pessoas")
-Pessoa = ListaPessoa("pessoa")
 print("Carrega a lista de categorias")
 Categoria = ListaCategoria("categoria")
 
 # objetos de árvores
 
-ArvorePessoa = Arvore(gui.ui.treePessoas, Pessoa)
 ArvoreCategorias = Arvore(gui.ui.treeCategorias, Categoria)
 
 ArvoreFilaGastos = ArvoreFilaGastos(gui.uiGastosAdd.treeWidget, fila_gasto, Categoria)
 
 # objetos de link de combos
 
-# links de pessoa
 # links de categoria
 ComboFiltroCat = Link(gui.ui.comboCategoria, Categoria)
 ComboFiltroSub = SubcategoriaLink(gui.ui.comboSub, Categoria)
@@ -2690,16 +2635,8 @@ gui.uiReservaEdit.botaoFixo.clicked.connect(reserva_converte_fixo)
 gui.uiReservaEdit.botaoGasto.clicked.connect(reserva_converte_gasto)
 
 gui.ui.botaoCategoriaAdicionar.clicked.connect(conf_botao_cat_add)
-gui.ui.botaoPessoaAdicionar.clicked.connect(conf_botao_pessoa_add)
 gui.ui.botaoSubAdicionar.clicked.connect(conf_botao_sub_add)
-gui.ui.treePessoas.doubleClicked.connect(conf_pessoa_click)
 gui.ui.treeCategorias.doubleClicked.connect(conf_cat_click)
-
-gui.uiPessoasAdd.buttonBox.accepted.connect(pessoa_botao_add)
-gui.uiPessoasAdd.buttonBox.rejected.connect(pessoa_botao_cancela)
-
-gui.uiPessoasEdit.buttonBox.accepted.connect(pessoa_botao_editar)
-gui.uiPessoasEdit.buttonBox.rejected.connect(gui.wPessoasEdit.hide)  # todo criar uma função para o botão "cancelar"
 
 gui.uiCategoriasAdd.buttonBox.accepted.connect(cat_botao_add)
 gui.uiCategoriasAdd.buttonBox.rejected.connect(cat_botao_cancela)
@@ -3033,8 +2970,8 @@ ArvoreReserva = ArvoreTabelaReserva(gui.ui.treeReserva, Tabela.Reserva.tabela)
 ArvoreGeral = ArvoreTabelaGeral(gui.ui.treeAno, Geral.tabela)
 ArvoreRecorrente = ArvoreTabelaRecorrente(gui.ui.treeGeralGastos, TabelaRecorrente.tabela, Categoria)
 ArvoreInvestimento = ArvoreTabelaReserva(gui.ui.treeInvestimentos, TabelaInvestimento.tabela)
-ArvoreDevo = ArvoreTabelaDivida(gui.ui.treeDevo, Divida.devo, Pessoa)
-ArvoreDevem = ArvoreTabelaDivida(gui.ui.treeDevem, Divida.devem, Pessoa)
+ArvoreDevo = ArvoreTabelaDivida(gui.ui.treeDevo, Divida.devo)
+ArvoreDevem = ArvoreTabelaDivida(gui.ui.treeDevem, Divida.devem)
 
 divida_atualiza()
 

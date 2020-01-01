@@ -129,9 +129,7 @@ class ArvoreTabelaDividir(ArvoreTabela):
 
 class ArvoreTabelaDivida(ArvoreTabela):
 
-    def __init__(self, Widget, Tabela, Pessoas):
-        if len(Tabela):
-            Tabela["pessoa"] = Tabela.apply(lambda row: Pessoas.id[row["pessoa"]]["nome"], axis=1)
+    def __init__(self, Widget, Tabela):
         super().__init__(Widget, Tabela)
 
     def atualiza(self, Tabela):
@@ -144,7 +142,7 @@ class ArvoreTabelaDivida(ArvoreTabela):
             Itens = Tabela[Tabela["pessoa"] == pessoa].copy()
             linha = []
             linha.append(str(pessoa))
-            linha.append(str(Itens["valor"].sum()))
+            linha.append("R$"+str(Itens["valor"].sum()))
             ItemPai = QTreeWidgetItem(linha)
 
             for x in range(0, len(Itens)):
@@ -152,7 +150,7 @@ class ArvoreTabelaDivida(ArvoreTabela):
                 linha.append(str(Itens.iloc[x]['data']))
                 linha.append(str(Itens.iloc[x]['item']))
                 linha.append(str(Itens.iloc[x]['comentario']))
-                linha.append(str(Itens.iloc[x]['valor']))
+                linha.append("R$"+str(Itens.iloc[x]['valor']))
                 # data, item, comentario, valor
 
                 # linha.append(str(Tabela.iloc[x]['nome']))

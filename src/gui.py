@@ -11,8 +11,6 @@ from ui.fixo_add import Ui_Form as FixoAdd
 from ui.gastos_add import Ui_Form as GastosAdd
 from ui.gastos_edit import Ui_Form as GastosEdit
 from ui.janela import Ui_Form as Main
-from ui.pessoas_add import Ui_Form as PessoasAdd
-from ui.pessoas_edit import Ui_Form as PessoasEdit
 from ui.reserva_add import Ui_Form as ReservaAdd
 from ui.reserva_edit import Ui_Form as ReservaEdit
 from ui.subcategorias_add import Ui_Form as SubCategoriasAdd
@@ -40,7 +38,6 @@ class gui:
 
         self.wMain.setWindowIcon(QtGui.QIcon("resources/dinheiro.png"))
 
-        self.ui.treePessoas.setColumnWidth(0, 250)
         self.ui.treeCategorias.setColumnWidth(0, 250)
 
         self.ui.treeFixo.setColumnWidth(0, 250)
@@ -122,16 +119,6 @@ class gui:
         self.uiReservaEdit = ReservaEdit()
         self.uiReservaEdit.setupUi(self.wReservaEdit)
 
-        # janela para adicionar novas pessoas
-        self.wPessoasAdd = QDialog()
-        self.uiPessoasAdd = PessoasAdd()
-        self.uiPessoasAdd.setupUi(self.wPessoasAdd)
-
-        # janela para editar pessoas
-        self.wPessoasEdit = QDialog()
-        self.uiPessoasEdit = PessoasEdit()
-        self.uiPessoasEdit.setupUi(self.wPessoasEdit)
-
         # janela para adicionar novas categorias
         self.wCategoriasAdd = QDialog()
         self.uiCategoriasAdd = CategoriasAdd()
@@ -188,8 +175,6 @@ class gui:
         arquivo.close()
         for janela in [
             self.wMain,
-            self.wPessoasAdd,
-            self.wPessoasEdit,
             self.wCategoriasAdd,
             self.wCategoriasEdit,
             self.wSubCategoriasAdd,
