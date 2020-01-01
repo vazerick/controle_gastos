@@ -2947,9 +2947,9 @@ Historico = []
 Divida = TabelaDivida()
 
 # cria uma pasta para o ano caso não exista
-if not os.path.exists('data/' + Info.ano_str):
-    print("Cria pasta do ano")
-    os.makedirs('data/' + Info.ano_str)
+# if not os.path.exists('data/' + Info.ano_str):
+#     print("Cria pasta do ano")
+#     os.makedirs('data/' + Info.ano_str)
 
 # confere se já tem a tabela do mês atual
 if tabela_existe(Info.ano_str, Info.mes_str):
@@ -2969,6 +2969,21 @@ else:
             else:
                 Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
             print(Info.ano_str, Info.mes_str)
+    else:
+        print("Tabelas desatualizadas")
+        mensagem(
+            titulo="Tabelas desatualizadas",
+            mensagem="Tabelas desatualizadas\nDeseja iniciar as tabelas deste mês?\nSerá necessário reiniciar o app",
+            aceita=mensagem_tabela_aceita,
+            rejeita=mensagem_tabela_rejeita,
+        )
+        while not tabela_existe(Info.ano_str, Info.mes_str):
+            if Info.mes_int == 1:
+                Info.set_data(Info.ano_int - 1, 12, Info.dia_int)
+            else:
+                Info.set_data(Info.ano_int, Info.mes_int - 1, Info.dia_int)
+            print(Info.ano_str, Info.mes_str)
+
 
 Tabela = Mensal(Info.ano_int, Info.mes_int)
 Geral = TabelaGeral(Info.ano_int)
