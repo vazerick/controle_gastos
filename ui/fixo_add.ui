@@ -118,6 +118,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="botaoHoje">
+         <property name="accessibleName">
+          <string>hoje</string>
+         </property>
          <property name="text">
           <string>Hoje</string>
          </property>
@@ -147,6 +150,9 @@
         <widget class="QPushButton" name="botaoHoje_2">
          <property name="enabled">
           <bool>false</bool>
+         </property>
+         <property name="accessibleName">
+          <string>hoje</string>
          </property>
          <property name="text">
           <string>Hoje</string>

@@ -1,6 +1,11 @@
 $janela-cor-background: $azul-lighten-5;
 $janela-cor-tab-background: $azul-lighten-4;
 
+$tab-cor:  $azul-lighten-5;
+$tab-borda-cor: $azul-lighten-4;
+$tab-selecionada-cor:  $azul-lighten-4;
+$tab-selecionada-borda-cor: $azul-lighten-4;
+
 $button-cor-texto: #000;
 $button-cor-texto-hover: #fff;
 $button-cor-texto-disabled: $teal-lighten-4;
@@ -14,5 +19,5 @@ $button-background-focus: lighten($button-cor-secundaria, 4%) !default;
 $button-font-size: 14px !default;
 $button-icon-font-size: 1.3rem !default;
 $button-height: 36px !default;
-$button-padding: 0 16px !default;
+$button-padding: 0 16px 0 16px !default;
 $button-radius: 2px !default;

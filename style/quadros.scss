@@ -16,8 +16,8 @@ QTabWidget::tab-bar {
 }
 
 QTabBar::tab {
-  background: $corA1;
-  border: 1px solid $corA3;
+  background: $tab-cor;
+  border: 1px solid $tab-borda-cor;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom: 1px solid $corA2;
@@ -26,7 +26,7 @@ QTabBar::tab {
 }
 
 QTabBar::tab:selected {
-  background: $corA2;
-  border: 1px solid $corA3;
+  background: $tab-selecionada-cor;
+  border: 1px solid $tab-selecionada-borda-cor;
   border-bottom: none;
 }

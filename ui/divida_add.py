@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'divida_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -102,14 +102,4 @@ class Ui_Form(object):
         self.label_4.setText(_translate("Form", "Motivo"))
         self.label_2.setText(_translate("Form", "Data"))
         self.label_3.setText(_translate("Form", "Comentário"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 

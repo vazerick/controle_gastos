@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'divida_relatorio.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -53,14 +53,4 @@ class Ui_Form(object):
         self.treeDividas.headerItem().setText(3, _translate("Form", "Item"))
         self.treeDividas.headerItem().setText(4, _translate("Form", "Valor"))
         self.treeDividas.headerItem().setText(5, _translate("Form", "Comentário"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 

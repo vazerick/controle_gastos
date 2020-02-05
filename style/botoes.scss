@@ -1,9 +1,10 @@
 QPushButton, [accessibleName="tool"]  {
-  border: $button-border;
-  border-radius: $button-radius;
-  height: $button-height;
-  line-height: $button-height;
-  padding: $button-padding;
+  //border: $button-border;
+  //border-radius: $button-radius;
+  //height: $button-height;
+  //min-width: 100%;
+  //line-height: $button-height;
+  //padding: $button-padding;
   text-transform: uppercase;
   vertical-align: middle;
   text-decoration: none;
@@ -18,4 +19,8 @@ QPushButton, [accessibleName="tool"]  {
     color: $button-cor-texto-disabled;
     background-color: $button-cor-background-disabled;
   }
+}
+
+[accessibleName="hoje"] {
+  min-width: none;
 }

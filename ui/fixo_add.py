@@ -118,8 +118,10 @@ class Ui_Form(object):
         self.labelCategoria.setText(_translate("Form", "Categoria"))
         self.labelSub.setText(_translate("Form", "Sub-categoria"))
         self.labelPrevisao.setText(_translate("Form", "Vencimento"))
+        self.botaoHoje.setAccessibleName(_translate("Form", "hoje"))
         self.botaoHoje.setText(_translate("Form", "Hoje"))
         self.labelPago.setText(_translate("Form", "Pago"))
+        self.botaoHoje_2.setAccessibleName(_translate("Form", "hoje"))
         self.botaoHoje_2.setText(_translate("Form", "Hoje"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
 

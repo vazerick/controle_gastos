@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'gastos_add.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -13,9 +13,7 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(690, 330)
         Form.setMinimumSize(QtCore.QSize(690, 330))
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(Form)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -106,13 +104,27 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.checkBox)
         self.horizontalLayout_3.addLayout(self.verticalLayout)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem)
         self.buttonBox = QtWidgets.QDialogButtonBox(Form)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonBox.sizePolicy().hasHeightForWidth())
+        self.buttonBox.setSizePolicy(sizePolicy)
+        self.buttonBox.setMinimumSize(QtCore.QSize(0, 0))
+        self.buttonBox.setAccessibleName("")
+        self.buttonBox.setAutoFillBackground(False)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
-        self.verticalLayout_2.addWidget(self.buttonBox)
-        self.verticalLayout_3.addLayout(self.verticalLayout_2)
+        self.horizontalLayout_5.addWidget(self.buttonBox)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem1)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -158,14 +170,4 @@ class Ui_Form(object):
         self.botaoHoje.setText(_translate("Form", "Hoje"))
         self.labelComentario.setText(_translate("Form", "Comentário"))
         self.checkBox.setText(_translate("Form", "Dividir lista de gastos"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
 
