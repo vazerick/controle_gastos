@@ -1,0 +1,18 @@
+$janela-cor-background: $azul-lighten-5;
+$janela-cor-tab-background: $azul-lighten-4;
+
+$button-cor-texto: #000;
+$button-cor-texto-hover: #fff;
+$button-cor-texto-disabled: $teal-lighten-4;
+$button-cor-secundaria: $teal-accent-4;
+$button-cor-background: $teal-accent-4;
+$button-cor-background-disabled: $teal-lighten-5;
+$button-cor-background-hover: $azul-darken-1;
+
+$button-border: none !default;
+$button-background-focus: lighten($button-cor-secundaria, 4%) !default;
+$button-font-size: 14px !default;
+$button-icon-font-size: 1.3rem !default;
+$button-height: 36px !default;
+$button-padding: 0 16px !default;
+$button-radius: 2px !default;

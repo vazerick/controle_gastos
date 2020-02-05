@@ -1,3 +1,18 @@
+$janela-cor-texto: #fff;
+
+//
+//QDialog, QMainWindow {
+//  background-color: $corA1;
+//}
+//
+//QStackedWidget {
+//  background-color: $corA2;
+//}
+
 QDialog, QMainWindow {
-  background-color: $corA1;
+  background-color: $janela-cor-background;
+}
+
+QStackedWidget {
+  background-color: $janela-cor-tab-background;
 }

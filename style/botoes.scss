@@ -1,8 +1,21 @@
-QPushButton {
-  background-color: $corC2;
-}
-
-[accessibleName="tool"] {
-  background-color: $corA1;
-  border: 1px solid $corA3;
+QPushButton, [accessibleName="tool"]  {
+  border: $button-border;
+  border-radius: $button-radius;
+  height: $button-height;
+  line-height: $button-height;
+  padding: $button-padding;
+  text-transform: uppercase;
+  vertical-align: middle;
+  text-decoration: none;
+  color: $button-cor-texto;
+  background-color: $button-cor-background;
+  text-align: center;
+  &:hover {
+    color: $button-cor-texto-hover;
+    background-color: $button-cor-background-hover;
+  }
+  &:disabled{
+    color: $button-cor-texto-disabled;
+    background-color: $button-cor-background-disabled;
+  }
 }
