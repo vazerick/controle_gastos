@@ -166,13 +166,9 @@ class gui:
 
         # seta a mesma configuração para todas as janelas
         print("Configura a folha de estilos")
-        arquivo = open("ui/style.scss")
 
-        self.style = arquivo.read()
+        self.style = sass.compile(filename="style/style.scss")
 
-        self.style = sass.compile(filename="ui/style.scss")
-
-        arquivo.close()
         for janela in [
             self.wMain,
             self.wCategoriasAdd,
