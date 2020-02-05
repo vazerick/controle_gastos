@@ -1,0 +1,34 @@
+QTreeWidget, QListWidget {
+  background-color: $corC1;
+  alternate-background-color: $corC2;
+  selection-background-color: $corC3;
+}
+
+QTreeWidget::item:hover {
+  color: white;
+  background-color: $corC4;
+}
+
+[accessibleName="selecao"] {
+  background-color: transparent;
+  font-size: 14px;
+}
+
+[accessibleName="selecao"]::item {
+  background-color: $corB2;
+  border-right: 1px solid $corC4;
+  width: 100px;
+}
+
+[accessibleName="selecao"]::item:selected {
+  background-color: $corC3;
+}
+
+[accessibleName="selecao"]::item:hover {
+  color: white;
+  background-color: $corC4;
+}
+
+QHeaderView {
+  background-color: $corC0;
+}
