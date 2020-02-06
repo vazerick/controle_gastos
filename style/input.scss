@@ -1,15 +1,69 @@
-QLineEdit, QSpinBox, QDoubleSpinBox, QTextEdit {
-  background-color: $corC1;
+QLineEdit, QSpinBox, QDoubleSpinBox, QTextEdit, QComboBox {
+  //border: 1px solid lighten($input-cor-borda, 25%);
+  min-height: 20px;
+  border-radius: 3px;
+  background-color: lighten($input-cor, 50%);
+  &:focus{
+    background-color: lighten($input-cor, 75%);
+    border-bottom: 1px solid $input-cor-borda;
+  }
+  &:hover{
+    background-color: lighten($input-cor, 65%);
+    border-bottom: 1px solid $input-cor-borda;
+  }
 }
 
-QComboBox {
-  background-color: $corC0;
-  selection-color: #000;
-  selection-background-color: $corC1;
+QComboBox QAbstractItemView {
+  background-color: lighten($input-cor, 50%);
+  border-bottom: 1px solid $input-cor-borda;
+  selection-background-color: $input-cor;
 }
 
-QComboBox:focus, QComboBox:hover {
-  background-color: $corC3;
-  selection-color: #000;
-  selection-background-color: $corC1;
+
+//QComboBox:focus, QComboBox:hover {
+//  background-color: $corC3;
+//  selection-color: #000;
+//  selection-background-color: $corC1;
+//}
+
+
+QRadioButton {
+    &::indicator {
+      position: relative;
+      border: 2px solid $check-cor-borda;
+      border-radius: 6px;
+      &:unchecked{
+        background-color: transparent;
+        &:hover{
+          background-color: $check-cor-hover;
+        }
+      }
+      &:checked{
+        background-color: $check-cor-check;
+        &:hover{
+          background-color: $check-cor-hover;
+        }
+      }
+    }
+}
+
+
+QCheckBox, QAbstractItemView {
+    &::indicator {
+      position: relative;
+      border: 2px solid $check-cor-borda;
+      border-radius: 1px;
+      &:unchecked{
+        background-color: transparent;
+        &:hover{
+          background-color: $check-cor-hover;
+        }
+      }
+      &:checked{
+        background-color: $check-cor-check;
+        &:hover{
+          background-color: $check-cor-check-hover;
+        }
+      }
+    }
 }

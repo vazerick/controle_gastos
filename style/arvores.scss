@@ -1,12 +1,12 @@
 QTreeWidget, QListWidget {
-  background-color: $corC1;
-  alternate-background-color: $corC2;
-  selection-background-color: $corC3;
+  background-color: $arvore-cor-background;
+  alternate-background-color: $arvore-cor-zebra;
+  selection-background-color: $arvore-cor-selecionado;
 }
 
 QTreeWidget::item:hover {
   color: white;
-  background-color: $corC4;
+  background-color: $arvore-cor-item-hover;
 }
 
 [accessibleName="selecao"] {
@@ -15,20 +15,16 @@ QTreeWidget::item:hover {
 }
 
 [accessibleName="selecao"]::item {
-  background-color: $corB2;
-  border-right: 1px solid $corC4;
+  background-color: $selecao-cor-item;
+  border-right: 1px solid ;
   width: 100px;
 }
 
 [accessibleName="selecao"]::item:selected {
-  background-color: $corC3;
+  background-color: $selecao-cor-borda-direita;
 }
 
 [accessibleName="selecao"]::item:hover {
   color: white;
-  background-color: $corC4;
-}
-
-QHeaderView {
-  background-color: $corC0;
+  background-color: $selecao-cor-item-hover;
 }

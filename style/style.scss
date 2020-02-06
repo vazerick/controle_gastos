@@ -9,3 +9,7 @@
 @import "data";
 @import "barra";
 
+QHeaderView {
+  background-color: $corC0;
+}
+
