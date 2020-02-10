@@ -800,21 +800,20 @@ def hoje_gasto_click(item):
     tabela = tabela[tabela["nome"] == nome]
     tabela = tabela[tabela["valor"] == valor]
     global selecionado
-    if len(tabela) == 1:
-        id = tabela.iloc[0].name
-        selecionado = id
-        item = Tabela.Saida.tabela.loc[id]
-        gui.uiGastosEdit.inputGasto.setText(item["nome"])
-        gui.uiGastosEdit.spinValor.setValue(item["valor"])
-        if pd.notna(item["comentario"]):
-            gui.uiGastosEdit.textComentario.setText(item["comentario"])
-        gui.uiGastosEdit.dateEdit.setDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
-        gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
-        gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
-        gui.wGastosEdit.setWindowTitle("Editar " + item["nome"])
-        gui.wGastosEdit.show()
-    else:
-        selecionado = -1
+
+    id = tabela.iloc[0].name
+    selecionado = id
+
+    item = Tabela.Saida.tabela.loc[id]
+    gui.uiGastosEdit.inputGasto.setText(item["nome"])
+    gui.uiGastosEdit.spinValor.setValue(item["valor"])
+    if pd.notna(item["comentario"]):
+        gui.uiGastosEdit.textComentario.setText(item["comentario"])
+    gui.uiGastosEdit.dateEdit.setDate(QDate().fromString(item["data"], "dd/MM/yyyy"))
+    gui.uiGastosEdit.comboCategoria.setCurrentText(Categoria.getNome(item["categoria"]))
+    gui.uiGastosEdit.comboSub.setCurrentText(Categoria.getSubNome(item["categoria"], item["subcategoria"]))
+    gui.wGastosEdit.setWindowTitle("Editar " + item["nome"])
+    gui.wGastosEdit.show()
 
 
 def hoje_botao_excluir_gasto():
@@ -2469,14 +2468,21 @@ def dividir_atualiza():
     dividir_lista = []
 
     for i in range(0, len(selecionados)):
-        print(selecionados.loc[i])
-        data = selecionados.loc[i]["data"]
-        nome = selecionados.loc[i]["nome"]
-        valor = selecionados.loc[i]["valor"]
+        # print(selecionados.loc[i])
+        data = selecionados.iloc[i]["data"]
+        nome = selecionados.iloc[i]["nome"]
+        valor = selecionados.iloc[i]["valor"]
         tabela = Tabela.Saida.tabela.copy()
         tabela = tabela[tabela["data"] == data][tabela["nome"] == nome][tabela["valor"] == valor]
-        dividir_lista.append(tabela.index.item())
-
+        if len(tabela) == 1:
+            dividir_lista.append(tabela.index.item())
+        else:
+            for j in range(0, len(tabela)):
+                item = tabela.iloc[j].name
+                if item not in dividir_lista:
+                    dividir_lista.append(item)
+                    break;
+        print(dividir_lista)
 
 def dividir_botao_dividir():
     global dividir_pessoas
