@@ -793,7 +793,7 @@ def fixo_botao_editar():
 def hoje_gasto_click(item):
     item = gui.ui.treeSaida.selectedItems()[0]
     data = item.text(0)
-    nome = item.text(1)
+    nome = item.text(1).replace("\n"," ")
     valor = float(item.text(4).replace("R$", ""))
     tabela = Tabela.Saida.tabela
     tabela = tabela[tabela["data"] == data]
@@ -1133,7 +1133,7 @@ def escreve_dinheiro(valor):
 
 def gasto_fila_click(item):
     item = gui.uiGastosAdd.treeWidget.selectedItems()[0]
-    nome = item.text(0)
+    nome = item.text(0).replace("\n", " ")
     categoria = item.text(1)
     sub = item.text(2)
     valor = float(item.text(3).replace("R$", ""))

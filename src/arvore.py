@@ -3,6 +3,14 @@ from operator import itemgetter
 from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QApplication, QWidget
 from PyQt5.QtCore import Qt
 
+ligacao = [
+    " De ",
+    " Do ",
+    " Da ",
+    " Em ",
+    " Com ",
+    " Da "
+]
 
 class Arvore:
 
@@ -68,6 +76,36 @@ class ArvoreTabela:
         self.Widget = Widget
         self.atualiza(Tabela)
 
+    def formatar(self, texto):
+        global ligacao
+
+        limite = 20
+
+        limite -= 2
+
+        if len(texto) > limite and " " in texto:
+            for palavra in ligacao:
+                texto = texto.replace(palavra, "@&"+palavra.replace(" ","")+"%#")
+
+            corte = round(len(texto)/2)
+            corte = max([limite,corte])
+
+            while " " not in texto[corte:]:
+                corte -= 1
+                if corte < 1:
+                    break
+
+            inicio = texto[:corte]
+            fim = texto[corte:]
+
+            fim = fim.replace(" ", "%#",1)
+
+            texto = inicio+fim
+            texto = texto.replace("%#","\n")
+            texto = texto.replace("@&", " ")
+
+        return texto
+
     def colunas(self):
         for i in range(0, self.Widget.columnCount()):
             self.Widget.resizeColumnToContents(i)
@@ -84,7 +122,7 @@ class ArvoreTabelaSaida(ArvoreTabela):
         for x in range(0, len(Tabela)):
             linha = []
             linha.append(str(Tabela.iloc[x]['data']))
-            linha.append(str(Tabela.iloc[x]['nome']))
+            linha.append(self.formatar(str(Tabela.iloc[x]['nome'])))
             if Tabela.iloc[x]['categoria'] is not None:
                 linha.append(self.Categoria.id[
                                  Tabela.iloc[x]['categoria']
@@ -134,13 +172,13 @@ class ArvoreTabelaDivida(ArvoreTabela):
 
     def atualiza(self, Tabela):
         self.Widget.clear()
-        print("!!!!\n!!!!\n!!!!\nATUALIZA")
+
         pessoas = Tabela["pessoa"]
         pessoas = list(set(pessoas))
         pessoas.sort()
 
         for pessoa in pessoas:
-            print("###>", pessoa)
+
             Itens = Tabela[Tabela["pessoa"] == pessoa].copy()
             linha = []
             linha.append(str(pessoa))
